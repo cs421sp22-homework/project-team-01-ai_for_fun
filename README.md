@@ -8,7 +8,7 @@ A brief description of your project (elevator pitch goes here).
 | ----       | ---------      | --------------- |
 | Yiyi Tao   | ytao23@jhu.edu |  dongji1111     |
 | Xinrui Zou | xzou8@jhu.edu  |     xzjiu       |
-|            |                |                 |
+|Mingxuan Che| mche2@jhu.edu  |  mingxuanche99  |
 |            |                |                 |
 |            |                |                 |
 |            |                |                 |
