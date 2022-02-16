@@ -4,14 +4,14 @@ A brief description of your project (elevator pitch goes here).
 
 **Team**
 
-| Name | JHU Email | GitHub Username |
-| ---- | --------- | --------------- |
-|      |           |                 |
-|      |           |                 |
-|      |           |                 |
-|      |           |                 |
-|      |           |                 |
-|      |           |                 |
+| Name       | JHU Email      | GitHub Username |
+| ----       | ---------      | --------------- |
+| Yiyi Tao   | ytao23@jhu.edu |  dongji1111     |
+|            |                |                 |
+|            |                |                 |
+|            |                |                 |
+|            |                |                 |
+|            |                |                 |
 
 **Advisors** 
 
