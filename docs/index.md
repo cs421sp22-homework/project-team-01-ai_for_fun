@@ -1,4 +1,4 @@
-# Your App Name
+# IFun
 
 A brief description of your project (elevator pitch goes here).
 
