@@ -58,7 +58,7 @@ Used to collect user data for a registered User.
     'type': 'cors', 
     'url': 'http://localhost:8000/user/login', 
     'redirected': 'false', 
-    'status': 500, 
+    'status': '500', 
     'ok': 'false'
 }
 ```
