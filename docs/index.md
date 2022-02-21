@@ -32,7 +32,7 @@ For each video collections on the home page, when user hover mouse on the collec
 
 ## API Reference
 
-Documentation of your public API.
+Documentation of our public API is [API](./API reference/API.md) 
 
 ## About Us!
 
