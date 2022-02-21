@@ -21,8 +21,8 @@ A brief description of your project (elevator pitch goes here).
 
 ## Documentation
 
-* [Project Document](/link/to/Google/doc)
-* [User Manual](link/to/GitHubPage)
+* [Project Document](https://docs.google.com/document/d/1ETNIUtfBC506FS00uXnfnk-7b1eCrsGPecZe2KY8Onk/edit?usp=sharing)
+* [User Manual]()
 * [API Documentation](link/to/GitHubPage/api)
 
 ## Installing / Getting started
