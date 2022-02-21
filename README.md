@@ -21,16 +21,17 @@ A brief description of your project (elevator pitch goes here).
 
 ## Documentation
 
-* [Project Document](/link/to/Google/doc)
-* [User Manual](link/to/GitHubPage)
-* [API Documentation](link/to/GitHubPage/api)
+* [Project Document](https://docs.google.com/document/d/1ETNIUtfBC506FS00uXnfnk-7b1eCrsGPecZe2KY8Onk/edit#heading=h.k4ooyeg0z5a9)
+* [User Manual](https://cs421sp22-homework.github.io/project-team-01-ai_for_fun/)
+* [API Documentation](https://github.com/cs421sp22-homework/project-team-01-ai_for_fun/blob/main/docs/API%20reference/API.md)
 
 ## Installing / Getting started
 
-A quick introduction of the minimal setup you need to get the app up & running on a local computer. For example, your advisor might use the instruction here to run the application locally.
+Prerequisite: React(17.0.2), Node.js(16.14.0), Golang(1.17.7), MongoDB(5.0)
 
 ```shell
-commands here
+git clone https://github.com/cs421sp22-homework/project-team-01-ai_for_fun.git
+
 ```
 
 ## Developing
