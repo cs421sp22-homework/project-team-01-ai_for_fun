@@ -32,8 +32,8 @@ For each video collections on the home page, when user hover mouse on the collec
 
 ## API Reference
 
-Documentation of our public API is [API](./API reference/API.md) 
+Documentation of our public API is [API](https://github.com/cs421sp22-homework/project-team-01-ai_for_fun/blob/main/docs/API%20reference/API.md)
 
 ## About Us!
 
-We are CS master students on Johns Hopkins University  
+We are AI-For-Fun team for the course of Object Oriented Software Engineering on Johns Hopkins University. We are developing the iFun to make more people feel the fun of AI model. 
