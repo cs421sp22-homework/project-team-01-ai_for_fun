@@ -11,7 +11,7 @@ function NavBar() {
             <nav className="navbar">
                 <div className="nav-container">
                     <NavLink exact to="/" className="nav-logo">
-                        CodeBucks
+                        IFUN
                         <i className="fas fa-code"></i>
                     </NavLink>
 
@@ -30,23 +30,23 @@ function NavBar() {
                         <li className="nav-item">
                             <NavLink
                                 exact
-                                to="/about"
+                                to="/account"
                                 activeClassName="active"
                                 className="nav-links"
                                 onClick={handleClick}
                             >
-                                About
+                                Account
                             </NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink
                                 exact
-                                to="/blog"
+                                to="/community"
                                 activeClassName="active"
                                 className="nav-links"
                                 onClick={handleClick}
                             >
-                                Blog
+                                Community
                             </NavLink>
                         </li>
                         <li className="nav-item">
