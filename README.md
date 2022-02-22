@@ -35,12 +35,25 @@ git clone https://github.com/cs421sp22-homework/project-team-01-ai_for_fun.git
 ```
 
 ## Developing
-
 Detailed and step-by-step documentation for setting up local development. For example, a new team member will use these instructions to start developing the project further. 
-
+1. Install IDE
+  We are using Intellij IDEA as our developing stage. It can be download at: https://www.jetbrains.com/idea/download/#section=windows
+2. Install React 
+  We are using React as our frontend framwork. Before installing React, you should install Node.js and npm first if you haven't. Node.js and npm can be downloaded here: https://nodejs.org/en/download/
+  
+  Then you can install React using the following commands:
 ```shell
-commands here
+npm install -g create-react-app 
+cd project-team-01-ai_for_fun
+npm start
+
 ```
+3. Install Heroku
+  We will develop our app on heroku. It can be installed using the following command:
+```shell
+npm install -g heroku
+```
+  More documentation about how to use heroku can be found here: https://devcenter.heroku.com/articles
 
 You should include what is needed (e.g. all of the configurations) to set up the dev environment. For instance, global dependencies or any other tools (include download links), explaining what database (and version) has been used, etc. If there is any virtual environment, local server, ..., explain here. 
 
