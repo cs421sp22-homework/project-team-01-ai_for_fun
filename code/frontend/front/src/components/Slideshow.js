@@ -1,24 +1,25 @@
 import React, { Component, useState, memo, createRef } from 'react';
-import styles from '../style/Slideshow.less';
+import '../style/Slideshow.css';
 import {LeftCircleOutlined, RightCircleOutlined} from '@ant-design/icons';
+import '../bootstrap-4.3.1-dist/css/bootstrap.min.css'
 
 function Slideshow(props) {
   const ref = createRef();
   const { imgData } = props;
-  const [translateX, setTranslateX] = useState(0); //每次偏移数值
+  const [translateX, setTranslateX] = useState(0);
 
   /**
-   * 点击右侧按钮ƒ
+   * right button
    */
   const clickRightIcon = () => {
     if (ref.current.scrollWidth < Math.abs(translateX) + Math.abs(ref.current.offsetWidth)) {//到最后一页时候需要停止点击按钮
       return;
     }
-    setTranslateX(translateX - ref.current.offsetWidth); //每次滚动可见区域宽度
+    setTranslateX(translateX - ref.current.offsetWidth); 
   };
 
   /**
-   * 点击左侧按钮
+   * left button
    */
   const clickLeftIcon = () => {
     if (translateX === 0) return;
@@ -27,17 +28,24 @@ function Slideshow(props) {
   console.log('translateX', translateX);
   console.log('ref', ref);
   return (
-    <div className={styles.wrap_scrollImg}>
-      <span className={styles.left_icon} onClick={clickLeftIcon}><LeftCircleOutlined /></span>
-      <span className={styles.right_icon} onClick={clickRightIcon}><RightCircleOutlined /></span>
+    <div className='container-fluid'>
+    <div className='wrap_scrollImg'>
+      <span className='left_icon' onClick={clickLeftIcon}><LeftCircleOutlined /></span>
+      <span className='right_icon' onClick={clickRightIcon}><RightCircleOutlined /></span>
       <ul style={{ transform: `translateX(${translateX}px)` }} ref={ref}>
         {imgData.map(item => {
           return <li key={item.name}>
-            <img src={item.imgUrl} alt={item.name}/>
+              <img src={item.imgUrl} alt={item.name}/>
+{/* 
+            <div className='img_contianer'>
+                <img src={item.imgUrl} alt={item.name}/>
+                <div className="overlay">{item.name}</div>
+            </div>
+             */}
           </li>;
         })}
-
       </ul>
+    </div>
     </div>
   );
 }
