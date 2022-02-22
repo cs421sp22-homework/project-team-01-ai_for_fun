@@ -1,6 +1,6 @@
-# Imageupload
+# Imagedownload
 
-User upload the photo to the backend
+User get the url and dowmload new photo from the backend
 
 **URL** : `/api/download`
 
