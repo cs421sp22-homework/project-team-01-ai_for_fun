@@ -21,8 +21,8 @@ User upload the photo to the backend
 
 ```json
 {
- "file": a.jpg,
-  "filetype": "jpg"
+"username": "Timcar",
+"filename": "a.jpg"
 }
 ```
 
