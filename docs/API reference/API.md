@@ -10,3 +10,6 @@ This file records APIs for AIforfun project
 * [AllUserInfo](allUserInfo.md) : `GET /users`
 
 ## Upload  and Dowload model
+
+* [OriginalImageUpload](imageupload.md) : `POST /api/upload`
+* [NewImageDownload](imagedownload.md) : `POST /api/download`
