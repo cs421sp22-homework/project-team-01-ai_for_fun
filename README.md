@@ -10,7 +10,7 @@ A brief description of your project (elevator pitch goes here).
 | Xinrui Zou | xzou8@jhu.edu  |     xzjiu       |
 |Mingxuan Che| mche2@jhu.edu  |  mingxuanche99  |
 |Jingyan Li  | jli336@jhu.edu |  SherryLee1998  |
-|            |                |                 |
+|Song Li     | sli218@jh.edu  |     Gnosil      |
 |            |                |                 |
 
 **Advisors** 
