@@ -4,7 +4,7 @@ import '../style/App.css';
 import Introduction from "./introduction";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavBar from "./Navbar/navbar";
-import { Home } from "./pages/Home";
+import Home from "./pages/Home";
 import { Account } from "./pages/account";
 import { Community } from "./pages/community";
 import { Contact } from "./pages/Contact";
