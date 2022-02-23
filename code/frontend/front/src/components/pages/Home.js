@@ -14,7 +14,7 @@ export class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selected: 'For you'
+            selected: '❤️  For you ❤️'
         }
     }
     setSelected = (tab) => {
@@ -65,20 +65,20 @@ export class Home extends React.Component {
                 </div>
 
                 <div className="App mt-4">
-                    <TabNav tabs={['For you', 'Trend', 'AI face', 'AI vedio', 'AI text']} selected={this.state.selected} setSelected={this.setSelected}>
-                        <Tab isSelected={this.state.selected === 'For you'}>
+                    <TabNav tabs={['❤️  For you ❤️', '🔥 Trend 🔥', '🥀 AI face 🥀', '🎧  AI vedio 🎧', '🎵 AI text 🎵']} selected={this.state.selected} setSelected={this.setSelected}>
+                        <Tab isSelected={this.state.selected === '❤️  For you ❤️'}>
                             <p> hello this is recomend to you</p>
                         </Tab>
-                        <Tab isSelected={this.state.selected === 'Trend'}>
+                        <Tab isSelected={this.state.selected === '🔥 Trend 🔥'}>
                             <p> hello this is what is populate nowdays</p>
                         </Tab>
-                        <Tab isSelected={this.state.selected === 'AI face'}>
+                        <Tab isSelected={this.state.selected === '🥀 AI face 🥀 '}>
                             <p> hello this is what is a AI model1</p>
                         </Tab>
-                        <Tab isSelected={this.state.selected === 'AI vedio'}>
+                        <Tab isSelected={this.state.selected === '🎧 AI vedio 🎧'}>
                             <p> hello this is what is a AI model2</p>
                         </Tab>
-                        <Tab isSelected={this.state.selected === 'AI text'}>
+                        <Tab isSelected={this.state.selected === '🎵 AI text 🎵'}>
                             <p> hello this is what is a AI model3</p>
                         </Tab>
                     </TabNav>

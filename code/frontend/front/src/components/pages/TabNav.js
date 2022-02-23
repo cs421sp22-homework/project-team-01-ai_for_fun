@@ -3,7 +3,7 @@ import React from "react";
 class TabNav extends React.Component {
     render() {
         return (
-            <div style={{ width: '50%' }}>
+            <div style={{ width: '70%' }}>
                 <ul className="nav nav-tabs">
                     {
                         this.props.tabs.map(tab => {
