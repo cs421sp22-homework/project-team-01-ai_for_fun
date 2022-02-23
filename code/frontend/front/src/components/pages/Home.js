@@ -72,10 +72,10 @@ export class Home extends React.Component {
                         <Tab isSelected={this.state.selected === '🔥 Trend 🔥'}>
                             <p> hello this is what is populate nowdays</p>
                         </Tab>
-                        <Tab isSelected={this.state.selected === '🥀 AI face 🥀 '}>
+                        <Tab isSelected={this.state.selected === '🥀 AI face 🥀'}>
                             <p> hello this is what is a AI model1</p>
                         </Tab>
-                        <Tab isSelected={this.state.selected === '🎧 AI vedio 🎧'}>
+                        <Tab isSelected={this.state.selected === '🎧  AI vedio 🎧'}>
                             <p> hello this is what is a AI model2</p>
                         </Tab>
                         <Tab isSelected={this.state.selected === '🎵 AI text 🎵'}>
