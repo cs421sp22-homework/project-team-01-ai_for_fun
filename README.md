@@ -48,7 +48,18 @@ cd project-team-01-ai_for_fun
 npm start
 
 ```
-3. Install Heroku
+3. Install Golang and Gin
+We use Golang to develop our backend and it can be download at: https://go.dev/doc/install. Gin is Web framework for Golang, it can be install using the following commands:
+
+```shell
+go get -u github.com/gin-gonic/gin
+
+```
+4. Install MongoDB
+Mongodb is the database we used for this application. It can be downloaded at: https://docs.mongodb.com/manual/installation/
+
+
+5. Install Heroku
   We will develop our app on heroku. It can be installed using the following command:
 ```shell
 npm install -g heroku
