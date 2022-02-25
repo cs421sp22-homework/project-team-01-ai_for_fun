@@ -25,13 +25,12 @@ func main() {
 	router := gin.New()
 	router.Use(gin.Logger())
 	router.Use(cors.Default())
-	route.AuthRoutes(router)
-	route.UserRoutes(router)
-
 	router.GET("/", func(context *gin.Context) {
 		context.String(http.StatusOK, "Hello World")
 
 	})
+	route.AuthRoutes(router)
+	route.UserRoutes(router)
 
 	router.Run(":" + port)
 }
