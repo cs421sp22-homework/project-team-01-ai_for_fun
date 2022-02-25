@@ -1,6 +1,6 @@
 import {Row, Col, Button, Form} from 'react-bootstrap';
 
-function ProfileShow(props) {
+function EditPswd(props) {
     const info = props
     return (
       <div>
@@ -31,5 +31,5 @@ function ProfileShow(props) {
     );
   }
   
-  export default ProfileShow;
+  export default EditPswd;
   
