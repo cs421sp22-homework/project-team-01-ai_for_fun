@@ -28,11 +28,26 @@ A brief description of your project (elevator pitch goes here).
 ## Installing / Getting started
 
 Prerequisite: React(17.0.2), Node.js(16.14.0), Golang(1.17.7), MongoDB(5.0)
-
+1. clone the repo
 ```shell
 git clone https://github.com/cs421sp22-homework/project-team-01-ai_for_fun.git
 
 ```
+2. start the MongoDB
+Different OS has different way to start MongoDB: https://docs.mongodb.com/guides/server/install/.
+For MacOS:
+```shell
+brew services start mongodb-community@5.0
+```
+
+3. start the backend
+```shell
+cd/project-team-01-ai_for_fun/code/backend
+
+go run main.go
+```
+
+4. start the frontend
 
 ## Developing
 Detailed and step-by-step documentation for setting up local development. For example, a new team member will use these instructions to start developing the project further. 
