@@ -48,6 +48,11 @@ go run main.go
 ```
 
 4. start the frontend
+```shell
+cd/project-team-01-ai_for_fun/code/frontend/react-ifun
+
+npm start
+```
 
 ## Developing
 Detailed and step-by-step documentation for setting up local development. For example, a new team member will use these instructions to start developing the project further. 
