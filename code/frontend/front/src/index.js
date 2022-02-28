@@ -5,10 +5,11 @@ import App from './components/App';
 import reportWebVitals from './components/reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+
 ReactDOM.render(
-  <React.StrictMode>
+  < React.StrictMode >
     <App />
-  </React.StrictMode>,
+  </React.StrictMode >,
 
   document.getElementById('root')
 );

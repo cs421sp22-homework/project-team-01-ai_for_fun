@@ -7,7 +7,8 @@ import image2 from './homepage_image/image2.png';
 import image3 from './homepage_image/image3.png';
 import image4 from './homepage_image/image4.png';
 import TabNav from "./TabNav";
-import Tab from "./Tab"
+import Tab from "./Tab";
+import Slideshow from "./Slideshow"
 // import ColorTabs from "./tab";
 
 export class Home extends React.Component {
@@ -17,6 +18,7 @@ export class Home extends React.Component {
             selected: '❤️  For you ❤️'
         }
     }
+
     setSelected = (tab) => {
         this.setState({ selected: tab });
     }
@@ -24,7 +26,6 @@ export class Home extends React.Component {
     render() {
         return (
             <div className={'container'}>
-
                 <header className={'text-center text-black py-5'}>
                     <h1 className={'display-4 font-weight-bold mb-4'}>AI For Fun</h1>
                     <p>This is an applicaiton that would like to implement AI model in human face, for bring fun exprience to you.</p>
@@ -67,7 +68,7 @@ export class Home extends React.Component {
                 <div className="App mt-4">
                     <TabNav tabs={['❤️  For you ❤️', '🔥 Trend 🔥', '🥀 AI face 🥀', '🎧  AI vedio 🎧', '🎵 AI text 🎵']} selected={this.state.selected} setSelected={this.setSelected}>
                         <Tab isSelected={this.state.selected === '❤️  For you ❤️'}>
-                            <p> hello this is recomend to you</p>
+                            {/* <Slideshow imgData={image} /> */}
                         </Tab>
                         <Tab isSelected={this.state.selected === '🔥 Trend 🔥'}>
                             <p> hello this is what is populate nowdays</p>
