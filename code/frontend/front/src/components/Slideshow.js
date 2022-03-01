@@ -1,7 +1,8 @@
 import React, { Component, useState, memo, createRef } from 'react';
 import '../style/Slideshow.css';
 import {LeftCircleOutlined, RightCircleOutlined} from '@ant-design/icons';
-import '../bootstrap-4.3.1-dist/css/bootstrap.min.css'
+// import '../bootstrap-4.3.1-dist/css/bootstrap.min.css'
+import Container from 'react-bootstrap/Container'
 
 function Slideshow(props) {
   const ref = createRef();
@@ -28,7 +29,7 @@ function Slideshow(props) {
   console.log('translateX', translateX);
   console.log('ref', ref);
   return (
-    <div className='container-fluid'>
+    <Container fluid>
     <div className='wrap_scrollImg'>
       <span className='left_icon' onClick={clickLeftIcon}><LeftCircleOutlined /></span>
       <span className='right_icon' onClick={clickRightIcon}><RightCircleOutlined /></span>
@@ -46,7 +47,7 @@ function Slideshow(props) {
         })}
       </ul>
     </div>
-    </div>
+    </Container>
   );
 }
 

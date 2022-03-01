@@ -1,9 +1,11 @@
-import {Row, Col, Button, Form} from 'react-bootstrap';
+
 import React from 'react';
-import {Input, message, Tooltip} from 'antd';
+// import {Input, message, Tooltip} from 'antd';
 import {CheckCircleOutlined,CloseCircleOutlined} from '@ant-design/icons';
 import UploadPic from './UploadPic';
 import '../style/Profile.css';
+import {Row, Col, Button, Form} from 'react-bootstrap';
+import Container from 'react-bootstrap/Container'
 
 export default class Profile extends React.Component {
     constructor(props) {
@@ -50,13 +52,14 @@ export default class Profile extends React.Component {
     
     render() {
         return (
+        <Container>
         <div>
             <div>
                 <Row>
-                    <Col md={7}>
+                    <Col md={9}>
                     <img src={this.info.props.pic} className="App-logo" alt="logo" />
                     </Col>
-                    <Col md={5}>
+                    <Col md={3}>
                         <UploadPic/>
                     </Col>
                 </Row>
@@ -65,22 +68,27 @@ export default class Profile extends React.Component {
             <div>
             {!this.state.showInputName?
                 <Row>
-                    <Col md={7}>
+                    <Col md={9}>
                         <p>{this.info.props.name}</p>
                     </Col>
-                    <Col md={5}>
+                    <Col md={3}>
                         <Button onClick={this.handleEditName}>Edit</Button>
                     </Col>
                 </Row>
                 :
                 <Row>
-                    <Col md = {7} sm = {5}>
-                        <Input placeholder="Input here"
+                    <Col md = {9} sm = {5}>
+                        {/* <Input placeholder="Input here"
                                 defaultValue={this.info.props.name==='-'?'':this.info.props.name}
                                 onChange={(e) => this.setState({NameVal:e.target.value})}
-                        />
+                        /> */}
+                        <Form.Control
+                             type="text"
+                             placeholder="Enter Name"
+                             value={this.info.props.name==='-'?'':this.info.props.name}
+                             onChange={(e) => this.setState({NameVal:e.target.value})}></Form.Control>
                     </Col>
-                    <Col md = {5} sm = {7}>
+                    <Col md = {3} sm = {7}>
                         <CheckCircleOutlined onClick={this.handleAffirmName}/>
                         <CloseCircleOutlined onClick={this.handleCloseName} />
                     </Col>
@@ -91,22 +99,27 @@ export default class Profile extends React.Component {
             <div>
             {!this.state.showInputEmail?
                 <Row>
-                    <Col md={7}>
+                    <Col md={9}>
                         <p>{this.info.props.email}</p>
                     </Col>
-                    <Col md={5}>
+                    <Col md={3}>
                         <Button onClick={this.handleEditEamil}>Edit</Button>
                     </Col>
                 </Row>
                 :
                 <Row>
-                    <Col md = {7} sm = {5}>
-                        <Input placeholder="Input here"
+                    <Col md = {9} sm = {5}>
+                        {/* <Input placeholder="Input here"
                                 defaultValue={this.info.props.email==='-'?'':this.info.props.email}
                                 onChange={(e) => this.setState({EmailVal:e.target.value})}
-                        />
+                        /> */}
+                        <Form.Control
+                             type="text"
+                             placeholder="Enter Name"
+                             value={this.info.props.name==='-'?'':this.info.props.name}
+                             onChange={(e) => this.setState({NameVal:e.target.value})}></Form.Control>
                     </Col>
-                    <Col md = {5} sm = {7}>
+                    <Col md = {3} sm = {7}>
                         <CheckCircleOutlined onClick={this.handleAffirmEmail}/>
                         <CloseCircleOutlined onClick={this.handleCloseEmail} />
                     </Col>
@@ -114,7 +127,7 @@ export default class Profile extends React.Component {
             }
             </div>
       </div>
-    
+      </Container>
         )
     }
 }
