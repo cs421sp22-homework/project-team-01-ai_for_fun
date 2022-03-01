@@ -11,6 +11,16 @@ import Tab from "./Tab";
 import Slideshow from "./Slideshow"
 // import ColorTabs from "./tab";
 
+const tempimage = [
+    { imgUrl: './img/01.png', name: '01' },
+    { imgUrl: './img/02.png', name: '02' },
+    { imgUrl: './img/03.png', name: '03' },
+    { imgUrl: './img/04.png', name: '04' },
+    { imgUrl: './img/05.png', name: '05' },
+    { imgUrl: './img/06.png', name: '06' },
+    { imgUrl: './img/07.png', name: '07' },
+]
+
 export class Home extends React.Component {
     constructor(props) {
         super(props);
@@ -68,7 +78,7 @@ export class Home extends React.Component {
                 <div className="App mt-4">
                     <TabNav tabs={['❤️  For you ❤️', '🔥 Trend 🔥', '🥀 AI face 🥀', '🎧  AI vedio 🎧', '🎵 AI text 🎵']} selected={this.state.selected} setSelected={this.setSelected}>
                         <Tab isSelected={this.state.selected === '❤️  For you ❤️'}>
-                            {/* <Slideshow imgData={image} /> */}
+
                         </Tab>
                         <Tab isSelected={this.state.selected === '🔥 Trend 🔥'}>
                             <p> hello this is what is populate nowdays</p>
