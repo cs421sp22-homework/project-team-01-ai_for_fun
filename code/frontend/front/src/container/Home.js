@@ -1,15 +1,6 @@
 import React, { Fragment, PureComponent } from "react";
-import { Redirect } from 'react-router';
-import { Link, NavLink } from 'react-router-dom';
-import image from './homepage_image/image.png';
-import image1 from './homepage_image/image1.png';
-import image2 from './homepage_image/image2.png';
-import image3 from './homepage_image/image3.png';
-import image4 from './homepage_image/image4.png';
-import TabNav from "./TabNav";
 import Tab from "./Tab";
 import Slideshow from "../components/Slideshow";
-import {Row, Col, Button, Form} from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Tabs from 'react-bootstrap/Tabs';
 import "../style/Home.css";
