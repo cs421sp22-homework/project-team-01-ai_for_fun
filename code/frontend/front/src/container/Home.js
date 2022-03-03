@@ -15,13 +15,13 @@ import Tabs from 'react-bootstrap/Tabs';
 import "../style/Home.css";
 
 const tempimage = [
-    { imgUrl: './img/01.png', name: '01' },
-    { imgUrl: './img/02.png', name: '02' },
-    { imgUrl: './img/03.png', name: '03' },
-    { imgUrl: './img/04.png', name: '04' },
-    { imgUrl: './img/05.png', name: '05' },
-    { imgUrl: './img/06.png', name: '06' },
-    { imgUrl: './img/07.png', name: '07' },
+    { imgUrl: './img/01.png', name: '01', topic: 'Star' },
+    { imgUrl: './img/02.png', name: '02', topic: 'House' },
+    { imgUrl: './img/03.png', name: '03', topic: 'New Year' },
+    { imgUrl: './img/04.png', name: '04', topic: 'Amazing' },
+    { imgUrl: './img/05.png', name: '05', topic: 'Fashion' },
+    { imgUrl: './img/06.png', name: '06', topic: 'Face' },
+    { imgUrl: './img/07.png', name: '07', topic: 'Good' },
 ]
 
 export class Home extends React.Component {
@@ -51,7 +51,7 @@ export class Home extends React.Component {
                         <h1 className='mb-3'>AI For Fun</h1>
                         <h4 className='mb-3'>This is an application</h4>
                         <a className='btn btn-outline-dark btn-lg' href='#!' role='button'>
-                            Call to action
+                            Get Start
                         </a>
                         </div>
                     </div>
@@ -128,17 +128,17 @@ export class Home extends React.Component {
                 </div> */}
                  <Tabs  defaultActiveKey="foryou" id="uncontrolled-tab-example">
                     <Tab eventKey="foryou" title="For you">
-                        <div className="mt-5">
+                        <div className="mt-3">
                         <Slideshow imgData={tempimage}/>
                         </div>
                     </Tab>
                     <Tab eventKey="trend" title="Trend">
-                    <div className="mt-5">
+                    <div className="mt-3">
                         <Slideshow imgData={tempimage}/>
                         </div>
                     </Tab>
                     <Tab eventKey="face" title="Face">
-                    <div className="mt-5">
+                    <div className="mt-3">
                         <Slideshow imgData={tempimage}/>
                         </div>
                     </Tab>

@@ -2,7 +2,9 @@ import React, { Component, useState, memo, createRef } from 'react';
 import '../style/Slideshow.css';
 import {LeftCircleOutlined, RightCircleOutlined} from '@ant-design/icons';
 // import '../bootstrap-4.3.1-dist/css/bootstrap.min.css'
-import Container from 'react-bootstrap/Container'
+import Container from 'react-bootstrap/Container';
+import { Image } from "react-bootstrap";
+import Card from 'react-bootstrap/Card'
 
 function Slideshow(props) {
   const ref = createRef();
@@ -35,8 +37,15 @@ function Slideshow(props) {
       <span className='right_icon' onClick={clickRightIcon}><RightCircleOutlined /></span>
       <ul style={{ transform: `translateX(${translateX}px)` }} ref={ref}>
         {imgData.map(item => {
-          return <li key={item.name}>
-              <img src={item.imgUrl} alt={item.name}/>
+          return <li key={item.name} className='shadow'>
+              <Card.Img as={Image} src={item.imgUrl} fluid={true} alt="item.name" />
+              <Card.Body>
+              {/* <Card.Title>{item.topic}</Card.Title> */}
+              <Card.Text>
+              {item.topic}
+              </Card.Text>
+            </Card.Body>
+              {/* <img src={item.imgUrl} alt={item.name}/> */}
 {/* 
             <div className='img_contianer'>
                 <img src={item.imgUrl} alt={item.name}/>

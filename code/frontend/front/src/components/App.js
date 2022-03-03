@@ -13,6 +13,8 @@ import { AI_face } from "../container/AI_face";
 import { AI_vedio } from "../container/AI_vedio";
 import { AI_text } from "../container/AI_text";
 import Profile from "../components/Profile";
+import Login from "../container/Login";
+import Register from "../container/Register";
 import "../style/App.css"
 
 const info = {pic:'./img/01.png',name:'Sample',email:'1234@jh.edu'}
@@ -32,6 +34,8 @@ class App extends Component {
               <Route path="/AI_face" element={<AI_face />} />
               <Route path="/AI_vedio" element={<AI_vedio />} />
               <Route path="/AI_text" element={<AI_text />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
             </Routes>
           </div>
         </Router>

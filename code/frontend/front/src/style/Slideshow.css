@@ -151,3 +151,7 @@
 .img_container:hover .overlay {
   opacity: 1;
 }
+
+.shadow {
+  box-shadow: 2px 1px 1px rgba(41, 41, 41, 0.5);
+}
