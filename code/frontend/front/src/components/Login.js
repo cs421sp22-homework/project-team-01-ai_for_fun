@@ -5,6 +5,8 @@ import '../style/Login.css';
 import {LeftCircleOutlined, RightCircleOutlined} from '@ant-design/icons';
 import '../bootstrap-4.3.1-dist/css/bootstrap.min.css'
 
+
+ReactDom
 async function loginUser(credential){
     return fetch('http://localhost:8080/login',{
         method: 'POST',
