@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Form, Input, Button, Checkbox} from 'antd';
 import {LockOutlined, UserOutlined} from '@ant-design/icons';
 import '../style/Login.css';
