@@ -1,6 +1,6 @@
 import React, { Fragment, PureComponent } from "react";
 import Tab from "./Tab";
-import Slideshow from "../components/Slideshow";
+// import Slideshow from "../components/Slideshow";
 import Container from 'react-bootstrap/Container';
 import Tabs from 'react-bootstrap/Tabs';
 import "../style/Home.css";
@@ -119,19 +119,19 @@ export class Home extends React.Component {
                 </div> */}
                  <Tabs  defaultActiveKey="foryou" id="uncontrolled-tab-example">
                     <Tab eventKey="foryou" title="For you">
-                        <div className="mt-3">
+                        {/* <div className="mt-3">
                         <Slideshow imgData={tempimage}/>
-                        </div>
+                        </div> */}
                     </Tab>
                     <Tab eventKey="trend" title="Trend">
-                    <div className="mt-3">
+                    {/* <div className="mt-3">
                         <Slideshow imgData={tempimage}/>
-                        </div>
+                        </div> */}
                     </Tab>
                     <Tab eventKey="face" title="Face">
-                    <div className="mt-3">
+                    {/* <div className="mt-3">
                         <Slideshow imgData={tempimage}/>
-                        </div>
+                        </div> */}
                     </Tab>
                 </Tabs>
             </Container>
