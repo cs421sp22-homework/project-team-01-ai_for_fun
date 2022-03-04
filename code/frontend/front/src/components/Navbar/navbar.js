@@ -27,9 +27,9 @@ function NavBar() {
             Help
             </Nav.Link>
             {/* Todo: check login state to show the following */}
-            {/* <Nav.Link href="/login">
+            <Nav.Link href="/login">
             Login
-            </Nav.Link> */}
+            </Nav.Link>
             <NavDropdown className='mr-4' title="My Account" id="collasible-nav-dropdown">
                 <NavDropdown.Item href="/profile">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>

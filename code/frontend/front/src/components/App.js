@@ -9,8 +9,8 @@ import Home from "../container/Home";
 import { Community } from "../container/community";
 import { Contact } from "../container/Contact";
 import Profile from "../components/Profile";
-// import Login from "../container/Login";
-// import Register from "../container/Register";
+import Login from "../container/Login";
+import Register from "../container/Register";
 import "../style/App.css"
 
 const info = {pic:'./img/01.png',name:'Sample',email:'1234@jh.edu'}
@@ -27,6 +27,8 @@ class App extends Component {
               <Route path="/profile" element={<Profile props={info}/>} />
               <Route path="/community" element={<Community />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
             </Routes>
           </div>
         </Router>
