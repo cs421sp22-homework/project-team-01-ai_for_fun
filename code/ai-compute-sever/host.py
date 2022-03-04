@@ -1,8 +1,10 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import logging
 import json
+from run_cifar import eval_cifar
+
 def Aichange(url):
-    result=url
+    result=eval_cifar(url)
     return result
 
 class S(BaseHTTPRequestHandler):
