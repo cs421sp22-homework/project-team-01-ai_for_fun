@@ -27,7 +27,6 @@ func main() {
 	router.Use(cors.Default())
 	router.GET("/", func(context *gin.Context) {
 		context.String(http.StatusOK, "Hello World")
-
 	})
 	route.AuthRoutes(router)
 	route.UserRoutes(router)

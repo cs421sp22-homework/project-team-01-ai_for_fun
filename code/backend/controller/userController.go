@@ -197,3 +197,4 @@ func GetUser() gin.HandlerFunc {
 		c.JSON(http.StatusOK, user)
 	}
 }
+
