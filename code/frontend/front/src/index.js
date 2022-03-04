@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './style/index.css';
-import App from './components/App';
-import Slideshow from './components/Slideshow';
+// import App from './components/App';
+// import Slideshow from './components/Slideshow';
 import Login from './components/Login';
 import reportWebVitals from './components/reportWebVitals';
-import Login from './components/Login';
 
 ReactDOM.render(
   <>

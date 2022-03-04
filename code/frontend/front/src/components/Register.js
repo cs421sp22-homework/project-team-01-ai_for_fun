@@ -1,4 +1,7 @@
-import {Input, Form, Input, Tooltip, 
+import React from 'react';
+import '../style/Register.css';
+import '../bootstrap-4.3.1-dist/css/bootstrap.min.css'
+import {Input, Form, 
     Icon, Cascader,Select, Row,Col, 
     Checkbox, Button, AutoComplete, message, 
     Tooltip} from 'antd';
@@ -132,7 +135,7 @@ export default class Register extends React.Component{
                             </Button>
                             <Button type="primary1" className='toLogin'>
                             <a href='/login'>
-                            back to login
+                            Back to Login
                             </a>
                             </Button>
                         </Form.Item>

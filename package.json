@@ -1,0 +1,22 @@
+{
+  "name": "project-team-01-ai_for_fun",
+  "version": "1.0.0",
+  "description": "A brief description of your project (elevator pitch goes here).",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cs421sp22-homework/project-team-01-ai_for_fun.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cs421sp22-homework/project-team-01-ai_for_fun/issues"
+  },
+  "homepage": "https://github.com/cs421sp22-homework/project-team-01-ai_for_fun#readme"
+}
