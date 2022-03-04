@@ -1,6 +1,9 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import logging
 import json
+def Aichange(url):
+    result=url
+    return result
 
 class S(BaseHTTPRequestHandler):
     def _set_response(self):
@@ -19,10 +22,13 @@ class S(BaseHTTPRequestHandler):
         # print(post_data)
         logging.info("POST request,\nPath: %s\nHeaders:\n%s\n\nBody:\n%s\n",
                 str(self.path), str(self.headers), post_data.decode('utf-8'))
-        data = json.loads(json.dumps(post_data))
-        print(data['url'])
+        data = json.loads(post_data.decode('utf-8'))
+        url=data["url"]
+        res=Aichange(url)
+
+
         self._set_response()
-        self.wfile.write("POST request for {}".format(self.path).encode('utf-8'))
+        self.wfile.write("{}".format(res).encode('utf-8'))
 
 
 def run(server_class=HTTPServer, handler_class=S, port=8080):
