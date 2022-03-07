@@ -6,7 +6,15 @@ from run_cifar import eval_cifar
 def Aichange(url):
     result=eval_cifar(url)
     return result
-
+def faceswap(url):
+    result="https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png"
+    return result
+def styleflow(url):
+    result = "https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png"
+    return result
+def exchangeaudio(url):
+    result = "https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png"
+    return result
 class S(BaseHTTPRequestHandler):
     def _set_response(self):
         self.send_response(200)
@@ -25,8 +33,19 @@ class S(BaseHTTPRequestHandler):
         logging.info("POST request,\nPath: %s\nHeaders:\n%s\n\nBody:\n%s\n",
                 str(self.path), str(self.headers), post_data.decode('utf-8'))
         data = json.loads(post_data.decode('utf-8'))
-        url=data["url"]
-        res=Aichange(url)
+        url = data["url"]
+        if (str(self.path)=="/test"):
+            print("running cifar service")
+            res=Aichange(url)
+        if (str(self.path)=="/faceswap"):
+            print("running faceswap service")
+            res=faceswap(url)
+        if (str(self.path)=="/styleflow"):
+            print("running styleflow service")
+            res=styleflow(url)
+        if (str(self.path)=="/exchangeaudio"):
+            print("running exchangeaudio service")
+            res=exchangeaudio(url)
 
 
         self._set_response()
