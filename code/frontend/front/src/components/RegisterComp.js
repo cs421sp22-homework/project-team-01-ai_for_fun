@@ -1,220 +1,169 @@
 import {
-    Form,
-    Input,
-    Tooltip,
-    Cascader,
-    Checkbox,
-    Button,
-    AutoComplete,
-  } from 'antd';
-  import 'antd/dist/antd.css';
-  import React from 'react'
-  import '../style/registerComp.css'
-  import axios from 'axios'
-  import {QuestionCircleOutlined} from '@ant-design/icons';
+  Form,
+  Input,
+  Checkbox,
+  Button,
+} from 'antd';
+import 'antd/dist/antd.css';
+import React from 'react'
+import '../style/registerComp.css'
+import axios from 'axios'
+import { useState } from "react";
+import { Navigate} from "react-router-dom";
 
-  // const { Option } = Select;
-  const AutoCompleteOption = AutoComplete.Option;
-  
-  class RegistrationForm extends React.Component {
-    state = {
-      confirmDirty: false,
-      autoCompleteResult: [],
-      email: '', 
-      password: '', 
-      username: '', 
-      residence: '', 
-      website: ''
-    };
 
-    submitH = () =>{
-      if(!this.state.email || !this.state.password || !this.state.username || !this.state.residence || !this.state.website){
-        return
-      }
-      let data = {email: this.state.email, password: this.state.password, username: this.state.username, residence: this.state.residence, website: this.state.website}
-      let url = 'http://192.168.21.33:8001/fapp/user/register/'
-      axios.post(url, data, {headers: {'Content-Type': 'application/json'}}
-        ).then(res=>{
-          if(res.status === 200 && res.data.code===1){
-              alert('Success! '+res)
-              this.props.history.push('/login')
-          }
-          else{
-              console.log(res)
-              alert('Failed! ' + res.data.msg)
-          }
+const onFinish = (values) => {
+  console.log('Success:', values);
+};
 
-      })
-    }
+const onFinishFailed = (errorInfo) => {
+  console.log('Failed:', errorInfo);
+};
 
-    handleEmail = (e) =>{
-      this.setState({
-        email: e.target.value
-      })
-    }
-    handlePassword = (e) =>{
-      this.setState({
-        email: e.target.value
-      })
-    }
-    handleUsername = (e) =>{
-      this.setState({
-        email: e.target.value
-      })
-    }
-    handleResidence = (e) =>{
-      this.setState({
-        email: e.target.value
-      })
-    }
-    handleWebsite = (e) =>{
-      this.setState({
-        email: e.target.value
-      })
-    }
+const RegistrationForm = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [user_type] = useState('USER');
+  const[redirect, setRedirect] = useState(false);
 
-  
-    handleSubmit = e => {
+  const compareToFirstPassword = ({getFieldValue}) => ({
+    validator(rule, value){
+      if (getFieldValue('password')=== value) return Promise.resolve();
+      return Promise.reject("Two passwords that you enter is inconsistent!")
+    }
+  });
+
+  const handleSubmit = async (e) => {
       e.preventDefault();
-      this.props.form.validateFieldsAndScroll((err, values) => {
-        if (!err) {
-          console.log('Received values of form: ', values);
-        }
+      const response = await fetch("http://44.202.107.241:8000/user/register",{
+          method:'POST',
+          headers: {'Content-Type':'application/json'},
+          body:JSON.stringify({
+              'name':name, 
+              'email':email,
+              'password':password,
+              'user_type':user_type
+          })
       });
-      this.submitH();     
-    };
-  
-    handleConfirmBlur = e => {
-      const value = e.target.value;
-      this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-    };
-  
-    compareToFirstPassword = (rule, value, callback) => {
-      const form = this.props.form;
-      if (value && value !== form.getFieldValue('password')) {
-        callback('Two passwords that you enter is inconsistent!');
-      } else {
-        callback();
+      if (response.ok){
+          const content = await response.json();
+          console.log(content);
+          alert("Success!")
+          setRedirect(true)
       }
-    };
-  
-    validateToNextPassword = (rule, value, callback) => {
-      const form = this.props.form;
-      if (value && this.state.confirmDirty) {
-        form.validateFields(['confirm'], { force: true });
+      else {
+          console.log('request failed', response);
       }
-      callback();
-    };
-  
-    handleWebsiteChange = value => {
-      let autoCompleteResult;
-      if (!value) {
-        autoCompleteResult = [];
-      } else {
-        autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
-      }
-      this.setState({ autoCompleteResult });
-    };
-  
-    render() {
-      const { autoCompleteResult } = this.state;
-  
-      const formItemLayout = {
-        labelCol: {
-          xs: { span: 24 },
-          sm: { span: 8 },
-        },
-        wrapperCol: {
-          xs: { span: 24 },
-          sm: { span: 16 },
-        },
-      };
-      const tailFormItemLayout = {
-        wrapperCol: {
-          xs: {
-            span: 24,
-            offset: 0,
-          },
-          sm: {
-            span: 16,
-            offset: 8,
-          },
-        },
-      };
-  
-      const websiteOptions = autoCompleteResult.map(website => (
-        <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-      ));
-  
-      return (
-        <div className='registerDiv'>
-            <div className='redisterTitle'>Register</div>
-        <Form {...formItemLayout} onSubmit={this.handleSubmit} className='register-form'>
-        <Form.Item
-          name={['user', 'email']}
-          label="Email"
-          rules={[
-            {
-              type: 'email',
-              message: 'The input is not valid E-mail!',
-            },
-            {
-                required: true,
-                message: 'Please input your E-mail!',
-            },
-          ]}
-        >
-          <Input onChange={this.handleEmail} />
-          </Form.Item>
-          <Form.Item
-                label="Password"
-                name="password"
-                rules={[
-                {required: true,
-                message: 'Please input your password!',
-                },
-            ]}
-            >
-            <Input.Password  onChange={this.handlePassword} />
-          </Form.Item>
-          <Form.Item
-                label="Confirm Password"
-                name="confirm"
-                rules={[
-                {required: true,
-                message: 'Please confirm your password!',
-                },
-                {
-                    validator: this.compareToFirstPassword,
-                  },
-            ]}
-            >
-            <Input.Password  onChange={this.handlePassword} />
-          </Form.Item>
-        <Form.Item
-                name="remember"
-                valuePropName="checked"
-                wrapperCol={{
-                offset: 8,
-                span: 16,
-            }}
-        >
-        <Checkbox>I have read the <a href="http://www.baidu.com">agreement</a></Checkbox>
-        </Form.Item>
-          <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit">
-              Register
-            </Button>
-            <Button type="primary1" className='toLogin'>
-              <a href='/login'>
-              Return to Login
-              </a>
-            </Button>
-          </Form.Item>
-        </Form>
-        </div>
-      );
-    }
   }
-  
-  export default RegistrationForm;
+
+  if(redirect){
+      return <Navigate to="/login"/>
+  }
+
+      const formItemLayout = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 8 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 16 },
+      },
+    };
+    const tailFormItemLayout = {
+      wrapperCol: {
+        xs: {
+          span: 24,
+          offset: 0,
+        },
+        sm: {
+          span: 16,
+          offset: 8,
+        },
+      },
+    };
+
+  return(
+    <>
+     <div className='registerDiv'>
+       <div className='redisterTitle'>Register</div>
+    <Form {...formItemLayout} onSubmit={handleSubmit} className='register-form'>
+      <Form.Item
+      name="name"
+      label="Name"
+      rules={[
+        {
+            required: true,
+            message: 'Please input your Name!',
+        },
+      ]}
+    >
+      <Input onChange={e => setName(e.target.value)} />
+      </Form.Item>
+    <Form.Item
+      name="email"
+      label="Email"
+      rules={[
+        {
+          type: 'email',
+          message: 'The input is not valid E-mail!',
+        },
+        {
+            required: true,
+            message: 'Please input your E-mail!',
+        },
+      ]}
+    >
+      <Input onChange={e => setEmail(e.target.value)} />
+      </Form.Item>
+      <Form.Item
+            label="Password"
+            name="password"
+            rules={[
+            {required: true,
+            message: 'Please input your password!',
+            },
+        ]}
+        >
+        <Input.Password  onChange={e=> setPassword(e.target.value)} />
+      </Form.Item>
+      <Form.Item
+            label="Confirm Password"
+            name="confirm"
+            rules={[
+            {required: true,
+            message: 'Please confirm your password!',
+            },
+            compareToFirstPassword,
+        ]}
+        >
+        <Input.Password  onChange={e=> setPassword(e.target.value)} />
+      </Form.Item>
+    <Form.Item
+            name="remember"
+            valuePropName="checked"
+            wrapperCol={{
+            offset: 8,
+            span: 16,
+        }}
+    >
+    <Checkbox>I have read the <a href="http://www.baidu.com">agreement</a></Checkbox>
+    </Form.Item>
+      <Form.Item {...tailFormItemLayout}>
+        <Button type="primary" htmlType="submit" onClick={handleSubmit}>
+          Register
+        </Button>
+      </Form.Item>
+    </Form>
+    <Button type="primary1" className='toLogin'>
+    <a href='/login'>
+    Return to Login
+    </a>
+  </Button>
+  </div>
+  </>
+  );
+};
+
+export default RegistrationForm;
