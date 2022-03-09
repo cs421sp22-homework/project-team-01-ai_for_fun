@@ -8,7 +8,7 @@ const Login = () => {
     const submit = async (e: SyntheticEvent) =>{
         e.preventDefault();
 
-        const response = await fetch("http://localhost:8000/user/login",{
+        const response = await fetch("http://44.202.107.241:8000/user/login",{
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({

@@ -127,6 +127,8 @@ func Login() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Content-Type")
 		c.JSON(http.StatusOK, foundUser)
 	}
 }
@@ -174,6 +176,8 @@ func GetUsers() gin.HandlerFunc {
 		if err != nil {
 			log.Fatal(err)
 		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Content-Type")
 		c.JSON(http.StatusOK, allusers[0])
 	}
 }
@@ -194,7 +198,8 @@ func GetUser() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Content-Type")
 		c.JSON(http.StatusOK, user)
 	}
 }
-
