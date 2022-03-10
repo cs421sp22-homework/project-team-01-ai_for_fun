@@ -1,13 +1,13 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
 import logging
 import json
+import numpy as np
+from http.server import BaseHTTPRequestHandler, HTTPServer
+from util import upload_image, generate_random_name, url_to_image
 from run_cifar import eval_cifar
+from FaceSwap.output import faceSwapFunction 
 
 def Aichange(url):
     result=eval_cifar(url)
-    return result
-def faceswap(url):
-    result="https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png"
     return result
 def styleflow(url):
     result = "https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png"
@@ -15,6 +15,16 @@ def styleflow(url):
 def exchangeaudio(url):
     result = "https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png"
     return result
+def AiFaceSwap(src_url, dst_url):
+    src_img = url_to_image(src_url)
+    dst_img = url_to_image(dst_url)
+    out_dir = generate_random_name(16)
+    out_dir = faceSwapFunction(src_img, dst_img, out_dir)
+    outName, outUrl = upload_image(out_dir)
+    print(outName, outUrl)
+    return  outName, outUrl
+
+
 class S(BaseHTTPRequestHandler):
     def _set_response(self):
         self.send_response(200)
@@ -39,8 +49,10 @@ class S(BaseHTTPRequestHandler):
             res=Aichange(url)
         if (str(self.path)=="/faceswap"):
             print("running faceswap service")
-            url = data["url"]
-            res=faceswap(url)
+            src_url = data["src_url"]
+            dst_url = data["dst_url"] 
+            res_name, res_url = AiFaceSwap(src_url, dst_url)
+            res = {"res_name": res_name, "res_url":res_url}
         if (str(self.path)=="/styleflow"):
             print("running styleflow service")
             url = data["url"]
@@ -49,7 +61,6 @@ class S(BaseHTTPRequestHandler):
             print("running exchangeaudio service")
             url = data["url"]
             res=exchangeaudio(url)
-
 
         self._set_response()
         self.wfile.write("{}".format(res).encode('utf-8'))
