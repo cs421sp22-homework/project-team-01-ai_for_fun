@@ -1,7 +1,6 @@
 import React, { Component, useState, memo, createRef } from 'react';
 import '../style/Slideshow.css';
 import {LeftCircleOutlined, RightCircleOutlined} from '@ant-design/icons';
-// import '../bootstrap-4.3.1-dist/css/bootstrap.min.css'
 import Container from 'react-bootstrap/Container';
 import { Image } from "react-bootstrap";
 import Card from 'react-bootstrap/Card'
@@ -15,7 +14,7 @@ function Slideshow(props) {
    * right button
    */
   const clickRightIcon = () => {
-    if (ref.current.scrollWidth < Math.abs(translateX) + Math.abs(ref.current.offsetWidth)) {//到最后一页时候需要停止点击按钮
+    if (ref.current.scrollWidth < Math.abs(translateX) + Math.abs(ref.current.offsetWidth)) {
       return;
     }
     setTranslateX(translateX - ref.current.offsetWidth); 

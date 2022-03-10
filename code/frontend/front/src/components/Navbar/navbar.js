@@ -1,9 +1,20 @@
 import { Navbar, NavItem, NavDropdown, MenuItem, Nav } from 'react-bootstrap';
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import Container from 'react-bootstrap/Container'
 import {QuestionCircleOutlined} from '@ant-design/icons';
+import {LoginContext} from '../../context/AuthProvider';
 
 function NavBar() {
+  const {loggedIn, setLoggedIn,token,setToken} = useContext(LoginContext);
+  const handelHelp = () => {
+    console.log(loggedIn);
+    console.log(token);
+  }
+  const handleLogout = () => {
+    setLoggedIn(false);
+    setToken('');
+    console.log(loggedIn)
+  };
     return (
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
         <Container fluid>
@@ -23,20 +34,22 @@ function NavBar() {
             <Nav.Link href="#features">My work</Nav.Link>
             </Nav>
             <Nav>
-            <Nav.Link eventKey={0} href="#memes">
+            <Nav.Link eventKey={0} href="#memes" onClick={handelHelp}>
             Help
             </Nav.Link>
-            {/* Todo: check login state to show the following */}
-            <Nav.Link href="/login">
-            Login
-            </Nav.Link>
-            <NavDropdown className='mr-4' title="My Account" id="collasible-nav-dropdown">
-                <NavDropdown.Item href="/profile">Action</NavDropdown.Item>
+            {loggedIn ? 
+            (
+              <NavDropdown className='mr-4' title="My Account" id="collasible-nav-dropdown">
+                <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                <NavDropdown.Item onClick={handleLogout}>log out</NavDropdown.Item>
             </NavDropdown>
+            ) 
+            : (<Nav.Link href="/login">
+            Login
+            </Nav.Link>)}
             </Nav>
         </Navbar.Collapse>
         </Container>

@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React,{useState} from 'react';
 // import {Input, message, Tooltip} from 'antd';
 import {CheckCircleOutlined,CloseCircleOutlined} from '@ant-design/icons';
 import UploadPic from './UploadPic';
@@ -7,57 +7,43 @@ import '../style/Profile.css';
 import {Row, Col, Button, Form} from 'react-bootstrap';
 import Container from 'react-bootstrap/Container'
 
-export default class Profile extends React.Component {
-    constructor(props) {
-        super(props);
-        this.info = props;
-        console.log(this.info.props.name);
-        this.state = {
-            showInputName:false,     //hide input
-            showInputEmail:false,
-            NameVal:'',         
-            EmailVal:'',
-        }
-    }
+function Profile(props) {
+    props = props.props
+    const [email,setEmail] = useState('');
+    const [name,setName] = useState('');
+    const [showInputEmail, setshowInputEmail] = useState(false);
+    const [showInputName, setshowInputName] = useState(false);
+ 
     // Edit Name
-    handleEditName = () => {
+    const handleEditName = () => {
         console.log(1);
-        this.setState({
-            showInputName:true
-        })
+        setshowInputName(true)
     };
     // TODO: Interaction with backend
-    handleAffirmName = () => {
+    const handleAffirmName = () => {
 
     };
-    handleCloseName = () => {
-        this.setState({
-            showInputName:false
-        })
+    const handleCloseName = () => {
+        setshowInputName(false)
     };
     // Edit Email
-    handleEditEamil = () => {
-        this.setState({
-            showInputEmail:true
-        })
+    const handleEditEamil = () => {
+        setshowInputEmail(true)
     };
-    handleAffirmEamil = () => {
+    const handleAffirmEamil = () => {
 
     };
-    handleCloseEmail = () => {
-        this.setState({
-            showInputEmail:false
-        })
+    const handleCloseEmail = () => {
+        setshowInputEmail(false)
     };
     
-    render() {
-        return (
+    return (
         <Container>
         <div>
             <div>
                 <Row>
                     <Col md={9}>
-                    <img src={this.info.props.pic} className="App-logo" alt="logo" />
+                    <img src={props.pic} className="App-logo" alt="logo" />
                     </Col>
                     <Col md={3}>
                         <UploadPic/>
@@ -66,68 +52,58 @@ export default class Profile extends React.Component {
                 <hr />
             </div>
             <div>
-            {!this.state.showInputName?
+            {!showInputName?
                 <Row>
                     <Col md={9}>
-                        <p>{this.info.props.name}</p>
+                        <p>{props.name}</p>
                     </Col>
                     <Col md={3}>
-                        <Button onClick={this.handleEditName}>Edit</Button>
+                        <Button onClick={handleEditName}>Edit</Button>
                     </Col>
                 </Row>
                 :
                 <Row>
                     <Col md = {9} sm = {5}>
-                        {/* <Input placeholder="Input here"
-                                defaultValue={this.info.props.name==='-'?'':this.info.props.name}
-                                onChange={(e) => this.setState({NameVal:e.target.value})}
-                        /> */}
                         <Form.Control
                              type="text"
-                             placeholder="Enter Name"
-                             value={this.info.props.name==='-'?'':this.info.props.name}
-                             onChange={(e) => this.setState({NameVal:e.target.value})}></Form.Control>
+                             placeholder="Enter Name" 
+                             onChange={(e) => setName(e.target.value)}></Form.Control>
                     </Col>
                     <Col md = {3} sm = {7}>
-                        <CheckCircleOutlined onClick={this.handleAffirmName}/>
-                        <CloseCircleOutlined onClick={this.handleCloseName} />
+                        <CheckCircleOutlined onClick={handleAffirmName}/>
+                        <CloseCircleOutlined onClick={handleCloseName} />
                     </Col>
                 </Row>
             }
             </div>
             <hr />
             <div>
-            {!this.state.showInputEmail?
+            {!showInputEmail?
                 <Row>
                     <Col md={9}>
-                        <p>{this.info.props.email}</p>
+                        <p>{props.email}</p>
                     </Col>
                     <Col md={3}>
-                        <Button onClick={this.handleEditEamil}>Edit</Button>
+                        <Button onClick={handleEditEamil}>Edit</Button>
                     </Col>
                 </Row>
                 :
                 <Row>
                     <Col md = {9} sm = {5}>
-                        {/* <Input placeholder="Input here"
-                                defaultValue={this.info.props.email==='-'?'':this.info.props.email}
-                                onChange={(e) => this.setState({EmailVal:e.target.value})}
-                        /> */}
                         <Form.Control
                              type="text"
-                             placeholder="Enter Name"
-                             value={this.info.props.name==='-'?'':this.info.props.name}
-                             onChange={(e) => this.setState({NameVal:e.target.value})}></Form.Control>
+                             placeholder="Enter Email"
+                             onChange={(e) => setEmail(e.target.value)}></Form.Control>
                     </Col>
                     <Col md = {3} sm = {7}>
-                        <CheckCircleOutlined onClick={this.handleAffirmEmail}/>
-                        <CloseCircleOutlined onClick={this.handleCloseEmail} />
+                        <CheckCircleOutlined onClick={handleAffirmEamil}/>
+                        <CloseCircleOutlined onClick={handleCloseEmail} />
                     </Col>
                 </Row>
             }
             </div>
       </div>
       </Container>
-        )
-    }
+    )
 }
+export default Profile;

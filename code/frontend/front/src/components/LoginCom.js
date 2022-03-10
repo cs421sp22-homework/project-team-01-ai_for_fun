@@ -1,21 +1,25 @@
 import React from 'react'
 import { Form, Input, Button, Checkbox } from 'antd';
+import Alert from 'react-bootstrap/Alert'
 import 'antd/dist/antd.css';
 import '../style/loginComp.css'
 import axios from 'axios'
-import {LockOutlined, UserOutlined} from '@ant-design/icons';
-import { SyntheticEvent, useRef, useState, useEffect } from "react";
+import {useRef, useState, useEffect, useContext } from "react";
 import { Navigate} from "react-router-dom";
+import {LoginContext} from '../context/AuthProvider';
 
 
   const  NormalLoginForm = () => {
       const userRef = useRef();
       const errRef = useRef();
+      const {loggedIn, setLoggedIn} = useContext(LoginContext);
+      const {token,setToken} = useContext(LoginContext);
 
       const [email,setEmail] = useState('');
       const [pwd, setPwd] = useState('');
       const [errMsg, setErrMsg] = useState('');
       const [success, setSuccess] = useState(false);
+      const[redirect, setRedirect] = useState(false);
 
       useEffect(() => {
           userRef.current.focus();
@@ -37,23 +41,8 @@ import { Navigate} from "react-router-dom";
           e.preventDefault();
           console.log(JSON.stringify({email, pwd}))
           try{
-              let url = 'http://44.202.107.241:8000/user/login'
-            //   const response = await axios.post(url,JSON.stringify({user, pwd}),
-            //   {
-            //       headers:{'Content-type':'application/json',
-            //     },
-            //       withCredentials:true
-            //   }
-            //   ).then(res=>{
-            //     if(res.status === 200){
-            //         alert('Success!')
-            //         this.props.history.push('/')
-            //     }
-            //         else{
-            //             console.log(res)
-            //             alert('Failed!' + res.data.msg)
-            //     }
-            // });
+            let url = 'http://44.202.107.241:8000/user/login'
+            
             const response = await fetch(url,{
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
@@ -62,26 +51,47 @@ import { Navigate} from "react-router-dom";
                     'password':pwd
                 })
             });
-              console.log(JSON.stringify(response?.data));
-              const accessToken = response?.data?.accessToken;
+            console.log(response.status)
+
+            if (response.status == 200){
+              const content = await response.json();
+              console.log(content);
+              setLoggedIn(true);
               setEmail('');
               setPwd('');
               setSuccess(true);
-          }catch(err){
-              if(!err?.response){
-                  setErrMsg('No Server Response');
-              }else if (err.response?.status ===400){
-                  setErrMsg('Missing Email or Password');
-              }
+              setToken(content.token);
+              setRedirect(true)
           }
+          else {
+              console.log('request failed', response);
+              setErrMsg('Wrong Email or Password');
+          } 
+          }catch(err){
+              if (err.response?.status ===500){
+                  setErrMsg('Missing Email or Password');
+              }else{
+                  setErrMsg('Login Failed!');
+              }
+              errRef.current.focus();
+          }
+      }
+
+      if(redirect){
+        return <Navigate to="/"/>
       }
 
       return(
           <>
+               
            <div className='login-div'>
                <div className='loginTitle'>Login</div>
-              <p ref = {errRef} className={errMsg ? "errmsg": "offscreen"} aria-live="assertive">{errMsg}</p>
-          
+               {errMsg?(
+               <Alert variant={'danger'}>
+               <p ref = {errRef} className={errMsg ? "errmsg": "offscreen"} aria-live="assertive">{errMsg}</p>
+               </Alert>)
+               :(<></>)
+               }
           <Form
                 name="basic"
                 labelCol={{

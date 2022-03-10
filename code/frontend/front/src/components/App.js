@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,useState } from "react";
 import '../style/App.css';
 import '../bootstrap-4.3.1-dist/css/bootstrap.min.css'
 
@@ -12,13 +12,17 @@ import Profile from "../components/Profile";
 import Login from "../container/Login";
 import Register from "../container/Register";
 import "../style/App.css"
+import {LoginContext} from '../context/AuthProvider';
 
 const info = {pic:'./img/01.png',name:'Sample',email:'1234@jh.edu'}
 
-class App extends Component {
-  render() {
+
+
+function App() {
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [token, setToken] = useState('');
     return (
-      <>
+      <LoginContext.Provider value = {{loggedIn, setLoggedIn,token,setToken}}>
         <Router>
             <NavBar />
           <div>
@@ -32,8 +36,7 @@ class App extends Component {
             </Routes>
           </div>
         </Router>
-      </>
+      </LoginContext.Provider>
     )
-  }
 }
 export default App;
