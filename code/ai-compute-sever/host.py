@@ -33,18 +33,21 @@ class S(BaseHTTPRequestHandler):
         logging.info("POST request,\nPath: %s\nHeaders:\n%s\n\nBody:\n%s\n",
                 str(self.path), str(self.headers), post_data.decode('utf-8'))
         data = json.loads(post_data.decode('utf-8'))
-        url = data["url"]
         if (str(self.path)=="/test"):
             print("running cifar service")
+            url = data["url"]
             res=Aichange(url)
         if (str(self.path)=="/faceswap"):
             print("running faceswap service")
+            url = data["url"]
             res=faceswap(url)
         if (str(self.path)=="/styleflow"):
             print("running styleflow service")
+            url = data["url"]
             res=styleflow(url)
         if (str(self.path)=="/exchangeaudio"):
             print("running exchangeaudio service")
+            url = data["url"]
             res=exchangeaudio(url)
 
 
