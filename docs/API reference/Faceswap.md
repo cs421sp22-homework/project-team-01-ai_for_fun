@@ -31,6 +31,6 @@ Swap the face of source image to the face of target image
 ## Response
 
 ```json
-{'res_name': 'twb6CPRZmnLPq9Sr.jpg', 'res_url':
-'https://aifun.s3.amazonaws.com/twb6CPRZmnLPq9Sr.jpg?AWSAccessKeyId=AKIAXRGYYT5KAP6UULMPSignature=feaTCoaVp6Bse7fTzRF2rVQhfN'}
+{"res_name": "twb6CPRZmnLPq9Sr.jpg", "res_url":
+"https://aifun.s3.amazonaws.com/twb6CPRZmnLPq9Sr.jpg?AWSAccessKeyId=AKIAXRGYYT5KAP6UULMPSignature=feaTCoaVp6Bse7fTzRF2rVQhfN"}
 ```
