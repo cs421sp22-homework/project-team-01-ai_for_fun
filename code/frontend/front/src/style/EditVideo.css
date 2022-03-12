@@ -1,0 +1,45 @@
+.res-box {
+    height : 1000px;
+}
+
+.center-box{
+    display: flex;
+   flex-direction: column; 
+   justify-content: center;
+}
+
+.w100{
+    width: fit-content;
+}
+
+
+
+.wrap_scrollImg {
+    /* width: 100%;
+    overflow: hidden; */
+    /* position: relative; */
+  }
+  /* .wrap_scrollImg ul {
+    z-index: 10;
+    height: inherit;
+    white-space: nowrap;
+    position: relative;
+  } */
+  /* .wrap_scrollImg ul li {
+    height: 100%;
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 6px;
+    cursor: pointer;
+  } */
+
+  /* .wrap_scrollImg ul li img:hover {
+    transform: scale(1.1);
+  } */
+
+/* * {box-sizing: border-box} */
+
+
+/* .shadow {
+  box-shadow: 2px 1px 1px rgba(41, 41, 41, 0.5);
+} */

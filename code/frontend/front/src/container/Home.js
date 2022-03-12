@@ -1,4 +1,4 @@
-import React, { Fragment, PureComponent } from "react";
+import React from "react";
 import Tab from "./Tab";
 import Slideshow from "../components/Slideshow";
 import Container from 'react-bootstrap/Container';
@@ -37,86 +37,16 @@ export class Home extends React.Component {
                     <div className='mask'>
                     <div className='d-flex justify-content-center align-items-center h-100 text-center'>
                         <div className='text-white'>
-                        {/* <h1 className='mt-5'>AI For Fun</h1>
-                        <h4 className='mt-1'>This is an application</h4> */}
                         <h1 className='mb-3'>AI For Fun</h1>
                         <h4 className='mb-3'>This is an application</h4>
-                        <a className='btn btn-outline-dark btn-lg' href='#!' role='button'>
+                        <a className='btn btn-outline-dark btn-lg' href='/edit-video' role='button'>
                             Get Start
                         </a>
                         </div>
                     </div>
                     </div>
-                    {/* <Tabs  defaultActiveKey="foryou" id="uncontrolled-tab-example" className="mb-3 test">
-                    <Tab eventKey="foryou" title="For you">
-                        <div className="mt-5">
-                        <Slideshow imgData={tempimage}/>
-                        </div>
-                    </Tab>
-                    <Tab eventKey="profile" title="Profile">
-                        gap
-                    </Tab>
-                    <Tab eventKey="contact" title="Contact">
-                    <div className="mt-5">
-                        <Slideshow imgData={tempimage}/>
-                        </div>
-                    </Tab>
-                </Tabs> */}
                 </div>
             <Container fluid>    
-                {/* <Row>
-                    <Col lg={1}></Col>
-
-                    <Col lg={2}>
-                        <NavLink to="/account" className='home-button center'><a href="" className="logo"><img className="logo" src={image} alt="" /></a>
-                        </NavLink>
-                        <p className="text-center display:block">For you</p>
-                    </Col>
-
-                    <Col lg={2}>
-                        <NavLink to="/account" className='home-button center'><a href="" className="logo"><img className="logo" src={image1} alt="" /></a>
-                        </NavLink>
-                        <p className="text-center display:block">Trend</p>
-                    </Col>
-
-                    <Col lg={2}>
-                        <NavLink to="/AI_face" className='home-button center'><a href="" className="logo"><img className="logo" src={image2} alt="" /></a>
-                        </NavLink>
-                        <p className="text-center display:block">AI Face</p>
-                    </Col>
-
-                    <Col lg={2}>
-                        <NavLink to="/AI_vedio" className='home-button center'><a href="" className="logo"><img className="logo" src={image3} alt="" /></a>
-                        </NavLink>
-                        <p className="text-center display:block">AI Vedio</p>
-                    </Col>
-
-                    <Col lg={2}>
-                        <NavLink to="/AI_text" className='home-button center'><a href="" className="logo"><img className="logo" src={image4} alt="" /></a>
-                        </NavLink>
-                        <p className="text-center display:block">AI Text</p>
-                    </Col>
-                </Row> */}
-
-                {/* <div className="App mt-4">
-                    <TabNav tabs={['❤️  For you ❤️', '🔥 Trend 🔥', '🥀 AI face 🥀', '🎧  AI vedio 🎧', '🎵 AI text 🎵']} selected={this.state.selected} setSelected={this.setSelected}>
-                        <Tab isSelected={this.state.selected === '❤️  For you ❤️'}>
-
-                        </Tab>
-                        <Tab isSelected={this.state.selected === '🔥 Trend 🔥'}>
-                            <Slideshow imgData={tempimage}/>
-                        </Tab>
-                        <Tab isSelected={this.state.selected === '🥀 AI face 🥀'}>
-                            <p> hello this is what is a AI model1</p>
-                        </Tab>
-                        <Tab isSelected={this.state.selected === '🎧  AI vedio 🎧'}>
-                            <p> hello this is what is a AI model2</p>
-                        </Tab>
-                        <Tab isSelected={this.state.selected === '🎵 AI text 🎵'}>
-                            <p> hello this is what is a AI model3</p>
-                        </Tab>
-                    </TabNav>
-                </div> */}
                  <Tabs  defaultActiveKey="foryou" id="uncontrolled-tab-example">
                     <Tab eventKey="foryou" title="For you">
                         <div className="mt-3">

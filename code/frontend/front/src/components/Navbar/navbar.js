@@ -31,7 +31,11 @@ function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-            <Nav.Link href="#features">My work</Nav.Link>
+            {loggedIn ?
+              <Nav.Link href="#features">My work</Nav.Link>
+            :
+            <></>
+          }
             </Nav>
             <Nav>
             <Nav.Link eventKey={0} href="#memes" onClick={handelHelp}>

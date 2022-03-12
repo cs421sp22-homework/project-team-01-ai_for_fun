@@ -1,0 +1,27 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-aiforfun-dev-235230-authRole",
+      "UnauthRoleArn": "arn:aws:iam::517998157652:role/amplify-aiforfun-dev-235230-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::517998157652:role/amplify-aiforfun-dev-235230-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-aiforfun-dev-235230-deployment",
+      "UnauthRoleName": "amplify-aiforfun-dev-235230-unauthRole",
+      "StackName": "amplify-aiforfun-dev-235230",
+      "StackId": "arn:aws:cloudformation:us-east-1:517998157652:stack/amplify-aiforfun-dev-235230/3b236190-a1c0-11ec-897b-121564f84bd7",
+      "AmplifyAppId": "dl2aw8e9k8n39"
+    },
+    "categories": {
+      "auth": {
+        "aiforfunbb20ad0f": {},
+        "true": {}
+      },
+      "function": {
+        "S3Trigger42b79617": {
+          "deploymentBucketName": "amplify-aiforfun-dev-235230-deployment",
+          "s3Key": "amplify-builds/S3Trigger42b79617-2f7a2b4b6a7a5948776b-build.zip"
+        }
+      }
+    }
+  }
+}

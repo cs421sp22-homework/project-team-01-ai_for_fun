@@ -13,9 +13,16 @@ import Login from "../container/Login";
 import Register from "../container/Register";
 import "../style/App.css"
 import {LoginContext} from '../context/AuthProvider';
+import EditVideo from "../container/EditVideo";
 
 const info = {pic:'./img/01.png',name:'Sample',email:'1234@jh.edu'}
-
+const tempimage = [
+  { imgUrl: './img/01.png', name: '01', topic: 'Star' },
+  { imgUrl: './img/02.png', name: '02', topic: 'House' },
+  { imgUrl: './img/03.png', name: '03', topic: 'New Year' },
+  { imgUrl: './img/04.png', name: '04', topic: 'Amazing' },
+  { imgUrl: './img/05.png', name: '05', topic: 'Fashion' },
+]
 
 
 function App() {
@@ -33,6 +40,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/edit-video" element={<EditVideo imgData ={tempimage}/>} />
             </Routes>
           </div>
         </Router>
