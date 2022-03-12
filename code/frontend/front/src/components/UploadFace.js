@@ -67,15 +67,38 @@ class UploadFace extends React.Component {
     this.setState({
       loading:true,
     });
-    const {filename} = this.state;
-    const result = await Storage.put(filename.name, filename);
-    console.log(result);
-    const signedURL = await Storage.get(result.key);
-    console.log(signedURL);
-    this.setState({
-      imageUrl: signedURL,
-      loading: false,
-    })
+    try{
+      const {filename} = this.state;
+      const result = await Storage.put(filename.name, filename);
+      console.log(result);
+      const signedURL = await Storage.get(result.key);
+      console.log(signedURL);
+
+      this.setState({
+        imageUrl: signedURL,
+        loading: false,
+      });
+      // // TODO: Upload image data as API
+      // fetch('https://www.mocky.io/v2/5cc8019d300000980a055e76', {
+      //   method: 'POST',
+      //   body: formData,
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ title: 'React POST Request Example' })
+      // })
+      //   .then(res => res.json())
+      //   .then(() => {
+      //     this.setState({
+      //       imageUrl: signedURL,
+      //       loading: false,
+      //     });
+      //     message.success('upload successfully.');
+      //   })
+    } catch (error){
+      console.log("Error uploading file:", error)
+      message.error(`file upload failed.`);
+      this.setState({ loading: false });
+    }
+    
   }
 
   render() {

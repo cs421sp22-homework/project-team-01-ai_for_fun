@@ -21,6 +21,12 @@
           "deploymentBucketName": "amplify-aiforfun-dev-235230-deployment",
           "s3Key": "amplify-builds/S3Trigger42b79617-2f7a2b4b6a7a5948776b-build.zip"
         }
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "dl2aw8e9k8n39",
+          "type": "manual"
+        }
       }
     }
   }
