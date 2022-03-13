@@ -19,8 +19,6 @@ function getBase64(img, callback) {
 }
 
 
-
-
 class UploadFace extends React.Component {
   state = {
     filename: null,
@@ -36,7 +34,7 @@ class UploadFace extends React.Component {
     if (!isLt2M) {
       message.error('Image must smaller than 2MB!');
     }
-    this.setState({filename:file});
+    this.setState({ filename: file });
     return isJpgOrPng && isLt2M;
   }
 
@@ -54,21 +52,21 @@ class UploadFace extends React.Component {
           loading: false,
         }),
       );
-    }else if (info.file.status === 'error') {
-        message.error(`${info.file.name} file upload failed.`);
-        this.setState({ loading: false });
+    } else if (info.file.status === 'error') {
+      message.error(`${info.file.name} file upload failed.`);
+      this.setState({ loading: false });
     }
   };
 
-  handleRequest = async() => {
-    
+  handleRequest = async () => {
+
     // const formData = new FormData();
     // formData.append('file',filename);
     this.setState({
-      loading:true,
+      loading: true,
     });
-    try{
-      const {filename} = this.state;
+    try {
+      const { filename } = this.state;
       const result = await Storage.put(filename.name, filename);
       console.log(result);
       const signedURL = await Storage.get(result.key);
@@ -93,12 +91,12 @@ class UploadFace extends React.Component {
       //     });
       //     message.success('upload successfully.');
       //   })
-    } catch (error){
+    } catch (error) {
       console.log("Error uploading file:", error)
       message.error(`file upload failed.`);
       this.setState({ loading: false });
     }
-    
+
   }
 
   render() {
@@ -111,17 +109,17 @@ class UploadFace extends React.Component {
     );
     return (
       <ImgCrop rotate>
-          <Upload
-        name="avatar"
-        listType="picture-card"
-        className="avatar-uploader"
-        showUploadList={false}
-        beforeUpload={this.beforeUpload}
-        onChange={this.handleChange}
-        customRequest={this.handleRequest}
-      >
-        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-      </Upload>
+        <Upload
+          name="avatar"
+          listType="picture-card"
+          className="avatar-uploader"
+          showUploadList={false}
+          beforeUpload={this.beforeUpload}
+          onChange={this.handleChange}
+          customRequest={this.handleRequest}
+        >
+          {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+        </Upload>
       </ImgCrop>
     );
   }

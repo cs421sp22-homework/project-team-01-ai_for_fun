@@ -7,8 +7,8 @@ import Slideshow from "../components/Slideshow";
 import SlideshowInMode from "../components/recommend-in-mode/SlideshowInMode";
 import Card from 'react-bootstrap/Card'
 import UploadPic from '../components/UploadPic';
-import '../style/Slideshow.css';
-import '../style/sider.css';
+// import '../style/Slideshow.css';
+// import '../style/sider.css';
 // import UploadFile from "../components/UploadFile";
 // import FaceResult from "../components/FaceResult";
 import SlidesShowInLeft from "../components/recommend-in-mode/SlidesShowInLeft";
@@ -16,7 +16,6 @@ import CollectionInLeft from "../components/recommend-in-mode/CollectionInLeft";
 import Video from '../components/Video';
 import UploadFace from '../components/UploadFace';
 import EditVideo from './EditVideo';
-
 
 import { Layout, Menu, Breadcrumb } from 'antd';
 import {
@@ -45,7 +44,7 @@ const tempimage = [
     { imgUrl: './img/07.png', name: '07', topic: 'Good' },
 ]
 
-export const AI_face = () => {
+export const AI_face_topic = () => {
     const [collapsed, setCollapsed] = useState(false);
     const onCollapse = collapsed => {
         console.log(collapsed);
@@ -59,22 +58,34 @@ export const AI_face = () => {
 
     return (
         <>
+            <Row style={{ height: '100%' }}>
+                <Col xs={4}>
+                    < CollectionInLeft />
+                </Col>
+                <Col xs={7}>
+                    <Layout className="site-layout">
+                        <EditVideo imgData={tempimage} />
+                    </Layout>
+                </Col>
+            </Row>
+            {/*
             <Layout style={{ minHeight: '100%' }}>
-                <Sider collapsible collapsed={collapsed} onCollapse={onCollapse} theme="dark" width='350' collapsedWidth='100'>
+                <Sider collapsible collapsed={collapsed} onCollapse={onCollapse} theme="light" width='350' collapsedWidth='100'>
                     <div className="logo" />
                     <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
                         < SlidesShowInLeft />
-                        {/* < CollectionInLeft /> */}
+                        < CollectionInLeft />
                     </Menu>
                 </Sider>
 
                 <Layout className="site-layout">
-                    {/* <FaceResult />
-                    <UploadFile /> */}
-                    {/* <Video props={tempvideo} /> */}
+                    <FaceResult />
+                    <UploadFile /> 
+                    <Video props={tempvideo} /> 
                     <EditVideo imgData={tempimage} />
                 </Layout>
             </Layout>
+        */}
 
         </>
     );
