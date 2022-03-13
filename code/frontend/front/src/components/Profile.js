@@ -5,14 +5,17 @@ import {CheckCircleOutlined,CloseCircleOutlined} from '@ant-design/icons';
 import UploadPic from './UploadPic';
 import '../style/Profile.css';
 import {Row, Col, Button, Form} from 'react-bootstrap';
-import Container from 'react-bootstrap/Container'
+import Container from 'react-bootstrap/Container';
+import Image from 'react-bootstrap/Image';
+import "../bootstrap-4.3.1-dist/css/bootstrap.min.css"
 
 function Profile(props) {
     props = props.props
-    const [email,setEmail] = useState('');
-    const [name,setName] = useState('');
+    const [email,setEmail] = useState(props.email);
+    const [name,setName] = useState(props.name);
     const [showInputEmail, setshowInputEmail] = useState(false);
     const [showInputName, setshowInputName] = useState(false);
+    const [pic, setPic] = useState(props.pic);
  
     // Edit Name
     const handleEditName = () => {
@@ -38,15 +41,33 @@ function Profile(props) {
     };
     
     return (
-        <Container>
-        <div>
-            <div>
+        <Container style={{minHeight: '100vh'}}>
+            <Row className='pt-3'>
+            <Col md={3} style={{backgroundColor: 'whitesmoke'}} className="mr-1">
+                <Row className='mt-4'>
+                    <div style={{width: 180}} className="mx-auto">
+                    <Image roundedCircle src={pic} fluid />
+                    </div>
+                </Row>
+                <br/>
                 <Row>
+                    <p class="font-weight-bold text-center">{name}</p>
+                    <p class="text-center">{email}</p>
+                    
+                </Row>
+                <center>
+                <Button variant="outline-dark" size="sm" onClick={handleEditEamil} >Edit Password</Button>
+                </center>
+                <hr/>
+            </Col>
+            <Col md={8} style={{backgroundColor: 'whitesmoke',minHeight: '100vh'}}>
+            <div>
+                <Row className='mt-4'>
                     <Col md={9}>
-                    <img src={props.pic} className="App-logo" alt="logo" />
+                    <img src={pic} className="App-logo" alt="logo" />
                     </Col>
-                    <Col md={3}>
-                        <UploadPic/>
+                    <Col md={3} className='pt-4'>
+                        <UploadPic />
                     </Col>
                 </Row>
                 <hr />
@@ -55,10 +76,10 @@ function Profile(props) {
             {!showInputName?
                 <Row>
                     <Col md={9}>
-                        <p>{props.name}</p>
+                        <p>{name}</p>
                     </Col>
                     <Col md={3}>
-                        <Button onClick={handleEditName}>Edit</Button>
+                        <Button variant="outline-dark" onClick={handleEditName}>Edit</Button>
                     </Col>
                 </Row>
                 :
@@ -78,13 +99,14 @@ function Profile(props) {
             </div>
             <hr />
             <div>
+
             {!showInputEmail?
                 <Row>
                     <Col md={9}>
-                        <p>{props.email}</p>
+                        <p>{email}</p>
                     </Col>
                     <Col md={3}>
-                        <Button onClick={handleEditEamil}>Edit</Button>
+                        <Button variant="outline-dark" onClick={handleEditEamil}>Edit</Button>
                     </Col>
                 </Row>
                 :
@@ -102,7 +124,8 @@ function Profile(props) {
                 </Row>
             }
             </div>
-      </div>
+            </Col>
+            </Row>
       </Container>
     )
 }

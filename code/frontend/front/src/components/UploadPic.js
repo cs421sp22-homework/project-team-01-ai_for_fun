@@ -1,5 +1,6 @@
 import React, { useState,mountNode } from 'react';
 import ImgCrop from 'antd-img-crop';
+// import {Button} from "react-bootstrap"
 import { Upload, Button, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import 'antd/es/modal/style';
@@ -23,7 +24,7 @@ function UploadPic(){
   return (
     <ImgCrop rotate>
       <Upload {...props}>
-      <Button icon={<UploadOutlined />}>Upload</Button>
+      <Button shape="round" icon={<UploadOutlined />}>Upload</Button>
     </Upload>
     </ImgCrop>
   );
