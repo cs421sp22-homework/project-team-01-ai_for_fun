@@ -5,6 +5,7 @@ import { Upload, Button, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import 'antd/es/modal/style';
 import "antd/dist/antd.css";
+import "../bootstrap-4.3.1-dist/css/bootstrap.min.css"
 
 function UploadPic(){
   const props = {

@@ -7,12 +7,23 @@ import { List } from 'antd';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import {Image} from 'react-bootstrap';
+import "../../bootstrap-4.3.1-dist/css/bootstrap.min.css";
 // import { StyleSheet, Text, SafeAreaView, ScrollView, StatusBar } from 'react-native';
 
-export default function CollectionInLeft() {
-
+export default function CollectionInLeft(props) {
+    // const ref = createRef();
+    // const { imgData } = props;
     return (
-        <Card border="light">
+        <>
+        <Row className="ml-1 overflow-auto" style={{height:"100vh"}}>
+        {tempimage.map(item => {
+          return <Col key={item.name} xl={4} lg={6} sm={12} className="mt-3">
+              <Image src={item.imgUrl} fluid alt="item.name" />
+          </Col>;
+        })}
+        </Row>
+        {/* <Card border="light">
             <h4 style={{ textAlign: 'center', margin: "1px" }}>Topic Name</h4>
             <Card.Body >
                 <List
@@ -33,7 +44,8 @@ export default function CollectionInLeft() {
                     )}
                 />
             </Card.Body>
-        </Card >
+        </Card > */}
+        </>
     );
 }
 

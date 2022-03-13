@@ -59,10 +59,10 @@ export const AI_face_topic = () => {
     return (
         <>
             <Row style={{ height: '100%' }}>
-                <Col xs={4}>
+                <Col xs={3}>
                     < CollectionInLeft />
                 </Col>
-                <Col xs={7}>
+                <Col xs={9}>
                     <EditVideo imgData={tempimage} />
                 </Col>
             </Row>

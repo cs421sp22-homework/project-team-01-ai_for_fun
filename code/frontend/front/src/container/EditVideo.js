@@ -55,18 +55,17 @@ function EditVideo(props){
             </Row>
         </Content>
         <Footer >
-            <Row>
-            <Col md={2} lg={1}>
+            <Row >
+            <Col md={2} lg={1} className="mx-auto">
             <UploadFace />
             </Col>
-            <Col md={10} lg={10}>
-            <ul ref={ref} style={{ float:"left" }}>
+            <Col md={10} lg={10} className="overflow-auto">
+            <ul ref={ref} >
             <Image.PreviewGroup>
             {imgData.map(item => {
-            return <li key={item.name} className="pl-3" style={{ display: 'inline-block'}}>
+            return <li key={item.name} className="pl-3 mt-1" style={{ display: 'inline-block'}}>
             <Image
-            width={110}
-            height={110}
+            className='res-img'
             src={item.imgUrl}
             preview = {true}
           />
