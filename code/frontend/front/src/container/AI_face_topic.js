@@ -63,9 +63,7 @@ export const AI_face_topic = () => {
                     < CollectionInLeft />
                 </Col>
                 <Col xs={7}>
-                    <Layout className="site-layout">
-                        <EditVideo imgData={tempimage} />
-                    </Layout>
+                    <EditVideo imgData={tempimage} />
                 </Col>
             </Row>
             {/*

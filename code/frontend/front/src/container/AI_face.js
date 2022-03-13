@@ -25,6 +25,15 @@ import {
     FileOutlined,
     TeamOutlined,
     UserOutlined,
+    AppstoreOutlined,
+    BarChartOutlined,
+    CloudOutlined,
+    ShopOutlined,
+    UploadOutlined,
+    VideoCameraOutlined,
+    UserAddOutlined,
+    UserDeleteOutlined,
+    UsergroupAddOutlined
 
 } from '@ant-design/icons';
 const { Header, Content, Footer, Sider } = Layout;
@@ -44,7 +53,6 @@ const tempimage = [
     { imgUrl: './img/06.png', name: '06', topic: 'Face' },
     { imgUrl: './img/07.png', name: '07', topic: 'Good' },
 ]
-
 export const AI_face = () => {
     const [collapsed, setCollapsed] = useState(false);
     const onCollapse = collapsed => {
@@ -54,28 +62,64 @@ export const AI_face = () => {
         } else {
             setCollapsed(false);
         }
-
     };
-
     return (
         <>
-            <Layout style={{ minHeight: '100%' }}>
-                <Sider collapsible collapsed={collapsed} onCollapse={onCollapse} theme="dark" width='350' collapsedWidth='100'>
+            <Layout hasSider>
+                <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}
+                    theme="dark" width='35%' collapsedWidth='5%'
+                    style={{
+                        height: 'auto',
+                        width: '100%',
+                        // overflow: 'auto',
+                        // position: 'fixed',
+                    }}
+                >
                     <div className="logo" />
-                    <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-                        < SlidesShowInLeft />
-                        {/* < CollectionInLeft /> */}
+                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['sub1', 'sub2', 'sub3', 'sub4']}>
+                        {/* <Menu.ItemGroup key="g1" title="Most popular">
+                            <SlideshowInMode imgData={tempimage} />
+                        </Menu.ItemGroup>
+                        <Menu.ItemGroup key="g1" title="animal">
+                            <SlideshowInMode imgData={tempimage} />
+                        </Menu.ItemGroup>
+                        <Menu.ItemGroup key="g1" title="celebrity">
+                            <SlideshowInMode imgData={tempimage} />
+                        </Menu.ItemGroup>
+                        <Menu.ItemGroup key="g1" title="topic2">
+                            <SlideshowInMode imgData={tempimage} />
+                        </Menu.ItemGroup>
+                        <Menu.ItemGroup key="g1" title="topic3">
+                            <SlideshowInMode imgData={tempimage} />
+                        </Menu.ItemGroup>
+                        <Menu.ItemGroup key="g1" title="topic">
+                            <SlideshowInMode imgData={tempimage} />
+                        </Menu.ItemGroup> */}
+                        <SubMenu key="sub1" icon={<UserAddOutlined />} title="For you">
+                            <SlideshowInMode imgData={tempimage} />
+                        </SubMenu>
+                        <SubMenu key="sub2" icon={<UserDeleteOutlined />} title="Recent popular topic">
+                            <SlideshowInMode imgData={tempimage} />
+                        </SubMenu>
+                        <SubMenu key="sub3" icon={<UserOutlined />} title="celebrity image">
+                            <SlideshowInMode imgData={tempimage} />
+                        </SubMenu>
+                        <SubMenu key="sub4" icon={<UsergroupAddOutlined />} title="animal image">
+                            <SlideshowInMode imgData={tempimage} />
+                        </SubMenu>
                     </Menu>
+
                 </Sider>
 
-                <Layout className="site-layout">
-                    {/* <FaceResult />
-                    <UploadFile /> */}
-                    {/* <Video props={tempvideo} /> */}
-                    <EditVideo imgData={tempimage} />
+                <Layout className="site-layout" style={{ marginLeft: 0 }}>
+                    <Header className="site-layout-background" style={{ padding: 0, textAlign: 'center', background: '#f0f0f0' }} > <h2>AI FACE</h2></Header>
+                    <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+                        <div className="site-layout-background" style={{ padding: 0, textAlign: 'center' }}>
+                            <EditVideo imgData={tempimage} />
+                        </div>
+                    </Content>
                 </Layout>
             </Layout>
-
         </>
     );
 };
