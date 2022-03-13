@@ -14,7 +14,7 @@ const tempimage = [
 
 const SlidesShowInLeft = () => {
     return (
-        <Card style={{ background: '#dadefc', height: '100%' }} >
+        <Card style={{ background: 'White', height: '100%' }} >
             <Card.Header as="h5">For you</Card.Header>
             <Card.Body>
                 <SlideshowInMode imgData={tempimage} />
