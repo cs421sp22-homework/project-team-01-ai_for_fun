@@ -33,7 +33,8 @@ import {
     VideoCameraOutlined,
     UserAddOutlined,
     UserDeleteOutlined,
-    UsergroupAddOutlined
+    UsergroupAddOutlined,
+    MailOutlined
 
 } from '@ant-design/icons';
 const { Header, Content, Footer, Sider } = Layout;
@@ -76,7 +77,7 @@ export const AI_face = () => {
                     }}
                 >
                     <div className="logo" />
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['sub1', 'sub2', 'sub3', 'sub4']}>
+                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1', 'sub2', 'sub3', 'sub4']}>
                         {/* <Menu.ItemGroup key="g1" title="Most popular">
                             <SlideshowInMode imgData={tempimage} />
                         </Menu.ItemGroup>
@@ -107,6 +108,20 @@ export const AI_face = () => {
                         <SubMenu key="sub4" icon={<UsergroupAddOutlined />} title="animal image">
                             <SlideshowInMode imgData={tempimage} />
                         </SubMenu>
+                        {/* <SubMenu key="sub1" icon={<MailOutlined />} title="All style">
+                            <Menu.ItemGroup key="g1" title="For You">
+                                <SlideshowInMode imgData={tempimage} />
+                            </Menu.ItemGroup>
+                            <Menu.ItemGroup key="g2" title="Popular">
+                                <SlideshowInMode imgData={tempimage} />
+                            </Menu.ItemGroup>
+                            <Menu.ItemGroup key="g1" title="Celebrity Image">
+                                <SlideshowInMode imgData={tempimage} />
+                            </Menu.ItemGroup>
+                            <Menu.ItemGroup key="g1" title="Fun Image">
+                                <SlideshowInMode imgData={tempimage} />
+                            </Menu.ItemGroup>
+                        </SubMenu> */}
                     </Menu>
 
                 </Sider>
