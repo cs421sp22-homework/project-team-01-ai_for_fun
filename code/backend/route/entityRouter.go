@@ -5,6 +5,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func ImageRoutes(router *gin.Engine) {
-	router.POST("/uploadimage", controller.UploadImage())
+func EntityRoutes(router *gin.Engine) {
+	router.POST("/getentities", controller.GetEntities())
 }
