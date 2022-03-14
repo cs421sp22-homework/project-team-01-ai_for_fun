@@ -2,7 +2,7 @@
 
 Used to registered User and save.
 
-**URL** : `/user/login/`
+**URL** : `/user/register/`
 
 **Method** : `POST`
 
@@ -12,9 +12,10 @@ Used to registered User and save.
 
 ```json
 {
-    "name": "[name in plain text]"
     "email": "[valid email address]",
-    "password": "[password in plain text]"
+    "password": "[password in plain text]",
+    "name": "[name in plain text]",
+    "user_type":"[the type of user, "ADMIN" or "USER"]"
 }
 ```
 
@@ -22,9 +23,11 @@ Used to registered User and save.
 
 ```json
 {
-    "name":"Yiyi Tao"
     "email": "1111taoyiyi@gmail.com",
-    "password": "1111taoyiyi"
+    "password": "1111taoyiyi",
+    "name":"Yiyi Tao",
+    "user_type":"ADMIN"
+    
 }
 ```
 
@@ -49,11 +52,5 @@ Used to registered User and save.
 **Content** :
 
 ```json
-{
-    "type": "cors", 
-    "url": "http://localhost:8000/user/register", 
-    "redirected": "false", 
-    "status": "500", 
-    "ok": "false"
-}
+{"error":"this email has already been used"}
 ```
