@@ -10,6 +10,9 @@ import '../style/registerComp.css'
 import axios from 'axios'
 import { useState } from "react";
 import { Navigate} from "react-router-dom";
+import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
+import {Row, Col} from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
 
 
 const onFinish = (values) => {
@@ -36,7 +39,7 @@ const RegistrationForm = () => {
 
   const handleSubmit = async (e) => {
       e.preventDefault();
-      const response = await fetch("http://44.202.107.241:8000/user/register",{
+      const response = await fetch("https://server-demo.ai-for-fun-backend.com/user/register",{
           method:'POST',
           headers: {'Content-Type':'application/json'},
           body:JSON.stringify({
@@ -86,8 +89,11 @@ const RegistrationForm = () => {
 
   return(
     <>
-     <div className='registerDiv'>
+     <Container>
        <div className='redisterTitle'>Register</div>
+       <Row>
+         <Col md={3}></Col>
+         <Col md={6}>
     <Form {...formItemLayout} onSubmit={handleSubmit} className='register-form'>
       <Form.Item
       name="name"
@@ -154,14 +160,17 @@ const RegistrationForm = () => {
         <Button type="primary" htmlType="submit" onClick={handleSubmit}>
           Register
         </Button>
+        <Button type="primary1" className='toLogin'>
+        <a href='/login'>
+        Return to Login
+        </a>
+  </Button>
       </Form.Item>
     </Form>
-    <Button type="primary1" className='toLogin'>
-    <a href='/login'>
-    Return to Login
-    </a>
-  </Button>
-  </div>
+    </Col>
+    <Col md={3}></Col>
+    </Row>
+  </Container>
   </>
   );
 };

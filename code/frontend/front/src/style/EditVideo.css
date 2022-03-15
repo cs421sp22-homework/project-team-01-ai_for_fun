@@ -13,8 +13,8 @@
 }
 
 .res-img{
-  height:110px;
-  width:110px;
+  height:80px;
+  width:80px;
   border-radius: 10px;
 }
 
@@ -36,8 +36,8 @@
 
 @media screen and (min-width: 2000px) {
   .res-img{
-    height:80px;
-    width:80px;
+    height:100px;
+    width:100px;
   }
 }
 
@@ -46,5 +46,12 @@
   .res-img{
     height:80px;
     width:80px;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .res-img{
+    height:40px;
+    width:40px;
   }
 }

@@ -3,19 +3,20 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import Alert from 'react-bootstrap/Alert'
 import 'antd/dist/antd.css';
 import '../style/loginComp.css'
-import axios from 'axios'
 import {useRef, useState, useEffect, useContext } from "react";
 import { Navigate} from "react-router-dom";
-import {LoginContext} from '../context/AuthProvider';
+import { useCookies } from 'react-cookie';
+import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
+import {Row, Col} from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
 
 
   const  NormalLoginForm = () => {
+      const [cookie, setCookie] = useCookies(['access_token', 'refresh_token','name','email'])
       const userRef = useRef();
       const errRef = useRef();
-      const {loggedIn, setLoggedIn} = useContext(LoginContext);
-      const {token,setToken} = useContext(LoginContext);
 
-      const [email,setEmail] = useState('');
+      const [email_login,setEmail_login] = useState('');
       const [pwd, setPwd] = useState('');
       const [errMsg, setErrMsg] = useState('');
       const [success, setSuccess] = useState(false);
@@ -27,7 +28,7 @@ import {LoginContext} from '../context/AuthProvider';
 
       useEffect(()=> {
           setErrMsg('');
-      },[email,pwd])
+      },[email_login,pwd])
 
       const onFinish = (values) => {
         console.log('Success:', values);
@@ -39,15 +40,15 @@ import {LoginContext} from '../context/AuthProvider';
 
       const handleSubmit = async (e) => {
           e.preventDefault();
-          console.log(JSON.stringify({email, pwd}))
+          console.log(JSON.stringify({email_login, pwd}))
           try{
-            let url = 'http://44.202.107.241:8000/user/login'
+            let url = 'https://server-demo.ai-for-fun-backend.com/user/login'
             
             const response = await fetch(url,{
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
                 body: JSON.stringify({
-                    'email':email,
+                    'email':email_login,
                     'password':pwd
                 })
             });
@@ -55,12 +56,13 @@ import {LoginContext} from '../context/AuthProvider';
 
             if (response.status == 200){
               const content = await response.json();
-              console.log(content);
-              setLoggedIn(true);
-              setEmail('');
-              setPwd('');
+              let expires = new Date();
+              expires.setTime(expires.getTime() + (30*60*1000));
+              setCookie('access_token', content.token, { path: '/',  expires});
+              setCookie('refresh_token', content.refresh_token, {path: '/', expires});
+              setCookie('name', content.name, {path: '/', expires});
+              setCookie('email',content.email,{path: '/', expires});
               setSuccess(true);
-              setToken(content.token);
               setRedirect(true)
           }
           else {
@@ -81,88 +83,93 @@ import {LoginContext} from '../context/AuthProvider';
         return <Navigate to="/"/>
       }
 
-      return(
-          <>
-               
-           <div className='login-div'>
-               <div className='loginTitle'>Login</div>
-               {errMsg?(
-               <Alert variant={'danger'}>
-               <p ref = {errRef} className={errMsg ? "errmsg": "offscreen"} aria-live="assertive">{errMsg}</p>
-               </Alert>)
-               :(<></>)
-               }
-          <Form
-                name="basic"
-                labelCol={{
-                  span: 8,
-                }}
-                wrapperCol={{
-                  span: 16,
-                }}
-                initialValues={{
-                  remember: true,
-                }}
-                onSubmit={handleSubmit}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                autoComplete="off"
-              >
-                <Form.Item
-                  label="Email"
-                  name="Email"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please input your Email!',
-                    },
-                  ]}
-                >
-                  <Input ref={userRef} onChange={(e) => setEmail(e.target.value)} />
-                </Form.Item>
-          
-                <Form.Item
-                  label="Password"
-                  name="password"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please input your password!',
-                    },
-                  ]}
-                >
-                  <Input.Password ref={userRef} onChange={(e) => setPwd(e.target.value)} />
-                </Form.Item>
-          
-                <Form.Item
-                  name="remember"
-                  valuePropName="checked"
-                  wrapperCol={{
-                    offset: 8,
-                    span: 16,
-                  }}
-                >
-                  <Checkbox>Remember me</Checkbox>
-                </Form.Item>
-          
-                <Form.Item
-                  wrapperCol={{
-                    offset: 8,
-                    span: 16,
-                  }}
-                >
-                  <Button type="primary" htmlType="submit" onClick={handleSubmit}>
-                    Submit
-                  </Button>
-                </Form.Item>
-              </Form>
-              <a className="login-form-forgot" href="http://www.baidu.com" style={{marginLeft: '25%'}}>
-                                      Forget Password
-                  </a>
-                   <a href="/register" style={{marginLeft: '5%'}}>Not a user?</a>
-            </div>
-        </>
-      )
+    
+      return (
+      <Container>
+          <Row ><div className="loginTitle" style={{marginLeft: '5%'}}>Login</div></Row>
+          {errMsg?(
+          <Alert variant={'danger'}>
+          <p ref = {errRef} className={errMsg ? "errmsg": "offscreen"} aria-live="assertive">{errMsg}</p>
+         </Alert>)
+          :(<></>)
+          }
+        <Row>
+          <Col md={3}></Col>
+          <Col md={6}>
+        <Form
+          name="basic"
+          labelCol={{
+            span: 8,
+          }}
+          wrapperCol={{
+            span: 16,
+          }}
+          initialValues={{
+            remember: true,
+          }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+        >
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your Email!',
+              },
+            ]}
+          >
+            <Input ref={userRef} onChange={(e) => setEmail_login(e.target.value)}/>
+          </Form.Item>
+    
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your password!',
+              },
+            ]}
+          >
+            <Input.Password ref={userRef} onChange={(e) => setPwd(e.target.value)}/>
+          </Form.Item>
+    
+          <Form.Item
+            name="remember"
+            valuePropName="checked"
+            wrapperCol={{
+              offset: 8,
+              span: 16,
+            }}
+          >
+            <Checkbox>Remember me</Checkbox>
+          </Form.Item>
+    
+          <Form.Item
+            wrapperCol={{
+              offset: 8,
+              span: 16,
+            }}
+          >
+            <Button type="primary" htmlType="submit" onClick={handleSubmit}>
+              Submit
+            </Button>
+            <a className="login-form-forgot" href="http://www.baidu.com" style={{marginLeft: '5%'}}>
+                                         Forget Password
+        </a>
+        <a href="/register" style={{marginLeft: '5%'}}>Not a user?</a>
+          </Form.Item>
+        </Form>
+       
+        
+        </Col>
+        <Col md={3}></Col>
+        </Row>
+        </Container>
+      );
   }
 
 export default NormalLoginForm;

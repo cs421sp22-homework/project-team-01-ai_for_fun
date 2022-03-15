@@ -1,19 +1,29 @@
 import { Navbar, NavItem, NavDropdown, MenuItem, Nav } from 'react-bootstrap';
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import Container from 'react-bootstrap/Container'
 import {QuestionCircleOutlined} from '@ant-design/icons';
 import {LoginContext} from '../../context/AuthProvider';
+import { useCookies } from 'react-cookie';
 
 function NavBar() {
-  const {loggedIn, setLoggedIn,token,setToken} = useContext(LoginContext);
+  const [cookie, setCookie,removeCookie] = useCookies();
+
+  // const {loggedIn, setLoggedIn,token,setToken,user,setUser,email,setEmail} = useContext(LoginContext);
+  
   const handelHelp = () => {
-    console.log(loggedIn);
-    console.log(token);
+    // console.log(loggedIn);
+    // console.log(token);
   }
   const handleLogout = () => {
-    setLoggedIn(false);
-    setToken('');
-    console.log(loggedIn)
+    removeCookie('name');
+    removeCookie('email');
+    removeCookie('refresh_token');
+    removeCookie('access_token')
+    // setLoggedIn(false);
+    // setToken('');
+    // setUser('');
+    // setEmail('');
+    // console.log(loggedIn)
   };
     return (
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
@@ -31,7 +41,7 @@ function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-            {loggedIn ?
+            {cookie.name ?
               <Nav.Link href="#features">My work</Nav.Link>
             :
             <></>
@@ -41,7 +51,7 @@ function NavBar() {
             <Nav.Link eventKey={0} href="#memes" onClick={handelHelp}>
             Help
             </Nav.Link>
-            {loggedIn ? 
+            {cookie.name ? 
             (
               <NavDropdown className='mr-4' title="My Account" id="collasible-nav-dropdown">
                 <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>

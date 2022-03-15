@@ -16,6 +16,7 @@ import { LoginContext } from '../context/AuthProvider';
 import EditVideo from "../container/EditVideo";
 import { AI_face } from "../container/AI_face";
 import { AI_face_topic } from "../container/AI_face_topic";
+import { CookiesProvider } from 'react-cookie';
 
 const info = { pic: './img/01.png', name: 'Sample', email: '1234@jh.edu' }
 const tempimage = [
@@ -28,10 +29,11 @@ const tempimage = [
 
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [token, setToken] = useState('');
+  const [faceimg, setFaceimg] = useState('');
+  const [sourceimg, setSourceimg] = useState('');
   return (
-    <LoginContext.Provider value={{ loggedIn, setLoggedIn, token, setToken }}>
+    <CookiesProvider>
+    <LoginContext.Provider value={{ faceimg, setFaceimg,sourceimg, setSourceimg}}>
       <Router>
         <NavBar />
         <div>
@@ -49,6 +51,7 @@ function App() {
         </div>
       </Router>
     </LoginContext.Provider>
+    </CookiesProvider>
   )
 }
 export default App;

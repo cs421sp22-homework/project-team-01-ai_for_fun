@@ -5,7 +5,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import 'antd/es/modal/style';
 import "antd/dist/antd.css";
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-
+import { LoginContext } from "../context/AuthProvider";
 import Amplify, { Storage } from 'aws-amplify'
 import config from '../aws-exports';
 Amplify.configure(config)
@@ -20,6 +20,8 @@ function getBase64(img, callback) {
 
 
 class UploadFace extends React.Component {
+  // static contextType = LoginContext;
+
   state = {
     filename: null,
     loading: false,
@@ -76,21 +78,9 @@ class UploadFace extends React.Component {
         imageUrl: signedURL,
         loading: false,
       });
-      // // TODO: Upload image data as API
-      // fetch('https://www.mocky.io/v2/5cc8019d300000980a055e76', {
-      //   method: 'POST',
-      //   body: formData,
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ title: 'React POST Request Example' })
-      // })
-      //   .then(res => res.json())
-      //   .then(() => {
-      //     this.setState({
-      //       imageUrl: signedURL,
-      //       loading: false,
-      //     });
-      //     message.success('upload successfully.');
-      //   })
+
+      this.context.faceimg = signedURL;
+      
     } catch (error) {
       console.log("Error uploading file:", error)
       message.error(`file upload failed.`);
@@ -124,5 +114,6 @@ class UploadFace extends React.Component {
     );
   }
 }
+UploadFace.contextType = LoginContext;
 
 export default UploadFace;
