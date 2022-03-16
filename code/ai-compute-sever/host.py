@@ -4,7 +4,8 @@ import numpy as np
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from util import upload_image, generate_random_name, url_to_image
 from run_cifar import eval_cifar
-from FaceSwap.output import faceSwapFunction 
+from FaceSwap.output import faceSwapFunction
+from  connect2db import  savefileinfo, getuploadrecord
 
 def Aichange(url):
     result=eval_cifar(url)
@@ -33,8 +34,14 @@ class S(BaseHTTPRequestHandler):
 
     def do_GET(self):
         logging.info("GET request,\nPath: %s\nHeaders:\n%s\n", str(self.path), str(self.headers))
+        router=str(self.path)
+        route=router.split("/",2)
+        if route[1]=="history":
+            res=getuploadrecord(route[2])
+        print(res)
+        output=json.dumps(res)
         self._set_response()
-        self.wfile.write("GET request for {}".format(self.path).encode('utf-8'))
+        self.wfile.write("{}".format(output).encode('utf-8'))
 
     def do_POST(self):
         content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
@@ -49,11 +56,13 @@ class S(BaseHTTPRequestHandler):
             res=Aichange(url)
         if (str(self.path)=="/faceswap"):
             print("running faceswap service")
+            user_id=data["user_id"]
+            print(user_id)
             src_url = data["src_url"]
             dst_url = data["dst_url"] 
             res_name, res_url = AiFaceSwap(src_url, dst_url)
             res = {"res_name": res_name, "res_url":res_url}
-            res = json.loads(res)
+            savefileinfo(data)
         if (str(self.path)=="/styleflow"):
             print("running styleflow service")
             url = data["url"]
@@ -62,9 +71,9 @@ class S(BaseHTTPRequestHandler):
             print("running exchangeaudio service")
             url = data["url"]
             res=exchangeaudio(url)
-
+        output = json.dumps(res)
         self._set_response()
-        self.wfile.write("{}".format(res).encode('utf-8'))
+        self.wfile.write("{}".format(output).encode('utf-8'))
 
 
 def run(server_class=HTTPServer, handler_class=S, port=8000):
