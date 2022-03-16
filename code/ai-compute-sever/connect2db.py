@@ -16,15 +16,15 @@ import json
 # for content in find_result:
 #     print(content)
 def savefileinfo(jsoninfo):
-    mongo_client = pymongo.MongoClient('mongodb://127.0.0.1:27017')
-    mongo_db = mongo_client['AIuserinfo']
+    mongo_client = pymongo.MongoClient('mongodb+srv://taoyiyi1111:taoyiyi1111@cluster0.oqxxp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
+    mongo_db = mongo_client['iFun']
     mongo_collection = mongo_db['imagerecord']
     mongo_collection.insert_one(jsoninfo)
 def getuploadrecord(username):
     historyfile=["","","","","",""]
     jsoninfo={"user_id":username}
-    mongo_client = pymongo.MongoClient('mongodb://127.0.0.1:27017')
-    mongo_db = mongo_client['AIuserinfo']
+    mongo_client = pymongo.MongoClient('mongodb+srv://taoyiyi1111:taoyiyi1111@cluster0.oqxxp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
+    mongo_db = mongo_client['iFun']
     mongo_collection = mongo_db['imagerecord']
     find_result = mongo_collection.find(jsoninfo)
     i=0
