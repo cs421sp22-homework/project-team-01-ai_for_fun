@@ -1,20 +1,16 @@
 import React,{useState,createRef,useContext} from 'react';
-import Container from 'react-bootstrap/Container';
 import {Row, Col, Button} from 'react-bootstrap';
 import Video from '../components/Video';
 import UploadFace from '../components/UploadFace';
 import "../style/EditVideo.css"
 import "../bootstrap-4.3.1-dist/css/bootstrap.min.css"
-import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { LoginContext } from '../context/AuthProvider';
 import 'antd/dist/antd.css';
+import {useCookies} from 'react-cookie';
 
-import { Layout, Menu, Image } from 'antd';
+import { Layout, Image,message } from 'antd';
 
-
-
-
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer } = Layout;
 
 
 const tempvideo = {
@@ -25,23 +21,34 @@ function EditVideo(props){
     const ref = createRef();
     const { imgData } = props;
     const {faceimg, setFaceimg, sourceimg, setSourceimg} = useContext(LoginContext);
+    const [cookie, setCookie] = useCookies(['access_token', 'refresh_token','name','email'])
     const [pick, setPick] = useState('');
-    const handleSubmit = () =>{
-        // TODO: Upload image data as API
-        //   fetch('https://www.mocky.io/v2/5cc8019d300000980a055e76', {
-        //     method: 'POST',
-        //     body: formData,
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({ title: 'React POST Request Example' })
-        //   })
-        //     .then(res => res.json())
-        //     .then(() => {
-        //       message.success('upload successfully.');
-        //     })
+    const [dst, setDst] = useState('');
+    const handleSubmit = async (e) =>{
         console.log(faceimg);
         console.log(pick);
         console.log(sourceimg);
-    
+        if (cookie.access_token) {
+            const response = await fetch('https://server-demo.ai-for-fun-backend.com/faceswap',{
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({
+                    "user_id": cookie.access_token,
+                    "src_url": "https://i.postimg.cc/TwTdxrs6/v2-75cc7fe18dbf470b833c5bca162df557-img-000.png",
+                    "dst_url": "https://i.postimg.cc/QCgRSPmG/0-202009230849071-Xy-Oc.jpg"
+                })
+            });
+            if (response.status == 200){
+                const content = await response.json();
+                setDst(content.res_url)
+            }
+            else {
+                console.log('request failed', response);
+                message.error('failed.');
+            } 
+        } else{
+            alert('Login first!')
+        }
     };
 
     return(
@@ -51,7 +58,10 @@ function EditVideo(props){
         <Col md={1} xl={2}> </Col>
             <Col md={10} xl={8}>
                 <center>
-                {sourceimg ?
+                {dst ? 
+                <Image src={dst}/>
+                :
+                sourceimg ?
                 <Image src={sourceimg}/>
                 :
                 <Video props={tempvideo} />
