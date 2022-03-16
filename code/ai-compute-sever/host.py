@@ -53,6 +53,7 @@ class S(BaseHTTPRequestHandler):
             dst_url = data["dst_url"] 
             res_name, res_url = AiFaceSwap(src_url, dst_url)
             res = {"res_name": res_name, "res_url":res_url}
+            res = json.loads(res)
         if (str(self.path)=="/styleflow"):
             print("running styleflow service")
             url = data["url"]
@@ -66,7 +67,7 @@ class S(BaseHTTPRequestHandler):
         self.wfile.write("{}".format(res).encode('utf-8'))
 
 
-def run(server_class=HTTPServer, handler_class=S, port=8080):
+def run(server_class=HTTPServer, handler_class=S, port=8000):
     logging.basicConfig(level=logging.INFO)
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
