@@ -61,7 +61,7 @@ function EditVideo(props) {
                     <Col md={1} xl={2}></Col>
                 </Row>
             </Content>
-            <Container >
+            <Container style={{ margin: '0 15%' }} className='center-box'>
                 <Row >
                     <Col md={2} lg={1} >
                         <div className="mx-auto">
@@ -83,23 +83,25 @@ function EditVideo(props) {
                             </Image.PreviewGroup>
                         </ul>
                     </Col>
+                    <Button onClick={handleSubmit} variant="right">Combine</Button>
                 </Row>
+
             </Container>
-            <Content style={{ margin: '0 15%' }} className='center-box'>
-                <Card className="text-center" border="light" style={{ height: 'auto', weight: '500rem' }}>
-                    {/* <Card.Header>View my material</Card.Header> */}
-                    <Card.Body>
+            {/* <Content style={{ margin: '0 15%' }} className='center-box'>
+                <Card className="text-center" border="light" style={{ height: 'auto', weight: '500rem' }}> */}
+            {/* <Card.Header>View my material</Card.Header> */}
+            {/* <Card.Body>
                         <Card.Title>Swap The Following Images</Card.Title>
                         <Card.Img variant="top" as={Image} src={sourceimg ? sourceimg : defaultUrl} alt="item.name" style={{ height: '10rem' }} />
                         {'     '}
                         <Card.Img variant="top" as={Image} src={defaultUrl} alt="item.name" style={{ height: '10rem' }} />
                     </Card.Body>
                     <Card.Footer>
-                        <Button onClick={handleSubmit} >Combine</Button>
+                       
                     </Card.Footer>
 
                 </Card>
-            </Content>
+            </Content> */}
         </Layout>
     )
 }
