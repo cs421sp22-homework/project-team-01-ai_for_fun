@@ -13,6 +13,8 @@ const tempimage = [
 ]
 
 const SlidesShowInLeft = () => {
+    const { soureimg, setSourceimg } = useContext(LoginContext);
+
     return (
         <Card style={{ background: 'White', height: '100%' }} >
             <Card.Header as="h5">For you</Card.Header>
