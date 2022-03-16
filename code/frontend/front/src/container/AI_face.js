@@ -78,24 +78,7 @@ export const AI_face = () => {
                 >
                     <div className="logo" />
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1', 'sub2', 'sub3', 'sub4']}>
-                        {/* <Menu.ItemGroup key="g1" title="Most popular">
-                            <SlideshowInMode imgData={tempimage} />
-                        </Menu.ItemGroup>
-                        <Menu.ItemGroup key="g1" title="animal">
-                            <SlideshowInMode imgData={tempimage} />
-                        </Menu.ItemGroup>
-                        <Menu.ItemGroup key="g1" title="celebrity">
-                            <SlideshowInMode imgData={tempimage} />
-                        </Menu.ItemGroup>
-                        <Menu.ItemGroup key="g1" title="topic2">
-                            <SlideshowInMode imgData={tempimage} />
-                        </Menu.ItemGroup>
-                        <Menu.ItemGroup key="g1" title="topic3">
-                            <SlideshowInMode imgData={tempimage} />
-                        </Menu.ItemGroup>
-                        <Menu.ItemGroup key="g1" title="topic">
-                            <SlideshowInMode imgData={tempimage} />
-                        </Menu.ItemGroup> */}
+
                         <SubMenu key="sub1" icon={<UserAddOutlined />} title="For you">
                             <SlideshowInMode imgData={tempimage} />
                         </SubMenu>
@@ -108,20 +91,6 @@ export const AI_face = () => {
                         <SubMenu key="sub4" icon={<UsergroupAddOutlined />} title="animal image">
                             <SlideshowInMode imgData={tempimage} />
                         </SubMenu>
-                        {/* <SubMenu key="sub1" icon={<MailOutlined />} title="All style">
-                            <Menu.ItemGroup key="g1" title="For You">
-                                <SlideshowInMode imgData={tempimage} />
-                            </Menu.ItemGroup>
-                            <Menu.ItemGroup key="g2" title="Popular">
-                                <SlideshowInMode imgData={tempimage} />
-                            </Menu.ItemGroup>
-                            <Menu.ItemGroup key="g1" title="Celebrity Image">
-                                <SlideshowInMode imgData={tempimage} />
-                            </Menu.ItemGroup>
-                            <Menu.ItemGroup key="g1" title="Fun Image">
-                                <SlideshowInMode imgData={tempimage} />
-                            </Menu.ItemGroup>
-                        </SubMenu> */}
                     </Menu>
 
                 </Sider>
