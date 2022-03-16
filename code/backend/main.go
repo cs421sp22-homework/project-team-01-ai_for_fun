@@ -28,6 +28,7 @@ func main() {
 	router.GET("/", func(context *gin.Context) {
 		context.String(http.StatusOK, "Hello World")
 	})
+	route.EntityRoutes(router)
 	route.AuthRoutes(router)
 	route.UserRoutes(router)
 
