@@ -18,12 +18,14 @@ const tempvideo = {
     poster: "https://epe.brightspotcdn.com/f8/ca/abde5f4f4a30a6a3d1a0eaa23821/test-032021-968416412.jpg"
 }
 
+const previousSelected = [];
+
 const selected = (e) => {
-    let previous = document.getElementsByClassName('selected');
-    console.log(previous);
-    // previous.classList.remove('selected');
+    previousSelected.push(e.currentTarget);
+    for (var i = 0; i < previousSelected.length; i++) {
+        previousSelected[i].classList.remove('selected');
+    }
     let target = e.currentTarget;
-    console.log(target);
     target.classList.toggle('selected');
 }
 
