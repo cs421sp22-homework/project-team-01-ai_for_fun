@@ -17,6 +17,16 @@ const tempvideo = {
     videoSrc: "http://media.w3.org/2010/05/bunny/movie.mp4",
     poster: "https://epe.brightspotcdn.com/f8/ca/abde5f4f4a30a6a3d1a0eaa23821/test-032021-968416412.jpg"
 }
+
+const selected = (e) => {
+    let previous = document.getElementsByClassName('selected');
+    console.log(previous);
+    // previous.classList.remove('selected');
+    let target = e.currentTarget;
+    console.log(target);
+    target.classList.toggle('selected');
+}
+
 function EditVideo(props) {
     const ref = createRef();
     const { imgData } = props;
@@ -24,6 +34,16 @@ function EditVideo(props) {
     const [cookie, setCookie] = useCookies(['access_token', 'refresh_token', 'name', 'email'])
     const [pick, setPick] = useState('');
     const [dst, setDst] = useState('');
+
+    const state =
+        { imageChosen: [] }
+
+    // const selectImage = (id) => {
+    //     var selected = state.selected;
+    //     if (selected.indexOf(id) !== -1) selected.push(id);
+    //     State({ selected: selected });
+    // }
+
     const handleSubmit = async (e) => {
         console.log(faceimg);
         console.log(pick);
@@ -79,21 +99,23 @@ function EditVideo(props) {
                             <UploadFace />
                         </div>
                     </Col>
+
                     <Col md={10} lg={10}>
                         <ul ref={ref} >
-                            <Image.PreviewGroup>
-                                {imgData.map(item => {
-                                    return <li key={item.name} className="pl-3 mt-1" style={{ display: 'inline-block' }} onClick={() => setPick(item.imgUrl)}>
-                                        <Image
-                                            className='res-img'
-                                            src={item.imgUrl}
-                                            preview={true}
-                                        />
-                                    </li>
-                                })}
-                            </Image.PreviewGroup>
+                            {imgData.map(item => {
+                                return <li key={item.name} className="pl-3 mt-1" style={{ display: 'inline-block' }} onClick={(e) => { setPick(item.imgUrl); }} >
+                                    <Image
+                                        className='res-img'
+                                        src={item.imgUrl}
+                                        preview={false}
+                                        onClick={(e) => selected(e)}
+                                    // className={(state.selected.indexOf(item.name) !== -1) ? "selected" : "unselected"}
+                                    />
+                                </li>
+                            })}
                         </ul>
                     </Col>
+
                 </Row>
                 <Button onClick={handleSubmit} style={{ float: "right" }}>Combine</Button>
             </Footer>

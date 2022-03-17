@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { LoginContext } from "../../context/AuthProvider";
 // import '../../style/SlideInMode.css';
 
+
 function SlideshowInMode(props) {
     const ref = createRef();
     const { imgData } = props;
@@ -34,14 +35,14 @@ function SlideshowInMode(props) {
     console.log('translateX', translateX);
     console.log('ref', ref);
     return (
-
         <div className='wrap_scrollImg' style={{ width: '100%', height: '100%' }}>
             <span className='left_icon' onClick={clickLeftIcon}><LeftCircleOutlined /></span>
             <span className='right_icon' onClick={clickRightIcon}><RightCircleOutlined /></span>
             <ul style={{ transform: `translateX(${translateX}px)` }} ref={ref}>
                 {imgData.map(item => {
                     return <li key={item.name}>
-                        <Card.Img as={Image} src={item.imgUrl} fluid={true} alt="item.name" onClick={() => setSourceimg(item.imgUrl)} />
+                        <Card.Img as={Image} src={item.imgUrl} fluid={true} alt="item.name" onClick={() => setSourceimg(item.imgUrl)
+                        } />
                     </li>;
                 })}
             </ul>
