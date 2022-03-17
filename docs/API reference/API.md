@@ -17,4 +17,4 @@ This file records APIs for AIforfun project
 
 * [GetEntities](GetEntities.md) : `Get /getentities`
 * [GetHistory](GetHistory.md) : `Get /history`
-
+* [Changeinfo](Changeinfo.md) : `Post /changeinfo`
