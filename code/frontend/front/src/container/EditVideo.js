@@ -23,6 +23,9 @@ const previousSelected = [];
 const selected = (e) => {
     previousSelected.push(e.currentTarget);
     for (var i = 0; i < previousSelected.length; i++) {
+        if (previousSelected[i] === e.currentTarget) {
+            continue;
+        }
         previousSelected[i].classList.remove('selected');
     }
     let target = e.currentTarget;
@@ -37,8 +40,6 @@ function EditVideo(props) {
     const [pick, setPick] = useState('');
     const [dst, setDst] = useState('');
 
-    const state =
-        { imageChosen: [] }
 
     // const selectImage = (id) => {
     //     var selected = state.selected;
@@ -88,7 +89,6 @@ function EditVideo(props) {
                                     :
                                     <Video props={tempvideo} />
                             }
-
                         </center>
                     </Col>
                     <Col md={1} xl={2}></Col>
@@ -105,13 +105,19 @@ function EditVideo(props) {
                     <Col md={10} lg={10}>
                         <ul ref={ref} >
                             {imgData.map(item => {
-                                return <li key={item.name} className="pl-3 mt-1" style={{ display: 'inline-block' }} onClick={(e) => { setPick(item.imgUrl); }} >
+                                return <li key={item.name} className="pl-3 mt-1" style={{ display: 'inline-block' }}
+                                    onClick={(e) => {
+                                        if (pick === item.imgUrl) {
+                                            setPick('')
+                                        } else {
+                                            setPick(item.imgUrl);
+                                        }
+                                    }} >
                                     <Image
                                         className='res-img'
                                         src={item.imgUrl}
                                         preview={false}
                                         onClick={(e) => selected(e)}
-                                    // className={(state.selected.indexOf(item.name) !== -1) ? "selected" : "unselected"}
                                     />
                                 </li>
                             })}
