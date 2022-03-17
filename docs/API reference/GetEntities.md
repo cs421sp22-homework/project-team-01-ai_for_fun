@@ -15,30 +15,75 @@ Return all entities group by model and topic
 **Content example**
 
 ```json
-{"swapface":[
-        {"star":
-        [{ "imgUrl": "./img/01.png", "vedioUrl": "....", "imagename": "01", "videoname": "01", "topic": "Star", "mode": "swapface" },{ "imgUrl": "./img/02.png","vedioUrl": "....","imagename": "02", "videoname": "02", "topic": "Star", "mode": "swapface" }]
+[
+    {
+        "_id": {
+            "mode": "styleflow",
+            "topic": "Star"
         },
-        {"house":
-        [{ "imgUrl": "./img/03.png", "vedioUrl": "....","imagename": "03", "videoname": "03", "topic": "house", "mode": "swapface" },{ "imgUrl": "./img/04.png", "vedioUrl": "....","imagename": "04", "videoname": "04", "topic": "house", "mode": "swapface" }]
-        }
-  		   ],
-"styleflow":[
-         {"star":
-        [{ "imgUrl": "./img/01.png", "vedioUrl": "....", "imagename": "01", "videoname": "01", "topic": "Star", "mode": "styleflow" },{ "imgUrl": "./img/02.png","vedioUrl": "....","imagename": "04", "videoname": "04", "topic": "Star", "mode": "styleflow" }]
+        "entities": [
+            {
+                "_id": "62316297289623b80e1fa66a",
+                "imagename": "04",
+                "imgUrl": "./img/04.png",
+                "mode": "styleflow",
+                "topic": "Star",
+                "vedioUrl": "....",
+                "videoname": "04"
+            }
+        ]
+    },
+    {
+        "_id": {
+            "mode": "styleflow",
+            "topic": "house"
         },
-        {"house":
-        [{ "imgUrl": "./img/03.png", "vedioUrl": "....","imagename": "04", "videoname": "04", "topic": "house", "mode": "styleflow" },{ "imgUrl": "./img/04.png", "vedioUrl": "....","imagename": "04", "videoname": "04", "topic": "house", "mode": "styleflow" }]
-        }
-          ],
-"text2audio":[
-         {"star":
-        [{ "imgUrl": "./img/01.png", "vedioUrl": "....", "imagename": "04", "videoname": "04", "topic": "Star", "mode": "text2audio" },{ "imgUrl": "./img/02.png","vedioUrl": "....","imagename": "04", "videoname": "04", "topic": "Star", "mode": "text2audio" }]
+        "entities": [
+            {
+                "_id": "62316268289623b80e1fa669",
+                "imagename": "03",
+                "imgUrl": "./img/03.png",
+                "mode": "styleflow",
+                "topic": "house",
+                "vedioUrl": "....",
+                "videoname": "03"
+            }
+        ]
+    },
+    {
+        "_id": {
+            "mode": "swapface",
+            "topic": "Star"
         },
-        {"house":
-        [{ "imgUrl": "./img/03.png", "vedioUrl": "....","imagename": "04", "videoname": "04", "topic": "house", "mode": "text2audio" },{ "imgUrl": "./img/04.png", "vedioUrl": "....","imagename": "04", "videoname": "04", "topic": "house", "mode": "text2audio" }]
-        }
-  		   ]
-}
+        "entities": [
+            {
+                "_id": "623161a5289623b80e1fa667",
+                "imagename": "01",
+                "imgUrl": "./img/01.png",
+                "mode": "swapface",
+                "topic": "Star",
+                "vedioUrl": "....",
+                "videoname": "01"
+            }
+        ]
+    },
+    {
+        "_id": {
+            "mode": "swapface",
+            "topic": "house"
+        },
+        "entities": [
+            {
+                "_id": "623161f1289623b80e1fa668",
+                "imagename": "02",
+                "imgUrl": "./img/02.png",
+                "mode": "swapface",
+                "topic": "house",
+                "vedioUrl": "....",
+                "videoname": "02"
+            }
+        ]
+    }
+]
 ```
 
