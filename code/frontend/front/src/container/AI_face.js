@@ -78,7 +78,6 @@ export const AI_face = () => {
                 >
                     <div className="logo" />
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1', 'sub2', 'sub3', 'sub4']}>
-
                         <SubMenu key="sub1" icon={<UserAddOutlined />} title="For you">
                             <SlideshowInMode imgData={tempimage} />
                         </SubMenu>

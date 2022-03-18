@@ -83,7 +83,7 @@ function EditVideo(props){
             <ul ref={ref} className="category">
             <Image.PreviewGroup>
             {imgData.map(item => {
-            return <li key={item.name} className="pl-3 mt-1" style={{ display: 'inline-block'}} onClick={() => setPick(item.imgUrl)}>
+            return <li key={item.name} className="pl-3 mt-1" style={{ display: 'inline-block'}} onClick={() => {}}>
             <Image
             className='res-img'
             src={item.imgUrl}

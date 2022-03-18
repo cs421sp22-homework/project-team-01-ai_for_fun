@@ -17,7 +17,19 @@
   width:80px;
   border-radius: 10px;
 }
+.unselected{
+  height:80px;
+  width:80px;
+  border-radius: 10px;
+}
 
+.selected {
+  border: 3px solid #ab93ff;
+}
+
+.unselected {
+  border: 1px solid red;
+}
 
 @media screen and (min-width: 1200px) {
   .res-img{
