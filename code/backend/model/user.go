@@ -13,4 +13,5 @@ type User struct {
 	Password      string             `json:"password"`
 	Token         string             `json:"token"`
 	Refresh_token string             `json:"refresh_token"`
+	Avatar        string             `json:"avatar"`
 }

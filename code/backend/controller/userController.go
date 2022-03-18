@@ -22,6 +22,13 @@ import (
 var userCollection *mongo.Collection = database.OpenCollection(database.Client, "iFun", "user")
 var validate = validator.New()
 
+type ChangeInfo struct {
+	New_name     string `json:"new_name"`
+	New_Avatar   string `json:"new_avatar"`
+	Old_password string `json:"old_password"`
+	New_password string `json:"new_password"`
+}
+
 func HashPassword(password string) string {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
 	if err != nil {
@@ -201,5 +208,59 @@ func GetUser() gin.HandlerFunc {
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.Header("Access-Control-Allow-Headers", "Content-Type")
 		c.JSON(http.StatusOK, user)
+	}
+}
+
+func ChangeUser() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		userId := c.Param("user_id")
+		err := helper.MatchUserTypeToUid(c, userId)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		var changeinfo ChangeInfo
+		var foundUser model.User
+		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+
+		err = c.BindJSON(&changeinfo)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		err = userCollection.FindOne(ctx, bson.M{"user_id": userId}).Decode(&foundUser)
+		defer cancel()
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "user_id is incorrect"})
+			return
+		}
+		if changeinfo.New_name != "" {
+			foundUser.Name = changeinfo.New_name
+		}
+		if changeinfo.New_Avatar != "" {
+			foundUser.Avatar = changeinfo.New_Avatar
+		}
+		if changeinfo.New_password != "" && changeinfo.Old_password != "" {
+			passwordIsValid, msg := VerifyPassword(changeinfo.Old_password, foundUser.Password)
+			if passwordIsValid != true {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": msg})
+				return
+			}
+			foundUser.Password = HashPassword(changeinfo.New_password)
+		}
+		_, err = userCollection.UpdateOne(ctx, bson.M{"user_id": userId}, bson.D{
+			{Key: "$set", Value: bson.D{
+				{Key: "name", Value: foundUser.Name},
+				{Key: "avatar", Value: foundUser.Avatar},
+				{Key: "password", Value: foundUser.Password}}}})
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occur when update mongodb"})
+			return
+		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Content-Type")
+		c.JSON(http.StatusOK, foundUser)
 	}
 }
