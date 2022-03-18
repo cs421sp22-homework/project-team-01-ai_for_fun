@@ -1,6 +1,6 @@
 
 import React,{useState,useContext} from 'react';
-// import {Input, message, Tooltip} from 'antd';
+import {message} from 'antd';
 import {CheckCircleOutlined,CloseCircleOutlined} from '@ant-design/icons';
 import UploadPic from './UploadPic';
 import '../style/Profile.css';
@@ -28,7 +28,39 @@ function Profile(props) {
         setshowInputName(true)
     };
     // TODO: Interaction with backend
-    const handleAffirmName = () => {
+    const handleAffirmName = async () => {
+        if (name != cookie.name){
+            try{
+                let url = 'https://server-demo.ai-for-fun-backend.com/'
+                
+                const response = await fetch(url,{
+                    method: 'POST',
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({
+                        "new_name":name
+                    })
+                });
+                console.log(response.status)
+    
+                if (response.status == 200){
+                  const content = await response.json();
+                  // TODO
+              }
+              else {
+                  console.log('request failed', response);
+                  message.error('request failed')
+              } 
+              }catch(err){
+                  if (err.response?.status ===500){
+                      message.error('Missing Email or Password');
+                  }else{
+                      message.error('Login Failed!');
+                  }
+              }
+        }else{
+            message.error("Please input a new name")
+        }
+        
 
     };
     const handleCloseName = () => {
