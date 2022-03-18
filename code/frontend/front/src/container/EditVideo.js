@@ -80,14 +80,14 @@ function EditVideo(props){
                 </div>
             </Col>
             <Col md={10} lg={10}>
-            <ul ref={ref} >
+            <ul ref={ref} className="category">
             <Image.PreviewGroup>
             {imgData.map(item => {
             return <li key={item.name} className="pl-3 mt-1" style={{ display: 'inline-block'}} onClick={() => setPick(item.imgUrl)}>
             <Image
             className='res-img'
             src={item.imgUrl}
-            preview = {true}
+            preview = {false}
           />
           </li>
             })}
