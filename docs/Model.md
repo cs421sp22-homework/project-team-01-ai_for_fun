@@ -1,4 +1,4 @@
-## Text to speech model set up
+# Text to speech model set up
 # Download package
 > pip install TTS
 # Download models
