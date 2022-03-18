@@ -20,7 +20,7 @@ import Container from 'react-bootstrap/Container';
       const [pwd, setPwd] = useState('');
       const [errMsg, setErrMsg] = useState('');
       const [success, setSuccess] = useState(false);
-      const[redirect, setRedirect] = useState(false);
+      const [redirect, setRedirect] = useState(false);
 
       useEffect(() => {
           userRef.current.focus();
@@ -62,6 +62,7 @@ import Container from 'react-bootstrap/Container';
               setCookie('refresh_token', content.refresh_token, {path: '/', expires});
               setCookie('name', content.name, {path: '/', expires});
               setCookie('email',content.email,{path: '/', expires});
+              setCookie('avatar',content.avatar,{path: '/', expires});
               setSuccess(true);
               setRedirect(true)
           }

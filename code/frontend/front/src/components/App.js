@@ -31,9 +31,10 @@ const tempimage = [
 function App() {
   const [faceimg, setFaceimg] = useState('');
   const [sourceimg, setSourceimg] = useState('');
+  const [avatarimg, setAvatarimg] = useState('');
   return (
     <CookiesProvider>
-    <LoginContext.Provider value={{ faceimg, setFaceimg,sourceimg, setSourceimg}}>
+    <LoginContext.Provider value={{ faceimg, setFaceimg,sourceimg, setSourceimg,avatarimg, setAvatarimg}}>
       <Router>
         <NavBar />
         <div>
