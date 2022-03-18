@@ -4,6 +4,7 @@ import Slideshow from "../components/Slideshow";
 import Container from 'react-bootstrap/Container';
 import Tabs from 'react-bootstrap/Tabs';
 import "../style/Home.css";
+import { ConsoleSqlOutlined } from "@ant-design/icons";
 
 const tempimage = [
     { imgUrl: './img/01.png', name: '01', topic: 'Star' },
@@ -14,6 +15,7 @@ const tempimage = [
     { imgUrl: './img/06.png', name: '06', topic: 'Face' },
     { imgUrl: './img/07.png', name: '07', topic: 'Good' },
 ]
+// https://server-demo.ai-for-fun-backend.com/getentities
 
 export class Home extends React.Component {
     constructor(props) {
@@ -21,13 +23,38 @@ export class Home extends React.Component {
         // this.state = {
         //     selected: '❤️  For you ❤️'
         // }
+        this.state = {
+            totalReactPackages: null,
+            errorMessage: null
+        };
     }
+
 
     setSelected = (tab) => {
         this.setState({ selected: tab });
     }
 
+    componentDidMount() {
+        // GET request using fetch with error handling
+        fetch('https://server-demo.ai-for-fun-backend.com/getentities')
+            .then(async response => {
+                const data = await response.json();
+                // check for error response
+                if (!response.ok) {
+                    // get error message from body or default to response statusText
+                    const error = (data && data.message) || response.statusText;
+                    return Promise.reject(error);
+                }
+                this.setState({ totalReactPackages: data.total })
+            })
+            .catch(error => {
+                this.setState({ errorMessage: error.toString() });
+                console.error('There was an error!', error);
+            });
+    }
+
     render() {
+        const { errorMessage, totalReactPackages } = this.state;
         return (
             <>
                 <div
@@ -39,6 +66,7 @@ export class Home extends React.Component {
                             <div className='text-white'>
                                 <h1 className='mb-3'>AI For Fun</h1>
                                 <h4 className='mb-3'>This is an application</h4>
+                                {/* <h4>{totalReactPackages}</h4> */}
                                 <a className='btn btn-outline-dark btn-lg' href='/AI_face' role='button'>
                                     Get Start
                                 </a>
