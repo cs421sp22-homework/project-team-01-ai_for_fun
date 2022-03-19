@@ -7,6 +7,8 @@ import random
 from datetime import datetime
 from urllib.request import urlopen
 
+ACCESS_ID = 'AKIAXRGYYT5KAP6UULMP'
+ACCESS_KEY = 'hg8tUJkMiNVi+KO9qUr7vTL0ZUY5tIzfGSzHJqbr'
 def generate_random_name(len):
     random.seed(datetime.now())
     res = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase +
@@ -21,7 +23,7 @@ def url_to_image(url, readFlag=cv2.IMREAD_COLOR):
     return image
 
 def upload_image(img_dir):
-    s3 = boto3.client('s3')
+    s3 = boto3.client('s3',aws_access_key_id=ACCESS_ID, aws_secret_access_key= ACCESS_KEY, region_name= 'us-east-1')
     name = generate_random_name(16)
     s3.upload_file(img_dir,'aifun', name)
     url = s3.generate_presigned_url('get_object',
@@ -33,7 +35,7 @@ def upload_image(img_dir):
     return name, url
 
 def download_image(img_name):
-    s3 = boto3.client('s3')
+    s3 = boto3.client('s3',aws_access_key_id=ACCESS_ID, aws_secret_access_key= ACCESS_KEY, region_name= 'us-east-1')
     url = s3.generate_presigned_url('get_object',
                                 Params={
                                     'Bucket': 'aifun',
