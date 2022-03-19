@@ -43,8 +43,13 @@ def download_image(img_name):
                                     'Key': img_name,
                                 },                                  
                                 ExpiresIn=7200)
-    img = url_to_image(url)
-    cv2.imwrite(img_name, img)
+    print(url)
+    #img = url_to_image(url)
+    #cv2.imwrite(img_name, img)
+
+if __name__ == '__main__':
+    download_image('hlvHTmA5r9RHH2U1.jpg')
+    download_image('oCQeuzqjaCISMetD.jpg')
 
 
 

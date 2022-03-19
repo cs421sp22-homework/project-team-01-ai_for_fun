@@ -1,6 +1,7 @@
 import logging
 import json
 import numpy as np
+import os
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from util import upload_image, generate_random_name, url_to_image
 from run_cifar import eval_cifar
@@ -22,6 +23,7 @@ def AiFaceSwap(src_url, dst_url):
     out_dir = generate_random_name(16)
     out_dir = faceSwapFunction(src_img, dst_img, out_dir)
     outName, outUrl = upload_image(out_dir)
+    os.remove(out_dir)
     print(outName, outUrl)
     return  outName, outUrl
 
@@ -76,7 +78,7 @@ class S(BaseHTTPRequestHandler):
         self.wfile.write("{}".format(output).encode('utf-8'))
 
 
-def run(server_class=HTTPServer, handler_class=S, port=8000):
+def run(server_class=HTTPServer, handler_class=S, port=8080):
     logging.basicConfig(level=logging.INFO)
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
