@@ -1,0 +1,8 @@
+dlib >= 19.9.0
+numpy >= 1.13.1
+scipy >= 0.18.0
+pymongo == 4.0.2
+torch == 1.10.2
+dnspython == 2.2.1
+opencv-python == 4.5.5.64
+boto3 == 1.21.13
