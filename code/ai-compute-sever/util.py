@@ -9,6 +9,7 @@ from urllib.request import urlopen
 
 ACCESS_ID = 'AKIAXRGYYT5KAP6UULMP'
 ACCESS_KEY = 'hg8tUJkMiNVi+KO9qUr7vTL0ZUY5tIzfGSzHJqbr'
+
 def generate_random_name(len):
     random.seed(datetime.now())
     res = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase +
