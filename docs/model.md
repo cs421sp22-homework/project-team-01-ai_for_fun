@@ -1,6 +1,8 @@
 # Text to speech model set up
 # Download package
-> pip install TTS
+> git clone https://github.com/mozilla/TTS
+
+> pip install -e .
 
 > sudo apt-get espeak
 # Download models
