@@ -1,6 +1,8 @@
 # Text to speech model set up
 # Download package
 > pip install TTS
+
+> sudo apt-get espeak
 # Download models
 > gdown --id 1dntzjWFg7ufWaTaFy80nRz-Tu02xWZos -O tts_model.pth.tar
 > 
