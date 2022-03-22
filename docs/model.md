@@ -10,7 +10,7 @@
 > 
 > gdown https://drive.google.com/uc?id=18CQ6G6tBEOfvCHlPqP8EBI4xWbrr9dBc -O config.json
 
-tts_model.pth.tar is the tar package with all the tts models.
+tts_model.pkl is the package with all the tts models.
 
 cofig.json contain the fune tuned hyperparetmers of the models.
 
@@ -20,7 +20,7 @@ cofig.json contain the fune tuned hyperparetmers of the models.
 >
 >gdown https://drive.google.com/uc?id=11oY3Tv0kQtxK_JPgxrfesa99maVXHNxU -O scale_stats.npy
 
-vocoder_model.pth.tar is the tar package with all the vocoder models.
+vocoder_model.pkl is the package with all the vocoder models.
 
 config_vocoder.json contain the fune tuned hyperparetmers of the  vocoder models. 
 
