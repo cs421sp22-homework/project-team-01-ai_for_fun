@@ -12,7 +12,7 @@
 
 tts_model.pkl is the package with all the tts models.
 
-cofig.json contain the fune tuned hyperparetmers of the models.
+cofig.json contain the fine tuned hyperparetmers of the models.
 
 >gdown https://drive.google.com/uc?id=1rHmj7CqD3Sfa716Y3ub_vpIBrQg_b1yF -O vocoder_model.pkl
 >
