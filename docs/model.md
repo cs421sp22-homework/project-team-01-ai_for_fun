@@ -6,7 +6,7 @@
 
 > sudo apt-get espeak
 # Download models
-> gdown https://drive.google.com/uc?id=1p7OSEEW_Z7ORxNgfZwhMy7IiLE1s0aH7 -O tts_model.pth.tar
+> gdown https://drive.google.com/uc?id=1p7OSEEW_Z7ORxNgfZwhMy7IiLE1s0aH7 -O tts_model.pkl
 > 
 > gdown https://drive.google.com/uc?id=18CQ6G6tBEOfvCHlPqP8EBI4xWbrr9dBc -O config.json
 
@@ -14,7 +14,7 @@ tts_model.pth.tar is the tar package with all the tts models.
 
 cofig.json contain the fune tuned hyperparetmers of the models.
 
->gdown https://drive.google.com/uc?id=1rHmj7CqD3Sfa716Y3ub_vpIBrQg_b1yF -O vocoder_model.pth.tar
+>gdown https://drive.google.com/uc?id=1rHmj7CqD3Sfa716Y3ub_vpIBrQg_b1yF -O vocoder_model.pkl
 >
 >gdown https://drive.google.com/uc?id=1Rd0R_nRCrbjEdpOwq6XwZAktvugiBvmu -O config_vocoder.json
 >
