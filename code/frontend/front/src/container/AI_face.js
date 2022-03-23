@@ -99,11 +99,11 @@ export const AI_face = () => {
                         <SubMenu key="sub2" icon={<UserDeleteOutlined />} title="Meme">
                             <SlideshowInMode imgData={Face_Meme} />
                         </SubMenu>
-                        <SubMenu key="sub3" icon={<UserOutlined />} title="celebrity image">
-                            <SlideshowInMode imgData={tempimage} />
+                        <SubMenu key="sub3" icon={<UserOutlined />} title="moive celebrity">
+                            <SlideshowInMode imgData={Movie} />
                         </SubMenu>
-                        <SubMenu key="sub4" icon={<UsergroupAddOutlined />} title="animal image">
-                            <SlideshowInMode imgData={tempimage} />
+                        <SubMenu key="sub4" icon={<UsergroupAddOutlined />} title="Friends Meme">
+                            <SlideshowInMode imgData={Friends} />
                         </SubMenu>
                     </Menu>
                 </Sider>
@@ -167,22 +167,21 @@ const Face = [
     { imgUrl: './img/07.png', name: '07', topic: 'Good' },
 ];
 const Friends = [
-    { imgUrl: './img/01.png', name: '01', topic: 'Star' },
-    { imgUrl: './img/02.png', name: '02', topic: 'House' },
-    { imgUrl: './img/03.png', name: '03', topic: 'New Year' },
-    { imgUrl: './img/04.png', name: '04', topic: 'Amazing' },
-    { imgUrl: './img/05.png', name: '05', topic: 'Fashion' },
-    { imgUrl: './img/06.png', name: '06', topic: 'Face' },
-    { imgUrl: './img/07.png', name: '07', topic: 'Good' },
+    { imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFLysfblilvBqTDNXvMILLekdjUW2-PsEKtg&usqp=CAU', name: '01', topic: 'Star' },
+    { imgUrl: 'https://d207ibygpg2z1x.cloudfront.net/image/upload/v1541181492/articles_upload/content/nsafehc82lfmkwroe1tg.jpg', name: '02', topic: 'House' },
+    { imgUrl: 'https://www.irishexaminer.com/cms_media/module_img/4972/2486069_10_seoimage1x1_E2jArIRWUAM-0jT.jpg', name: '03', topic: 'New Year' },
+    { imgUrl: 'https://static3.srcdn.com/wordpress/wp-content/uploads/2019/08/Joey-Tribbiani.jpg', name: '04', topic: 'Amazing' },
+    { imgUrl: 'https://i.pinimg.com/originals/f7/30/a0/f730a00f24b13da6d2012b7094683621.jpg', name: '05', topic: 'Fashion' },
+    { imgUrl: 'https://static.independent.co.uk/s3fs-public/thumbnails/image/2017/11/09/11/joey-friends.jpg?quality=75&width=982&height=726&auto=webp', name: '06', topic: 'Face' },
+    { imgUrl: 'https://st1.latestly.com/wp-content/uploads/2020/07/01-15-380x214.jpg', name: '07', topic: 'Good' },
 ];
 const Movie = [
-    { imgUrl: './img/01.png', name: '01', topic: 'Star' },
-    { imgUrl: './img/02.png', name: '02', topic: 'House' },
-    { imgUrl: './img/03.png', name: '03', topic: 'New Year' },
-    { imgUrl: './img/04.png', name: '04', topic: 'Amazing' },
-    { imgUrl: './img/05.png', name: '05', topic: 'Fashion' },
-    { imgUrl: './img/06.png', name: '06', topic: 'Face' },
-    { imgUrl: './img/07.png', name: '07', topic: 'Good' },
+    { imgUrl: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/index-actors-got-their-start-on-tv-1607725466.jpg?crop=0.409xw:0.817xh;0.0529xw,0.00962xh&resize=640:*', name: 'movie_01', topic: 'Movie' },
+    { imgUrl: 'https://media1.popsugar-assets.com/files/thumbor/PkVi0CfVJtMbJLOLQacIadEpZ0c/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2015/12/03/761/n/1922283/a80bb7bf_edit_img_image_33388244_1447776000/i/Movie-Stars-Who-Started-Out-TV.jpg', name: 'movie_02', topic: 'Movie' },
+    { imgUrl: 'https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTYxNTEwNTM2ODQyODQ3NDQ0/will-smith-men-in-black.jpg', name: '04', topic: 'Amazing' },
+    { imgUrl: 'https://media.workandmoney.com/64/f6/64f66bf1508f415fbb5ab0a64eda450d.jpeg', name: '05', topic: 'Fashion' },
+    { imgUrl: 'https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/04/2560x3532/gettyimages-476575055.jpg?resize=480:*', name: '06', topic: 'Face' },
+    { imgUrl: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gal-gadot-attends-the-2020-vanity-fair-oscar-party-hosted-news-photo-1591212178.jpg?crop=1xw:0.99975xh;center,top&resize=480:*', name: '07', topic: 'Good' },
 ];
 const Vedio = [
     { imgUrl: './img/01.png', name: '01', topic: 'Star' },
