@@ -155,7 +155,6 @@ const Face_Meme = [
     { imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKS5w4ofrL3jGVI1-o1wcfFC7FMzJ64oWWFg&usqp=CAU', name: 'meme_04', topic: 'Amazing' },
     { imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ74l3eSS-cqR5RdNSD_2SH5S3t6DX3JHCuqQ&usqp=CAU', name: '05', topic: 'Fashion' },
     { imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiuMzoVpJ1O9tRNwKq32s5d7F3QTImE_-0eQ&usqp=CAU', name: '06', topic: 'Face' },
-    { imgUrl: './img/07.png', name: '07', topic: 'Good' },
 ];
 const Face = [
     { imgUrl: './img/01.png', name: '01', topic: 'Star' },
