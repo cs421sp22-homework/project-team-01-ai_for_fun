@@ -24,4 +24,25 @@ vocoder_model.pkl is the package with all the vocoder models.
 
 config_vocoder.json contain the fune tuned hyperparetmers of the  vocoder models. 
 
-In the TTS_tf_model.py, please change the directories of model path loading form line 35-38 to location where you download these files.
+In the TTS_tf_model.py, please change the directories of model path loading form line 35-38 to location where you download these files.\
+
+# Trump speak model set up (Backup)
+>git clone https://github.com/gormulka/TrumpSpeak.git
+>mkdir /content/output
+>
+>apt-get install -y espeak
+>
+>pip install -r requirements.txt
+>
+>pip install pydub
+>
+>pip install librosa==0.7.2
+
+Put Trump_speck_use_case.py file under TrumpSpeak folder
+
+Create an folder called "output" parallel to TrumpSpeak
+
+> cd TrumpSpeak
+
+> python trump_usecase.py 
+
