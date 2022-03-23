@@ -38,6 +38,8 @@ In the TTS_tf_model.py, please change the directories of model path loading form
 >
 >pip install librosa==0.7.2
 
+>pip install numba==0.48
+
 Put Trump_speck_use_case.py file under TrumpSpeak folder
 
 Create an folder called "output" parallel to TrumpSpeak
