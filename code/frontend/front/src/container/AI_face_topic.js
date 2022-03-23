@@ -60,7 +60,7 @@ const leftData = [
     { imgUrl: './img/07.png', name: '07', topic: 'Good' },
 ]
 
-export const AI_face_topic = () => {
+export const AI_face_topic = (props) => {
     const [collapsed, setCollapsed] = useState(false);
     // const { leftData } = tempimage_1;
     const onCollapse = collapsed => {
@@ -70,7 +70,6 @@ export const AI_face_topic = () => {
         } else {
             setCollapsed(false);
         }
-
     };
 
     return (

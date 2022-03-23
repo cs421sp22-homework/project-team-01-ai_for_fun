@@ -57,23 +57,6 @@ export class Home extends React.Component {
     }
 
     componentDidMount = async () => {
-        // GET request using fetch with error handling
-        // fetch('https://server-demo.ai-for-fun-backend.com/getentities')
-        //     .then(async response => {
-        //         const data = await response.json();
-        //         // check for error response
-        //         if (!response.ok) {
-        //             // get error message from body or default to response statusText
-        //             const error = (data && data.message) || response.statusText;
-        //             return Promise.reject(error);
-        //         }
-        //         console.log(data)
-        //         this.setState({ totalReactPackages: data })
-        //     })
-        //     .catch(error => {
-        //         this.setState({ errorMessage: error.toString() });
-        //         console.error('There was an error!123', error);
-        //     });
         const response = await fetch("https://server-demo.ai-for-fun-backend.com/getentities", {
             method: 'POST',
         });
