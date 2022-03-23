@@ -123,6 +123,17 @@
   max-width: 300px;
 }
 
+.CardImage{
+  width: 150px;
+  height: 15vw;
+  /* weight: 30vw;  */
+}
+
+.Card.Img{
+  height: 30vw;
+  width: 30vw;
+}
+
 /* Make the image to responsive */
 /* .image {
   display: block;

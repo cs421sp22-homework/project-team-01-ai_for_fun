@@ -43,9 +43,26 @@ const tempimage = [
     { imgUrl: './img/06.png', name: '06', topic: 'Face' },
     { imgUrl: './img/07.png', name: '07', topic: 'Good' },
 ]
+const leftData = [
+    { imgUrl: './img/01.png', name: '01', topic: 'Star' },
+    { imgUrl: './img/02.png', name: '02', topic: 'House' },
+    { imgUrl: './img/03.png', name: '03', topic: 'New Year' },
+    { imgUrl: './img/04.png', name: '04', topic: 'Amazing' },
+    { imgUrl: './img/05.png', name: '05', topic: 'Fashion' },
+    { imgUrl: './img/06.png', name: '06', topic: 'Face' },
+    { imgUrl: './img/07.png', name: '07', topic: 'Good' },
+    { imgUrl: './img/01.png', name: '01', topic: 'Star' },
+    { imgUrl: './img/02.png', name: '02', topic: 'House' },
+    { imgUrl: './img/03.png', name: '03', topic: 'New Year' },
+    { imgUrl: './img/04.png', name: '04', topic: 'Amazing' },
+    { imgUrl: './img/05.png', name: '05', topic: 'Fashion' },
+    { imgUrl: './img/06.png', name: '06', topic: 'Face' },
+    { imgUrl: './img/07.png', name: '07', topic: 'Good' },
+]
 
 export const AI_face_topic = () => {
     const [collapsed, setCollapsed] = useState(false);
+    // const { leftData } = tempimage_1;
     const onCollapse = collapsed => {
         console.log(collapsed);
         if (collapsed) {
@@ -60,7 +77,7 @@ export const AI_face_topic = () => {
         <>
             <Row style={{ height: '100%' }}>
                 <Col xs={3}>
-                    < CollectionInLeft />
+                    < CollectionInLeft leftSourceImg={leftData} />
                 </Col>
                 <Col xs={9}>
                     <EditVideo imgData={tempimage} />
