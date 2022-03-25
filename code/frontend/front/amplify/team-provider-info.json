@@ -27,6 +27,12 @@
           "appId": "dl2aw8e9k8n39",
           "type": "manual"
         }
+      },
+      "storage": {
+        "aiforfun25480ce9": {
+          "bucketName": "aifun",
+          "region": "us-east-1"
+        }
       }
     }
   }
