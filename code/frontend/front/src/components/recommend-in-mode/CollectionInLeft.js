@@ -17,7 +17,7 @@ export default function CollectionInLeft(props) {
             <Row className="ml-1 overflow-auto" style={{ height: "100vh" }}>
                 {leftimg.map(item => {
                     return <Col key={item.name} xl={4} lg={6} sm={12} className="mt-3" onClick={() => setSourceimg(item.imgUrl)}>
-                        <Image src={item.imgUrl} fluid alt="item.name" />
+                        <Image src={item.imgUrl} style={{ height: '83px', witdh: '83.px', objectFit: 'cover', maxHeight: '100vh' }} fluid alt="item.name" />
                     </Col>;
                 })}
             </Row>

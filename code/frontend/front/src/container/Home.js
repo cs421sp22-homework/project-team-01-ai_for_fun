@@ -6,6 +6,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import "../style/Home.css";
 import { ConsoleSqlOutlined } from "@ant-design/icons";
 import AWS from "aws-sdk";
+import Amplify, { Storage } from 'aws-amplify'
 
 const tempimage_ForYou = [
     { imgUrl: 'https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTc5ODc1NTM4NjMyOTc2Mzcz/gettyimages-693134468.jpg', name: 'movieStart_1', topic: 'Movie Stars' },
@@ -57,11 +58,13 @@ export class Home extends React.Component {
         this.Trendflow = Trendflow;
     }
 
-    loadDataInbucket = () => {
+    loadDataInbucket = async () => {
         var bucketParams = {
             Bucket: 'aifun',
         };
         var s3 = new AWS.S3();
+        const signedURL = await Storage.get("1eZnePwSETNSdNaT.jpg");
+        console.log(signedURL);
         s3.listObjects(bucketParams, function (err, data) {
             if (err) {
                 console.log("Error", err);
