@@ -28,8 +28,8 @@ function Slideshow(props) {
     if (translateX === 0) return;
     setTranslateX(translateX + ref.current.offsetWidth);
   };
-  console.log('translateX', translateX);
-  console.log('ref', ref);
+  //console.log('translateX', translateX);
+  //console.log('ref', ref);
 
   return (
     <Container fluid>
