@@ -47,7 +47,6 @@ function SlideshowInMode(props) {
                 })}
             </ul>
         </div>
-
     );
 }
 

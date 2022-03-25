@@ -30,6 +30,10 @@
         "aiforfund40b4abb": {
           "bucketName": "aifun",
           "region": "us-east-1"
+        },
+        "aiforfun9609ea5c": {
+          "bucketName": "aifun",
+          "region": "us-east-1"
         }
       }
     }
