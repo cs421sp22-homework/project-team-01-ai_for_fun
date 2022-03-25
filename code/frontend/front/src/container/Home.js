@@ -38,8 +38,11 @@ export class Home extends React.Component {
     }
 
     componentDidMount = async () => {
-        const result = await Storage.list('')
-        console.log(result)
+        // const result = await Storage.list();
+        // console.log(result)
+
+        const signedURL = await Storage.get('1eZnePwSETNSdNaT.jpg');
+        console.log(signedURL);
 
         const response = await fetch("https://server-demo.ai-for-fun-backend.com/getentities", {
             method: 'POST',

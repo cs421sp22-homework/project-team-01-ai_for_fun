@@ -80,7 +80,7 @@ class UploadFace extends React.Component {
       });
 
       this.context.faceimg = signedURL;
-      
+
     } catch (error) {
       console.log("Error uploading file:", error)
       message.error(`file upload failed.`);
