@@ -7,23 +7,14 @@ import { useCookies } from 'react-cookie';
 
 function NavBar() {
   const [cookie, setCookie,removeCookie] = useCookies();
-
-  // const {loggedIn, setLoggedIn,token,setToken,user,setUser,email,setEmail} = useContext(LoginContext);
   
   const handelHelp = () => {
-    // console.log(loggedIn);
-    // console.log(token);
   }
   const handleLogout = () => {
     removeCookie('name');
     removeCookie('email');
     removeCookie('refresh_token');
     removeCookie('access_token')
-    // setLoggedIn(false);
-    // setToken('');
-    // setUser('');
-    // setEmail('');
-    // console.log(loggedIn)
   };
     return (
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
@@ -41,11 +32,7 @@ function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-            {cookie.name ?
-              <Nav.Link href="#features">My work</Nav.Link>
-            :
-            <></>
-          }
+            <Nav.Link href="/gallery">Community</Nav.Link>
             </Nav>
             <Nav>
             <Nav.Link eventKey={0} href="#memes" onClick={handelHelp}>
@@ -55,7 +42,7 @@ function NavBar() {
             (
               <NavDropdown className='mr-4' title="My Account" id="collasible-nav-dropdown">
                 <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">My work</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={handleLogout}>log out</NavDropdown.Item>

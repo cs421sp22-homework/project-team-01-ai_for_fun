@@ -17,11 +17,5 @@ export type AmplifyDependentResourcesAttributes = {
             "Region": "string",
             "LambdaExecutionRole": "string"
         }
-    },
-    "storage": {
-        "aiforfun": {
-            "BucketName": "string",
-            "Region": "string"
-        }
     }
 }

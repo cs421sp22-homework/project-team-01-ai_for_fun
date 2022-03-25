@@ -52,13 +52,18 @@ function EditVideo(props) {
         console.log(pick);
         console.log(sourceimg);
         if (cookie.access_token) {
-            const response = await fetch('https://server-demo.ai-for-fun-backend.com/faceswap', {
+            // const response = await fetch('https://server-demo.ai-for-fun-backend.com/faceswap', {
+            const response = await fetch('http://127.0.0.1:8080/faceswap', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    "user_id": cookie.access_token,
-                    "src_url": "https://i.postimg.cc/TwTdxrs6/v2-75cc7fe18dbf470b833c5bca162df557-img-000.png",
-                    "dst_url": "https://i.postimg.cc/QCgRSPmG/0-202009230849071-Xy-Oc.jpg"
+                //     "user_id": cookie.access_token,
+                //     "src_url": "https://i.postimg.cc/TwTdxrs6/v2-75cc7fe18dbf470b833c5bca162df557-img-000.png",
+                //     "dst_url": "https://i.postimg.cc/QCgRSPmG/0-202009230849071-Xy-Oc.jpg"
+                // }
+                "src_url": "https://aifun.s3.amazonaws.com/hlvHTmA5r9RHH2U1.jpg?AWSAccessKeyId=AKIAXRGYYT5KAP6UULMP&Signature=TOtOgiDJ7qbZMz99%2B0d5yrF2GhU%3D&Expires=1647644095",
+                "dst_url":"https://aifun.s3.amazonaws.com/oCQeuzqjaCISMetD.jpg?AWSAccessKeyId=AKIAXRGYYT5KAP6UULMP&Signature=HBVKWgfJkEUzkiYEM81qM4qJwmA%3D&Expires=1647644095",
+                "user_id": "1"
                 })
             });
             if (response.status == 200) {

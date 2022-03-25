@@ -38,7 +38,7 @@ function Slideshow(props) {
         {imgData.map(item => {
           return <li key={item.name} className='shadow'>
             <Card.Link href="/AI_face_topic" >
-              <Card.Img as={Image} src={item.imgUrl} fluid={true} alt="item.name" />
+              <Card.Img as={Image} src={item.imgUrl} fluid={true} alt="item.name" style={{'height':'300px',"object-fit": "cover"}} />
               </Card.Link>
               <Card.Body>
               {/* <Card.Title>{item.topic}</Card.Title> */}

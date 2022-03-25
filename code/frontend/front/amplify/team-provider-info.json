@@ -5,7 +5,6 @@
       "UnauthRoleArn": "arn:aws:iam::517998157652:role/amplify-aiforfun-dev-235230-unauthRole",
       "AuthRoleArn": "arn:aws:iam::517998157652:role/amplify-aiforfun-dev-235230-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-aiforfun-dev-235230-deployment",
       "UnauthRoleName": "amplify-aiforfun-dev-235230-unauthRole",
       "StackName": "amplify-aiforfun-dev-235230",
       "StackId": "arn:aws:cloudformation:us-east-1:517998157652:stack/amplify-aiforfun-dev-235230/3b236190-a1c0-11ec-897b-121564f84bd7",
@@ -18,7 +17,6 @@
       },
       "function": {
         "S3Trigger42b79617": {
-          "deploymentBucketName": "amplify-aiforfun-dev-235230-deployment",
           "s3Key": "amplify-builds/S3Trigger42b79617-2f7a2b4b6a7a5948776b-build.zip"
         }
       },
@@ -26,6 +24,48 @@
         "amplifyhosting": {
           "appId": "dl2aw8e9k8n39",
           "type": "manual"
+        }
+      },
+      "storage": {
+        "aiforfund40b4abb": {
+          "bucketName": "aifun",
+          "region": "us-east-1"
+        }
+      }
+    }
+  },
+  "ifun": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-aiforfun-ifun-20811-authRole",
+      "UnauthRoleArn": "arn:aws:iam::517998157652:role/amplify-aiforfun-ifun-20811-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::517998157652:role/amplify-aiforfun-ifun-20811-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-aiforfun-ifun-20811-deployment",
+      "UnauthRoleName": "amplify-aiforfun-ifun-20811-unauthRole",
+      "StackName": "amplify-aiforfun-ifun-20811",
+      "StackId": "arn:aws:cloudformation:us-east-1:517998157652:stack/amplify-aiforfun-ifun-20811/4a357960-a8dd-11ec-bf8f-12083211e679",
+      "AmplifyAppId": "dl2aw8e9k8n39"
+    },
+    "categories": {
+      "function": {
+        "S3Trigger42b79617": {
+          "deploymentBucketName": "amplify-aiforfun-ifun-20811-deployment",
+          "s3Key": "amplify-builds/S3Trigger42b79617-2f7a2b4b6a7a5948776b-build.zip"
+        }
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "dl2aw8e9k8n39",
+          "type": "manual"
+        }
+      },
+      "auth": {
+        "aiforfunbb20ad0f": {}
+      },
+      "storage": {
+        "aiforfund40b4abb": {
+          "bucketName": "aifun",
+          "region": "us-east-1"
         }
       }
     }

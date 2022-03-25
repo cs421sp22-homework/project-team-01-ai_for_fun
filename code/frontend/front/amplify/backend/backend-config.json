@@ -33,20 +33,11 @@
     }
   },
   "storage": {
-    "aiforfun": {
+    "aiforfund40b4abb": {
       "service": "S3",
+      "serviceType": "imported",
       "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "S3Trigger42b79617",
-          "attributes": [
-            "Name",
-            "Arn",
-            "LambdaExecutionRole"
-          ]
-        }
-      ]
+      "dependsOn": []
     }
   },
   "hosting": {

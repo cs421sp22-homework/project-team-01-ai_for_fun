@@ -17,8 +17,9 @@ import EditVideo from "../container/EditVideo";
 import { AI_face } from "../container/AI_face";
 import { AI_face_topic } from "../container/AI_face_topic";
 import { CookiesProvider } from 'react-cookie';
+import Gallery from "../container/Community_home";
 
-const info = { pic: './img/01.png', name: 'Sample', email: '1234@jh.edu' }
+const info = { pic: './img/01_1.png', name: 'Sample', email: '1234@jh.edu' }
 const tempimage = [
   { imgUrl: './img/01.png', name: '01', topic: 'Star' },
   { imgUrl: './img/02.png', name: '02', topic: 'House' },
@@ -48,6 +49,7 @@ function App() {
             <Route path="/AI_face" element={<AI_face />} />
             <Route path="/AI_face_topic" element={<AI_face_topic />} />
             <Route path="/edit-video" element={<EditVideo imgData={tempimage} />} />
+            <Route path="/gallery" element={<Gallery/>} />
           </Routes>
         </div>
       </Router>
