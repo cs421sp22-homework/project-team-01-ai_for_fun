@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "antd-img-crop": "^4.1.0"
+    "antd-img-crop": "^4.1.0",
+    "boto3": "^0.0.1"
   }
 }

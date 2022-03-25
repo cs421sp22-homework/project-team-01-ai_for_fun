@@ -59,5 +59,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "1. `npm install` 2. `amplify init` 3. `amplify push` 4. `npm start`",
+  "main": "index.js",
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
 }
