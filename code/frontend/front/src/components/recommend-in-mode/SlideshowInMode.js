@@ -14,7 +14,8 @@ function SlideshowInMode(props) {
     const ref = createRef();
     const { imgData } = props;
     const [translateX, setTranslateX] = useState(0);
-    const { soureimg, setSourceimg } = useContext(LoginContext);
+    const { soureimg, setSourceimg, dst, setDst } = useContext(LoginContext);
+    //const { soureimg, setSourceimg } = useContext(LoginContext);
     /**
      * right button
      */
@@ -34,6 +35,7 @@ function SlideshowInMode(props) {
     };
     console.log('translateX', translateX);
     console.log('ref', ref);
+
     return (
         <div className='wrap_scrollImg' style={{ width: '100%', height: '100%' }}>
             <span className='left_icon' onClick={clickLeftIcon}><LeftCircleOutlined /></span>
@@ -41,7 +43,7 @@ function SlideshowInMode(props) {
             <ul style={{ transform: `translateX(${translateX}px)` }} ref={ref}>
                 {imgData.map(item => {
                     return <li key={item.name}>
-                        <Card.Img as={Image} style={{ height: '85px', witdh: '85px', objectFit: 'cover', maxHeight: '100vh' }} src={item.imgUrl} fluid={true} alt="item.name" onClick={() => setSourceimg(item.imgUrl)
+                        <Card.Img as={Image} style={{ height: '85px', witdh: '85px', objectFit: 'cover', maxHeight: '100vh' }} src={item.imgUrl} fluid={true} alt="item.name" onClick={() => { setDst(''); setSourceimg(item.imgUrl) }
                         } />
                     </li>;
                 })}
