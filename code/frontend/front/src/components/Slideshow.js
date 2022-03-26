@@ -33,7 +33,6 @@ function Slideshow(props) {
 
   return (
     <Container fluid>
-
       <div className='wrap_scrollImg'>
         <span className='left_icon' onClick={clickLeftIcon}><LeftCircleOutlined /></span>
         <span className='right_icon' onClick={clickRightIcon}><RightCircleOutlined /></span>

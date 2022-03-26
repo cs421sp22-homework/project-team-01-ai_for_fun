@@ -41,13 +41,12 @@ function SlideshowInMode(props) {
             <ul style={{ transform: `translateX(${translateX}px)` }} ref={ref}>
                 {imgData.map(item => {
                     return <li key={item.name}>
-                        <Card.Img as={Image} src={item.imgUrl} fluid={true} alt="item.name" onClick={() => setSourceimg(item.imgUrl)
+                        <Card.Img as={Image} style={{ height: '85px', witdh: '85px', objectFit: 'cover', maxHeight: '100vh' }} src={item.imgUrl} fluid={true} alt="item.name" onClick={() => setSourceimg(item.imgUrl)
                         } />
                     </li>;
                 })}
             </ul>
         </div>
-
     );
 }
 
