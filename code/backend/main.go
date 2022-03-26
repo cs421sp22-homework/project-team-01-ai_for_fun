@@ -29,8 +29,8 @@ func main() {
 		context.String(http.StatusOK, "Hello World")
 	})
 	route.EntityRoutes(router)
-	route.UserRoutes(router)
 	route.AuthRoutes(router)
+	route.UserRoutes(router)
 
 	router.Run(":" + port)
 }

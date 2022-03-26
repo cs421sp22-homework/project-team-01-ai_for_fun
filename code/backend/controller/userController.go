@@ -214,18 +214,18 @@ func GetUser() gin.HandlerFunc {
 func ChangeUser() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		userId := c.Param("user_id")
-		err := helper.MatchUserTypeToUid(c, userId)
-		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
-		}
+		// err := helper.MatchUserTypeToUid(c, userId)
+		// if err != nil {
+		// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		// 	return
+		// }
 
 		var changeinfo ChangeInfo
 		var foundUser model.User
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
 
-		err = c.BindJSON(&changeinfo)
+		err := c.BindJSON(&changeinfo)
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
