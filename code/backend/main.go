@@ -30,6 +30,7 @@ func main() {
 		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "token"},
 		AllowCredentials: false,
+		AllowAllOrigins:  true,
 		MaxAge:           12 * time.Hour,
 	}))
 	router.GET("/", func(context *gin.Context) {
