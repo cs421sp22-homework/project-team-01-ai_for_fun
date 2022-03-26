@@ -22,7 +22,7 @@ function getBase64(img, callback) {
 }
 
 
-class UploadPic extends React.Component {
+class UploadPicinProfile extends React.Component {
   // static contextType = LoginContext;
 
   static propTypes = {
@@ -92,7 +92,7 @@ class UploadPic extends React.Component {
       console.log(result);
       const signedURL = await Storage.get(result.key);
       console.log(signedURL);
-      //localStorage.setItem('global_profile_img',signedURL);
+      localStorage.setItem('global_profile_IMG', signedURL);
 
       this.setState({
         imageUrl: signedURL,
@@ -134,6 +134,6 @@ class UploadPic extends React.Component {
     );
   }
 }
-UploadPic.contextType = LoginContext;
+UploadPicinProfile.contextType = LoginContext;
 
-export default withCookies(UploadPic);
+export default withCookies(UploadPicinProfile);

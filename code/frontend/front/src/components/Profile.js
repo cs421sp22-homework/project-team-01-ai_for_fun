@@ -2,7 +2,8 @@
 import React, { useState, useContext } from 'react';
 import { message, Input, Form } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
-import UploadPic from './UploadPic';
+import UploadPicinProfile from './UploadPicinProfile';
+import UploadPic from './UploadPic'
 import '../style/Profile.css';
 import { Row, Col, Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
@@ -21,7 +22,7 @@ const compareToFirstPassword = ({ getFieldValue }) => ({
 function Profile(props) {
     props = props.props
     // const {user,setUser,email,setEmail} = useContext(LoginContext);
-    const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id'])
+    const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'img'])
     const [name, setName] = useState(cookie.name);
     const [email, setEmail] = useState(cookie.email);
     const [password, setPassword] = useState('');
@@ -33,8 +34,11 @@ function Profile(props) {
     const [pic, setPic] = useState(props.pic);
     var user_id = localStorage.getItem('global_userID');
     var globla_token = localStorage.getItem('global_token');
+    var profileimg = localStorage.getItem('global_profile_IMG');
     console.log(user_id);
     console.log(globla_token);
+    console.log("img" + profileimg)
+
 
     // Edit Name
     const handleEditName = () => {
@@ -51,12 +55,12 @@ function Profile(props) {
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: {
-                        //'content-Type': 'application/json',
-                        'token': globla_token
+                        'content-Type': 'application/json',
+                        //'Token': globla_token.toString()
                     },
-                    body: {
+                    body: JSON.stringify({
                         "new_name": name.toString()
-                    }
+                    })
                 });
 
                 if (response.status == 200) {
@@ -64,6 +68,8 @@ function Profile(props) {
                     let expires = new Date();
                     expires.setTime(expires.getTime() + (30 * 60 * 1000));
                     setCookie('name', content.name, { path: '/', expires });
+                    message.success("change name successful")
+                    setshowInputName(false)
                 }
                 else {
                     console.log('request failed', response);
@@ -111,7 +117,7 @@ function Profile(props) {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'token': globla_token
+                        //'Token': globla_token
                     },
                     body: JSON.stringify({
                         "old_password": oriPsw,
@@ -125,6 +131,8 @@ function Profile(props) {
                     let expires = new Date();
                     expires.setTime(expires.getTime() + (30 * 60 * 1000));
                     setCookie('name', content.name, { path: '/', expires });
+                    message.success('Change Password Successful')
+                    setShowEditPsw(false)
                 }
                 else {
                     console.log('request failed', response);
@@ -141,33 +149,56 @@ function Profile(props) {
         } else {
             message.error("Please input password")
         }
-        // fetch('https://server-demo.ai-for-fun-backend.com/changeinfo/' + user_id, {
-        //     method: 'POST',
-        //     headers: {
-        //         'content-type': 'application/json',
-        //         'token': globla_token
-        //     },
-        //     body: {
-        //         "old_password": oriPsw,
-        //         "new_password": password,
-        //     }
-        // })
-        //     .then(response => {
-        //         console.log(response)
-        //     })
-        //     .catch(err => {
-        //         console.log(err)
-        //     })
-
     }
+    const handleImg = async () => {
+        //  if (password && oriPsw) {
+        try {
+            let url = 'https://server-demo.ai-for-fun-backend.com/changeinfo/' + user_id
+            console.log(url);
+            console.log(profileimg)
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    //'Token': globla_token
+                },
+                body: JSON.stringify({
+                    "new_avatar": profileimg,
+                })
+            });
+            console.log(response.status)
+
+            if (response.status == 200) {
+                const content = await response.json();
+                let expires = new Date();
+                expires.setTime(expires.getTime() + (30 * 60 * 1000));
+                setCookie('name', content.name, { path: '/', expires });
+                message.success('change IMG successful, login again, you will see the change 😊')
+                setShowEditPsw(false)
+            }
+            else {
+                console.log('request failed', response);
+                setName(cookie.name)
+                message.error('request failed')
+            }
+        } catch (err) {
+            if (err.response?.status === 500) {
+                message.error('Missing Image');
+            } else {
+                message.error('Failed!');
+            }
+        }
+    }
+    //  }
 
     return (
         <Container style={{ minHeight: '100vh' }}>
             <Row className='pt-3'>
                 <Col md={4} style={{ backgroundColor: 'whitesmoke' }} className="mr-1">
                     <Row className='mt-4'>
-                        <div style={{ width: 180 }} className="mx-auto">
-                            <Image roundedCircle src={pic} fluid />
+                        <div style={{ width: '100px' }} className="mx-auto">
+                            {/* <Image roundedCircle src={pic} fluid /> */}
+                            <UploadPicinProfile />
                         </div>
                     </Row>
                     <br />
@@ -243,10 +274,10 @@ function Profile(props) {
                     <Row style={{ backgroundColor: 'whitesmoke' }}>
                         <Row className='mt-4' >
                             <Col md={9}>
-                                <UploadPic />
+                                <UploadPicinProfile />
                             </Col>
                             <Col md={3} className='pt-4'>
-                                <Button variant="outline-dark">Submit</Button>
+                                <Button variant="outline-dark" onClick={handleImg}>Change IMG</Button>
                             </Col>
                         </Row>
                         <br />

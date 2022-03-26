@@ -63,5 +63,6 @@
   "description": "1. `npm install` 2. `amplify init` 3. `amplify push` 4. `npm start`",
   "main": "index.js",
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {}
 }
