@@ -31,11 +31,11 @@ def AiFaceSwap(src_url, dst_url):
 class S(BaseHTTPRequestHandler):
     def _set_response(self):
         self.send_response(200)
-        self.send_header('Content-type', 'text/html')
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        self.send_header('Content-type', 'application/json')
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "*")
+        self.send_header("Access-Control-Allow-Headers", "Authorization, Content-Type")
         self.end_headers()
-
     def do_GET(self):
         logging.info("GET request,\nPath: %s\nHeaders:\n%s\n", str(self.path), str(self.headers))
         router=str(self.path)
@@ -46,6 +46,9 @@ class S(BaseHTTPRequestHandler):
         output=json.dumps(res)
         self._set_response()
         self.wfile.write("{}".format(output).encode('utf-8'))
+
+    def do_OPTIONS(self):
+        self._set_response()
 
     def do_POST(self):
         content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
@@ -63,7 +66,7 @@ class S(BaseHTTPRequestHandler):
             user_id=data["user_id"]
             print(user_id)
             src_url = data["src_url"]
-            dst_url = data["dst_url"] 
+            dst_url = data["dst_url"]
             res_name, res_url = AiFaceSwap(src_url, dst_url)
             res = {"res_name": res_name, "res_url":res_url}
             savefileinfo(data)
