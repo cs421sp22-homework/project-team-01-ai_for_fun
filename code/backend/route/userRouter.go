@@ -10,5 +10,4 @@ func UserRoutes(router *gin.Engine) {
 	router.Use(middleware.Authenticate())
 	router.GET("/users", controller.GetUsers())
 	router.GET("/users/:user_id", controller.GetUser())
-	router.POST("/changeinfo/:user_id", controller.ChangeUser())
 }
