@@ -184,7 +184,7 @@ func GetUsers() gin.HandlerFunc {
 			log.Fatal(err)
 		}
 		c.Header("Access-Control-Allow-Origin", "*")
-		c.Header("Access-Control-Allow-Headers", "Content-Type")
+		c.Header("Access-Control-Allow-Headers", "*")
 		c.JSON(http.StatusOK, allusers[0])
 	}
 }
@@ -206,7 +206,7 @@ func GetUser() gin.HandlerFunc {
 			return
 		}
 		c.Header("Access-Control-Allow-Origin", "*")
-		c.Header("Access-Control-Allow-Headers", "Content-Type")
+		c.Header("Access-Control-Allow-Headers", "*")
 		c.JSON(http.StatusOK, user)
 	}
 }
@@ -260,7 +260,7 @@ func ChangeUser() gin.HandlerFunc {
 			return
 		}
 		c.Header("Access-Control-Allow-Origin", "*")
-		c.Header("Access-Control-Allow-Headers", "Content-Type")
+		c.Header("Access-Control-Allow-Headers", "*")
 		c.JSON(http.StatusOK, foundUser)
 	}
 }
