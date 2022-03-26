@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/cs421sp22-homework/project-team-01-ai_for_fun/route"
 	"github.com/gin-contrib/cors"
@@ -24,7 +25,13 @@ func main() {
 
 	router := gin.New()
 	router.Use(gin.Logger())
-	router.Use(cors.Default())
+	//router.Use(cors.Default())
+	router.Use(cors.New(cors.Config{
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "token"},
+		AllowCredentials: false,
+		MaxAge:           12 * time.Hour,
+	}))
 	router.GET("/", func(context *gin.Context) {
 		context.String(http.StatusOK, "Hello World")
 	})
