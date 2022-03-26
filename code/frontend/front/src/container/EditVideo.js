@@ -1,5 +1,5 @@
 import React, { useState, createRef, useContext } from 'react';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Button, Image } from 'react-bootstrap';
 import Video from '../components/Video';
 import UploadFace from '../components/UploadFace';
 import "../style/EditVideo.css"
@@ -8,7 +8,7 @@ import { LoginContext } from '../context/AuthProvider';
 import 'antd/dist/antd.css';
 import { useCookies } from 'react-cookie';
 
-import { Layout, Image, message } from 'antd';
+import { Layout, message } from 'antd';
 
 const { Content, Footer } = Layout;
 
@@ -35,10 +35,9 @@ const selected = (e) => {
 function EditVideo(props) {
     const ref = createRef();
     const { imgData } = props;
-    const { faceimg, setFaceimg, sourceimg, setSourceimg } = useContext(LoginContext);
+    const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg } = useContext(LoginContext);
     const [cookie, setCookie] = useCookies(['access_token', 'refresh_token', 'name', 'email'])
     const [pick, setPick] = useState('');
-    const [dst, setDst] = useState('');
 
 
     // const selectImage = (id) => {
@@ -51,32 +50,39 @@ function EditVideo(props) {
         console.log(faceimg);
         console.log(pick);
         console.log(sourceimg);
-        if (cookie.access_token) {
-            // const response = await fetch('https://server-demo.ai-for-fun-backend.com/faceswap', {
-            const response = await fetch('http://127.0.0.1:8080/faceswap', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                //     "user_id": cookie.access_token,
-                //     "src_url": "https://i.postimg.cc/TwTdxrs6/v2-75cc7fe18dbf470b833c5bca162df557-img-000.png",
-                //     "dst_url": "https://i.postimg.cc/QCgRSPmG/0-202009230849071-Xy-Oc.jpg"
-                // }
-                "src_url": "https://aifun.s3.amazonaws.com/hlvHTmA5r9RHH2U1.jpg?AWSAccessKeyId=AKIAXRGYYT5KAP6UULMP&Signature=TOtOgiDJ7qbZMz99%2B0d5yrF2GhU%3D&Expires=1647644095",
-                "dst_url":"https://aifun.s3.amazonaws.com/oCQeuzqjaCISMetD.jpg?AWSAccessKeyId=AKIAXRGYYT5KAP6UULMP&Signature=HBVKWgfJkEUzkiYEM81qM4qJwmA%3D&Expires=1647644095",
-                "user_id": "1"
-                })
-            });
-            if (response.status == 200) {
-                const content = await response.json();
-                setDst(content.res_url)
+        if (!sourceimg ||(!pick && !faceimg)){
+            message.error('Please choose one picture!');
+        }else{
+            let dest = '';
+            if (!pick){
+                dest = faceimg
+            }else{
+                dest = pick
             }
-            else {
-                console.log('request failed', response);
-                message.error('failed.');
+            if (cookie.access_token) {
+                // const response = await fetch('https://server-demo.ai-for-fun-backend.com/faceswap', {
+                const response = await fetch('http://127.0.0.1:8080/faceswap', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                    "src_url": dest,
+                    "dst_url": sourceimg,
+                    "user_id": cookie.access_token
+                    })
+                });
+                if (response.status == 200) {
+                    const content = await response.json();
+                    setDst(content.res_url)
+                }
+                else {
+                    console.log('request failed', response);
+                    message.error('failed.');
+                }
+            } else {
+                alert('Login first!')
             }
-        } else {
-            alert('Login first!')
         }
+        
     };
 
     return (
@@ -86,13 +92,14 @@ function EditVideo(props) {
                     <Col md={1} xl={2}> </Col>
                     <Col md={10} xl={8}>
                         <center>
+                            {console.log(dst)}
                             {dst ?
-                                <Image src={dst} />
+                                <Image src={dst} style={{minHeight:"40vh"}} fluid/>
                                 :
                                 sourceimg ?
-                                    <Image src={sourceimg} />
+                                    <Image src={sourceimg} style={{minHeight:"40vh"}} fluid/>
                                     :
-                                    <Video props={tempvideo} />
+                                    <Video props={tempvideo}/>
                             }
                         </center>
                     </Col>
@@ -121,7 +128,6 @@ function EditVideo(props) {
                                     <Image
                                         className='res-img'
                                         src={item.imgUrl}
-                                        preview={false}
                                         onClick={(e) => selected(e)}
                                     />
                                 </li>

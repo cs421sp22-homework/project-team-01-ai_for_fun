@@ -20,22 +20,16 @@ import { CookiesProvider } from 'react-cookie';
 import Gallery from "../container/Community_home";
 
 const info = { pic: './img/01_1.png', name: 'Sample', email: '1234@jh.edu' }
-const tempimage = [
-  { imgUrl: './img/01.png', name: '01', topic: 'Star' },
-  { imgUrl: './img/02.png', name: '02', topic: 'House' },
-  { imgUrl: './img/03.png', name: '03', topic: 'New Year' },
-  { imgUrl: './img/04.png', name: '04', topic: 'Amazing' },
-  { imgUrl: './img/05.png', name: '05', topic: 'Fashion' },
-]
 
 
 function App() {
   const [faceimg, setFaceimg] = useState('');
   const [sourceimg, setSourceimg] = useState('');
   const [avatarimg, setAvatarimg] = useState('');
+  const [dst, setDst] = useState('');
   return (
     <CookiesProvider>
-    <LoginContext.Provider value={{ faceimg, setFaceimg,sourceimg, setSourceimg,avatarimg, setAvatarimg}}>
+    <LoginContext.Provider value={{ dst, setDst, faceimg, setFaceimg,sourceimg, setSourceimg,avatarimg, setAvatarimg}}>
       <Router>
         <NavBar />
         <div>
@@ -48,7 +42,6 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/AI_face" element={<AI_face />} />
             <Route path="/AI_face_topic" element={<AI_face_topic />} />
-            <Route path="/edit-video" element={<EditVideo imgData={tempimage} />} />
             <Route path="/gallery" element={<Gallery/>} />
           </Routes>
         </div>
