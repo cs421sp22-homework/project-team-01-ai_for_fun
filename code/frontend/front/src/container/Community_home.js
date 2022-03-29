@@ -41,7 +41,7 @@ const macyOptions = {
     container: '#macy-grid',
     trueOrder: true,
     mobileFirst: true,
-    margin: 24,
+    margin: 23,
     columns: 1,
     breakAt: {
       1000: 4,

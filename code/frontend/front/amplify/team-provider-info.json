@@ -54,7 +54,7 @@
       "function": {
         "S3Trigger42b79617": {
           "deploymentBucketName": "amplify-aiforfun-ifun-20811-deployment",
-          "s3Key": "amplify-builds/S3Trigger42b79617-2f7a2b4b6a7a5948776b-build.zip"
+          "s3Key": "amplify-builds/S3Trigger42b79617-766d5766633951564657-build.zip"
         }
       },
       "hosting": {
