@@ -307,7 +307,14 @@ function Profile(props) {
                         }
                     </Row>
                     <Row className="mt-1" style={{ backgroundColor: 'whitesmoke', minHeight: '80vh' }}>
-                        <h2>My work</h2>
+                        <Row>
+                            <Col md={9} sm={5}>
+                                <h2>My work</h2>
+                            </Col>
+                            <Col md={3} sm={7}>
+                                <Button variant="outline-dark">Post my work</Button>{' '}
+                            </Col>
+                        </Row>
                     </Row>
                     <div>
 

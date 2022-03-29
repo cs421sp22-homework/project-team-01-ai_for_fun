@@ -50,13 +50,13 @@ function EditVideo(props) {
         console.log(faceimg);
         console.log(pick);
         console.log(sourceimg);
-        if (!sourceimg ||(!pick && !faceimg)){
+        if (!sourceimg || (!pick && !faceimg)) {
             message.error('Please choose one picture!');
-        }else{
+        } else {
             let dest = '';
-            if (!pick){
+            if (!pick) {
                 dest = faceimg
-            }else{
+            } else {
                 dest = pick
             }
             if (cookie.access_token) {
@@ -65,9 +65,9 @@ function EditVideo(props) {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                    "src_url": dest,
-                    "dst_url": sourceimg,
-                    "user_id": cookie.access_token
+                        "src_url": dest,
+                        "dst_url": sourceimg,
+                        "user_id": cookie.access_token
                     })
                 });
                 if (response.status == 200) {
@@ -82,7 +82,7 @@ function EditVideo(props) {
                 alert('Login first!')
             }
         }
-        
+
     };
 
     return (
@@ -94,12 +94,12 @@ function EditVideo(props) {
                         <center>
                             {console.log(dst)}
                             {dst ?
-                                <Image src={dst} style={{minHeight:"40vh"}} fluid/>
+                                <Image src={dst} style={{ minHeight: "40vh" }} fluid />
                                 :
                                 sourceimg ?
-                                    <Image src={sourceimg} style={{minHeight:"40vh"}} fluid/>
+                                    <Image src={sourceimg} style={{ minHeight: "40vh" }} fluid />
                                     :
-                                    <Video props={tempvideo}/>
+                                    <Video props={tempvideo} />
                             }
                         </center>
                     </Col>
@@ -136,7 +136,9 @@ function EditVideo(props) {
                     </Col>
 
                 </Row>
-                <Button onClick={handleSubmit} style={{ float: "right" }}>Combine</Button>
+
+                <Button onClick={handleSubmit} style={{ float: "right", marginRight: '30px' }}>Post</Button>{''}
+                <Button onClick={handleSubmit} variant="success" style={{ float: "right", marginRight: '15px' }}>Combine</Button>
             </Footer>
         </Layout>
     )
