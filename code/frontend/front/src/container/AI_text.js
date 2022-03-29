@@ -110,7 +110,7 @@ export const AI_text = (props) => {
                 </Menu>
             </Sider>
             <Layout className="site-layout" style={{ marginLeft: 0 }}>
-                <Header className="site-layout-background" style={{ padding: 0, textAlign: 'center', background: '#f0f0f0' }} > <h2>AI FACE</h2></Header>
+                <Header className="site-layout-background" style={{ padding: 0, textAlign: 'center', background: '#f0f0f0' }} > <h2>AI Voice</h2></Header>
                 <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
                     <div className="site-layout-background" style={{ padding: 0, textAlign: 'center' }}>
                         <EditVideo imgData={tempimage} />
