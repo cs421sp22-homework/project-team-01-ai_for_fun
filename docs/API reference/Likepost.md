@@ -10,14 +10,14 @@ give a like for a post
 **Data constraints**
 
 ```json
-{postid:"[postid]"
+{"postid":"[postid]"
 }
 ```
 
 **Data example**
 
 ```json
-{postid:"001"
+{"postid":"001"
 }
 ```
 

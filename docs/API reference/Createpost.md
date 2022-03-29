@@ -11,11 +11,11 @@ create a new post
 
 ```json
 {
-contenteurl:"[url]",
-posttext:"[text]",
-userid"[the id of user]",
-username:"[username]",
-useravater:"[the avater of user]"
+"contenteurl":"[url]",
+"posttext":"[text]",
+"userid":"[the id of user]",
+"username":"[username]",
+"useravater":"[the avater of user]"
 }
 
 ```
@@ -24,11 +24,11 @@ useravater:"[the avater of user]"
 
 ```json
 {
-contenteurl:"image.jpg",
-posttext:"looks good",
-userid:"001",
-username:"mx",
-useravater:"mx.jpg"
+"contenteurl":"image.jpg",
+"posttext":"looks good",
+"userid":"001",
+"username":"mx",
+"useravater":"mx.jpg"
 }
 ```
 

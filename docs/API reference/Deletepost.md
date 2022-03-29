@@ -11,8 +11,8 @@ delete a post
 
 ```json
 {
-postid:"[post id]",
-userid:"[user id]"
+"postid":"[post id]",
+"userid":"[user id]"
 }
 
 ```
@@ -21,8 +21,8 @@ userid:"[user id]"
 
 ```json
 {
-postid:"001",
-userid:"001"
+"postid":"001",
+"userid":"001"
 }
 ```
 
