@@ -14,7 +14,7 @@ create a new reply for a comment
 "commentid":"[comment id]",
 "userid":"[userid]",
 "username":"[username]",
-"useravater":"[url of avater]"},
+"useravater":"[url of avater]",
 "replycontent":"[the content of the reply]"
 }
 ```
@@ -26,7 +26,7 @@ create a new reply for a comment
 "commentid":"001",
 "userid":"023",
 "username":"mx",
-"useravater":"image.jpg"},
+"useravater":"image.jpg",
 "replycontent":"good"
 }
 ```
