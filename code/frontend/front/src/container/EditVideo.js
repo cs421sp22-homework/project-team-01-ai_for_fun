@@ -137,7 +137,7 @@ function EditVideo(props) {
 
                 </Row>
 
-                <Button onClick={handleSubmit} style={{ float: "right", marginRight: '30px' }}>Share</Button>{''}
+                <Button onClick={handleSubmit} style={{ float: "right", marginRight: '30px' }}>Post</Button>{''}
                 <Button onClick={handleSubmit} variant="success" style={{ float: "right", marginRight: '15px' }}>Combine</Button>
             </Footer>
         </Layout>
