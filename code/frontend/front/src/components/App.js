@@ -15,6 +15,7 @@ import "../style/App.css"
 import { LoginContext } from '../context/AuthProvider';
 import EditVideo from "../container/EditVideo";
 import { AI_face } from "../container/AI_face";
+import { AI_text } from "../container/AI_text";
 import { AI_face_topic } from "../container/AI_face_topic";
 import { CookiesProvider } from 'react-cookie';
 import Gallery from "../container/Community_home";
@@ -29,24 +30,26 @@ function App() {
   const [dst, setDst] = useState('');
   return (
     <CookiesProvider>
-    <LoginContext.Provider value={{ dst, setDst, faceimg, setFaceimg,sourceimg, setSourceimg,avatarimg, setAvatarimg}}>
-      <Router>
-        <NavBar />
-        <div>
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route path="/profile" element={<Profile props={info} />} />
-            <Route path="/community" element={<Community />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/AI_face" element={<AI_face />} />
-            <Route path="/AI_face_topic" element={<AI_face_topic />} />
-            <Route path="/gallery" element={<Gallery/>} />
-          </Routes>
-        </div>
-      </Router>
-    </LoginContext.Provider>
+      <LoginContext.Provider value={{ dst, setDst, faceimg, setFaceimg, sourceimg, setSourceimg, avatarimg, setAvatarimg }}>
+        <Router>
+          <NavBar />
+          <div>
+            <Routes>
+              <Route exact path="/" element={<Home />} />
+              <Route path="/profile" element={<Profile props={info} />} />
+              <Route path="/community" element={<Community />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/AI_face" element={<AI_face />} />
+              <Route path="/AI_text" element={<AI_text />} />
+              <Route path="/AI_face_topic" element={<AI_face_topic />} />
+              <Route path="/gallery" element={<Gallery />} />
+
+            </Routes>
+          </div>
+        </Router>
+      </LoginContext.Provider>
     </CookiesProvider>
   )
 }
