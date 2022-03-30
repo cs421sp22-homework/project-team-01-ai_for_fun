@@ -16,6 +16,12 @@ def generate_random_name(len):
                              string.digits, k = len))
     res = res + '.jpg'
     return res
+def generate_random_audio_name(len):
+    random.seed(datetime.now())
+    res = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase +
+                             string.digits, k = len))
+    res = res + '.wav'
+    return res
 
 def url_to_image(url, readFlag=cv2.IMREAD_COLOR):
     resp = urlopen(url)
@@ -32,6 +38,17 @@ def upload_image(img_dir):
                                     'Bucket': 'aifun',
                                     'Key': name,
                                 },                                  
+                                ExpiresIn=7200)
+    return name, url
+def upload_audio(audio_dir):
+    s3 = boto3.client('s3',aws_access_key_id=ACCESS_ID, aws_secret_access_key= ACCESS_KEY, region_name= 'us-east-1')
+    name = generate_random_audio_name(16)
+    s3.upload_file(audio_dir,'aifun', name)
+    url = s3.generate_presigned_url('get_object',
+                                Params={
+                                    'Bucket': 'aifun',
+                                    'Key': name,
+                                },
                                 ExpiresIn=7200)
     return name, url
 
