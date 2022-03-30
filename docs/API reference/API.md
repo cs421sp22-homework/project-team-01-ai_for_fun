@@ -22,7 +22,7 @@ This file records APIs for AIforfun project
 ## Community Service
 
 * [Getpost](Getpost.md): `Get /getpost`
-* [Getuserpost](Getuserpost.md): `Post /getuserpost`
+* [Getuserpost](Getuserpost.md): `Get /getuserpost/:user_id`
 * [Createpost](Createpost.md): `Post /createpost`
 * [Deletepost](Deletepost.md): `Post /deletepost`
 * [Createcomment](Createcomment.md): `Post /createcomment`
