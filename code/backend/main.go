@@ -29,6 +29,7 @@ func main() {
 		context.String(http.StatusOK, "Hello World")
 	})
 	route.EntityRoutes(router)
+	route.PostRoutes(router)
 	route.AuthRoutes(router)
 	route.UserRoutes(router)
 
