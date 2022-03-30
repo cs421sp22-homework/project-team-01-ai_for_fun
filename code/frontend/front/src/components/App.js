@@ -28,9 +28,10 @@ function App() {
   const [sourceimg, setSourceimg] = useState('');
   const [avatarimg, setAvatarimg] = useState('');
   const [dst, setDst] = useState('');
+  const [person, setPerson] = useState('')
   return (
     <CookiesProvider>
-      <LoginContext.Provider value={{ dst, setDst, faceimg, setFaceimg, sourceimg, setSourceimg, avatarimg, setAvatarimg }}>
+      <LoginContext.Provider value={{ dst, setDst, faceimg, setFaceimg, sourceimg, setSourceimg, avatarimg, setAvatarimg, person, setPerson }}>
         <Router>
           <NavBar />
           <div>
