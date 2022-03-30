@@ -2,26 +2,18 @@
 
 Returns all posts related to a user
 
-**URL** : `/getuserpost`
+**URL** : `/getuserpost/:userid`
 
-**Method** : `POST`
+**Method** : `get`
 
 **Auth required** : No
 **Data constraints**
 
-```json
-{
-    "userid": "[the id of user]"
-}
-```
+empty
 
 **Data example**
 
-```json
-{
-   "userid": "002"
-}
-```
+empty
 
 
 ## Success Response
@@ -31,37 +23,66 @@ Returns all posts related to a user
 **Content example**
 
 ```json
-{"posts":
 [
-{
-"postid":"1","contenteurl":"image1.jpg", "likedtime":"5","posttext":"Looksgood","userid":"001","username":"mx","useravater":"a.jpg","posttime":"2022-2-2",
-"comment":[
-{
-"commentid":"01","userid":"02", "username":"as","commentcontent":"cool",
-"reply": [{"userid":"03","username":"qq","useravater":"as.jpg","replycontent":"1"},{"userid":"03","username":"ww","useravater":"as2.jpg","replycontent":"2"}]
-},
-{
-"commentid":"02","userid":"03", "username":"as","commentcontent":"cool",
-"reply": [{"userid":"03","username":"qq","useravater":"as.jpg","replycontent":"1"},{"userid":"03","username":"ww","useravater":"as2.jpg","replycontent":"2"}]
-}
-	     ]
-},
-{
-"postid":"2","contenteurl":"image2.jpg", 
-"likedtime":"0","posttext":"Looksgood","userid":"001","username":"mx","useravater":"a.jpg","posttime":"2022-2-2",
-"comment":[
-{
-"commentid":"01","userid":"02", "username":"as","commentcontent":"cool",
-"reply": [{"userid":"03","username":"qq","useravater":"as.jpg","replycontent":"1"},{"userid":"03","username":"ww","useravater":"as2.jpg","replycontent":"2"}]
-},
-{
-"commentid":"02","userid":"03", "username":"as","commentcontent":"cool",
-"reply": [{"userid":"03","username":"qq","useravater":"as.jpg","replycontent":"1"},{"userid":"03","username":"ww","useravater":"as2.jpg","replycontent":"2"}]
-}
-	     ]
-}                   
+    {
+        "_id": "6244a5ff413280b986b387c1",
+        "comment": [
+            {
+                "commentcontent": "cool",
+                "commentid": "1",
+                "commenttime": "2022-02-03T05:10:44Z",
+                "reply": [
+                    {
+                        "replycontent": "I agree",
+                        "replytime": "2022-02-04T05:00:00Z",
+                        "useravater": "as.jpg",
+                        "userid": "3",
+                        "username": "qq"
+                    },
+                    {
+                        "replycontent": "I think so",
+                        "replytime": "2022-02-05T05:00:00Z",
+                        "useravater": "as2.jpg",
+                        "userid": "4",
+                        "username": "ww"
+                    }
+                ],
+                "userid": "2",
+                "username": "as"
+            },
+            {
+                "commentcontent": "cool",
+                "commentid": "2",
+                "commenttime": "2022-02-03T05:00:00Z",
+                "reply": [
+                    {
+                        "replycontent": "I agree",
+                        "replytime": "2022-02-04T05:00:00Z",
+                        "useravater": "as.jpg",
+                        "userid": "6",
+                        "username": "u6"
+                    },
+                    {
+                        "replycontent": "I think so",
+                        "replytime": "2022-02-05T05:00:00Z",
+                        "useravater": "as2.jpg",
+                        "userid": "7",
+                        "username": "u7"
+                    }
+                ],
+                "userid": "5",
+                "username": "u5"
+            }
+        ],
+        "contenturl": "image1.jpg",
+        "likedtime": 5,
+        "posttext": "Looks good",
+        "posttime": "2022-02-02T05:00:00Z",
+        "useravater": "a.jpg",
+        "userid": "1",
+        "username": "mx"
+    }
 ]
-}
 ```
 **Code** : `500 Internal Server Error`
 
