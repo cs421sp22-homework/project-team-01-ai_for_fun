@@ -11,7 +11,7 @@ create a new post
 
 ```json
 {
-"contenteurl":"[url]",
+"contenturl":"[url]",
 "posttext":"[text]",
 "userid":"[the id of user]",
 "username":"[username]",
@@ -24,7 +24,7 @@ create a new post
 
 ```json
 {
-"contenteurl":"image.jpg",
+"contenturl":"image.jpg",
 "posttext":"looks good",
 "userid":"001",
 "username":"mx",
