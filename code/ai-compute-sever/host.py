@@ -3,10 +3,11 @@ import json
 import numpy as np
 import os
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from util import upload_image, generate_random_name, url_to_image
+from util import upload_image, generate_random_name, url_to_image,upload_audio
 from run_cifar import eval_cifar
 from FaceSwap.output import faceSwapFunction
 from  connect2db import  savefileinfo, getuploadrecord
+from Text2audio.TTS_tf_package import create_wav_tf
 
 def Aichange(url):
     result=eval_cifar(url)
@@ -14,9 +15,10 @@ def Aichange(url):
 def styleflow(url):
     result = "https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png"
     return result
-def exchangeaudio(url):
-    result = "https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png"
-    return result
+def exchangeaudio(text):
+    filename=create_wav_tf(text,"result.wav")
+    outName, outUrl=upload_audio(filename)
+    return outName,outUrl
 def AiFaceSwap(src_url, dst_url):
     src_img = url_to_image(src_url)
     dst_img = url_to_image(dst_url)
@@ -76,8 +78,9 @@ class S(BaseHTTPRequestHandler):
             res=styleflow(url)
         if (str(self.path)=="/exchangeaudio"):
             print("running exchangeaudio service")
-            url = data["url"]
-            res=exchangeaudio(url)
+            text = data["text"]
+            res_name, res_url=exchangeaudio(text)
+            res = {"res_name": res_name, "res_url": res_url}
         output = json.dumps(res)
         self._set_response()
         self.wfile.write("{}".format(output).encode('utf-8'))
