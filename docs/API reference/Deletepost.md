@@ -11,8 +11,8 @@ delete a post
 
 ```json
 {
-"postid":"[post id]",
-"userid":"[user id]"
+"post_id":"[post id]",
+"user_id":"[user id]"
 }
 
 ```
@@ -21,8 +21,8 @@ delete a post
 
 ```json
 {
-"postid":"001",
-"userid":"001"
+"post_id":"001",
+"user_id":"001"
 }
 ```
 
