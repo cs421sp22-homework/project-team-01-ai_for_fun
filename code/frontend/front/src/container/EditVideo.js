@@ -96,6 +96,7 @@ function EditVideo(props) {
                 if (response.status == 200) {
                     const content = await response.json();
                     setDst(content.res_url)
+                    message.success('Completed ✔️');
                 }
                 else {
                     console.log('request failed', response);
@@ -174,7 +175,7 @@ function EditVideo(props) {
                             <Col md={1} xl={2}> </Col>
                             <Col md={10} xl={8}>
                                 <center>
-                                    {console.log(dst)}
+
                                     {dst ?
                                         <Image src={dst} style={{ minHeight: "40vh" }} fluid />
                                         :
@@ -217,8 +218,11 @@ function EditVideo(props) {
                                 </Col>
 
                             </Row>
-
-                            <Button onClick={handleShowCard} style={{ float: "right", marginRight: '30px' }}>Post</Button>{''}
+                            {dst ?
+                                <Button onClick={handleShowCard} style={{ float: "right", marginRight: '30px' }}>Post</Button> :
+                                <Button onClick={handleShowCard} style={{ float: "right", marginRight: '30px' }} disabled>Post</Button>
+                            }
+                            {/* <Button onClick={handleShowCard} style={{ float: "right", marginRight: '30px' }}>Post</Button>{''} */}
                             <Button onClick={handleSubmit} variant="success" style={{ float: "right", marginRight: '15px' }}>Combine</Button>
                         </Footer>
                     </Content>
