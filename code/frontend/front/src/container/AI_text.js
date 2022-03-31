@@ -19,6 +19,8 @@ import CollectionInLeft from "../components/recommend-in-mode/CollectionInLeft";
 import Video from '../components/Video';
 import UploadFace from '../components/UploadFace';
 import EditVideo from './EditVideo';
+import EditText from '../components/EditText';
+
 import { ToggleButton, ToggleButtonGroup, ButtonGroup, Button } from 'react-bootstrap';
 import { Layout, Menu, Breadcrumb, Input } from 'antd';
 import {
@@ -55,18 +57,16 @@ const tempvideo = {
 //     { imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScxopB3Y_Z0Yu1v5JpXdx-3NOKX7yqg1iIHg&usqp=CAU', name: '04', topic: 'Amazing' },
 //     { imgUrl: 'https://c4.wallpaperflare.com/wallpaper/485/848/917/actresses-mckenna-grace-actress-blonde-blue-eyes-hd-wallpaper-preview.jpg', name: '05', topic: 'Fashion' },
 // ]
-const leftData = [
-    { imgUrl: 'https://static01.nyt.com/images/2021/01/20/us/politics/20Biden-profile-top/20Biden-profile-top-superJumbo.jpg', name: 'biden', person: '0' },
-    { imgUrl: 'https://media.vanityfair.com/photos/6226893d6df0fdac83f860fe/master/w_2560%2Cc_limit/487401374', name: 'trump', person: '1' },
-    { imgUrl: 'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80', name: 'nobody', person: '2' },
-    // { imgUrl: 'https://static01.nyt.com/images/2021/01/20/us/politics/20Biden-profile-top/20Biden-profile-top-superJumbo.jpg', name: 'biden', topic: '' },
-    // { imgUrl: 'https://media.vanityfair.com/photos/6226893d6df0fdac83f860fe/master/w_2560%2Cc_limit/487401374', name: 'trump', topic: '' },
-    // { imgUrl: 'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80', name: 'nobody', topic: '' },
-    // { imgUrl: 'https://static01.nyt.com/images/2021/01/20/us/politics/20Biden-profile-top/20Biden-profile-top-superJumbo.jpg', name: 'biden', topic: '' },
-    // { imgUrl: 'https://media.vanityfair.com/photos/6226893d6df0fdac83f860fe/master/w_2560%2Cc_limit/487401374', name: 'trump', topic: '' },
-    // { imgUrl: 'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80', name: 'nobody', topic: '' },
-]
+// const standardImg = [
+//     { imgUrl: 'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80', name: 'nobody', person: '2' },
+// ]
+// const bidenImg = [
+//     { imgUrl: 'https://static01.nyt.com/images/2021/01/20/us/politics/20Biden-profile-top/20Biden-profile-top-superJumbo.jpg', name: 'biden', person: '0' }
+// ]
 
+const trumpImg = [
+    { imgUrl: 'https://media.vanityfair.com/photos/6226893d6df0fdac83f860fe/master/w_2560%2Cc_limit/487401374', name: 'trump', person: '1' },
+]
 
 export const AI_text = (props) => {
     const [collapsed, setCollapsed] = useState(false);
@@ -82,61 +82,67 @@ export const AI_text = (props) => {
             setCollapsed(false);
         }
     };
-    const onChangeText = e => {
-        // console.log('Change:', e.target.value);
-        inputText = e.target.value;
-    };
-    const handleInput = e => {
-        console.log('input: ', inputText);
-    }
 
     return (
-        <> <Layout hasSider>
-            <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}
-                theme="dark" width='10%' collapsedWidth='5%'
-                style={{
-                    height: 'auto',
-                    width: '100%',
-                    // overflow: 'auto',
-                    // position: 'fixed',
-                }}
-            >
-                <div className="logo" />
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1', 'sub2', 'sub3', 'sub4']}>
-                    < CollectionInLeft leftSourceImg={leftData} />
-                </Menu>
-            </Sider>
-            <Layout className="site-layout" style={{ marginLeft: 0 }}>
-                <Header className="site-layout-background" style={{ padding: 0, textAlign: 'center', background: '#f0f0f0' }} > <h2>AI Voice</h2></Header>
-                <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-                    <Content style={{ margin: '0 16px' }} className='center-box'>
-                        <Row>
-                            <Col md={1} xl={2}> </Col>
-                            <Col md={10} xl={8}>
-                                <center>
-                                    {console.log(dst)}
-                                    {dst ?
-                                        <Image src={dst} style={{ minHeight: "40vh" }} fluid />
-                                        :
-                                        sourceimg ?
-                                            <Image src={sourceimg} style={{ minHeight: "40vh" }} fluid />
-                                            :
-                                            <Video props={tempvideo} />
-                                    }
-                                    {console.log(person)}
-                                </center>
-                            </Col>
-                            <Col md={1} xl={2}></Col>
-                        </Row>
+        <>
+            <Layout hasSider>
+                <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}
+                    theme="dark" width='30%' collapsedWidth='5%'
+                    style={{
+                        height: 'auto',
+                        width: '100%',
+                        // overflow: 'auto',
+                        // position: 'fixed',
+                    }}
+                >
+                    <div className="logo" />
+                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1', 'sub2', 'sub3', 'sub4']}>
+                        <SubMenu key="sub1" icon={<UserAddOutlined />} title="Standard Voice">
+                            <Image
+                                width={'100%'}
+                                onClick={() => {
+                                    setDst('');
+                                    setSourceimg("https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80")
+                                    setPerson("2")
+                                }}
+                                src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
+                            />
+                        </SubMenu>
+                        <SubMenu key="sub2" icon={<UserDeleteOutlined />} title="Joe Bide">
+                            <Image
+                                width={'100%'}
+                                onClick={() => {
+                                    setDst('');
+                                    setSourceimg("https://static01.nyt.com/images/2021/01/20/us/politics/20Biden-profile-top/20Biden-profile-top-superJumbo.jpg")
+                                    setPerson("0")
+                                }}
+                                src="https://static01.nyt.com/images/2021/01/20/us/politics/20Biden-profile-top/20Biden-profile-top-superJumbo.jpg"
+                            />
+                        </SubMenu>
+                        <SubMenu key="sub3" icon={<UserOutlined />} title="Donald J. Trump">
+                            <Image
+                                width={'100%'}
+                                onClick={() => {
+                                    setDst('');
+                                    setSourceimg("https://media.vanityfair.com/photos/6226893d6df0fdac83f860fe/master/w_2560%2Cc_limit/487401374")
+                                    setPerson("1")
+                                }}
+                                src="https://media.vanityfair.com/photos/6226893d6df0fdac83f860fe/master/w_2560%2Cc_limit/487401374"
+                            />
+                        </SubMenu>
+
+                    </Menu>
+                </Sider>
+
+                <Layout className="site-layout" style={{ marginLeft: 0 }}>
+                    <Header className="site-layout-background" style={{ padding: 0, textAlign: 'center', background: '#f0f0f0' }} > <h2>AI Text</h2></Header>
+                    <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+                        <div className="site-layout-background" style={{ padding: 0, textAlign: 'center' }}>
+                            <EditText imgData={trumpImg} />
+                        </div>
                     </Content>
-                    <div className="site-layout-background" style={{ padding: 0, textAlign: 'center' }}>
-                        <h3 style={{ margin: 10 }}>Please input the content you would like to manipulate</h3>
-                        <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} />,
-                        <Button variant="outline-dark" size="lg" onClick={handleInput}>Continue</Button>{' '}
-                    </div>
-                </Content>
+                </Layout>
             </Layout>
-        </Layout>
         </>
     );
 };
