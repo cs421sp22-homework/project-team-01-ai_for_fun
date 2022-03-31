@@ -74,13 +74,14 @@ empty
                 "username": "u5"
             }
         ],
-        "contenturl": "image1.jpg",
-        "likedtime": 5,
-        "posttext": "Looks good",
-        "posttime": "2022-02-02T05:00:00Z",
-        "useravater": "a.jpg",
-        "userid": "1",
-        "username": "mx"
+        "content_url": "image1.jpg",
+        "liked_time": 5,
+        "post_id": "6244a5ff413280b986b387c1",
+        "post_text": "Looks good",
+        "post_time": "2022-02-02T05:00:00Z",
+        "user_avater": "a.jpg",
+        "user_id": "1",
+        "user_name": "mx"
     }
 ]
 ```
