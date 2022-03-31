@@ -164,8 +164,8 @@ function EditVideo(props) {
                                 </Card.Text>
                             </Card.Body>
                             <Card.Footer>
-                                <Button onClick={handlePost} style={{ float: "right", marginRight: '30px' }}>Submit</Button>
-                                <Button onClick={handleHideCard} variant="danger" style={{ float: "right", marginRight: '30px' }}>Cancel</Button>{''}
+                                <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Submit</Button>
+                                <Button onClick={handleHideCard} variant="danger" style={{ float: "right", marginRight: '15px' }}>Cancel</Button>{''}
                             </Card.Footer>
                         </Card>
                     </Content>

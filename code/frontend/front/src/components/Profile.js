@@ -312,7 +312,7 @@ function Profile(props) {
                                 <h2>My work</h2>
                             </Col>
                             <Col md={3} sm={7}>
-                                <Button variant="outline-dark">Post my work</Button>{' '}
+                                <Button variant="outline-dark" href="/AI_face">Get Start</Button>{' '}
                             </Col>
                         </Row>
                     </Row>
