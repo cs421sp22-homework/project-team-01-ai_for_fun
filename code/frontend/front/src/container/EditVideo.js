@@ -155,7 +155,7 @@ function EditVideo(props) {
                 showCard ?
                     <Content style={{ margin: '0 16px' }} className='center-box'>
                         <Card style={{ height: '100%', weight: '100%', margin: 35 }}>
-                            <Card.Img variant="top" src={dst ? dst : "https://joeschmoe.io/api/v1/random"} style={{ height: '300px', weight: '100px' }} />
+                            <Card.Img variant="top" src={dst ? dst : "https://joeschmoe.io/api/v1/random"} style={{ minHeight: "40vh" }} />
                             <Card.Body>
                                 <Card.Title>Post to Community</Card.Title>
                                 <Card.Text>
@@ -187,42 +187,44 @@ function EditVideo(props) {
                             </Col>
                             <Col md={1} xl={2}></Col>
                         </Row>
+                        <Footer >
+                            <Row >
+                                <Col md={2} lg={1} >
+                                    <div className="mx-auto">
+                                        <UploadFace />
+                                    </div>
+                                </Col>
+
+                                <Col md={10} lg={10}>
+                                    <ul ref={ref} >
+                                        {imgData.map(item => {
+                                            return <li key={item.name} className="pl-3 mt-1" style={{ display: 'inline-block' }}
+                                                onClick={(e) => {
+                                                    if (pick === item.imgUrl) {
+                                                        setPick('')
+                                                    } else {
+                                                        setPick(item.imgUrl);
+                                                    }
+                                                }} >
+                                                <Image
+                                                    className='res-img'
+                                                    src={item.imgUrl}
+                                                    onClick={(e) => selected(e)}
+                                                />
+                                            </li>
+                                        })}
+                                    </ul>
+                                </Col>
+
+                            </Row>
+
+                            <Button onClick={handleShowCard} style={{ float: "right", marginRight: '30px' }}>Post</Button>{''}
+                            <Button onClick={handleSubmit} variant="success" style={{ float: "right", marginRight: '15px' }}>Combine</Button>
+                        </Footer>
                     </Content>
+
             }
-            <Footer >
-                <Row >
-                    <Col md={2} lg={1} >
-                        <div className="mx-auto">
-                            <UploadFace />
-                        </div>
-                    </Col>
 
-                    <Col md={10} lg={10}>
-                        <ul ref={ref} >
-                            {imgData.map(item => {
-                                return <li key={item.name} className="pl-3 mt-1" style={{ display: 'inline-block' }}
-                                    onClick={(e) => {
-                                        if (pick === item.imgUrl) {
-                                            setPick('')
-                                        } else {
-                                            setPick(item.imgUrl);
-                                        }
-                                    }} >
-                                    <Image
-                                        className='res-img'
-                                        src={item.imgUrl}
-                                        onClick={(e) => selected(e)}
-                                    />
-                                </li>
-                            })}
-                        </ul>
-                    </Col>
-
-                </Row>
-
-                <Button onClick={handleShowCard} style={{ float: "right", marginRight: '30px' }}>Post</Button>{''}
-                <Button onClick={handleSubmit} variant="success" style={{ float: "right", marginRight: '15px' }}>Combine</Button>
-            </Footer>
         </Layout >
     )
 }
