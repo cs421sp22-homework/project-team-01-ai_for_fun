@@ -7,8 +7,9 @@ class MediaComponent extends Component {
         return (
             <ReactAudioPlayer
                 src="https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3"
-                autoPlay
+                loop="false"
                 controls
+                volume="0.5"
             />
         );
     }
