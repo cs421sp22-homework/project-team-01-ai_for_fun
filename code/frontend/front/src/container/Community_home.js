@@ -1,7 +1,7 @@
 import {motion} from 'framer-motion';
 import Macy from 'macy';
 import React,{useEffect, useState} from 'react';
-import data from '../data/data.json';
+import data from '../data/gallery.json';
 import { Image } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
 import {Row, Col} from 'react-bootstrap';
@@ -15,14 +15,7 @@ import moment from 'moment';
 
 const { TextArea } = Input;
 
-const CommentList = ({ comments }) => (
-  <List
-    dataSource={comments}
-    header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
-    itemLayout="horizontal"
-    renderItem={props => <Comment {...props} />}
-  />
-);
+
 
 const Editor = ({ onChange, onSubmit, submitting, value }) => (
     <>
@@ -79,20 +72,51 @@ const cardAnimation = {
     },
   }
 
-function Gallery() {
+function Gallery(probs) {
     useEffect(()=>{
         new Macy(macyOptions)
     },[])
-    const info = "This is a template text which is used to test";
     const [visible, setVisible] = useState(false);
     const [comments, setComments] = useState([]);
     const [submitting, setSubmitting] = useState(false);
     const [value, setValue] = useState('');
-    const [imgId, setImgId] = useState('');
+    const [itemP, setitemP] = useState({content_url:"",user_avatar:"",post_text:"",comment:""});
     const handleChane = e => {setValue(e.target.value)}
+    const CommentList = ({ comments }) => (
+      <List
+        dataSource={comments}
+        header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
+        itemLayout="horizontal"
+        renderItem={props => (
+        <>
+        <Comment 
+          author={itemP.user_name}
+          avatar={itemP.user_avatar}
+          content={props.commentcontent}
+          datetime={props.commenttime}
+        >
+        {props.reply? 
+        props.reply.map((repo)=>{
+          return <Comment 
+          key={repo.userid}
+          author={repo.username}
+          avatar={repo.useravater}
+          content={repo.replycontent}
+          datetime={repo.replytime}
+        ></Comment>
+        })
+        :
+        <></>
+        }
+        
+        </Comment>
+        </>
+          )}
+      />
+    );
     const showModal = (e,name) => {
         setVisible(true);
-        setImgId(name);
+        setitemP({user_avatar:name.user_avatar, post_text:name.post_text, content_url:name.content_url});
       };
     const handleCancel = () => {
         setVisible(false)
@@ -130,30 +154,32 @@ function Gallery() {
             >
             {data.map((item) => {
                 return <motion.li 
-                key={item.name} 
+                key={item._id} 
                 variants={cardAnimation} 
                 whileHover={{ scale: 1.05 }} 
                 className="gallery"
                 >
-                    <Card.Img as={Image} src={item.imgUrl}  alt="item.name" />
+                    <Card.Img as={Image} src={item.content_url}  alt="item._id" />
                     <Card.Body>
                     <Row>
                     <Col md={3} xs={3}>
-                    <Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />
+                    <Avatar src={item.user_avater} alt="Han Solo" />
                     </Col>
                     <Col md={9} xs={9}>
-                    <p style={{fontSize:"14px"}}> {info.substring(0, 40)} {info.length >= 40 && '...'}</p>
+                      {console.log(item.post_text)}
+                    <p style={{fontSize:"14px"}}> {item.post_text.substring(0, 40)} {item.post_text.length >= 40 && '...'}</p>
                     </Col>
                     </Row>
                     <Row>
                     <Col md={4} xs={5}>
                     <div style={{float:"left",fontSize:"16px"}}>
                     <LikeOutlined />
-                    <CommentOutlined className='ml-1'onClick={(ev) => {showModal(ev, item.imgUrl)}}/>
+                    {item.liked_time}
+                    <CommentOutlined className='ml-1'onClick={(ev) => {showModal(ev, item)}}/>
                     </div>
                     </Col>
                     <Col md={8} xs={7} style={{float:"right"}}>
-                    <a herf="#" style={{fontSize:"16px",float:"right"}}><ArrowRightOutlined onClick={(ev) => {showModal(ev, item.imgUrl)}}/></a>
+                    <a herf="#" style={{fontSize:"16px",float:"right"}}><ArrowRightOutlined onClick={(ev) => {showModal(ev, item)}}/></a>
                     </Col>
                     </Row>
                     </Card.Body>
@@ -170,10 +196,10 @@ function Gallery() {
                         footer={null}
                         >
                             <Row>
-                            <Image src={imgId} fluid/>
-                            <p>{info}</p>
+                            <Image src={itemP.content_url} fluid/>
+                            <p>{itemP.post_text}</p>
                             <Comment
-                            avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />}
+                            avatar={<Avatar src={itemP.user_avatar} alt="Han Solo" />}
                             content={
                                 <Editor
                                 onChange={handleChane}
@@ -183,6 +209,7 @@ function Gallery() {
                                 />
                             }
                             />
+                            {/* {setComments(itemP.comment)} */}
                             {comments.length > 0 && <CommentList comments={comments} />}
                             </Row>
                     </Modal>
