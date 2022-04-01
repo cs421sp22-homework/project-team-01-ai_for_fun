@@ -22,13 +22,15 @@ const compareToFirstPassword = ({ getFieldValue }) => ({
 function Profile(props) {
     props = props.props
     // const {user,setUser,email,setEmail} = useContext(LoginContext);
-    const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'img'])
+    const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
+    console.log(cookie);
+    const [avatar, setAvatar] = useState(cookie.avatar);
     const [name, setName] = useState(cookie.name);
     const [email, setEmail] = useState(cookie.email);
     const [password, setPassword] = useState('');
     const [oriPsw, setOriPsw] = useState('');
     const [showInputEmail, setshowInputEmail] = useState(false);
-    const { avatarimg } = useContext(LoginContext);
+    // const { avatarimg } = useContext(LoginContext);
     const [showEditPsw, setShowEditPsw] = useState(false)
     const [showInputName, setshowInputName] = useState(false);
     const [pic, setPic] = useState(props.pic);
@@ -171,10 +173,11 @@ function Profile(props) {
             if (response.status == 200) {
                 const content = await response.json();
                 let expires = new Date();
-                expires.setTime(expires.getTime() + (30 * 60 * 1000));
-                setCookie('name', content.name, { path: '/', expires });
-                message.success('change IMG successful, login again, you will see the change 😊')
-                setShowEditPsw(false)
+                expires.setTime();
+                setCookie('avatar', content.avatar);
+                // avatar = content.avatar;
+                message.success('change IMG successful😊')
+                // document.location.reload(true)
             }
             else {
                 console.log('request failed', response);
@@ -198,7 +201,11 @@ function Profile(props) {
                     <Row className='mt-4'>
                         <div style={{ width: '100px' }} className="mx-auto">
                             {/* <Image roundedCircle src={pic} fluid /> */}
-                            <UploadPicinProfile />
+                            {/* <UploadPicinProfile /> */}
+                            <Image
+                                width={200}
+                                src={avatar}
+                            />
                         </div>
                     </Row>
                     <br />

@@ -42,7 +42,7 @@ function EditVideo(props) {
     const { imgData } = props;
     const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg } = useContext(LoginContext);
     const [cookie, setCookie] = useCookies(['access_token', 'refresh_token', 'name', 'email', 'avatar']);
-    // console.log(cookie);
+    //console.log(cookie);
     const [pick, setPick] = useState('');
     // const [postText, setPostText] = useState('');
     const [showCard, setShowCard] = useState(false);
@@ -96,7 +96,7 @@ function EditVideo(props) {
                 if (response.status == 200) {
                     const content = await response.json();
                     setDst(content.res_url)
-                    message.success('Completed ✔️');
+                    message.success('Completed');
                 }
                 else {
                     console.log('request failed', response);
@@ -112,7 +112,7 @@ function EditVideo(props) {
     //TODO: can not connect
     const handlePost = async (e) => {
         setShowCard(false);
-        message.success('Post Received.');
+        message.info('Post Received.');
         let dest = '';
         if (!pick) {
             dest = faceimg
@@ -124,7 +124,7 @@ function EditVideo(props) {
             console.log("postText " + postText);
             console.log("user_id " + cookie.access_token);
             console.log("user_name " + cookie.name);
-            const response = await fetch('https://server-python.ai-for-fun-backend.com/createpost', {
+            const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
                 //const response = await fetch('http://127.0.0.1:8080/faceswap', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -139,7 +139,7 @@ function EditVideo(props) {
             if (response.status == 200) {
                 const content = await response.json();
                 setDst(content.res_url)
-                message.error('Post success!.');
+                message.success('Post success!');
             }
             else {
                 console.log('post failed', response);
