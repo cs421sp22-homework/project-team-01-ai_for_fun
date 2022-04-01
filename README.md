@@ -1,6 +1,6 @@
-# Name of the project 
+# AI for Fun(iFun)
 
-A brief description of your project (elevator pitch goes here).
+iFun is an AI application that is supposed to bring a fun AI experience for users on image, video, text implementations.
 
 **Team**
 
