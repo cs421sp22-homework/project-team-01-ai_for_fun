@@ -44,7 +44,8 @@ const macyOptions = {
     margin: 23,
     columns: 1,
     breakAt: {
-      1000: 4,
+      1400: 4,
+      1000: 3,
       650: {
         margin: 40,
         columns: 2,
@@ -119,7 +120,7 @@ function Gallery() {
 
     }
     return (
-        <Container>
+      <>
         <motion.div>
             <motion.ul
             id="macy-grid"
@@ -185,7 +186,7 @@ function Gallery() {
                             {comments.length > 0 && <CommentList comments={comments} />}
                             </Row>
                     </Modal>
-        </Container>
+                    </>
     )
 } 
 
