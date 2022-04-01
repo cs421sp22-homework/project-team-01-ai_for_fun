@@ -3,6 +3,7 @@ import Tab from "./Tab";
 import Slideshow from "../components/Slideshow";
 import Container from 'react-bootstrap/Container';
 import Tabs from 'react-bootstrap/Tabs';
+import { ToggleButton, ToggleButtonGroup, ButtonGroup, Button } from 'react-bootstrap';
 import "../style/Home.css";
 import { ConsoleSqlOutlined } from "@ant-design/icons";
 import AWS from "aws-sdk";
@@ -68,7 +69,6 @@ export class Home extends React.Component {
 
     render() {
         const { errorMessage, totalReactPackages } = this.state;
-
         return (
             <>
                 <div
@@ -79,11 +79,15 @@ export class Home extends React.Component {
                         <div className='d-flex justify-content-center align-items-center h-100 text-center'>
                             <div className='text-white'>
                                 <h1 className='mb-3'>AI For Fun</h1>
-                                <h4 className='mb-3'>This is an application</h4>
+                                <h4 className='mb-3'>This is an application for best AI experience</h4>
                                 {/* <h4>{totalReactPackages}</h4> */}
-                                <a className='btn btn-outline-dark btn-lg' href='/AI_face' role='button'>
+                                {/* <a className='btn btn-outline-dark btn-lg' href='/AI_face' role='button'>
                                     Get Start
-                                </a>
+                                </a> */}
+
+                                <Button variant="outline-primary" size="lg" href="/AI_face">AI Face</Button>{' '}
+                                <Button variant="outline-dark" size="lg" href="/AI_text">AI Voice</Button>{' '}
+                                <Button variant="outline-success" size="lg" href="#">AI Style</Button>{' '}
                             </div>
                         </div>
                     </div>

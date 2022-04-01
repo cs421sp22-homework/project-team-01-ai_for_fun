@@ -14,6 +14,7 @@ import "../style/App.css"
 import { LoginContext } from '../context/AuthProvider';
 import EditVideo from "../container/EditVideo";
 import { AI_face } from "../container/AI_face";
+import { AI_text } from "../container/AI_text";
 import { AI_face_topic } from "../container/AI_face_topic";
 import { CookiesProvider } from 'react-cookie';
 import  Community_home from '../container/HomeCommunity';
@@ -26,6 +27,7 @@ function App() {
   const [sourceimg, setSourceimg] = useState('');
   const [avatarimg, setAvatarimg] = useState('');
   const [dst, setDst] = useState('');
+  const [person, setPerson] = useState('')
   return (
     <CookiesProvider>
     <LoginContext.Provider value={{ dst, setDst, faceimg, setFaceimg,sourceimg, setSourceimg,avatarimg, setAvatarimg}}>
@@ -39,6 +41,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/AI_face" element={<AI_face />} />
+            <Route path="/AI_text" element={<AI_text />} />
             <Route path="/AI_face_topic" element={<AI_face_topic />} />
             <Route path="/gallery" element={<Community_home/>} />
           </Routes>
