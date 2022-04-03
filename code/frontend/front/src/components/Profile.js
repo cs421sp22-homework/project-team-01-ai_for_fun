@@ -1,5 +1,5 @@
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, createRef } from 'react';
 import { message, Input, Form } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import UploadPicinProfile from './UploadPicinProfile';
@@ -11,7 +11,8 @@ import Image from 'react-bootstrap/Image';
 import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
 import { LoginContext } from '../context/AuthProvider';
 import { useCookies } from 'react-cookie';
-
+// import "../style/EditVideo.css"
+const previousSelectedPost = [];
 const compareToFirstPassword = ({ getFieldValue }) => ({
     validator(rule, value) {
         if (getFieldValue('password') === value) return Promise.resolve();
@@ -40,7 +41,8 @@ function Profile(props) {
     console.log(user_id);
     console.log(globla_token);
     console.log("img" + profileimg)
-
+    const ref = createRef();
+    const [pick, setPick] = useState('');
 
     // Edit Name
     const handleEditName = () => {
@@ -48,6 +50,21 @@ function Profile(props) {
         // console.log(user);
         setshowInputName(true)
     };
+
+
+    const selectedToPost = (e) => {
+        previousSelectedPost.push(e.currentTarget);
+        for (var i = 0; i < previousSelectedPost.length; i++) {
+            if (previousSelectedPost[i] === e.currentTarget) {
+                continue;
+            }
+            previousSelectedPost[i].classList.remove('selected');
+        }
+        let target = e.currentTarget;
+        target.classList.toggle('selected');
+        console.log("new " + previousSelectedPost.length);
+    }
+
     // TODO: Interaction with backend
     const handleAffirmName = async () => {
         if (name != cookie.name) {
@@ -192,7 +209,9 @@ function Profile(props) {
             }
         }
     }
-    //  }
+    const handlePostNew = async () => {
+
+    }
 
     return (
         <Container style={{ minHeight: '100vh' }}>
@@ -203,8 +222,9 @@ function Profile(props) {
                             {/* <Image roundedCircle src={pic} fluid /> */}
                             {/* <UploadPicinProfile /> */}
                             <Image
-                                width={200}
+                                width={'90%'}
                                 src={avatar}
+                                center={'true'}
                             />
                         </div>
                     </Row>
@@ -317,9 +337,29 @@ function Profile(props) {
                         <Row>
                             <Col md={9} sm={5}>
                                 <h2>My work</h2>
+                                <Col md={10} lg={10}>
+                                    <ul ref={ref} >
+                                        {imgData.map(item => {
+                                            return <li key={item.name} className="pl-3 mt-1" style={{ display: 'inline-block' }}
+                                                onClick={(e) => {
+                                                    if (pick === item.imgUrl) {
+                                                        setPick('')
+                                                    } else {
+                                                        setPick(item.imgUrl);
+                                                    }
+                                                }} >
+                                                <Image
+                                                    className='res-img'
+                                                    src={item.imgUrl}
+                                                    onClick={(e) => selectedToPost(e)}
+                                                />
+                                            </li>
+                                        })}
+                                    </ul>
+                                </Col>
                             </Col>
                             <Col md={3} sm={7}>
-                                <Button variant="outline-dark" href="/AI_face">Get Start</Button>{' '}
+                                <Button variant="outline-dark" onClick={handlePostNew}>Post</Button>{' '}
                             </Col>
                         </Row>
                     </Row>
@@ -355,3 +395,11 @@ function Profile(props) {
     )
 }
 export default Profile;
+
+const imgData = [
+    { imgUrl: 'https://s1.r29static.com/bin/entry/43a/0,200,2000,2000/x,80/1536749/image.jpg', name: '01', topic: 'Star' },
+    { imgUrl: 'https://hips.hearstapps.com/cosmouk.cdnds.net/15/33/1439714614-celebrity-face-mashups-taylor-swift-emma-watson.jpg', name: '02', topic: 'House' },
+    { imgUrl: 'https://stylesatlife.com/wp-content/uploads/2021/11/Emma-Watson-face-shape.jpg.webp', name: '03', topic: 'New Year' },
+    { imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScxopB3Y_Z0Yu1v5JpXdx-3NOKX7yqg1iIHg&usqp=CAU', name: '04', topic: 'Amazing' },
+    { imgUrl: 'https://c4.wallpaperflare.com/wallpaper/485/848/917/actresses-mckenna-grace-actress-blonde-blue-eyes-hd-wallpaper-preview.jpg', name: '05', topic: 'Fashion' },
+]
