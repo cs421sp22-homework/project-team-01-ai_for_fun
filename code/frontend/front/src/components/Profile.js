@@ -4,6 +4,7 @@ import { message, Input, Form } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import UploadPicinProfile from './UploadPicinProfile';
 import UploadPic from './UploadPic'
+import Card from 'react-bootstrap/Card';
 import '../style/Profile.css';
 import { Row, Col, Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
@@ -12,7 +13,12 @@ import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
 import { LoginContext } from '../context/AuthProvider';
 import { useCookies } from 'react-cookie';
 // import "../style/EditVideo.css"
+import { Layout } from 'antd';
+const { TextArea } = Input;
+const { Content } = Layout;
 const previousSelectedPost = [];
+
+
 const compareToFirstPassword = ({ getFieldValue }) => ({
     validator(rule, value) {
         if (getFieldValue('password') === value) return Promise.resolve();
@@ -21,6 +27,7 @@ const compareToFirstPassword = ({ getFieldValue }) => ({
 });
 
 function Profile(props) {
+    //const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg } = useContext(LoginContext);
     props = props.props
     // const {user,setUser,email,setEmail} = useContext(LoginContext);
     const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
@@ -38,12 +45,13 @@ function Profile(props) {
     var user_id = localStorage.getItem('global_userID');
     var globla_token = localStorage.getItem('global_token');
     var profileimg = localStorage.getItem('global_profile_IMG');
+    var postText = "empty";
     console.log(user_id);
     console.log(globla_token);
     console.log("img" + profileimg)
     const ref = createRef();
     const [pick, setPick] = useState('');
-
+    const [showCard, setShowCard] = useState(false);
     // Edit Name
     const handleEditName = () => {
         console.log(1);
@@ -213,6 +221,52 @@ function Profile(props) {
 
     }
 
+    const handleShowCard = () => {
+        setShowCard(true);
+    }
+
+    const handleHideCard = () => {
+        setShowCard(false);
+        console.log('Change:', postText);
+    }
+
+    const onChangeText = (e) => {
+        postText = e.target.value;
+    };
+
+    const handlePost = async (e) => {
+        setShowCard(false);
+        message.info('Post Received.');
+        if (cookie.access_token) {
+            console.log("content(pick) " + pick);
+            console.log("postText " + postText);
+            console.log("user_id " + cookie.access_token);
+            console.log("user_name " + cookie.name);
+            const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
+                //const response = await fetch('http://127.0.0.1:8080/faceswap', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    "content_url": pick,
+                    "post_text": postText,
+                    "user_id": cookie.access_token, //not user id, user id is not in cookie.
+                    "user_name": cookie.name,
+                    "user_avater": cookie.avatar
+                })
+            });
+            if (response.status == 200) {
+                const content = await response.json();
+                message.success('Post success!');
+            }
+            else {
+                console.log('post failed', response);
+                message.error('failed.');
+            }
+        } else {
+            alert('Login first!')
+        }
+    };
+
     return (
         <Container style={{ minHeight: '100vh' }}>
             <Row className='pt-3'>
@@ -346,6 +400,7 @@ function Profile(props) {
                                                         setPick('')
                                                     } else {
                                                         setPick(item.imgUrl);
+                                                        console.log("Pick:" + pick);
                                                     }
                                                 }} >
                                                 <Image
@@ -359,8 +414,29 @@ function Profile(props) {
                                 </Col>
                             </Col>
                             <Col md={3} sm={7}>
-                                <Button variant="outline-dark" onClick={handlePostNew}>Post</Button>{' '}
+                                <Button variant="outline-dark" onClick={handleShowCard}>Post</Button>{' '}
                             </Col>
+                            {showCard ?
+                                <Content style={{ margin: '0 16px' }} className='center-box'>
+                                    <Card style={{ height: '100%', weight: '100%', margin: 35 }}>
+                                        <Card.Img variant="top" src={pick} style={{ minHeight: "40vh" }} />
+                                        <Card.Body>
+                                            <Card.Title>Post to Community</Card.Title>
+                                            <Card.Text>
+                                                <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
+                                            </Card.Text>
+                                        </Card.Body>
+                                        <Card.Footer>
+                                            <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Submit</Button>
+                                            <Button onClick={handleHideCard} variant="danger" style={{ float: "right", marginRight: '15px' }}>Cancel</Button>{''}
+                                        </Card.Footer>
+                                    </Card>
+                                </Content>
+                                :
+                                <Content>
+
+                                </Content>
+                            }
                         </Row>
                     </Row>
                     <div>
