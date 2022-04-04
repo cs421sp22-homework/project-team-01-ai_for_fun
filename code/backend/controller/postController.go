@@ -80,6 +80,7 @@ func Createpost() gin.HandlerFunc {
 		post.Post_id = post.ID.Hex()
 		post.Liked_time = 0
 		post.Post_time = time.Now()
+		post.Comment = []bson.M{}
 
 		resultInsertionNumber, insertErr := postCollection.InsertOne(ctx, post)
 		if insertErr != nil {
