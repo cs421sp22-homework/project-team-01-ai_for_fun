@@ -5,6 +5,6 @@ import (
 )
 
 func CommentRoutes(router *gin.Engine) {
-	router.POST("/createcomment1", controller.Createcomment())
-	//router.POST("/createreply", controller.Createreply())
+	router.POST("/createcomment", controller.Createcomment())
+	router.POST("/createreply", controller.Createreply())
 }

@@ -30,9 +30,10 @@ func main() {
 	})
 	route.EntityRoutes(router)
 	route.PostRoutes(router)
+	route.CommentRoutes(router)
 	route.AuthRoutes(router)
 	route.UserRoutes(router)
-	route.CommentRoutes(router)
+
 
 	router.Run(":" + port)
 }

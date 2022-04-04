@@ -11,6 +11,4 @@ func PostRoutes(router *gin.Engine) {
 	router.POST("/createpost", controller.Createpost())
 	router.POST("/deletepost", controller.Deletepost())
 	router.POST("/likepost", controller.Likepost())
-	router.POST("/createcomment", controller.Createcomment())
-	router.POST("/createreply", controller.Createreply())
 }
