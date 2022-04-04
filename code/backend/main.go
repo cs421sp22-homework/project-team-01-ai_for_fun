@@ -32,6 +32,7 @@ func main() {
 	route.PostRoutes(router)
 	route.AuthRoutes(router)
 	route.UserRoutes(router)
+	route.CommentRoutes(router)
 
 	router.Run(":" + port)
 }
