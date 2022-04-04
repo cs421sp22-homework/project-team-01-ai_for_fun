@@ -2,19 +2,33 @@ import logging
 import json
 import numpy as np
 import os
+import cv2
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from util import upload_image, generate_random_name, url_to_image,upload_audio
 from run_cifar import eval_cifar
 from FaceSwap.output import faceSwapFunction
 from  connect2db import  savefileinfo, getuploadrecord
-from Text2audio.TTS_tf_package import create_wav_tf
+#from Text2audio.TTS_tf_package import create_wav_tf
+from StyleTransfer.style_transfer import style_transfer_api
 
 def Aichange(url):
     result=eval_cifar(url)
     return result
-def styleflow(url):
-    result = "https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png"
-    return result
+def style_transfer(content_image_url, style_image_url):
+     content_image_path = generate_random_name(16)
+     style_image_path = generate_random_name(16)
+     content_image = url_to_image(content_image_url)
+     style_image = url_to_image(style_image_url)
+     cv2.imwrite(content_image_path, content_image)
+     cv2.imwrite(style_image_path, style_image)
+     output_image_path = generate_random_name(16)
+     style_transfer_api(content_image_path, style_image_path, output_image_path)
+     outName, outUrl = upload_image(output_image_path)
+     os.remove(output_image_path)
+     os.remove(content_image_path)
+     os.remove(style_image_path)
+     return outName, outUrl
+
 def exchangeaudio(text):
     filename=create_wav_tf(text,"result.wav")
     outName, outUrl=upload_audio(filename)
@@ -26,7 +40,6 @@ def AiFaceSwap(src_url, dst_url):
     out_dir = faceSwapFunction(src_img, dst_img, out_dir)
     outName, outUrl = upload_image(out_dir)
     os.remove(out_dir)
-    print(outName, outUrl)
     return  outName, outUrl
 
 
@@ -72,15 +85,19 @@ class S(BaseHTTPRequestHandler):
             res_name, res_url = AiFaceSwap(src_url, dst_url)
             res = {"res_name": res_name, "res_url":res_url}
             savefileinfo(data)
-        if (str(self.path)=="/styleflow"):
+        if (str(self.path)=="/styletransfer"):
             print("running styleflow service")
-            url = data["url"]
-            res=styleflow(url)
-        if (str(self.path)=="/exchangeaudio"):
-            print("running exchangeaudio service")
-            text = data["text"]
-            res_name, res_url=exchangeaudio(text)
-            res = {"res_name": res_name, "res_url": res_url}
+            user_id=data["user_id"]
+            print(user_id)
+            content_url = data["content_url"]
+            style_url = data["style_url"]
+            res_name, res_url = style_transfer(content_url, style_url)
+            res = {"res_name": res_name, "res_url":res_url}
+        # if (str(self.path)=="/exchangeaudio"):
+        #     print("running exchangeaudio service")
+        #     text = data["text"]
+        #     res_name, res_url=exchangeaudio(text)
+        #     res = {"res_name": res_name, "res_url": res_url}
         output = json.dumps(res)
         self._set_response()
         self.wfile.write("{}".format(output).encode('utf-8'))

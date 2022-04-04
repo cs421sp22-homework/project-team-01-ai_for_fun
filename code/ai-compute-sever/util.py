@@ -65,8 +65,12 @@ def download_image(img_name):
     #cv2.imwrite(img_name, img)
 
 if __name__ == '__main__':
-    download_image('hlvHTmA5r9RHH2U1.jpg')
-    download_image('oCQeuzqjaCISMetD.jpg')
+    #download_image('hlvHTmA5r9RHH2U1.jpg')
+    #download_image('oCQeuzqjaCISMetD.jpg')
+    name1, url1 = upload_image("StyleTransfer/images/content/venice-boat.jpg")
+    name2, url2 = upload_image("StyleTransfer/images/21styles/candy.jpg")
+    print(url1)
+    print(url2)
 
 
 
