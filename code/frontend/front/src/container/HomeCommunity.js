@@ -9,7 +9,7 @@ import {Row, Col} from 'react-bootstrap';
 function Community_home() {
   const toast = useToast();
   useEffect(() => {
-    document.title = "OnlyUwU";
+    document.title = "Ifun-Community";
   }, []);
   const [posts, setPosts] = useState([]);
 //   const postsRef = collection(db, "posts");
