@@ -30,7 +30,7 @@ Added a package for tensorflow version TTS and a one line use case for it. Pleas
 
 > python one_line_use_case.py 
 
-# Trump speak model set up (Backup)
+# Trump speak model set up
 >git clone https://github.com/gormulka/TrumpSpeak.git
 >mkdir /content/output
 >
