@@ -1,10 +1,10 @@
 from utils import hparams as hp
-
+import numpy as np
 from pydub import AudioSegment
-
+from scipy.io.wavfile import write
 from tensorflow.python.client import device_lib
 device_lib.list_local_devices()
-
+import torch
 import os
 
 from pathlib import Path
@@ -33,6 +33,19 @@ player = []
 #       IPython.display.display(player[playerIndex])
 #       time.sleep(1)
 #       print()
+# def playMostRecent():
+#   os.system("cd output/")
+#   out_path = "output/"
+#   files = os.listdir(out_path)
+#   latest_file = max(files, key=os.path.getctime)
+#   print(latest_file)
+#   #player = [play(latest_file)]
+#   player.append(play(out_path + latest_file))
+#   write("my_wav.wav", 44100, player[len(player)-1].astype(np.float32))
+#   time.sleep(1)
+out_path = "output/"
+
+speechPath = 'speech.txt'
 path = "/TrumpSpeak/model_outputs/ljspeech_tts.forward/"
 speech = "Nobody"
 model_iteration = 80
