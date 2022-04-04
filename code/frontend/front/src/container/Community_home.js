@@ -1,6 +1,7 @@
 import {motion} from 'framer-motion';
 import Macy from 'macy';
 import React,{useEffect, useState} from 'react';
+import { useCookies } from 'react-cookie';
 import data from '../data/gallery.json';
 import { Image } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
@@ -9,7 +10,7 @@ import "../style/Gallery.css";
 import {LikeOutlined,CommentOutlined,ArrowRightOutlined} from '@ant-design/icons';
 import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
 import {Modal, Button} from 'antd';
-import { Comment, Avatar, Form, List, Input } from 'antd';
+import { Comment, Avatar, Form, List, Input, message } from 'antd';
 import moment from 'moment';
 
 const { TextArea } = Input;
@@ -72,6 +73,7 @@ const cardAnimation = {
   }
 
 function Gallery(probs) {
+    const posts = probs.props
     useEffect(()=>{
         new Macy(macyOptions)
     },[])
@@ -79,17 +81,8 @@ function Gallery(probs) {
     const [comments, setComments] = useState([]);
     const [submitting, setSubmitting] = useState(false);
     const [value, setValue] = useState('');
-    const [itemP, setitemP] = useState({content_url:"",user_avater:"",post_text:"",comment:null});
+    const [itemP, setitemP] = useState({content_url:"",user_avater:"",post_text:"",comment:null,post_id:""});
     const handleChane = (e) => {setValue(e.target.value)};
-    const [posts, setPosts]=useState([]);
-    useEffect(()=>{
-      let url = 'https://server-demo.ai-for-fun-backend.com/getpost';
-      fetch(url)
-          .then(res => res.json())
-          .then(
-            (result) => setPosts(result)
-          )
-    },[])
 
     const CommentList = ({ comments }) => (
       <List
@@ -126,7 +119,7 @@ function Gallery(probs) {
     const showModal = (e,name) => {
         setVisible(true);
         setitemP({user_avater:name.user_avater, post_text:name.post_text,
-           content_url:name.content_url,comment:name.comment});
+           content_url:name.content_url,comment:name.comment,post_id:name.post_id});
         if (name.comment != null){
           setComments(name.comment)
         } else {
@@ -136,24 +129,48 @@ function Gallery(probs) {
     const handleCancel = () => {
         setVisible(false)
       };
+    const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
     const handleSubmit = async () =>{
+        if (!cookie.user_id){
+          message.info("Please login first");
+          return;
+        }
         if (!value) {
             return;
           }
           setSubmitting(true);
           // comment
-          let url = "https://server-demo.ai-for-fun-backend.com/createcomment";
-          const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              'postid': itemP.postid,
-              'commentcontent': value,
-              'userid': itemP.userid,
-              'username': itemP.uesrname,
-              'useravater': itemP.user_avater,
-            })
-          });
+          // let url = "https://server-demo.ai-for-fun-backend.com/createcomment";
+          // const response = await fetch(url, {
+          //   method: 'POST',
+          //   headers: { 'Content-Type': 'application/json' },
+          //   body: JSON.stringify({
+          //     'postid': itemP.postid,
+          //     'commentcontent': value,
+          //     'userid': cookie.user_id,
+          //     'username': cookie.name,
+          //     'useravater': cookie.avatar,
+          //   })
+          // });
+          // if (response.status == 200) {
+          //   const content = await response.json();
+          //   setSubmitting(false);
+          //   setComments(
+          //     [
+          //       ...comments,
+          //       {
+          //         user_name: 'Han Solo',
+          //         user_avater: 'https://joeschmoe.io/api/v1/random',
+          //         commentcontent: <p>{value}</p>,
+          //         commenttime: moment().fromNow(),
+          //       }
+          //     ]
+          //   )
+          // }
+          // else {
+          //   console.log('request failed', response);
+          //   setErrMsg('Wrong Email or Password');
+          // }
 
           setTimeout(() => {
               setSubmitting(false);
@@ -171,6 +188,7 @@ function Gallery(probs) {
     }
     return (
       <>
+      {console.log(probs)}
         <motion.div>
             <motion.ul
             id="macy-grid"
@@ -178,14 +196,13 @@ function Gallery(probs) {
             animate="show"
             variants={galleryAnimation}
             >
-            {data.map((item) => {
+            {posts.map((item) => {
                 return <motion.li 
                 key={item._id} 
                 variants={cardAnimation} 
                 whileHover={{ scale: 1.05 }} 
                 className="gallery"
                 >
-                   
                     <Card.Img as={Image} src={item.content_url}  alt="item._id" />
                     <Card.Body>
                     <Row>

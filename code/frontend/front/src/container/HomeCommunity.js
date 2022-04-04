@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import RightSidebar from "../components/RightSider";
 import Feed from "../components/Feed";
 import {Row, Col} from 'react-bootstrap';
-// import Loader from "../components/Loader";
+import Loader from "../components/Loader";
 
 
 function Community_home() {
@@ -11,21 +11,23 @@ function Community_home() {
   useEffect(() => {
     document.title = "Ifun-Community";
   }, []);
-  const [posts, setPosts] = useState([]);
-//   const postsRef = collection(db, "posts");
-//   const q = query(postsRef, orderBy("createdAt", "desc"));
-  const getPosts = async () => {
-
-  };
-  useEffect(() => {
-    getPosts();
-  }, []);
+  const [posts, setPosts]=useState([]);
+  useEffect(()=>{
+    let url = 'https://server-demo.ai-for-fun-backend.com/getpost';
+    fetch(url)
+        .then(res => res.json())
+        .then(
+        (result) => setPosts(result)
+        )
+    },[])
+//   useEffect(() => {
+//     getPosts();
+//   }, []);
   if (posts?.length === 0) {
-    // return <Loader />;
+    return <Loader />;
   }
   return (
     <Row>
-
       <Col md={3} xxl={2} className="ml-2">
         <RightSidebar />
       </Col>
