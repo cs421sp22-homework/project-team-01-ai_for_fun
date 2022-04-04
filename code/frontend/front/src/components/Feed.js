@@ -192,7 +192,7 @@ import {
         top="5.4rem"
         height="max-content"
       >
-          <Gallery />
+          <Gallery props={props.homePosts}/>
         
         {/* {props?.homePosts?.map((post, index) => (
           <Post key={index} posts={post} />
