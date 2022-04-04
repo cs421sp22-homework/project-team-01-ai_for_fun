@@ -419,7 +419,7 @@ function Profile(props) {
                             {showCard ?
                                 <Content style={{ margin: '0 16px' }} className='center-box'>
                                     <Card style={{ height: '100%', weight: '100%', margin: 35 }}>
-                                        <Card.Img variant="top" src={pick} style={{ minHeight: "40vh" }} />
+                                        <Card.Img variant="top" src={pick ? pick : "https://joeschmoe.io/api/v1/random"} style={{ minHeight: "40vh" }} />
                                         <Card.Body>
                                             <Card.Title>Post to Community</Card.Title>
                                             <Card.Text>
