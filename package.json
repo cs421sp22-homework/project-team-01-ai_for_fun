@@ -4,7 +4,8 @@
     "aws-sdk": "^2.1100.0",
     "boto3": "^0.0.1",
     "react-audio-player": "^0.17.0",
-    "reactjs-media": "^2.2.0"
+    "reactjs-media": "^2.2.0",
+    "reactjs-popup": "^2.0.5"
   },
   "name": "project-team-01-ai_for_fun",
   "description": "A brief description of your project (elevator pitch goes here).",
@@ -25,6 +26,5 @@
   "bugs": {
     "url": "https://github.com/cs421sp22-homework/project-team-01-ai_for_fun/issues"
   },
-  "homepage": "https://github.com/cs421sp22-homework/project-team-01-ai_for_fun#readme",
-  "devDependencies": {}
+  "homepage": "https://github.com/cs421sp22-homework/project-team-01-ai_for_fun#readme"
 }
