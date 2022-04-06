@@ -9,32 +9,17 @@ import (
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"github.com/cs421sp22-homework/project-team-01-ai_for_fun/model"
 )
 
-type Comment struct {
-	Post_id     string             `json:"postid"`
-	Comment_id  string             `json:"commentid"`
-	Comment_content   string       `json:"commentcontent"`
-	Reply       []bson.M           `json:"reply"`
-	User_avater string             `json:"useravater"`
-	User_id     string             `json:"userid"`
-	User_name   string             `json:"username"`
-}
-type Reply struct {
-	Post_id     string             `json:"postid"`
-	Comment_id  string             `json:"commentid"`
-	Reply_content   string         `json:"replycontent"`
-	User_avater string             `json:"useravater"`
-	User_id     string             `json:"userid"`
-	User_name   string             `json:"username"`
-}
+
+
 
 func Createcomment() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		fmt.Println("Hello, world")
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
-		var comm Comment
+		var comm model.Comment
 		err := c.BindJSON(&comm)
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error() + " fail to bind the sent json to post variable"})
@@ -42,6 +27,7 @@ func Createcomment() gin.HandlerFunc {
 		}
 		nid := primitive.NewObjectID()
 		comm.Comment_id = nid.Hex()
+		comm.Reply= []bson.M{}
 		filter := bson.M{"post_id": comm.Post_id}
 		update_op := bson.M{
 			"$push": bson.M{"comment":comm},
@@ -65,19 +51,19 @@ func Createcomment() gin.HandlerFunc {
 
 func Createreply() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		fmt.Println("Hello, world")
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
-		var rep Reply
+		var rep model.Reply
 		err := c.BindJSON(&rep)
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error() + " fail to bind the sent json to post variable"})
 			return
 		}
-
-		filter := bson.M{"post_id": rep.Post_id, "comment": bson.M{"$elemMatch": bson.M{"commentid":rep.Comment_id} }}
+		fmt.Println(rep.Post_id)
+		fmt.Println(rep.Comment_id)
+		filter := bson.M{"post_id": rep.Post_id, "comment": bson.M{"$elemMatch": bson.M{"comment_id":rep.Comment_id} }}
 		update_op := bson.M{
-			"$addToSet": bson.M{"comment.$.reply":rep},
+			"$push": bson.M{"comment.$.reply":rep},
 		}
 		updateResult, err := postCollection.UpdateOne(ctx, filter, update_op)
 		if err != nil {
@@ -85,7 +71,7 @@ func Createreply() gin.HandlerFunc {
 			return
 		}
 		if updateResult.MatchedCount == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "post_id doesn't match with any record on database"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "post_id or comment_id doesn't match with any record on database"})
 			return
 		}
 		c.Header("Access-Control-Allow-Origin", "*")
