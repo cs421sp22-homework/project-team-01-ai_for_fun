@@ -4,12 +4,12 @@ import numpy as np
 import os
 import cv2
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from util import upload_image, generate_random_name, url_to_image,upload_audio
+from util import upload_image, generate_random_name, url_to_image,edit_video
 from run_cifar import eval_cifar
 from FaceSwap.output import faceSwapFunction
 from  connect2db import  savefileinfo, getuploadrecord
-#from Text2audio.TTS_tf_package import create_wav_tf
-from StyleTransfer.style_transfer import style_transfer_api
+from Text2audio.TTS_tf_package import create_wav_tf
+# from StyleTransfer.style_transfer import style_transfer_api
 
 def Aichange(url):
     result=eval_cifar(url)
@@ -29,9 +29,17 @@ def style_transfer(content_image_url, style_image_url):
      os.remove(style_image_path)
      return outName, outUrl
 
-def exchangeaudio(text):
-    filename=create_wav_tf(text,"result.wav")
-    outName, outUrl=upload_audio(filename)
+def exchangeaudio(text,person):
+    if person=="Normal":
+        filename=create_wav_tf(text,"result.wav")
+        outName, outUrl = edit_video("Normal", filename, "./TrumpSpeak/output/final_normal.mp4")
+    if person=="Trump":
+        os.system("cd TrumpSpeak")
+        str="cd TrumpSpeak && python gen_forward.py --alpha 0.9 --input_text '"+text+ "' --hp_file 'pretrained/pretrained_hparams.py' --tts_weights 'checkpoints/ljspeech_tts.forward/80k.pyt' wavernn --voc_weights 'pretrained/wave_800K.pyt' --batched --target=4096 --overlap=32"
+        os.system(str)
+        filepath="./TrumpSpeak/output/"+text+".wav"
+        outName,outUrl=edit_video("Trump",filepath,"./TrumpSpeak/output/final_trump.mp4")
+
     return outName,outUrl
 def AiFaceSwap(src_url, dst_url):
     src_img = url_to_image(src_url)
@@ -93,11 +101,12 @@ class S(BaseHTTPRequestHandler):
             style_url = data["style_url"]
             res_name, res_url = style_transfer(content_url, style_url)
             res = {"res_name": res_name, "res_url":res_url}
-        # if (str(self.path)=="/exchangeaudio"):
-        #     print("running exchangeaudio service")
-        #     text = data["text"]
-        #     res_name, res_url=exchangeaudio(text)
-        #     res = {"res_name": res_name, "res_url": res_url}
+        if (str(self.path)=="/exchangeaudio"):
+            print("running exchangeaudio service")
+            text = data["text"]
+            person=data["person"]
+            res_name, res_url=exchangeaudio(text,person)
+            res = {"res_name": res_name, "res_url": res_url}
         output = json.dumps(res)
         self._set_response()
         self.wfile.write("{}".format(output).encode('utf-8'))
