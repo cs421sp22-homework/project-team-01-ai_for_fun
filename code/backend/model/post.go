@@ -12,7 +12,7 @@ type Post struct {
 	Post_id     string             `json:"post_id"`
 	Post_text   string             `json:"post_text"`
 	Post_time   time.Time          `json:"post_time"`
-	Liked_time  int64              `json:"liked_time"`
+	Liked_time  []string           `json:"liked_time"`
 	Comment     []bson.M           `json:"comment"`
 	Content_url string             `json:"content_url"`
 	User_avater string             `json:"user_avater"`
