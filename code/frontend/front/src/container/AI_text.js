@@ -1,44 +1,13 @@
 import React, { Fragment, PureComponent } from "react";
 import { useState, createRef, useContext } from 'react';
 import { Image } from 'react-bootstrap';
-import ReactDOM from 'react-dom';
-import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Slideshow from "../components/Slideshow";
-import SlideshowInMode from "../components/recommend-in-mode/SlideshowInMode";
-import Card from 'react-bootstrap/Card'
-import UploadPic from '../components/UploadPic';
 import { LoginContext } from '../context/AuthProvider';
-// import '../style/Slideshow.css';
-// import '../style/sider.css';
-// import UploadFile from "../components/UploadFile";
-// import FaceResult from "../components/FaceResult";
-import SlidesShowInLeft from "../components/recommend-in-mode/SlidesShowInLeft";
-import CollectionInLeft from "../components/recommend-in-mode/CollectionInLeft";
-import Video from '../components/Video';
-import UploadFace from '../components/UploadFace';
-import EditVideo from './EditVideo';
 import EditText from '../components/EditText';
-
-import { ToggleButton, ToggleButtonGroup, ButtonGroup, Button } from 'react-bootstrap';
 import { Layout, Menu, Breadcrumb, Input } from 'antd';
 import {
-    DesktopOutlined,
-    PieChartOutlined,
-    FileOutlined,
-    TeamOutlined,
     UserOutlined,
-    AppstoreOutlined,
-    BarChartOutlined,
-    CloudOutlined,
-    ShopOutlined,
-    UploadOutlined,
-    VideoCameraOutlined,
     UserAddOutlined,
     UserDeleteOutlined,
-    UsergroupAddOutlined,
-    MailOutlined
 
 } from '@ant-design/icons';
 const { Header, Content, Footer, Sider } = Layout;
@@ -57,7 +26,7 @@ const trumpImg = [
 
 export const AI_text = (props) => {
     const [collapsed, setCollapsed] = useState(false);
-    const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg, setPerson, person } = useContext(LoginContext);
+    const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg, person, setPerson } = useContext(LoginContext);
     var inputText = "empty";
 
     // const { leftData } = tempimage_1;
@@ -87,8 +56,8 @@ export const AI_text = (props) => {
                                 width={'100%'}
                                 onClick={() => {
                                     setDst('');
-                                    setSourceimg("https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80")
-                                    setPerson("2")
+                                    setSourceimg("https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80");
+                                    setPerson('0');
                                 }}
                                 src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
                             />
@@ -98,8 +67,8 @@ export const AI_text = (props) => {
                                 width={'100%'}
                                 onClick={() => {
                                     setDst('');
-                                    setSourceimg("https://static01.nyt.com/images/2021/01/20/us/politics/20Biden-profile-top/20Biden-profile-top-superJumbo.jpg")
-                                    setPerson("0")
+                                    setSourceimg("https://static01.nyt.com/images/2021/01/20/us/politics/20Biden-profile-top/20Biden-profile-top-superJumbo.jpg");
+                                    setPerson('1');
                                 }}
                                 src="https://static01.nyt.com/images/2021/01/20/us/politics/20Biden-profile-top/20Biden-profile-top-superJumbo.jpg"
                             />
@@ -109,13 +78,12 @@ export const AI_text = (props) => {
                                 width={'100%'}
                                 onClick={() => {
                                     setDst('');
-                                    setSourceimg("https://media.vanityfair.com/photos/6226893d6df0fdac83f860fe/master/w_2560%2Cc_limit/487401374")
-                                    setPerson("1")
+                                    setSourceimg("https://media.vanityfair.com/photos/6226893d6df0fdac83f860fe/master/w_2560%2Cc_limit/487401374");
+                                    setPerson('2');
                                 }}
                                 src="https://media.vanityfair.com/photos/6226893d6df0fdac83f860fe/master/w_2560%2Cc_limit/487401374"
                             />
                         </SubMenu>
-
                     </Menu>
                 </Sider>
 

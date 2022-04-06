@@ -1,5 +1,5 @@
 
-import React, { useState, useContext, createRef } from 'react';
+import React, { useState, useContext, createRef, useEffect } from 'react';
 import { message, Input, Form } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import Card from 'react-bootstrap/Card';
@@ -11,14 +11,62 @@ import Image from 'react-bootstrap/Image';
 import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
 import { LoginContext } from '../context/AuthProvider';
 import { useCookies } from 'react-cookie';
+import CollectionInLeft from "../components/recommend-in-mode/CollectionInLeft";
 // import "../style/EditVideo.css"
+import { motion } from 'framer-motion';
+import Macy from 'macy';
 import { Layout } from 'antd';
 const { TextArea } = Input;
 const { Content } = Layout;
 const previousSelectedPost = [];
 
+const macyOptions = {
+    container: '#macy-grid',
+    trueOrder: true,
+    mobileFirst: true,
+    margin: 10,
+    columns: 1,
+    breakAt: {
+        1800: 3,
+        1400: 2,
+        650: {
+            margin: 10,
+            columns: 1,
+        },
+    },
+}
+
+const galleryAnimation = {
+    hide: {
+        opacity: 0,
+    },
+    show: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.25,
+            ease: 'easeOut',
+            delayChildren: 1.5,
+        },
+    },
+}
+
+const cardAnimation = {
+    hide: {
+        opacity: 0,
+    },
+    show: {
+        opacity: 1,
+        transition: {
+            duration: 0.5,
+        },
+    },
+}
 
 function Post() {
+    useEffect(() => {
+        new Macy(macyOptions)
+    }, [])
+
     //const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg } = useContext(LoginContext);
 
     // const {user,setUser,email,setEmail} = useContext(LoginContext);
@@ -63,14 +111,12 @@ function Post() {
     };
 
     const handlePost = async (e) => {
-        message.info('Post Received.');
         if (cookie.access_token) {
             console.log("content(pick) " + pick);
             console.log("postText " + postText);
             console.log("user_id " + cookie.access_token);
             console.log("user_name " + cookie.name);
             const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
-                //const response = await fetch('http://127.0.0.1:8080/faceswap', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -94,42 +140,43 @@ function Post() {
         }
     };
 
-
     return (
         <Container style={{ minHeight: '100vh' }}>
             <Row className='pt-3'>
-                <Col md={4} style={{}} className="mr-1">
+                <Col md={4} style={{ margin: '10' }} className="mr-1">
                     <h4 style={{ textAlign: 'center' }}>My work</h4>
-                    {/* <Col md={10} lg={10}> */}
-                    <ul ref={ref} >
-                        {imgData.map(item => {
-                            return <li key={item.name} className="pl-3 mt-2" style={{ display: 'inline-block' }}
-                                onClick={(e) => {
-                                    if (pick === item.imgUrl) {
-                                        setPick('')
-                                    } else {
-                                        setPick(item.imgUrl);
-                                        console.log("Pick:" + pick);
-                                    }
-                                }} >
-                                <Image
-                                    className='res-img'
-                                    src={item.imgUrl}
-                                    onClick={(e) => selectedToPost(e)}
-                                />
-                            </li>
-                        })}
-                    </ul>
-                    {/* </Col> */}
+                    <Row className="pt-1 pl-3 overflow-auto" style={{ height: "100vh", backgroundColor: "" }}>
+                        <motion.ul
+                            id="macy-grid"
+                            initial="hide"
+                            animate="show"
+                            variants={galleryAnimation}
+                        >
+                            {imgData.map(item => {
+                                return <motion.li
+                                    key={item.name}
+                                    variants={cardAnimation}
+                                    whileHover={{ scale: 1.01 }}
+                                    style={{ overflow: "hidden" }}
+                                    onClick={(e) => {
+                                        selectedToPost(e);
+                                        if (pick === item.imgUrl) {
+                                            setPick('')
+                                        } else {
+                                            setPick(item.imgUrl);
+                                            console.log("Pick:" + pick);
+                                        }
+                                    }}
+                                >
+                                    <Image src={item.imgUrl} fluid alt="item.name" />
+                                </motion.li>;
+                            })}
+                        </motion.ul>
+                    </Row>
                 </Col>
                 <Col md={7}>
-                    <Row className="mt-1" style={{ minHeight: '80vh' }}>
-                        <Row>
-                            <Col md={9} sm={5}>
-
-                            </Col>
-                        </Row>
-                        <Content style={{ margin: '0 16px' }} className='center-box'>
+                    <Row className="mt-1" style={{}}>
+                        <Content style={{ height: '90vh', weight: '80vh' }} className='center-box'>
                             <Card style={{ height: '100%', weight: '100%', margin: 35 }}>
                                 <Card.Img variant="top" src={pick ? pick : "https://joeschmoe.io/api/v1/random"} style={{ minHeight: "40vh" }} />
                                 <Card.Body>
@@ -143,8 +190,6 @@ function Post() {
                                 </Card.Footer>
                             </Card>
                         </Content>
-
-
                     </Row>
                 </Col>
             </Row>

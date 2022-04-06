@@ -41,41 +41,23 @@ function EditText(props) {
     const [pick, setPick] = useState('');
     var inputText = "empty";
 
-    // const selectImage = (id) => {
-    //     var selected = state.selected;
-    //     if (selected.indexOf(id) !== -1) selected.push(id);
-    //     State({ selected: selected });
-    // }
-
     const onChangeText = e => {
-        // console.log('Change:', e.target.value);
         inputText = e.target.value;
     };
-
-    const handleInput = e => {
+    //TODO need change API
+    const handleInput = async (e) => {
         console.log('input: ', inputText);
-    }
-    //TODO
-    const handleLoading = async (e) => {
-        console.log(faceimg);
-        console.log(pick);
-        console.log(sourceimg);
-        if (!sourceimg || (!pick && !faceimg)) {
-            message.error('Please choose one picture!');
+        console.log('voice source id:', person);
+        if (!inputText || !person) {
+            message.error('Please choose one voice source!');
         } else {
-            let dest = '';
-            if (!pick) {
-                dest = faceimg
-            } else {
-                dest = pick
-            }
             if (cookie.access_token) {
                 const response = await fetch('https://server-python.ai-for-fun-backend.com/faceswap', {
                     // const response = await fetch('http://127.0.0.1:8080/faceswap', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        "src_url": dest,
+                        "src_url": "",
                         "dst_url": sourceimg,
                         "user_id": cookie.access_token
                     })
@@ -83,6 +65,7 @@ function EditText(props) {
                 if (response.status == 200) {
                     const content = await response.json();
                     setDst(content.res_url)
+                    message.succ('complete!');
                 }
                 else {
                     console.log('request failed', response);
@@ -92,7 +75,7 @@ function EditText(props) {
                 alert('Login first!')
             }
         }
-    };
+    }
 
     return (
         <Layout className="site-layout" style={{ minHeight: '100vh' }}>
@@ -110,7 +93,7 @@ function EditText(props) {
                                     :
                                     <Video props={tempvideo} />
                             }
-                            {console.log(person)}
+                            {console.log("person" + person)}
                         </center>
                     </Col>
                     <Col md={1} xl={2}>
