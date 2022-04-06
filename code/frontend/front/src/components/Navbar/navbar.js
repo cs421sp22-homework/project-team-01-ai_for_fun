@@ -14,7 +14,9 @@ function NavBar() {
     removeCookie('name');
     removeCookie('email');
     removeCookie('refresh_token');
-    removeCookie('access_token')
+    removeCookie('access_token');
+    removeCookie('avater');
+    removeCookie('user_id')
   };
     return (
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light">

@@ -12,7 +12,7 @@ import Container from 'react-bootstrap/Container';
 
 
 const NormalLoginForm = () => {
-  const [cookie, setCookie] = useCookies(['access_token', 'refresh_token', 'name', 'email'])
+  const [cookie, setCookie] = useCookies(['access_token', 'refresh_token', 'user_id', 'name', 'email'])
   const userRef = useRef();
   const errRef = useRef();
 
@@ -57,13 +57,14 @@ const NormalLoginForm = () => {
       if (response.status == 200) {
         const content = await response.json();
         let expires = new Date();
-        //console.log.apply(content);
+        console.log(content);
         expires.setTime(expires.getTime() + (30 * 60 * 1000));
         setCookie('access_token', content.token, { path: '/', expires });
         setCookie('refresh_token', content.refresh_token, { path: '/', expires });
         setCookie('name', content.name, { path: '/', expires });
         setCookie('email', content.email, { path: '/', expires });
         setCookie('avatar', content.avatar, { path: '/', expires });
+        setCookie('user_id', content.user_id, { path: '/', expires });
         console.log(content.token)
         console.log(content.user_id)
         console.log(content.ID)

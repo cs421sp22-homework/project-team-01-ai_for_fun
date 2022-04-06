@@ -7,11 +7,12 @@ import { Image } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
 import {Row, Col} from 'react-bootstrap';
 import "../style/Gallery.css";
-import {LikeOutlined,CommentOutlined,ArrowRightOutlined} from '@ant-design/icons';
+import {LikeOutlined,CommentOutlined,ArrowRightOutlined,LikeFilled} from '@ant-design/icons';
 import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
 import {Modal, Button} from 'antd';
 import { Comment, Avatar, Form, List, Input, message } from 'antd';
 import moment from 'moment';
+import LikeBtn from '../components/LikeBtn'
 
 const { TextArea } = Input;
 
@@ -77,6 +78,7 @@ function Gallery(probs) {
     useEffect(()=>{
         new Macy(macyOptions)
     },[])
+    const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
     const [visible, setVisible] = useState(false);
     const [comments, setComments] = useState([]);
     const [submitting, setSubmitting] = useState(false);
@@ -92,9 +94,12 @@ function Gallery(probs) {
         renderItem={props => (
         <>
         <Comment 
+          actions={[<span key="comment-list-reply-to-0"  >Reply to</span>]}
           author={itemP.user_name}
           avatar={itemP.user_avater}
-          content={props.commentcontent}
+          content={<>
+          props.commentcontent
+          </>}
           datetime={props.commenttime}
         >
         {props.reply? 
@@ -129,9 +134,46 @@ function Gallery(probs) {
     const handleCancel = () => {
         setVisible(false)
       };
-    const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
+    const handleLiked = async(likelist,post_id) => {
+      let isLiked = likelist.indexOf(cookie.user_id)
+      if (isLiked == -1){
+        let url = "https://server-demo.ai-for-fun-backend.com/likepost";
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              'post_id': post_id,
+              'user_id': cookie.user_id,
+            })
+          });
+          if (response.status == 200) {
+            const content = await response.json();
+          }
+          else {
+            console.log('request failed', response);
+            message.error('Failure');
+          }
+      }else{
+        let url = "https://server-demo.ai-for-fun-backend.com/unlikepost";
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              'post_id': post_id,
+              'user_id': cookie.user_id,
+            })
+          });
+          if (response.status == 200) {
+            const content = await response.json();
+          }
+          else {
+            console.log('request failed', response);
+            message.error('Failure');
+          }
+      }
+    }
     const handleSubmit = async () =>{
-        if (!cookie.user_id){
+        if (!cookie.name){
           message.info("Please login first");
           return;
         }
@@ -140,55 +182,42 @@ function Gallery(probs) {
           }
           setSubmitting(true);
           // comment
-          // let url = "https://server-demo.ai-for-fun-backend.com/createcomment";
-          // const response = await fetch(url, {
-          //   method: 'POST',
-          //   headers: { 'Content-Type': 'application/json' },
-          //   body: JSON.stringify({
-          //     'postid': itemP.postid,
-          //     'commentcontent': value,
-          //     'userid': cookie.user_id,
-          //     'username': cookie.name,
-          //     'useravater': cookie.avatar,
-          //   })
-          // });
-          // if (response.status == 200) {
-          //   const content = await response.json();
-          //   setSubmitting(false);
-          //   setComments(
-          //     [
-          //       ...comments,
-          //       {
-          //         user_name: 'Han Solo',
-          //         user_avater: 'https://joeschmoe.io/api/v1/random',
-          //         commentcontent: <p>{value}</p>,
-          //         commenttime: moment().fromNow(),
-          //       }
-          //     ]
-          //   )
-          // }
-          // else {
-          //   console.log('request failed', response);
-          //   setErrMsg('Wrong Email or Password');
-          // }
-
-          setTimeout(() => {
-              setSubmitting(false);
-              setComments([
+          let url = "https://server-demo.ai-for-fun-backend.com/createcomment";
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              'postid': itemP.post_id,
+              'commentcontent': value,
+              'userid': cookie.user_id,
+              'username': cookie.name,
+              'useravater': cookie.avatar,
+            })
+          });
+          if (response.status == 200) {
+            const content = await response.json();
+            setSubmitting(false);
+            // TODO: insert to props
+            setComments(
+              [
                 ...comments,
                 {
-                  user_name: 'Han Solo',
-                  user_avater: 'https://joeschmoe.io/api/v1/random',
+                  user_name: cookie.name,
+                  user_avater: cookie.avatar,
                   commentcontent: <p>{value}</p>,
                   commenttime: moment().fromNow(),
-                },
-              ]);
-              setValue('');
-          }, 1000);
+                }
+              ]
+            )
+          }
+          else {
+            console.log('request failed', response);
+            message.error('Comment failure');
+            setSubmitting(false);
+          }
     }
     return (
       <>
-      {console.log(probs)}
         <motion.div>
             <motion.ul
             id="macy-grid"
@@ -215,9 +244,24 @@ function Gallery(probs) {
                     </Row>
                     <Row>
                     <Col md={4} xs={5}>
-                    <div style={{float:"left",fontSize:"16px"}}>
-                    <LikeOutlined />
-                    {item.liked_time}
+                    <div style={{float:"left",fontSize:"16px"}}
+                    onClick={()=>{
+                      if (!cookie.name) {
+                        message.error('login first');
+                        return;
+                      }
+                      handleLiked(item.liked_time, item.post_id)
+                      if (item.liked_time.indexOf(cookie.user_id) == -1){
+                        item.liked_time.push(cookie.user_id)
+                      }else{
+                        item.liked_time.pop(cookie.user_id)
+                      }
+                      }}
+                    >
+                     <LikeBtn props={{"times":item.liked_time.length,"disable":!cookie.name,
+                     "liked":(item.liked_time.indexOf(cookie.user_id)!=-1)}}
+                     />
+                     {console.log(item.liked_time.indexOf(cookie.user_id)!=-1)}
                     <CommentOutlined className='ml-1'onClick={(ev) => {showModal(ev, item)}}/>
                     </div>
                     </Col>
