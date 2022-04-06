@@ -9,7 +9,7 @@ from run_cifar import eval_cifar
 from FaceSwap.output import faceSwapFunction
 from  connect2db import  savefileinfo, getuploadrecord
 from Text2audio.TTS_tf_package import create_wav_tf
-# from StyleTransfer.style_transfer import style_transfer_api
+from StyleTransfer.style_transfer import style_transfer_api
 
 def Aichange(url):
     result=eval_cifar(url)
