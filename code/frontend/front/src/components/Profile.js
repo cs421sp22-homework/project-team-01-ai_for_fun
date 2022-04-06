@@ -421,7 +421,7 @@ function Profile(props) {
                                     </ul>
                                 </Col>
                             </Col>
-                            <Col md={3} sm={7}>
+                            {/* <Col md={3} sm={7}>
                                 <Button variant="outline-dark" onClick={handleShowCard}>Post</Button>{' '}
                                 <Button
                                     variant="outline-dark"
@@ -429,7 +429,7 @@ function Profile(props) {
                                     //value="Post In Pop"
                                     onClick={handletogglePop}
                                 >Post In Pop</Button>
-                            </Col>
+                            </Col> */}
                             {seen && <PopupPost
                                 content={<>
                                     <Content style={{ margin: '0 16px' }} className='center-box'>

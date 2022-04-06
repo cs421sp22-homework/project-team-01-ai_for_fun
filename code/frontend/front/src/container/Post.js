@@ -12,6 +12,7 @@ import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
 import { LoginContext } from '../context/AuthProvider';
 import { useCookies } from 'react-cookie';
 import CollectionInLeft from "../components/recommend-in-mode/CollectionInLeft";
+import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons';
 // import "../style/EditVideo.css"
 import { motion } from 'framer-motion';
 import Macy from 'macy';
@@ -63,9 +64,9 @@ const cardAnimation = {
 }
 
 function Post() {
-    useEffect(() => {
-        new Macy(macyOptions)
-    }, [])
+    // useEffect(() => {
+    //     new Macy(macyOptions)
+    // }, [])
 
     //const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg } = useContext(LoginContext);
 
@@ -91,6 +92,7 @@ function Post() {
     console.log("img" + profileimg)
     const ref = createRef();
     const [pick, setPick] = useState('');
+    const [translateX, setTranslateX] = useState(0);
 
     const selectedToPost = (e) => {
         previousSelectedPost.push(e.currentTarget);
@@ -138,27 +140,35 @@ function Post() {
         } else {
             alert('Login first!')
         }
+    }
+    const clickRightIcon = () => {
+        if (ref.current.scrollWidth < Math.abs(translateX) + Math.abs(ref.current.offsetWidth)) {//到最后一页时候需要停止点击按钮
+            return;
+        }
+        setTranslateX(translateX - ref.current.offsetWidth);
+    };
+
+    /**
+     * left button
+     */
+    const clickLeftIcon = () => {
+        if (translateX === 0) return;
+        setTranslateX(translateX + ref.current.offsetWidth);
     };
 
     return (
         <Container style={{ minHeight: '100vh' }}>
             <Row className='pt-3'>
-                <Col md={4} style={{ margin: '10' }} className="mr-1">
-                    <h4 style={{ textAlign: 'center' }}>My work</h4>
-                    <Row className="pt-1 pl-3 overflow-auto" style={{ height: "100vh", backgroundColor: "" }}>
-                        <motion.ul
-                            id="macy-grid"
-                            initial="hide"
-                            animate="show"
-                            variants={galleryAnimation}
-                        >
+                {/* <Col md={4}> */}
+                {/* <h4 style={{ textAlign: 'center', marginTop: '2%' }}>My work</h4> */}
+                <Container className="box" md={4} style={{ height: '30vh', borderRadius: '20px', marginTop: '2%', boxShadow: '0 3px 10px rgb(0 0 0 / 20%)', maxHeight: '90vh' }}>
+                    <div className='wrap_scrollImg' style={{ width: '100%', height: '100%' }}>
+                        <span className='left_icon' onClick={clickLeftIcon}><LeftCircleOutlined /></span>
+                        <span className='right_icon' onClick={clickRightIcon}><RightCircleOutlined /></span>
+                        <ul style={{ transform: `translateX(${translateX}px)` }} ref={ref}>
                             {imgData.map(item => {
-                                return <motion.li
-                                    key={item.name}
-                                    variants={cardAnimation}
-                                    whileHover={{ scale: 1.01 }}
-                                    style={{ overflow: "hidden" }}
-                                    onClick={(e) => {
+                                return <li key={item.name}>
+                                    <Image as={Image} style={{ height: '90%', witdh: '100%', objectFit: 'cover', maxHeight: '100vh' }} src={item.imgUrl} fluid={true} alt="item.name" onClick={(e) => {
                                         selectedToPost(e);
                                         if (pick === item.imgUrl) {
                                             setPick('')
@@ -167,32 +177,35 @@ function Post() {
                                             console.log("Pick:" + pick);
                                         }
                                     }}
-                                >
-                                    <Image src={item.imgUrl} fluid alt="item.name" />
-                                </motion.li>;
+                                    />
+                                </li>;
                             })}
-                        </motion.ul>
-                    </Row>
-                </Col>
-                <Col md={7}>
-                    <Row className="mt-1" style={{}}>
-                        <Content style={{ height: '90vh', weight: '80vh' }} className='center-box'>
-                            <Card style={{ height: '100%', weight: '100%', margin: 35 }}>
-                                <Card.Img variant="top" src={pick ? pick : "https://joeschmoe.io/api/v1/random"} style={{ minHeight: "40vh" }} />
-                                <Card.Body>
-                                    <Card.Title style={{ textAlign: 'center' }}>Post to Community</Card.Title>
-                                    <Card.Text>
-                                        <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
-                                    </Card.Text>
-                                </Card.Body>
-                                <Card.Footer>
-                                    <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Submit</Button>
-                                </Card.Footer>
-                            </Card>
-                        </Content>
-                    </Row>
-                </Col>
-            </Row>
+                        </ul>
+                    </div>
+                </Container>
+                {/* </Col> */}
+                {/* <Col md={7}> */}
+                <Row><h4 style={{ textAlign: 'center', marginTop: '2%' }}>My Post</h4></Row>
+                <Container className="box" md={4} style={{ borderRadius: '20px', boxShadow: '0 3px 10px rgb(0 0 0 / 20%)', maxHeight: '90vh', marginTop: '2%', marginBottom: '3%' }}>
+                    <Content style={{ alignItems: 'center', justifyContent: 'center' }}>
+                        <Row>
+                            {/* <Image src={pick ? pick : "https://joeschmoe.io/api/v1/random"} fluid alt="choose" style={{ height: 350, overflow: "hidden", margin: '30' }
+                            height: 350, weight: 'auto', overflow: "hidden", margin: '4%', marginLeft: '13%'} />
+                        <Row>
+                            <TextArea showCount maxLength={100} style={{ height: 100 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" /></Row>
+                        <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Submit</Button> */}
+                            <Col md={5}>
+                                <Image src={pick ? pick : "https://joeschmoe.io/api/v1/random"} fluid alt="choose" style={{ height: 350, display: 'block', marginLeft: 'auto', marginRight: 'auto', witdh: '50%' }} />
+                            </Col>
+                            <Col md={6} style={{ margin: '4%', marginTop: '5%' }}>
+                                <TextArea showCount maxLength={100} style={{ height: 100 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
+                                <Button onClick={handlePost} style={{ float: "right", marginTop: '25px' }}>Submit</Button>
+                            </Col>
+                        </Row>
+                    </Content>
+                </Container>
+                {/* </Col> */}
+            </Row >
         </Container >
     )
 }
