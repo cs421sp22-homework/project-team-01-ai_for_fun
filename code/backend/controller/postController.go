@@ -78,7 +78,7 @@ func Createpost() gin.HandlerFunc {
 		}
 		post.ID = primitive.NewObjectID()
 		post.Post_id = post.ID.Hex()
-		post.Liked_time = 0
+		post.Liked_time = []string{}
 		post.Post_time = time.Now()
 		post.Comment = []bson.M{}
 
@@ -133,14 +133,16 @@ func Likepost() gin.HandlerFunc {
 
 		err := c.BindJSON(&post)
 		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error() + " fail to bind the sent json to post_id"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error() + " fail to bind the sent json to post_id and user_id"})
 			return
 		}
 		filter := bson.M{"post_id": post.Post_id}
-		update_op := bson.D{
-			{Key: "$inc", Value: bson.D{
-				{Key: "liked_time", Value: 1},
-			}},
+		update_op := bson.M{
+			"$push": bson.M{"liked_time": post.User_id},
+		}
+		if len(post.User_id) == 0 {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error() + " No user_id provided"})
+			return
 		}
 		updateResult, err := postCollection.UpdateOne(ctx, filter, update_op)
 		if err != nil {
