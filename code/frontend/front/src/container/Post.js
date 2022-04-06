@@ -98,42 +98,42 @@ function Post() {
     return (
         <Container style={{ minHeight: '100vh' }}>
             <Row className='pt-3'>
-                <Col md={4} style={{ backgroundColor: 'whitesmoke' }} className="mr-1">
-
+                <Col md={4} style={{}} className="mr-1">
+                    <h4 style={{ textAlign: 'center' }}>My work</h4>
+                    {/* <Col md={10} lg={10}> */}
+                    <ul ref={ref} >
+                        {imgData.map(item => {
+                            return <li key={item.name} className="pl-3 mt-2" style={{ display: 'inline-block' }}
+                                onClick={(e) => {
+                                    if (pick === item.imgUrl) {
+                                        setPick('')
+                                    } else {
+                                        setPick(item.imgUrl);
+                                        console.log("Pick:" + pick);
+                                    }
+                                }} >
+                                <Image
+                                    className='res-img'
+                                    src={item.imgUrl}
+                                    onClick={(e) => selectedToPost(e)}
+                                />
+                            </li>
+                        })}
+                    </ul>
+                    {/* </Col> */}
                 </Col>
                 <Col md={7}>
-                    <Row className="mt-1" style={{ backgroundColor: 'whitesmoke', minHeight: '80vh' }}>
+                    <Row className="mt-1" style={{ minHeight: '80vh' }}>
                         <Row>
                             <Col md={9} sm={5}>
-                                <h2>My work</h2>
-                                <Col md={10} lg={10}>
-                                    <ul ref={ref} >
-                                        {imgData.map(item => {
-                                            return <li key={item.name} className="pl-3 mt-1" style={{ display: 'inline-block' }}
-                                                onClick={(e) => {
-                                                    if (pick === item.imgUrl) {
-                                                        setPick('')
-                                                    } else {
-                                                        setPick(item.imgUrl);
-                                                        console.log("Pick:" + pick);
-                                                    }
-                                                }} >
-                                                <Image
-                                                    className='res-img'
-                                                    src={item.imgUrl}
-                                                    onClick={(e) => selectedToPost(e)}
-                                                />
-                                            </li>
-                                        })}
-                                    </ul>
-                                </Col>
+
                             </Col>
                         </Row>
                         <Content style={{ margin: '0 16px' }} className='center-box'>
                             <Card style={{ height: '100%', weight: '100%', margin: 35 }}>
                                 <Card.Img variant="top" src={pick ? pick : "https://joeschmoe.io/api/v1/random"} style={{ minHeight: "40vh" }} />
                                 <Card.Body>
-                                    <Card.Title>Post to Community</Card.Title>
+                                    <Card.Title style={{ textAlign: 'center' }}>Post to Community</Card.Title>
                                     <Card.Text>
                                         <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
                                     </Card.Text>
