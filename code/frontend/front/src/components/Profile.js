@@ -6,12 +6,14 @@ import UploadPicinProfile from './UploadPicinProfile';
 import UploadPic from './UploadPic'
 import Card from 'react-bootstrap/Card';
 import '../style/Profile.css';
+import '../style/PopupPost.css';
 import { Row, Col, Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
 import { LoginContext } from '../context/AuthProvider';
 import { useCookies } from 'react-cookie';
+import PopupPost from './PopupPost';
 // import "../style/EditVideo.css"
 import { Layout } from 'antd';
 const { TextArea } = Input;
@@ -52,6 +54,7 @@ function Profile(props) {
     const ref = createRef();
     const [pick, setPick] = useState('');
     const [showCard, setShowCard] = useState(false);
+    const [seen, setSeen] = useState(false);
     // Edit Name
     const handleEditName = () => {
         console.log(1);
@@ -267,6 +270,11 @@ function Profile(props) {
         }
     };
 
+    const handletogglePop = () => {
+        setSeen(!seen);
+        //console.log(seen);
+    }
+
     return (
         <Container style={{ minHeight: '100vh' }}>
             <Row className='pt-3'>
@@ -413,35 +421,65 @@ function Profile(props) {
                                     </ul>
                                 </Col>
                             </Col>
-                            <Col md={3} sm={7}>
+                            {/* <Col md={3} sm={7}>
                                 <Button variant="outline-dark" onClick={handleShowCard}>Post</Button>{' '}
-                            </Col>
-                            {showCard ?
-                                <Content style={{ margin: '0 16px' }} className='center-box'>
-                                    <Card style={{ height: '100%', weight: '100%', margin: 35 }}>
-                                        <Card.Img variant="top" src={pick ? pick : "https://joeschmoe.io/api/v1/random"} style={{ minHeight: "40vh" }} />
-                                        <Card.Body>
-                                            <Card.Title>Post to Community</Card.Title>
-                                            <Card.Text>
-                                                <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
-                                            </Card.Text>
-                                        </Card.Body>
-                                        <Card.Footer>
-                                            <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Submit</Button>
-                                            <Button onClick={handleHideCard} variant="danger" style={{ float: "right", marginRight: '15px' }}>Cancel</Button>{''}
-                                        </Card.Footer>
-                                    </Card>
-                                </Content>
-                                :
-                                <Content>
-
-                                </Content>
-                            }
+                                <Button
+                                    variant="outline-dark"
+                                    //type="button"
+                                    //value="Post In Pop"
+                                    onClick={handletogglePop}
+                                >Post In Pop</Button>
+                            </Col> */}
+                            {seen && <PopupPost
+                                content={<>
+                                    <Content style={{ margin: '0 16px' }} className='center-box'>
+                                        <Card style={{ height: '50%', weight: '50%', margin: 35 }}>
+                                            <Card.Img variant="top" src={pick ? pick : "https://joeschmoe.io/api/v1/random"} style={{ minHeight: "40vh" }} />
+                                            <Card.Body>
+                                                <Card.Title>Post to Community</Card.Title>
+                                                <Card.Text>
+                                                    <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
+                                                </Card.Text>
+                                            </Card.Body>
+                                            <Card.Footer>
+                                                <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Submit</Button>
+                                                <Button onClick={handleHideCard} variant="danger" style={{ float: "right", marginRight: '15px' }}>Cancel</Button>{''}
+                                            </Card.Footer>
+                                        </Card>
+                                    </Content>
+                                </>}
+                                handleClose={handletogglePop}
+                            />}
                         </Row>
-                    </Row>
-                    <div>
 
-                        {/* {!showInputEmail?
+                        {showCard ?
+                            <Content style={{ margin: '0 16px' }} className='center-box'>
+                                <Card style={{ height: '100%', weight: '100%', margin: 35 }}>
+                                    <Card.Img variant="top" src={pick ? pick : "https://joeschmoe.io/api/v1/random"} style={{ minHeight: "40vh" }} />
+                                    <Card.Body>
+                                        <Card.Title>Post to Community</Card.Title>
+                                        <Card.Text>
+                                            <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
+                                        </Card.Text>
+                                    </Card.Body>
+                                    <Card.Footer>
+                                        <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Submit</Button>
+                                        <Button onClick={handleHideCard} variant="danger" style={{ float: "right", marginRight: '15px' }}>Cancel</Button>{''}
+                                    </Card.Footer>
+                                </Card>
+                            </Content>
+                            :
+                            <Content>
+
+                            </Content>
+                        }
+
+                    </Row>
+                </Col>
+            </Row>
+            <div>
+
+                {/* {!showInputEmail?
                 <Row>
                     <Col md={9}>
                         <p>{email}</p>
@@ -464,10 +502,10 @@ function Profile(props) {
                     </Col>
                 </Row>
             } */}
-                    </div>
-                </Col>
-            </Row>
-        </Container>
+            </div>
+            {/* </Col>
+            </Row > */}
+        </Container >
     )
 }
 export default Profile;

@@ -11,6 +11,21 @@ import { useCookies } from 'react-cookie';
 import { Comment, Avatar, Form, List, Input } from 'antd';
 import { Layout, message } from 'antd';
 import { LikeOutlined, CommentOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import Amplify, { Storage } from 'aws-amplify'
+import config from '../aws-exports';
+Amplify.configure(config)
+
+function getBase64(file) {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+        console.log(reader.result);
+    };
+    reader.onerror = function (error) {
+        console.log('Error: ', error);
+    };
+}
+
 const { Content, Footer } = Layout;
 const { TextArea } = Input;
 
@@ -111,6 +126,18 @@ function EditVideo(props) {
 
     //TODO: can not connect
     const handlePost = async (e) => {
+        try {
+            console.log(dst);
+            const result = await Storage.put(getBase64(dst), dst);
+            console.log(result);
+            const signedURL = await Storage.get(result.key);
+            console.log(signedURL);
+            //localStorage.setItem('global_profile_img',signedURL);
+        } catch (error) {
+            console.log("Error uploading file:", error)
+            message.error(`file upload failed.`);
+        }
+
         setShowCard(false);
         message.info('Post Received.');
         let dest = '';
