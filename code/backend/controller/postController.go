@@ -160,3 +160,39 @@ func Likepost() gin.HandlerFunc {
 
 	}
 }
+
+func Unlikepost() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		var post model.Post
+
+		err := c.BindJSON(&post)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error() + " fail to bind the sent json to post_id and user_id"})
+			return
+		}
+		filter := bson.M{"post_id": post.Post_id}
+		update_op := bson.M{
+			"$pull": bson.M{"liked_time": post.User_id},
+		}
+		if len(post.User_id) == 0 {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error() + " No user_id provided"})
+			return
+		}
+		updateResult, err := postCollection.UpdateOne(ctx, filter, update_op)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error() + " fail to update the post liked_time on mongodb"})
+			return
+		}
+		if updateResult.MatchedCount == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "post_id doesn't match with any record on database"})
+			return
+		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Content-Type")
+		//c.Header("Access-Control-Allow-Credentials", "true")
+		c.JSON(http.StatusOK, "Unlike Post Success")
+
+	}
+}
