@@ -1,3 +1,33 @@
+
+.toplayer-top{
+  width: 500px;
+  height: 300px;
+  position: absolute;
+  top: 400px;
+  margin-top: -150px;/*垂直居中*/
+  z-index: 2;
+  right:50%;
+  margin-right: -250px;/*水平居中*/
+  text-align: center;
+}
+.toplayer-top .word{
+  padding-top: 100px;
+  color: #fff;
+  font-size: 45px;
+  font-weight: bold;
+  
+}
+.toplayer-top button{
+  width: 200px;
+  height: 60px;
+  color: #fff;
+  background-color: #f5704f;
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 50px;
+  border-radius: 8px;/*设置圆角*/
+}
+
 .App {
   text-align: center;
 }
@@ -7,11 +37,11 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
+/* @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
+} */
 
 .App-header {
   background-color: #282c34;
@@ -36,3 +66,5 @@
     transform: rotate(360deg);
   }
 }
+
+
