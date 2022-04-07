@@ -39,7 +39,7 @@ class LikeBtn extends React.Component{
         
          return(
                <div style={
-                 {width:60,float:"left"}}>
+                 {float:"left"}}>
                     <span onClick={this.islike}>
                     {React.createElement(this.state.liked===true ?
                      LikeFilled 

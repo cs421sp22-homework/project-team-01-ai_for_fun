@@ -7,7 +7,7 @@ import { Image } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
 import {Row, Col} from 'react-bootstrap';
 import "../style/Gallery.css";
-import {LikeOutlined,CommentOutlined,ArrowRightOutlined,LikeFilled} from '@ant-design/icons';
+import {CommentOutlined,ArrowRightOutlined,DeleteOutlined} from '@ant-design/icons';
 import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
 import {Modal, Button} from 'antd';
 import { Comment, Avatar, Form, List, Input, message } from 'antd';
@@ -74,7 +74,7 @@ const cardAnimation = {
   }
 
 function Gallery(probs) {
-    const posts = probs.props
+    const [posts,setPosts] = useState(probs.props)
     useEffect(()=>{
         new Macy(macyOptions)
     },[])
@@ -134,6 +134,28 @@ function Gallery(probs) {
     const handleCancel = () => {
         setVisible(false)
       };
+    const handleDelete = async(post_id) => {
+      let url = "https://server-demo.ai-for-fun-backend.com/deletepost";
+      console.log(JSON.stringify({
+        'post_id': post_id,
+        'user_id': cookie.user_id,
+      }))
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          'post_id': post_id,
+          'user_id': cookie.user_id,
+        })
+      });
+      if (response.status == 200) {
+        const content = await response.json();
+      }
+      else {
+        console.log('request failed', response);
+        message.error('Failure');
+      }
+    }
     const handleLiked = async(likelist,post_id) => {
       let isLiked = likelist.indexOf(cookie.user_id)
       if (isLiked == -1){
@@ -266,7 +288,11 @@ function Gallery(probs) {
                     </div>
                     </Col>
                     <Col md={8} xs={7} style={{float:"right"}}>
-                    <a herf="#" style={{fontSize:"16px",float:"right"}}><ArrowRightOutlined onClick={(ev) => {showModal(ev, item)}}/></a>
+                    {item.user_id==cookie.user_id?
+                    <a herf="#" style={{fontSize:"16px",float:"right"}}><DeleteOutlined onClick={()=>handleDelete(item.post_id)}/></a>
+                    :
+                    <></>
+                    }
                     </Col>
                     </Row>
                     </Card.Body>

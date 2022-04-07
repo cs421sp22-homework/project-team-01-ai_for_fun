@@ -124,7 +124,7 @@ function Post() {
                 body: JSON.stringify({
                     "content_url": pick,
                     "post_text": postText,
-                    "user_id": cookie.access_token, //not user id, user id is not in cookie.
+                    "user_id": cookie.user_id, //not user id, user id is not in cookie.
                     "user_name": cookie.name,
                     "user_avater": cookie.avatar
                 })

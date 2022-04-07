@@ -105,6 +105,54 @@ function RightSidebar() {
             </Heading>
           </Flex>
         )}
+        {window.location.pathname === "/your_posts" ? (
+          <Flex
+            alignItems="center"
+            cursor="pointer"
+            height="4rem"
+            transition="all 300ms ease"
+            gap="1rem"
+            backgroundColor={colorMode === "light" ? "#cfcfcf57" : "#27272983"}
+            onClick={() => {
+              navigate("/your_posts");
+            }}
+          >
+            <IoMdImages
+              size="1.4rem"
+              style={{
+                marginLeft: "1rem",
+              }}
+            />
+            <Heading as="h5" size="md">
+              Your posts
+            </Heading>
+          </Flex>
+        ) : (
+          <Flex
+            alignItems="center"
+            cursor="pointer"
+            height="4rem"
+            transition="all 300ms ease"
+            gap="1rem"
+            _hover={{
+              backgroundColor:
+                colorMode === "light" ? "#cfcfcf57" : "#27272983",
+            }}
+            onClick={() => {
+              navigate("/your_posts");
+            }}
+          >
+            <IoMdImages
+              size="1.4rem"
+              style={{
+                marginLeft: "1rem",
+              }}
+            />
+            <Heading as="h5" size="md">
+              Your posts
+            </Heading>
+          </Flex>
+        )}
         {window.location.pathname === "/explore" ? (
           <Flex
             alignItems="center"
@@ -201,54 +249,7 @@ function RightSidebar() {
             </Heading>
           </Flex>
         )}
-        {window.location.pathname === "/your_posts" ? (
-          <Flex
-            alignItems="center"
-            cursor="pointer"
-            height="4rem"
-            transition="all 300ms ease"
-            gap="1rem"
-            backgroundColor={colorMode === "light" ? "#cfcfcf57" : "#27272983"}
-            onClick={() => {
-              navigate("/your_posts");
-            }}
-          >
-            <IoMdImages
-              size="1.4rem"
-              style={{
-                marginLeft: "1rem",
-              }}
-            />
-            <Heading as="h5" size="md">
-              Your posts
-            </Heading>
-          </Flex>
-        ) : (
-          <Flex
-            alignItems="center"
-            cursor="pointer"
-            height="4rem"
-            transition="all 300ms ease"
-            gap="1rem"
-            _hover={{
-              backgroundColor:
-                colorMode === "light" ? "#cfcfcf57" : "#27272983",
-            }}
-            onClick={() => {
-              navigate("/your_posts");
-            }}
-          >
-            <IoMdImages
-              size="1.4rem"
-              style={{
-                marginLeft: "1rem",
-              }}
-            />
-            <Heading as="h5" size="md">
-              Your posts
-            </Heading>
-          </Flex>
-        )}
+        
         {window.location.pathname === "/followers" ? (
           <Flex
             alignItems="center"

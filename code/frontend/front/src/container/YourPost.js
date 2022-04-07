@@ -4,25 +4,29 @@ import RightSidebar from "../components/RightSider";
 import Feed from "../components/Feed";
 import {Row, Col} from 'react-bootstrap';
 import Loader from "../components/Loader";
+import { useCookies } from 'react-cookie';
 
 
-function Community_home() {
-  const toast = useToast();
+function YourPost() {
   useEffect(() => {
     document.title = "Ifun-Community";
   }, []);
+  const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
   const [posts, setPosts]=useState([]);
   useEffect(()=>{
-    let url = 'https://server-demo.ai-for-fun-backend.com/getpost';
+    let url = 'https://server-demo.ai-for-fun-backend.com/getuserpost/:'+cookie.user_id;
     fetch(url)
         .then(res => res.json())
         .then(
-        (result) => setPosts(result)
+        (result) => {
+            if (result){
+                setPosts(result)
+            }else{
+                setPosts([])
+            }
+        }
         )
     },[])
-  if (posts?.length === 0) {
-    return <Loader />;
-  }
   return (
     <Row>
       <Col md={3} xxl={2} className="ml-2">
@@ -32,15 +36,15 @@ function Community_home() {
         <Feed
           isExplore={false}
           isLibrary={false}
-          isYourPosts={false}
+          isYourPosts={{"bool":true,"posts":posts}}
           isSearch={false}
           isProfile={false}
           isFollower={false}
-          homePosts={posts}
+          homePosts={false}
         />
       </Col>
     </Row>
   );
 };
 
-export default Community_home;
+export default YourPost;

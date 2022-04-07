@@ -75,7 +75,7 @@ import {
           <Post key={index} posts={post} />
         ))}
       </Flex>
-    ) : props?.isYourPosts ? (
+    ) : props?.isYourPosts.bool ? (
       <Flex
         flexDirection="column"
         gap="1rem"
@@ -87,9 +87,8 @@ import {
         <Heading as="h4" size="md">
           Your posts
         </Heading>
-        {props?.yourPosts?.map((post, index) => (
-          <Post key={index} posts={post} />
-        ))}
+        {console.log(props.isYourPosts)}
+        <Gallery props={props.isYourPosts.posts}/>
       </Flex>
     ) : props?.isSearch ? (
       <Flex
