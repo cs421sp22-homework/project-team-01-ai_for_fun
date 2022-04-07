@@ -52,14 +52,13 @@ function EditText(props) {
             message.error('Please choose one voice source!');
         } else {
             if (cookie.access_token) {
-                const response = await fetch('https://server-python.ai-for-fun-backend.com/faceswap', {
-                    // const response = await fetch('http://127.0.0.1:8080/faceswap', {
+                const response = await fetch('https://server-python.ai-for-fun-backend.com/exchangeaudio', {
+                    // const response = await fetch('http://127.0.0.1:8080/exchangeaudio', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        "src_url": "",
-                        "dst_url": sourceimg,
-                        "user_id": cookie.access_token
+                        "text": inputText,
+                        "person": person,
                     })
                 });
                 if (response.status == 200) {
