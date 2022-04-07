@@ -39,6 +39,7 @@ function EditText(props) {
     const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg, setPerson, person } = useContext(LoginContext);
     const [cookie, setCookie] = useCookies(['access_token', 'refresh_token', 'name', 'email'])
     const [pick, setPick] = useState('');
+    const [changeToVedio, SetchangeToVedio] = useState(false);
     var inputText = "empty";
 
     const onChangeText = e => {
@@ -47,9 +48,9 @@ function EditText(props) {
     //TODO need change API
     const handleInput = async (e) => {
         console.log('input: ', inputText);
-        console.log('voice source id:', person);
+        console.log('voice source id: ', person);
         if (!inputText || !person) {
-            message.error('Please choose one voice source!');
+            message.error('Please choose one voice source and type text you want to use!');
         } else {
             if (cookie.access_token) {
                 const response = await fetch('https://server-python.ai-for-fun-backend.com/exchangeaudio', {
@@ -65,6 +66,7 @@ function EditText(props) {
                     const content = await response.json();
                     setDst(content.res_url)
                     message.succ('complete!');
+                    SetchangeToVedio(true);
                 }
                 else {
                     console.log('request failed', response);
@@ -85,7 +87,7 @@ function EditText(props) {
                         <center>
                             {console.log(dst)}
                             {dst ?
-                                <Image src={dst} style={{ minHeight: "40vh" }} fluid />
+                                <Video src={dst} style={{ minHeight: "40vh" }} fluid />
                                 :
                                 sourceimg ?
                                     <Image src={sourceimg} style={{ minHeight: "40vh" }} fluid />
@@ -101,7 +103,7 @@ function EditText(props) {
             </Content>
             <Content >
                 <h3 style={{ margin: 10 }}>Please input the content you would like to manipulate</h3>
-                <MediaComponent />
+                {/* <MediaComponent /> */}
                 <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} />,
                 <Button variant="outline-dark" size="lg" onClick={handleInput}>Continue</Button>{' '}
             </Content>
