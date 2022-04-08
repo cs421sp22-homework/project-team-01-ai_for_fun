@@ -1,14 +1,15 @@
+from email.mime import audio
 import logging
 import json
 import numpy as np
 import os
 import cv2
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from util import upload_image, generate_random_name, url_to_image,edit_video
+from util import upload_image, generate_random_name, url_to_image,edit_video, createAudio
 from run_cifar import eval_cifar
 from FaceSwap.output import faceSwapFunction
 from  connect2db import  savefileinfo, getuploadrecord
-from Text2audio.TTS_tf_package import create_wav_tf
+# from Text2audio.TTS_tf_package import create_wav_tf
 from StyleTransfer.style_transfer import style_transfer_api
 
 def Aichange(url):
@@ -30,15 +31,25 @@ def style_transfer(content_image_url, style_image_url):
      return outName, outUrl
 
 def exchangeaudio(text,person):
-    if person=="Normal":
-        filename=create_wav_tf(text,"result.wav")
-        outName, outUrl = edit_video("Normal", filename, "./TrumpSpeak/output/final_normal.mp4")
-    if person=="Trump":
-        os.system("cd TrumpSpeak")
-        str="cd TrumpSpeak && python gen_forward.py --alpha 0.9 --input_text '"+text+ "' --hp_file 'pretrained/pretrained_hparams.py' --tts_weights 'checkpoints/ljspeech_tts.forward/80k.pyt' wavernn --voc_weights 'pretrained/wave_800K.pyt' --batched --target=4096 --overlap=32"
-        os.system(str)
-        filepath="./TrumpSpeak/output/"+text+".wav"
-        outName,outUrl=edit_video("Trump",filepath,"./TrumpSpeak/output/final_trump.mp4")
+    # if person=="Normal":
+    #     filename=create_wav_tf(text,"result.wav")
+    #     outName, outUrl = edit_video("Normal", filename, "./TrumpSpeak/output/final_normal.mp4")
+    # if person=="Trump":
+    #     os.system("cd TrumpSpeak")
+    #     str="cd TrumpSpeak && python gen_forward.py --alpha 0.9 --input_text '"+text+ "' --hp_file 'pretrained/pretrained_hparams.py' --tts_weights 'checkpoints/ljspeech_tts.forward/80k.pyt' wavernn --voc_weights 'pretrained/wave_800K.pyt' --batched --target=4096 --overlap=32"
+    #     os.system(str)
+    #     filepath="./TrumpSpeak/output/"+text+".wav"
+    #     outName,outUrl=edit_video("Trump",filepath,"./TrumpSpeak/output/final_trump.mp4")
+    outName, outUrl = "", ""
+    audio_path = "./Text_to_audio/audio/" + person + "_" + text + ".wav"
+    video_path = "./Text_to_audio/video/" + person + ".mp4"
+    output_path = "./Text_to_audio/output/"+ person + "_" + text +".mp4"
+    createAudio(person, text, audio_path)
+    outName,outUrl = edit_video(audio_path, video_path, output_path)
+    os.remove(audio_path)
+    os.remove(output_path)
+    return outName, outUrl
+    
 
     return outName,outUrl
 def AiFaceSwap(src_url, dst_url):
@@ -104,8 +115,8 @@ class S(BaseHTTPRequestHandler):
         if (str(self.path)=="/exchangeaudio"):
             print("running exchangeaudio service")
             text = data["text"]
-            person=data["person"]
-            res_name, res_url=exchangeaudio(text,person)
+            person = data["person"]
+            res_name, res_url=exchangeaudio(text, person)
             res = {"res_name": res_name, "res_url": res_url}
         output = json.dumps(res)
         self._set_response()
