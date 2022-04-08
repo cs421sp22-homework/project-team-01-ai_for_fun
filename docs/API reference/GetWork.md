@@ -3,7 +3,7 @@
 Return work generateed by this user.
 
 **URL** : `/getwork/:userid/`
-**URL example**: '/getwork/62106da11a169d9e92370284'
+**URL example**: '/getwork/qwdyk3udbk12'
 
 **Method** : `GET`
 
@@ -16,7 +16,7 @@ Return work generateed by this user.
 **Content example**
 
 ```json
-[{"url":"www.aaa.jpg","s3_id":"0PH6g8BZ00E40AGu.jpg","type":"image"},{"url":"www.aaa.mp4","s3_id":"0PH6g8BZ00E40AGu.mp4","type":"video"},{"url":"www.aaa.png","s3_id":"0PH6g8BZ00E40AGu.png","type":"image"}
+[{"_id":"2214hbjy1e2b","user_id":"qwdyk3udbk12","url":"www.aaa.jpg","s3_id":"0PH6g8BZ00E40AGu.jpg","type":"image"},{"_id":"2214hbjy1e2s","user_id":"qwdyk3udbk12","url":"www.aaa.mp4","s3_id":"0PH6g8BZ00E40AGu.mp4","type":"video"},{"_id":"2214hbjy1e2q","user_id":"qwdyk3udbk12","url":"www.aaa.png","s3_id":"0PH6g8BZ00E40AGu.png","type":"image"}
 ]
 ```
 
