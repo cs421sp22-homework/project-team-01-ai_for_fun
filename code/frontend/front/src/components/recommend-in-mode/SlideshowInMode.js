@@ -33,8 +33,8 @@ function SlideshowInMode(props) {
         if (translateX === 0) return;
         setTranslateX(translateX + ref.current.offsetWidth);
     };
-    console.log('translateX', translateX);
-    console.log('ref', ref);
+    // console.log('translateX', translateX);
+    // console.log('ref', ref);
 
     return (
         <div className='wrap_scrollImg' style={{ width: '100%', height: '100%' }}>

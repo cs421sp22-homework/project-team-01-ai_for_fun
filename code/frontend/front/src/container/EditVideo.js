@@ -26,6 +26,15 @@ function getBase64(file) {
     };
 }
 
+function randomString(length) {
+    var str = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var result = '';
+    for (var i = length; i > 0; --i)
+        result += str[Math.floor(Math.random() * str.length)];
+    return result;
+}
+
+
 const { Content, Footer } = Layout;
 const { TextArea } = Input;
 
@@ -128,10 +137,11 @@ function EditVideo(props) {
     const handlePost = async (e) => {
         try {
             console.log(dst);
-            const result = await Storage.put(getBase64(dst), dst);
-            console.log(result);
+            const uuid = randomString(16);
+            const result = await Storage.put("", dst);
+            console.log("resultkey " + result.key);
             const signedURL = await Storage.get(result.key);
-            console.log(signedURL);
+            console.log("url from key get" + signedURL);
             //localStorage.setItem('global_profile_img',signedURL);
         } catch (error) {
             console.log("Error uploading file:", error)
@@ -147,7 +157,8 @@ function EditVideo(props) {
             dest = pick
         }
         if (cookie.access_token) {
-            console.log("content " + dst);
+            console.log("content url ID   " + dst.substring(31, 51));
+            console.log("content url" + dst);
             console.log("postText " + postText);
             console.log("user_id " + cookie.access_token);
             console.log("user_name " + cookie.name);
@@ -156,7 +167,7 @@ function EditVideo(props) {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    "content_url": dst,
+                    "content_url": "id=" + dst.substring(31, 51),
                     "post_text": postText,
                     "user_id": cookie.access_token, //not user id, user id is not in cookie.
                     "user_name": cookie.name,
@@ -245,6 +256,7 @@ function EditVideo(props) {
                                 </Col>
 
                             </Row>
+                            {/* when do not use AI model, disable the post */}
                             {dst ?
                                 <Button onClick={handleShowCard} style={{ float: "right", marginRight: '30px' }}>Post</Button> :
                                 <Button onClick={handleShowCard} style={{ float: "right", marginRight: '30px' }} disabled>Post</Button>

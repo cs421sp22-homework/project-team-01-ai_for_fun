@@ -199,7 +199,8 @@ function Post() {
                             </Col>
                             <Col md={6} style={{ margin: '4%', marginTop: '5%' }}>
                                 <TextArea showCount maxLength={100} style={{ height: 100 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
-                                <Button onClick={handlePost} style={{ float: "right", marginTop: '25px' }}>Submit</Button>
+                                <Button variant="danger" style={{ float: "right", marginTop: '25px' }} href="/gallery">Back</Button>{' '}
+                                <Button onClick={handlePost} style={{ float: "right", marginTop: '25px', marginRight: '10px' }}>Submit</Button>{' '}
                             </Col>
                         </Row>
                     </Content>
