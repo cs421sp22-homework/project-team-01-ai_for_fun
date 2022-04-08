@@ -50,10 +50,11 @@ export const AI_text = (props) => {
                     }}
                 >
                     <div className="logo" />
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1', 'sub4', 'sub5']}>
+                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub5', 'sub6']}>
                         <SubMenu key="sub1" icon={<UserAddOutlined />} title="Standard Voice">
                             <Image
                                 width={'100%'}
+                                height={'50%'}
                                 onClick={() => {
                                     setDst('');
                                     setSourceimg("https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80");
@@ -68,7 +69,7 @@ export const AI_text = (props) => {
                                 onClick={() => {
                                     setDst('');
                                     setSourceimg("https://www.disneyonice.com/sites/default/files/2020-10/quackers-donald-featured.jpg");
-                                    setPerson('Donald Duck');
+                                    setPerson('donald-duck');
                                 }}
                                 src="https://www.disneyonice.com/sites/default/files/2020-10/quackers-donald-featured.jpg"
                             />
@@ -78,10 +79,21 @@ export const AI_text = (props) => {
                                 width={'100%'}
                                 onClick={() => {
                                     setDst('');
-                                    setSourceimg("https://celebrationspress.com/wp-content/uploads/2018/05/0507MICKEY.jpg");
-                                    setPerson('Mickey Mouse');
+                                    setSourceimg("https://d23.com/app/uploads/2020/05/1180w-600h_060120_mickey-mornings-launch.jpg");
+                                    setPerson('mickey-mouse');
                                 }}
-                                src="https://celebrationspress.com/wp-content/uploads/2018/05/0507MICKEY.jpg"
+                                src="https://d23.com/app/uploads/2020/05/1180w-600h_060120_mickey-mornings-launch.jpg"
+                            />
+                        </SubMenu>
+                        <SubMenu key="sub6" icon={<UserOutlined />} title="Minnie Mouse">
+                            <Image
+                                width={'100%'}
+                                onClick={() => {
+                                    setDst('');
+                                    setSourceimg("https://lumiere-a.akamaihd.net/v1/images/r_mickeymousefranchise_minniemouse_ddt-16970_52a2771b.jpeg?region=0%2C0%2C1536%2C450");
+                                    setPerson('minnie-mouse');
+                                }}
+                                src="https://lumiere-a.akamaihd.net/v1/images/r_mickeymousefranchise_minniemouse_ddt-16970_52a2771b.jpeg?region=0%2C0%2C1536%2C450"
                             />
                         </SubMenu>
                         <SubMenu key="sub2" icon={<UserDeleteOutlined />} title="Joe Bide">

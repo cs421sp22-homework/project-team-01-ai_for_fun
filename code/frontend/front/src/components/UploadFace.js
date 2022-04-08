@@ -19,6 +19,7 @@ function getBase64(img, callback) {
 }
 
 
+
 class UploadFace extends React.Component {
   // static contextType = LoginContext;
 
@@ -61,13 +62,13 @@ class UploadFace extends React.Component {
   };
 
   makeid = (length) => {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
+    for (var i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
-   }
-   return result;
+    }
+    return result;
   }
 
   handleRequest = async () => {
@@ -80,7 +81,7 @@ class UploadFace extends React.Component {
     try {
       const { filename } = this.state;
       var fileExtension = filename.name.split('.').pop()
-      const hashname = this.makeid(16)+"."+fileExtension
+      const hashname = this.makeid(16) + "." + fileExtension
       const result = await Storage.put(hashname, filename);
       console.log(result);
       const signedURL = await Storage.get(result.key);
@@ -91,6 +92,7 @@ class UploadFace extends React.Component {
       });
 
       this.context.faceimg = signedURL;
+      localStorage.setItem('global_Upload_img_In_AI_FACE', signedURL);
       console.log(this.context.faceimg)
 
     } catch (error) {

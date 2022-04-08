@@ -71,7 +71,7 @@ function EditVideo(props) {
     // const [postText, setPostText] = useState('');
     const [showCard, setShowCard] = useState(false);
     var postText = "empty";
-
+    var upload_img_in_AI_FACE = localStorage.getItem('global_Upload_img_In_AI_FACE');
     // const [visible, setVisible] = useState(false);
     // const [imgId, setImgId] = useState('');
     // const selectImage = (id) => {
@@ -97,12 +97,13 @@ function EditVideo(props) {
         console.log(faceimg);
         console.log(pick);
         console.log(sourceimg);
-        if (!sourceimg || (!pick && !faceimg)) {
+        console.log("global_upload " + upload_img_in_AI_FACE)
+        if (!sourceimg || (!pick && !upload_img_in_AI_FACE)) {
             message.error('Please choose one picture!');
         } else {
             let dest = '';
             if (!pick) {
-                dest = faceimg
+                dest = upload_img_in_AI_FACE
             } else {
                 dest = pick
             }

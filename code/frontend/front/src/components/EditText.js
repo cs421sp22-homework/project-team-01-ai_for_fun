@@ -87,10 +87,10 @@ function EditText(props) {
                         <center>
                             {console.log(dst)}
                             {dst ?
-                                <Video src={dst} style={{ minHeight: "40vh" }} fluid />
+                                <Video src={dst} />
                                 :
                                 sourceimg ?
-                                    <Image src={sourceimg} style={{ minHeight: "40vh" }} fluid />
+                                    <Image src={sourceimg} fluid />
                                     :
                                     <Video props={tempvideo} />
                             }
