@@ -13,33 +13,6 @@ import {
   import { useNavigate } from "react-router-dom";
   import Gallery from "../container/Community_home";
   
-//   type Posts = {
-//     caption: string;
-//     createdAt: string;
-//     image: string;
-//     userName: string;
-//     userId: string;
-//     userPfp: string;
-//     id: string;
-//   };
-  
-//   type Props = {
-//     isExplore: boolean;
-//     isLibrary: boolean;
-//     isYourPosts: boolean;
-//     isSearch: boolean;
-//     isProfile: boolean;
-//     isFollower: boolean;
-//     username?: string;
-//     homePosts?: Array<Posts>;
-//     explorePosts?: Array<Posts>;
-//     yourPosts?: Array<Posts>;
-//     searchPosts?: Array<Posts>;
-//     libraryPosts?: Array<Posts>;
-//     profilePosts?: Array<Posts>;
-//     followersData?: any;
-//   };
-  
   const Feed = (props) => {
     const toast = useToast();
     const navigate = useNavigate();
@@ -75,7 +48,7 @@ import {
           <Post key={index} posts={post} />
         ))}
       </Flex>
-    ) : props?.isYourPosts.bool ? (
+    ) : props?.isYourPosts ? (
       <Flex
         flexDirection="column"
         gap="1rem"
@@ -88,7 +61,7 @@ import {
           Your posts
         </Heading>
         {console.log(props.isYourPosts)}
-        <Gallery props={props.isYourPosts.posts}/>
+        <Gallery props={props.isYourPosts}/>
       </Flex>
     ) : props?.isSearch ? (
       <Flex

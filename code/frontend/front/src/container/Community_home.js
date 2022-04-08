@@ -75,7 +75,7 @@ const cardAnimation = {
   }
 
 function Gallery(probs) {
-    const [posts,setPosts] = useState(probs.props)
+    const posts = probs.props
     useEffect(()=>{
         new Macy(macyOptions)
     },[])
@@ -251,6 +251,7 @@ function Gallery(probs) {
             variants={galleryAnimation}
             >
             {posts.map((item) => {
+              {console.log(item)}
                 return <motion.li 
                 key={item._id} 
                 variants={cardAnimation} 

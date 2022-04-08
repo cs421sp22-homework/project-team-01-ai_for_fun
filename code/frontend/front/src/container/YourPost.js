@@ -14,7 +14,7 @@ function YourPost() {
   const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
   const [posts, setPosts]=useState([]);
   useEffect(()=>{
-    let url = 'https://server-demo.ai-for-fun-backend.com/getuserpost/:'+cookie.user_id;
+    let url = 'https://server-demo.ai-for-fun-backend.com/getuserpost/'+cookie.user_id;
     fetch(url)
         .then(res => res.json())
         .then(
@@ -36,7 +36,7 @@ function YourPost() {
         <Feed
           isExplore={false}
           isLibrary={false}
-          isYourPosts={{"bool":true,"posts":posts}}
+          isYourPosts={posts}
           isSearch={false}
           isProfile={false}
           isFollower={false}
