@@ -7,23 +7,7 @@ Return work generateed by this user.
 
 **Method** : `GET`
 
-**Auth required** : Yes
-
-**Header constraints**
-
-```json
-{
-    "token": "[validToken of this user]"
-}
-```
-
-**Header example**
-
-```json
-{
-    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6IjExMTF0YW95aXlpQGdtYWlsLmNvbSIsIk5hbWUiOiJZaXlpIFRhbyIsIlVpZCI6IjYyMTA2ZGExMWExNjlkOWU5MjM3MDI4NCIsIlVzZXJfdHlwZSI6IkFETUlOIiwiZXhwIjoxNjQ1MzMyNjc4fQ.pui-s34AVJREJZrWgXbk0rzR95MxmyC40P6CsEEJ608"
-}
-```
+**Auth required** : No
 
 ## Success Response
 
