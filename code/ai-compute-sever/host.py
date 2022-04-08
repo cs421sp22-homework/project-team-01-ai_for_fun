@@ -74,9 +74,9 @@ class S(BaseHTTPRequestHandler):
         logging.info("GET request,\nPath: %s\nHeaders:\n%s\n", str(self.path), str(self.headers))
         router=str(self.path)
         route=router.split("/",2)
+        res = ""
         if route[1]=="history":
             res=getuploadrecord(route[2])
-        print(res)
         output=json.dumps(res)
         self._set_response()
         self.wfile.write("{}".format(output).encode('utf-8'))
@@ -123,7 +123,7 @@ class S(BaseHTTPRequestHandler):
         self.wfile.write("{}".format(output).encode('utf-8'))
 
 
-def run(server_class=HTTPServer, handler_class=S, port=8080):
+def run(server_class=HTTPServer, handler_class=S, port=80):
     logging.basicConfig(level=logging.INFO)
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
