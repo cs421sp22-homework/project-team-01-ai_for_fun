@@ -50,8 +50,8 @@ export const AI_text = (props) => {
                     }}
                 >
                     <div className="logo" />
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub5', 'sub6']}>
-                        <SubMenu key="sub1" icon={<UserAddOutlined />} title="Standard Voice">
+                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub5', 'sub6', 'sub4']}>
+                        {/* <SubMenu key="sub1" icon={<UserAddOutlined />} title="Standard Voice">
                             <Image
                                 width={'100%'}
                                 height={'50%'}
@@ -62,7 +62,7 @@ export const AI_text = (props) => {
                                 }}
                                 src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
                             />
-                        </SubMenu>
+                        </SubMenu> */}
                         <SubMenu key="sub4" icon={<UserOutlined />} title="Donald Duck">
                             <Image
                                 width={'100%'}
@@ -96,7 +96,7 @@ export const AI_text = (props) => {
                                 src="https://lumiere-a.akamaihd.net/v1/images/r_mickeymousefranchise_minniemouse_ddt-16970_52a2771b.jpeg?region=0%2C0%2C1536%2C450"
                             />
                         </SubMenu>
-                        <SubMenu key="sub2" icon={<UserDeleteOutlined />} title="Joe Bide">
+                        {/* <SubMenu key="sub2" icon={<UserDeleteOutlined />} title="Joe Bide">
                             <Image
                                 width={'100%'}
                                 onClick={() => {
@@ -117,7 +117,7 @@ export const AI_text = (props) => {
                                 }}
                                 src="https://media.vanityfair.com/photos/6226893d6df0fdac83f860fe/master/w_2560%2Cc_limit/487401374"
                             />
-                        </SubMenu>
+                        </SubMenu> */}
                     </Menu>
                 </Sider>
 

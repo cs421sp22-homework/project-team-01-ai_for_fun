@@ -19,7 +19,10 @@ const tempvideo = {
     poster: "https://epe.brightspotcdn.com/f8/ca/abde5f4f4a30a6a3d1a0eaa23821/test-032021-968416412.jpg"
 }
 
-
+const test = {
+    videoSrc: "code/frontend/front/public/video/test.mp4",
+    //poster: "https://epe.brightspotcdn.com/f8/ca/abde5f4f4a30a6a3d1a0eaa23821/test-032021-968416412.jpg"
+}
 
 const previousSelected = [];
 
@@ -42,7 +45,7 @@ function EditText(props) {
     const [cookie, setCookie] = useCookies(['access_token', 'refresh_token', 'name', 'email'])
     const [pick, setPick] = useState('');
     const [changeToVedio, SetchangeToVedio] = useState(false);
-    var inputText = "empty";
+    var inputText = "Sorry, please input any text in the below box again";
 
     const onChangeText = e => {
         inputText = e.target.value;
@@ -86,10 +89,13 @@ function EditText(props) {
                 <Row>
                     <Col md={1} xl={2}> </Col>
                     <Col md={10} xl={8}>
+
                         <center>
                             {console.log(dst)}
                             {dst ?
-                                <Video props={{ "videoSrc": dst }} />
+                                <center style={{ width: "60%", height: "50%" }}>
+                                    <Video props={{ "videoSrc": dst }} />
+                                </center>
                                 :
                                 sourceimg ?
                                     <Image src={sourceimg} fluid />
@@ -99,8 +105,7 @@ function EditText(props) {
                             {console.log("person" + person)}
                         </center>
                     </Col>
-                    <Col md={1} xl={2}>
-                    </Col>
+                    <Col md={1} xl={2}> </Col>
                 </Row>
             </Content>
             <Content >
@@ -109,7 +114,7 @@ function EditText(props) {
                 <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} />,
                 <Button variant="outline-dark" size="lg" onClick={handleInput}>Continue</Button>{' '}
             </Content>
-        </Layout>
+        </Layout >
     )
 }
 
