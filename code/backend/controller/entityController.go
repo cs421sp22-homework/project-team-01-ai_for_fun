@@ -2,11 +2,11 @@ package controller
 
 import (
 	"context"
-	"log"
 	"net/http"
 	"time"
 
 	"github.com/cs421sp22-homework/project-team-01-ai_for_fun/database"
+	"github.com/cs421sp22-homework/project-team-01-ai_for_fun/helper"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -27,6 +27,7 @@ func GetEntities() gin.HandlerFunc {
 		defer cancel()
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while listing entity"})
+			return
 		}
 
 		// projectStage := bson.D{
@@ -38,7 +39,13 @@ func GetEntities() gin.HandlerFunc {
 		var allEntity []bson.M
 		err = result.All(ctx, &allEntity)
 		if err != nil {
-			log.Fatal(err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while binding entity"})
+			return
+		}
+		allEntity, err = helper.UpdateEntity(allEntity)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating entity url"})
+			return
 		}
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.Header("Access-Control-Allow-Headers", "Content-Type")

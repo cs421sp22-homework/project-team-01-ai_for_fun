@@ -134,6 +134,11 @@ func Login() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
+		foundUser.Avatar, err = helper.UpdateUrl(foundUser.Avatar)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating url"})
+			return
+		}
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.Header("Access-Control-Allow-Headers", "Content-Type")
 		c.JSON(http.StatusOK, foundUser)

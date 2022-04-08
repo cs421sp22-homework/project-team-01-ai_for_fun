@@ -3,11 +3,11 @@ package controller
 import (
 	"context"
 	"fmt"
-	"log"
 	"net/http"
 	"time"
 
 	"github.com/cs421sp22-homework/project-team-01-ai_for_fun/database"
+	"github.com/cs421sp22-homework/project-team-01-ai_for_fun/helper"
 	"github.com/cs421sp22-homework/project-team-01-ai_for_fun/model"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
@@ -28,12 +28,19 @@ func Getpost() gin.HandlerFunc {
 		defer cancel()
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while listing post"})
+			return
 		}
 
 		var allPost []bson.M
 		err = result.All(ctx, &allPost)
 		if err != nil {
-			log.Fatal(err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while binding results"})
+			return
+		}
+		allPost, err = helper.UpdatePost(allPost)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating url"})
+			return
 		}
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.Header("Access-Control-Allow-Headers", "Content-Type")
@@ -52,11 +59,19 @@ func Getuserpost() gin.HandlerFunc {
 
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while finding post"})
+			return
 		}
 		var allPost []bson.M
 		err = result.All(ctx, &allPost)
 		if err != nil {
-			log.Fatal(err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while binding results"})
+			return
+
+		}
+		allPost, err = helper.UpdatePost(allPost)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating url"})
+			return
 		}
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.Header("Access-Control-Allow-Headers", "Content-Type")
