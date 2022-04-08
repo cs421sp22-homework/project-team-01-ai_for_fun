@@ -11,7 +11,7 @@ delete a history
 
 ```json
 {
-"his_id":"[his id]",
+"_id":"[id of history]",
 "user_id":"[user id]"
 }
 
