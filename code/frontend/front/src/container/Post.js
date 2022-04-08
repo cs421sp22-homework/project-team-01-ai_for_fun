@@ -94,6 +94,20 @@ function Post() {
     const [pick, setPick] = useState('');
     const [translateX, setTranslateX] = useState(0);
 
+
+
+    // // getHistoryWork
+    // const [hiswork, setHiswork] = useState([]);
+    // useEffect(()=>{
+    //     let url = 'https://server-demo.ai-for-fun-backend.com/getwork/'+cookie.user_id;
+    //     fetch(url)
+    //     .then(res => res.json())
+    //     .then(
+    //     (result) => setHiswork(result)
+    //     )
+    // },[])
+
+
     const selectedToPost = (e) => {
         previousSelectedPost.push(e.currentTarget);
         for (var i = 0; i < previousSelectedPost.length; i++) {

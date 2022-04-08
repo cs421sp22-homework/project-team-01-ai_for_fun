@@ -17,8 +17,6 @@ import LikeBtn from '../components/LikeBtn'
 
 const { TextArea } = Input;
 
-
-
 const Editor = ({ onChange, onSubmit, submitting, value }) => (
     <>
       <Form.Item>
