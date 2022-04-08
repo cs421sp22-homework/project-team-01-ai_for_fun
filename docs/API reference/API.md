@@ -16,7 +16,6 @@ This file records APIs for AIforfun project
 ## User service
 
 * [GetEntities](GetEntities.md) : `Get /getentities`
-* [GetHistory](GetHistory.md) : `Get /history`
 * [Changeinfo](Changeinfo.md) : `Post /changeinfo`
 
 ## Community Service
@@ -28,3 +27,9 @@ This file records APIs for AIforfun project
 * [Createcomment](Createcomment.md): `Post /createcomment`
 * [Createreply](Createreply.md): `Post /createreply`
 * [Likepost](Likepost.md): `Post /likepost`
+
+## Work Service
+* [GetHistory](GetHistory.md) : `Get /gethistory`
+* [DeleteHistory](DeleteHistory.md) : `Post /deletehistory`
+* [GetWork](GetWork.md) : `Get /getwork`
+* [DeleteWork](DeleteWork.md) : `Post /deletework`
