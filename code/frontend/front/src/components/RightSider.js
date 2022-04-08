@@ -91,7 +91,7 @@ function RightSidebar() {
             }}
             borderTopRightRadius="1rem"
             onClick={() => {
-              navigate("/");
+              navigate("/gallery");
             }}
           >
             <FaHome

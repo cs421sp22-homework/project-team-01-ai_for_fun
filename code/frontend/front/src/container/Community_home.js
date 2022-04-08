@@ -3,6 +3,7 @@ import Macy from 'macy';
 import React,{useEffect, useState} from 'react';
 import { useCookies } from 'react-cookie';
 import data from '../data/gallery.json';
+import { Navigate } from "react-router-dom";
 import { Image } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
 import {Row, Col} from 'react-bootstrap';
@@ -98,7 +99,7 @@ function Gallery(probs) {
           author={itemP.user_name}
           avatar={itemP.user_avater}
           content={<>
-          props.commentcontent
+          {props.commentcontent}
           </>}
           datetime={props.commenttime}
         >
@@ -134,7 +135,7 @@ function Gallery(probs) {
     const handleCancel = () => {
         setVisible(false)
       };
-    const handleDelete = async(post_id) => {
+    const handleDelete = async(post_id,item) => {
       let url = "https://server-demo.ai-for-fun-backend.com/deletepost";
       console.log(JSON.stringify({
         'post_id': post_id,
@@ -150,6 +151,7 @@ function Gallery(probs) {
       });
       if (response.status == 200) {
         const content = await response.json();
+        window.location.reload()
       }
       else {
         console.log('request failed', response);
@@ -238,6 +240,7 @@ function Gallery(probs) {
             setSubmitting(false);
           }
     }
+      
     return (
       <>
         <motion.div>
@@ -289,7 +292,7 @@ function Gallery(probs) {
                     </Col>
                     <Col md={8} xs={7} style={{float:"right"}}>
                     {item.user_id==cookie.user_id?
-                    <a herf="#" style={{fontSize:"16px",float:"right"}}><DeleteOutlined onClick={()=>handleDelete(item.post_id)}/></a>
+                    <a herf="#" style={{fontSize:"16px",float:"right"}}><DeleteOutlined onClick={()=>handleDelete(item.post_id,item)}/></a>
                     :
                     <></>
                     }
