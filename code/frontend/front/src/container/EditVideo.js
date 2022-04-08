@@ -65,7 +65,7 @@ function EditVideo(props) {
     const ref = createRef();
     const { imgData } = props;
     const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg } = useContext(LoginContext);
-    const [cookie, setCookie] = useCookies(['access_token', 'refresh_token', 'name', 'email', 'avatar']);
+    const [cookie, setCookie] = useCookies(['access_token','user_id', 'refresh_token', 'name', 'email', 'avatar']);
     //console.log(cookie);
     const [pick, setPick] = useState('');
     // const [postText, setPostText] = useState('');
@@ -108,8 +108,8 @@ function EditVideo(props) {
                 dest = pick
             }
             if (cookie.access_token) {
-                //const response = await fetch('https://server-python.ai-for-fun-backend.com/faceswap', {
-                const response = await fetch('http://127.0.0.1:8080/faceswap', {
+                const response = await fetch('https://server-python.ai-for-fun-backend.com/faceswap', {
+                // const response = await fetch('http://127.0.0.1:8080/faceswap', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -161,7 +161,7 @@ function EditVideo(props) {
             console.log("content url ID   " + dst.substring(31, 51));
             console.log("content url" + dst);
             console.log("postText " + postText);
-            console.log("user_id " + cookie.access_token);
+            console.log("user_id " + cookie.user_id);
             console.log("user_name " + cookie.name);
             const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
                 //const response = await fetch('http://127.0.0.1:8080/faceswap', {
