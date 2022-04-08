@@ -57,7 +57,7 @@ export const AI_text = (props) => {
                                 onClick={() => {
                                     setDst('');
                                     setSourceimg("https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80");
-                                    setPerson('0');
+                                    setPerson('Normal');
                                 }}
                                 src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
                             />
@@ -68,7 +68,7 @@ export const AI_text = (props) => {
                                 onClick={() => {
                                     setDst('');
                                     setSourceimg("https://static01.nyt.com/images/2021/01/20/us/politics/20Biden-profile-top/20Biden-profile-top-superJumbo.jpg");
-                                    setPerson('1');
+                                    setPerson('Biden');
                                 }}
                                 src="https://static01.nyt.com/images/2021/01/20/us/politics/20Biden-profile-top/20Biden-profile-top-superJumbo.jpg"
                             />
@@ -79,7 +79,7 @@ export const AI_text = (props) => {
                                 onClick={() => {
                                     setDst('');
                                     setSourceimg("https://media.vanityfair.com/photos/6226893d6df0fdac83f860fe/master/w_2560%2Cc_limit/487401374");
-                                    setPerson('2');
+                                    setPerson('Trump');
                                 }}
                                 src="https://media.vanityfair.com/photos/6226893d6df0fdac83f860fe/master/w_2560%2Cc_limit/487401374"
                             />
