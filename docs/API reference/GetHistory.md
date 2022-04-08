@@ -32,14 +32,8 @@ Return recent uploaded url by this user, the maximum is 6.
 **Content example**
 
 ```json
-{
-"url1":"....",
-"url2":"....",
-"url3":"....",
-"url4":"....",
-"url5":"....",
-"url6":"...."
-}
+[{"image_id":"004e","url":"www.aaa.jpg","s3_id":"0PH6g8BZ00E40AGu.jpg"},{"image_id":"005f","url":"www.aaa.jpg","s3_id":"0PH6g8BZ00E40AGu.jpg"}
+]
 ```
 
 
