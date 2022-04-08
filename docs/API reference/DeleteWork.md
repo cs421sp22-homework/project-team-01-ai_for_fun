@@ -1,4 +1,4 @@
-# Deletepost
+# Deletework
 
 delete a work
 
