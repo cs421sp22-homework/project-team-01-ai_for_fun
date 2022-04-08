@@ -16,7 +16,7 @@ Return work generateed by this user.
 **Content example**
 
 ```json
-[{"work_id":"004e","url":"www.aaa.jpg","s3_id":"0PH6g8BZ00E40AGu.jpg","type":"image"},{"work_id":"005f","url":"www.aaa.mp4","s3_id":"0PH6g8BZ00E40AGu.mp4","type":"video"},{"work_id":"006f","url":"www.aaa.png","s3_id":"0PH6g8BZ00E40AGu.png","type":"image"}
+[{"url":"www.aaa.jpg","s3_id":"0PH6g8BZ00E40AGu.jpg","type":"image"},{"url":"www.aaa.mp4","s3_id":"0PH6g8BZ00E40AGu.mp4","type":"video"},{"url":"www.aaa.png","s3_id":"0PH6g8BZ00E40AGu.png","type":"image"}
 ]
 ```
 
