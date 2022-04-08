@@ -19,6 +19,8 @@ const tempvideo = {
     poster: "https://epe.brightspotcdn.com/f8/ca/abde5f4f4a30a6a3d1a0eaa23821/test-032021-968416412.jpg"
 }
 
+
+
 const previousSelected = [];
 
 const selected = (e) => {
@@ -65,7 +67,7 @@ function EditText(props) {
                 if (response.status == 200) {
                     const content = await response.json();
                     setDst(content.res_url)
-                    message.succ('complete!');
+                    message.success('complete!');
                     SetchangeToVedio(true);
                 }
                 else {
@@ -87,7 +89,7 @@ function EditText(props) {
                         <center>
                             {console.log(dst)}
                             {dst ?
-                                <Video src={dst} />
+                                <Video props={{ "videoSrc": dst }} />
                                 :
                                 sourceimg ?
                                     <Image src={sourceimg} fluid />
