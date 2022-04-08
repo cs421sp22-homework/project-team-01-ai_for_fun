@@ -7,7 +7,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from util import upload_image, generate_random_name, url_to_image,edit_video
 from run_cifar import eval_cifar
 from FaceSwap.output import faceSwapFunction
-from  connect2db import  savefileinfo, getuploadrecord
+from  connect2db import  savefileinfo, getuploadrecord, saveuploadfile, saveworkfile
 from Text2audio.TTS_tf_package import create_wav_tf
 from StyleTransfer.style_transfer import style_transfer_api
 
@@ -89,10 +89,22 @@ class S(BaseHTTPRequestHandler):
             user_id=data["user_id"]
             print(user_id)
             src_url = data["src_url"]
+            src_s3_id = data["src_s3_id"]
             dst_url = data["dst_url"]
             res_name, res_url = AiFaceSwap(src_url, dst_url)
-            res = {"res_name": res_name, "res_url":res_url}
-            savefileinfo(data)
+            res = {"res_s3_id": res_name, "res_url":res_url}
+            historydata={}
+            workdata={}
+            historydata["user_id"]=user_id
+            historydata["his_id"]=src_s3_id
+            historydata["url"] = src_url
+            historydata["s3_id"]=src_s3_id
+            workdata["user_id"]=user_id
+            workdata["work_id"]=res_name
+            workdata["s3_id"]=res_name
+            workdata["url"]=res_url
+            saveuploadfile(historydata)
+            saveworkfile(workdata)
         if (str(self.path)=="/styletransfer"):
             print("running styleflow service")
             user_id=data["user_id"]
