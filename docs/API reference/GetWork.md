@@ -1,4 +1,4 @@
-# GetHistory
+# Getwork
 
 Return work generateed by this user.
 
