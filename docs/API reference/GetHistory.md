@@ -9,14 +9,6 @@ Return recent uploaded url by this user, the maximum is 6.
 
 **Auth required** : No
 
-**Header constraints**
-
-```json
-{
-    "token": "[validToken of this user]"
-}
-```
-
 ## Success Response
 
 **Code** : `200 OK`
