@@ -60,6 +60,16 @@ class UploadFace extends React.Component {
     }
   };
 
+  makeid = (length) => {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
+  }
+
   handleRequest = async () => {
 
     // const formData = new FormData();
@@ -69,10 +79,11 @@ class UploadFace extends React.Component {
     });
     try {
       const { filename } = this.state;
-      const result = await Storage.put(filename.name, filename);
+      var fileExtension = filename.name.split('.').pop()
+      const hashname = this.makeid(16)+"."+fileExtension
+      const result = await Storage.put(hashname, filename);
       console.log(result);
       const signedURL = await Storage.get(result.key);
-      console.log(signedURL);
 
       this.setState({
         imageUrl: signedURL,
@@ -80,6 +91,7 @@ class UploadFace extends React.Component {
       });
 
       this.context.faceimg = signedURL;
+      console.log(this.context.faceimg)
 
     } catch (error) {
       console.log("Error uploading file:", error)
