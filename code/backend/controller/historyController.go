@@ -71,6 +71,11 @@ func Gethis() gin.HandlerFunc {
 			return
 
 		}
+		if allHis == nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "No work match the given user_id"})
+			return
+		}
+
 		allHis, err = helper.Updatework(allHis)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating url"})
