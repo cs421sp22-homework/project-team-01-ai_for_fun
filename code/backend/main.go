@@ -28,6 +28,7 @@ func main() {
 	router.GET("/", func(context *gin.Context) {
 		context.String(http.StatusOK, "Hello World")
 	})
+	route.WorkRoutes(router)
 	route.EntityRoutes(router)
 	route.PostRoutes(router)
 	route.CommentRoutes(router)

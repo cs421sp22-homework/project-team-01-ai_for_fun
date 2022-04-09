@@ -137,3 +137,17 @@ func UpdateEntity(allEntity []bson.M) ([]bson.M, error) {
 	}
 	return allEntity, nil
 }
+
+func Updatework(allwork []bson.M) ([]bson.M, error) {
+	for _, work_i := range allwork {
+		s3_id := work_i["s3_id"]
+		if s3_id.(string) != "" {
+			newUrl, err := GetFile(s3_id.(string))
+			if err != nil {
+				return allwork, err
+			}
+			work_i["url"] = newUrl
+		}
+	}
+	return allwork, nil
+}
