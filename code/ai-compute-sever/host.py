@@ -100,7 +100,7 @@ class S(BaseHTTPRequestHandler):
             user_id = data["user_id"]
             print(user_id)
             src_url = data["src_url"]
-            src_s3_id = data["src_s3_id"]
+            src_s3_id = "public/"+data["src_s3_id"]
             dst_url = data["dst_url"]
             res_name, res_url = AiFaceSwap(src_url, dst_url)
             res = {"res_s3_id": res_name, "res_url": res_url}
@@ -108,7 +108,7 @@ class S(BaseHTTPRequestHandler):
             workdata = {}
             historydata["user_id"] = user_id
             historydata["url"] = src_url
-            historydata["s3_id"] = src_s3_id
+            historydata["s3_id"] = "public/"+src_s3_id
             workdata["user_id"] = user_id
             workdata["s3_id"] = res_name
             workdata["type"] = "image"
@@ -120,7 +120,7 @@ class S(BaseHTTPRequestHandler):
             user_id=data["user_id"]
             print(user_id)
             content_url = data["content_url"]
-            content_s3_id=data["content_s3_id"]
+            content_s3_id="public/"+data["content_s3_id"]
             style_url = data["style_url"]
             res_name, res_url = style_transfer(content_url, style_url)
             res = {"res_s3_id": res_name, "res_url":res_url}
@@ -128,7 +128,7 @@ class S(BaseHTTPRequestHandler):
             workdata = {}
             historydata["user_id"] = user_id
             historydata["url"] = content_url
-            historydata["s3_id"] = content_s3_id
+            historydata["s3_id"] = "public/"+content_s3_id
             workdata["user_id"] = user_id
             workdata["s3_id"] = res_name
             workdata["type"] = "image"
