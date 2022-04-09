@@ -64,12 +64,17 @@ func Getwork() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while finding work"})
 			return
 		}
+
 		var allWork []bson.M
 		err = result.All(ctx, &allWork)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while binding results"})
 			return
 
+		}
+		if allWork == nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "No work match the given user_id"})
+			return
 		}
 		allWork, err = helper.Updatework(allWork)
 		if err != nil {

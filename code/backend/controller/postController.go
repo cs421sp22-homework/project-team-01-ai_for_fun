@@ -68,6 +68,10 @@ func Getuserpost() gin.HandlerFunc {
 			return
 
 		}
+		if allPost == nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "No work match the given user_id"})
+			return
+		}
 		allPost, err = helper.UpdatePost(allPost)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating url"})
