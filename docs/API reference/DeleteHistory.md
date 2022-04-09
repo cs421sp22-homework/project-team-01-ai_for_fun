@@ -21,8 +21,8 @@ delete a history
 
 ```json
 {
-"his_id":"001",
-"user_id":"001"
+"_id":"001",
+"_id":"001"
 }
 ```
 
