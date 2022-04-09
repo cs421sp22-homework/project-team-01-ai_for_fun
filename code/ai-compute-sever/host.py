@@ -108,7 +108,7 @@ class S(BaseHTTPRequestHandler):
             workdata = {}
             historydata["user_id"] = user_id
             historydata["url"] = src_url
-            historydata["s3_id"] = "public/"+src_s3_id
+            historydata["s3_id"] = src_s3_id
             workdata["user_id"] = user_id
             workdata["s3_id"] = res_name
             workdata["type"] = "image"
@@ -128,7 +128,7 @@ class S(BaseHTTPRequestHandler):
             workdata = {}
             historydata["user_id"] = user_id
             historydata["url"] = content_url
-            historydata["s3_id"] = "public/"+content_s3_id
+            historydata["s3_id"] = content_s3_id
             workdata["user_id"] = user_id
             workdata["s3_id"] = res_name
             workdata["type"] = "image"
