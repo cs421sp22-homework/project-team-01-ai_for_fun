@@ -24,12 +24,12 @@ func Deletework() gin.HandlerFunc {
 
 		err := c.BindJSON(&work)
 		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error() + " fail to bind the sent json to post_id"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error() + " fail to bind the sent json"})
 			return
 		}
 		deleteResult, err := workCollection.DeleteOne(ctx, bson.M{"user_id": work.User_id, "_id": work.ID})
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error() + " fail to delete the post on mongodb"})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error() + " fail to delete the work on mongodb"})
 			return
 		}
 		if deleteResult.DeletedCount == 0 {
