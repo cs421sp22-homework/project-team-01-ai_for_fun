@@ -263,7 +263,7 @@ function EditVideo(props) {
                                                 }} >
                                                 <Image
                                                     className='res-img'
-                                                    src={item.imgUrl}
+                                                    src={item.url}
                                                     onClick={(e) => selected(e)}
                                                 />
                                             </li>
