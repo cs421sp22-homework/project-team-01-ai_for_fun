@@ -21,6 +21,7 @@ import Community_home from '../container/HomeCommunity';
 import Post from "../container/Post";
 import Explore from "../container/Explore";
 import Library from "../container/Library";
+import Yourposts from "../container/YourPost";
 
 const info = { pic: './img/01_1.png', name: 'Sample', email: '1234@jh.edu' }
 
@@ -50,6 +51,7 @@ function App() {
               <Route path="/Post" element={<Post />} />
               <Route path="/explore" element={<Explore />}/>
               <Route path="/library" element={<Library />}/>
+              <Route path="/your_posts" element={<Yourposts/>}/>
             </Routes>
           </div>
         </Router>
