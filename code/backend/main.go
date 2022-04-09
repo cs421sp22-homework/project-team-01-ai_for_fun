@@ -29,6 +29,7 @@ func main() {
 		context.String(http.StatusOK, "Hello World")
 	})
 	route.WorkRoutes(router)
+	route.HistoryRoutes(router)
 	route.EntityRoutes(router)
 	route.PostRoutes(router)
 	route.CommentRoutes(router)
