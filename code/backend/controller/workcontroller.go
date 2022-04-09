@@ -8,26 +8,33 @@ import (
 
 	"github.com/cs421sp22-homework/project-team-01-ai_for_fun/database"
 	"github.com/cs421sp22-homework/project-team-01-ai_for_fun/helper"
-	"github.com/cs421sp22-homework/project-team-01-ai_for_fun/model"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
 var workCollection *mongo.Collection = database.OpenCollection(database.Client, "iFun", "workrecord")
 
+type WorkRequest struct {
+	ID      string `json:"_id"`
+	User_id string `json:"user_id"`
+}
+
 func Deletework() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
-		var work model.Work
+		var work WorkRequest
 
 		err := c.BindJSON(&work)
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error() + " fail to bind the sent json"})
 			return
 		}
-		deleteResult, err := workCollection.DeleteOne(ctx, bson.M{"user_id": work.User_id, "_id": work.ID})
+
+		oid, _ := primitive.ObjectIDFromHex(work.ID)
+		deleteResult, err := workCollection.DeleteOne(ctx, bson.M{"user_id": work.User_id, "_id": oid})
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error() + " fail to delete the work on mongodb"})
 			return
