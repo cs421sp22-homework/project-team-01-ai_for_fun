@@ -2,8 +2,8 @@
 
 Return recent uploaded url by this user, the maximum is 6.
 
-**URL** : `/history/:userid/`
-**URL example**: '/history/62106da11a169d9e92370284'
+**URL** : `/gethistory/:userid/`
+**URL example**: '/gethistory/62106da11a169d9e92370284'
 
 **Method** : `GET`
 
