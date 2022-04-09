@@ -12,6 +12,8 @@ This file records APIs for AIforfun project
 ## AI model
 
 * [Faceswap](Faceswap.md) : `POST /faceswap`
+* [Styletransfer](Styletransfer.md) : `POST /styletransfer`
+* [Exchangeaudio](Exchangeaudio.md) : `POST /exchangeaudio`
 
 ## User service
 
