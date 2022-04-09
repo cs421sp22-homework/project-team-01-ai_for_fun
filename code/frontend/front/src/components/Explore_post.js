@@ -140,11 +140,11 @@ function Post() {
     };
 
     return (
-        <Container style={{ minHeight: '100vh' }}>
+        <Container style={{ minHeight: '90vh' }}>
             <Row className='pt-3'>
                 <Col md={4} style={{ margin: '10' }} className="mr-1">
                     <h4 style={{ textAlign: 'center' }}>My work</h4>
-                    <Row className="pt-1 pl-3 overflow-auto" style={{ height: "100vh", backgroundColor: "" }}>
+                    <Row className="pt-1 pl-3 overflow-auto" style={{ height: "90vh", backgroundColor: "" }}>
                         <motion.ul
                             id="macy-grid"
                             initial="hide"
@@ -175,8 +175,8 @@ function Post() {
                 </Col>
                 <Col md={7}>
                     <Row className="mt-1" style={{}}>
-                        <Content style={{ height: '90vh', weight: '80vh' }} className='center-box'>
-                            <Card style={{ height: '100%', weight: '100%', margin: 35 }}>
+                        <Content style={{ height: '70vh', weight: '60vh' }} className='center-box'>
+                            <Card style={{ height: '80%', weight: '80%', margin: 35 }}>
                                 <Card.Img variant="top" src={pick ? pick : "https://joeschmoe.io/api/v1/random"} style={{ minHeight: "40vh" }} />
                                 <Card.Body>
                                     <Card.Title style={{ textAlign: 'center' }}>Post to Community</Card.Title>

@@ -19,6 +19,8 @@ import { AI_face_topic } from "../container/AI_face_topic";
 import { CookiesProvider } from 'react-cookie';
 import Community_home from '../container/HomeCommunity';
 import Post from "../container/Post";
+import Explore from "../container/Explore";
+import Library from "../container/Library";
 
 const info = { pic: './img/01_1.png', name: 'Sample', email: '1234@jh.edu' }
 
@@ -46,6 +48,8 @@ function App() {
               <Route path="/AI_face_topic" element={<AI_face_topic />} />
               <Route path="/gallery" element={<Community_home />} />
               <Route path="/Post" element={<Post />} />
+              <Route path="/explore" element={<Explore />}/>
+              <Route path="/library" element={<Library />}/>
             </Routes>
           </div>
         </Router>
