@@ -15,25 +15,6 @@ import Amplify, { Storage } from 'aws-amplify'
 import config from '../aws-exports';
 Amplify.configure(config)
 
-function getBase64(file) {
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-        console.log(reader.result);
-    };
-    reader.onerror = function (error) {
-        console.log('Error: ', error);
-    };
-}
-
-function randomString(length) {
-    var str = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    var result = '';
-    for (var i = length; i > 0; --i)
-        result += str[Math.floor(Math.random() * str.length)];
-    return result;
-}
-
 
 const { Content, Footer } = Layout;
 const { TextArea } = Input;
@@ -68,10 +49,12 @@ function EditVideo(props) {
     const [cookie, setCookie] = useCookies(['access_token','user_id', 'refresh_token', 'name', 'email', 'avatar']);
     //console.log(cookie);
     const [pick, setPick] = useState('');
+    const [pickid, setPickid] = useState('');
     // const [postText, setPostText] = useState('');
     const [showCard, setShowCard] = useState(false);
     var postText = "empty";
     var upload_img_in_AI_FACE = localStorage.getItem('global_Upload_img_In_AI_FACE');
+    var upload_s3id_in_AI_FACE = localStorage.getItem('global_Upload_s3id_In_AI_FACE');
     // const [visible, setVisible] = useState(false);
     // const [imgId, setImgId] = useState('');
     // const selectImage = (id) => {
@@ -79,6 +62,16 @@ function EditVideo(props) {
     //     if (selected.indexOf(id) !== -1) selected.push(id);
     //     State({ selected: selected });
     // }
+
+    // const [history, setHistory] = useState([]);
+    // useEffect(()=>{
+    //     let url = 'https://server-demo.ai-for-fun-backend.com/history/'+cookie.user_id;
+    //     fetch(url)
+    //     .then(res => res.json())
+    //     .then(
+    //     (result) => setHistory(result)
+    //     )
+    // },[])
 
     const handleShowCard = () => {
         setShowCard(true);
@@ -102,10 +95,13 @@ function EditVideo(props) {
             message.error('Please choose one picture!');
         } else {
             let dest = '';
+            let dest_id = '';
             if (!pick) {
                 dest = upload_img_in_AI_FACE
+                dest_id = upload_s3id_in_AI_FACE
             } else {
                 dest = pick
+                dest_id = pickid
             }
             if (cookie.access_token) {
                 const response = await fetch('https://server-python.ai-for-fun-backend.com/faceswap', {
@@ -115,7 +111,8 @@ function EditVideo(props) {
                     body: JSON.stringify({
                         "src_url": dest,
                         "dst_url": sourceimg,
-                        "user_id": cookie.access_token
+                        "user_id": cookie.user_id,
+                        "src_s3_id": dest_id, 
                     })
                 });
                 if (response.status == 200) {
@@ -131,14 +128,12 @@ function EditVideo(props) {
                 alert('Login first!')
             }
         }
-
     };
 
     //TODO: can not connect
     const handlePost = async (e) => {
         try {
             console.log(dst);
-            const uuid = randomString(16);
             const result = await Storage.put("", dst);
             console.log("resultkey " + result.key);
             const signedURL = await Storage.get(result.key);
@@ -170,7 +165,7 @@ function EditVideo(props) {
                 body: JSON.stringify({
                     "content_url": "id=" + dst.substring(31, 51),
                     "post_text": postText,
-                    "user_id": cookie.access_token, //not user id, user id is not in cookie.
+                    "user_id": cookie.user_id,
                     "user_name": cookie.name,
                     "user_avater": cookie.avatar
                 })
@@ -253,6 +248,27 @@ function EditVideo(props) {
                                                 />
                                             </li>
                                         })}
+
+
+                                        {/* {history.map(item => {
+                                            return <li key={item.name} className="pl-3 mt-1" style={{ display: 'inline-block' }}
+                                                onClick={(e) => {
+                                                    if (pick === item.url) {
+                                                        setPick('')
+                                                        setPickid('');
+                                                    } else {
+                                                        setPick(item.url);
+                                                        setPickid(item.s3_id);
+                                                    }
+                                                }} >
+                                                <Image
+                                                    className='res-img'
+                                                    src={item.imgUrl}
+                                                    onClick={(e) => selected(e)}
+                                                />
+                                            </li>
+                                        })}  */}
+
                                     </ul>
                                 </Col>
 
