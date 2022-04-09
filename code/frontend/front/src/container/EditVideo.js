@@ -86,6 +86,16 @@ function EditVideo(props) {
         postText = e.target.value;
     };
 
+    const makeid = (length) => {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));
+       }
+       return result;
+      }
+
     const handleSubmit = async (e) => {
         console.log(faceimg);
         console.log(pick);
@@ -104,8 +114,14 @@ function EditVideo(props) {
                 dest_id = pickid
             }
             if (cookie.access_token) {
-                const response = await fetch('https://server-python.ai-for-fun-backend.com/faceswap', {
-                // const response = await fetch('http://127.0.0.1:8080/faceswap', {
+                console.log(JSON.stringify({
+                    "src_url": dest,
+                    "dst_url": sourceimg,
+                    "user_id": cookie.user_id,
+                    "src_s3_id": dest_id, 
+                }))
+                // const response = await fetch('https://server-python.ai-for-fun-backend.com/faceswap', {
+                const response = await fetch('http://127.0.0.1:8080/faceswap', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -134,7 +150,8 @@ function EditVideo(props) {
     const handlePost = async (e) => {
         try {
             console.log(dst);
-            const result = await Storage.put("", dst);
+            const hashname = makeid(16)
+            const result = await Storage.put(hashname, dst);
             console.log("resultkey " + result.key);
             const signedURL = await Storage.get(result.key);
             console.log("url from key get" + signedURL);
