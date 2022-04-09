@@ -46,6 +46,16 @@ def getuploadrecord(username):
 # }
 # res=getuploadrecord(find_condition)
 # print(res)
+def saveuploadfile(jsoninfo):
+    mongo_client = pymongo.MongoClient('mongodb+srv://taoyiyi1111:taoyiyi1111@cluster0.oqxxp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
+    mongo_db = mongo_client['iFun']
+    mongo_collection = mongo_db['uploadrecord']
+    mongo_collection.insert_one(jsoninfo)
+def saveworkfile(jsoninfo):
+    mongo_client = pymongo.MongoClient('mongodb+srv://taoyiyi1111:taoyiyi1111@cluster0.oqxxp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
+    mongo_db = mongo_client['iFun']
+    mongo_collection = mongo_db['workrecord']
+    mongo_collection.insert_one(jsoninfo)
 
 
 

@@ -8,7 +8,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from util import upload_image, generate_random_name, url_to_image,edit_video, createAudio
 from run_cifar import eval_cifar
 from FaceSwap.output import faceSwapFunction
-from  connect2db import  savefileinfo, getuploadrecord
+from  connect2db import  savefileinfo, getuploadrecord, saveuploadfile, saveworkfile
 # from Text2audio.TTS_tf_package import create_wav_tf
 from StyleTransfer.style_transfer import style_transfer_api
 
@@ -97,27 +97,57 @@ class S(BaseHTTPRequestHandler):
             res=Aichange(url)
         if (str(self.path)=="/faceswap"):
             print("running faceswap service")
-            user_id=data["user_id"]
+            user_id = data["user_id"]
             print(user_id)
             src_url = data["src_url"]
+            src_s3_id = data["src_s3_id"]
             dst_url = data["dst_url"]
             res_name, res_url = AiFaceSwap(src_url, dst_url)
-            res = {"res_name": res_name, "res_url":res_url}
-            savefileinfo(data)
+            res = {"res_s3_id": res_name, "res_url": res_url}
+            historydata = {}
+            workdata = {}
+            historydata["user_id"] = user_id
+            historydata["url"] = src_url
+            historydata["s3_id"] = src_s3_id
+            workdata["user_id"] = user_id
+            workdata["s3_id"] = res_name
+            workdata["type"] = "image"
+            workdata["url"] = res_url
+            saveuploadfile(historydata)
+            saveworkfile(workdata)
         if (str(self.path)=="/styletransfer"):
             print("running styleflow service")
             user_id=data["user_id"]
             print(user_id)
             content_url = data["content_url"]
+            content_s3_id=data["content_s3_id"]
             style_url = data["style_url"]
             res_name, res_url = style_transfer(content_url, style_url)
-            res = {"res_name": res_name, "res_url":res_url}
+            res = {"res_s3_id": res_name, "res_url":res_url}
+            historydata = {}
+            workdata = {}
+            historydata["user_id"] = user_id
+            historydata["url"] = content_url
+            historydata["s3_id"] = content_s3_id
+            workdata["user_id"] = user_id
+            workdata["s3_id"] = res_name
+            workdata["type"] = "image"
+            workdata["url"] = res_url
+            saveuploadfile(historydata)
+            saveworkfile(workdata)
         if (str(self.path)=="/exchangeaudio"):
             print("running exchangeaudio service")
+            user_id = data["user_id"]
             text = data["text"]
             person = data["person"]
             res_name, res_url=exchangeaudio(text, person)
-            res = {"res_name": res_name, "res_url": res_url}
+            res = {"res_s3_id": res_name, "res_url": res_url}
+            workdata = {}
+            workdata["user_id"] = user_id
+            workdata["s3_id"] = res_name
+            workdata["type"] = "video"
+            workdata["url"] = res_url
+            saveworkfile(workdata)
         output = json.dumps(res)
         self._set_response()
         self.wfile.write("{}".format(output).encode('utf-8'))
