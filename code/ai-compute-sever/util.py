@@ -1,3 +1,4 @@
+from time import time
 from unicodedata import name
 import boto3
 import cv2
@@ -8,6 +9,7 @@ import requests
 import json
 from datetime import datetime
 from urllib.request import urlopen
+import time
 from moviepy.editor import VideoFileClip, AudioFileClip, concatenate_videoclips
 
 ACCESS_ID = 'AKIAXRGYYT5KAP6UULMP'
@@ -94,10 +96,11 @@ def createAudio(person, text, outpath):
     url = "https://api.uberduck.ai/speak-status?uuid="+uuid
     audio_url = ""
     i = 0
-    while (audio_url=="" or audio_url is None and i<500):
+    while (audio_url=="" or audio_url is None and i<5000):
         response = requests.get(url, auth=("pub_knssqpvuqdknnvakjs", "pk_922f3532-3b17-4c33-93da-15e1869ade10"))
         audio_url = json.loads(response.content.decode('utf8'))['path']
         i += 1
+        time.sleep(0.1)
     response = requests.get(audio_url, stream=True)
     with open(outpath, "wb") as handle:
         for data in response.iter_content():
