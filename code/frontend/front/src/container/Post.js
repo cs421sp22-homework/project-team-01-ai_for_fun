@@ -17,6 +17,7 @@ import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons';
 import { motion } from 'framer-motion';
 import Macy from 'macy';
 import { Layout } from 'antd';
+import Video from '../components/Video';
 const { TextArea } = Input;
 const { Content } = Layout;
 const previousSelectedPost = [];
@@ -78,6 +79,7 @@ function Post() {
     const [email, setEmail] = useState(cookie.email);
     const [password, setPassword] = useState('');
     const [oriPsw, setOriPsw] = useState('');
+    const [ImagePost, setImagePost] = useState(true);
     const [showInputEmail, setshowInputEmail] = useState(false);
     // const { avatarimg } = useContext(LoginContext);
     const [showEditPsw, setShowEditPsw] = useState(false)
@@ -107,11 +109,6 @@ function Post() {
                 (result) => setHiswork(result)
             )
     }, [])
-
-    console.log(hiswork);
-    for (var i = 0; i < hiswork.length; i++) {
-        console.log(hiswork[i].url);
-    }
 
     const selectedToPost = (e) => {
         previousSelectedPost.push(e.currentTarget);
@@ -187,16 +184,30 @@ function Post() {
                         <ul style={{ transform: `translateX(${translateX}px)` }} ref={ref}>
                             {hiswork.map(item => {
                                 return <li key={item.name}>
-                                    <Image as={Image} style={{ height: '90%', witdh: '100%', objectFit: 'cover', maxHeight: '100vh' }} src={item.url} fluid={true} alt="item.name" onClick={(e) => {
-                                        selectedToPost(e);
-                                        if (pick === item.url) {
-                                            setPick('')
-                                        } else {
-                                            setPick(item.url);
-                                            console.log("Pick:" + pick);
-                                        }
-                                    }}
-                                    />
+                                    {item.type === 'image' ?
+                                        <Image as={Image} style={{ height: '90%', witdh: '100%', objectFit: 'cover', maxHeight: '100vh' }} src={item.url} fluid={true} alt="item.name" onClick={(e) => {
+                                            selectedToPost(e);
+                                            if (pick === item.url) {
+                                                setPick('')
+                                            } else {
+                                                setPick(item.url);
+                                                setImagePost(true);
+                                                console.log("Pick in image" + pick);
+                                            }
+                                        }}
+                                        />
+                                        :
+                                        <Video props={{ "videoSrc": item.url }} style={{ height: '90%', witdh: '100%', objectFit: 'cover', maxHeight: '100vh' }} onClick={(e) => {
+                                            selectedToPost(e);
+                                            if (pick === item.url) {
+                                                setPick('')
+                                            } else {
+                                                setPick(item.url);
+                                                setImagePost(false);
+                                                console.log("Pick in vedio:" + pick);
+                                            }
+                                        }} />
+                                    }
                                 </li>;
                             })}
                         </ul>
@@ -214,7 +225,12 @@ function Post() {
                             <TextArea showCount maxLength={100} style={{ height: 100 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" /></Row>
                         <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Submit</Button> */}
                             <Col md={5}>
-                                <Image src={pick ? pick : "https://joeschmoe.io/api/v1/random"} fluid alt="choose" style={{ height: 350, display: 'block', marginLeft: 'auto', marginRight: 'auto', witdh: '50%' }} />
+                                {ImagePost ?
+                                    <Image src={pick ? pick : "https://joeschmoe.io/api/v1/random"} fluid alt="choose" style={{ height: 350, display: 'block', marginLeft: 'auto', marginRight: 'auto', witdh: '50%' }} />
+                                    :
+                                    <Video props={{ "videoSrc": pick }} />
+                                }
+
                             </Col>
                             <Col md={6} style={{ margin: '4%', marginTop: '5%' }}>
                                 <TextArea showCount maxLength={100} style={{ height: 100 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,

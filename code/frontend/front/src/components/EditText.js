@@ -43,7 +43,7 @@ function EditText(props) {
     const ref = createRef();
     const { imgData } = props;
     const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg, setPerson, person } = useContext(LoginContext);
-    const [cookie, setCookie] = useCookies(['access_token','user_id', 'refresh_token', 'name', 'email'])
+    const [cookie, setCookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email'])
     const [pick, setPick] = useState('');
     const [changeToVedio, SetchangeToVedio] = useState(false);
     const [showCard, setShowCard] = useState(false);
@@ -117,7 +117,7 @@ function EditText(props) {
             //localStorage.setItem('global_profile_img',signedURL);
         } catch (error) {
             console.log("Error uploading file:", error)
-            message.error(`file upload failed.`);
+            //message.error(`file upload failed.`);
         }
 
         setShowCard(false);
@@ -165,8 +165,11 @@ function EditText(props) {
                 showCard ?
                     <Content style={{ margin: '0 16px' }} className='center-box'>
                         <Card style={{ height: '100%', weight: '100%', margin: 35 }}>
-                            <Card.Img variant="top" src={dst ? dst : "https://joeschmoe.io/api/v1/random"} style={{ minHeight: "40vh" }} />
+                            {/* <Card.Img variant="top" src={dst ? dst : "https://joeschmoe.io/api/v1/random"} style={{ minHeight: "40vh" }} /> */}
                             <Card.Body>
+                                <center style={{ width: "60%", height: "50%" }}>
+                                    <Video props={{ "videoSrc": dst }} />
+                                </center>
                                 <Card.Title>Post to Community</Card.Title>
                                 <Card.Text>
                                     <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
@@ -184,7 +187,6 @@ function EditText(props) {
                             <Row>
                                 <Col md={1} xl={2}> </Col>
                                 <Col md={10} xl={8}>
-
                                     <center>
                                         {console.log(dst)}
                                         {dst ?
