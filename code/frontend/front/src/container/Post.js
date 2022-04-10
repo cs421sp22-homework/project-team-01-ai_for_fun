@@ -96,17 +96,22 @@ function Post() {
 
 
 
-    // // getHistoryWork
-    // const [hiswork, setHiswork] = useState([]);
-    // useEffect(()=>{
-    //     let url = 'https://server-demo.ai-for-fun-backend.com/getwork/'+cookie.user_id;
-    //     fetch(url)
-    //     .then(res => res.json())
-    //     .then(
-    //     (result) => setHiswork(result)
-    //     )
-    // },[])
+    // getHistoryWork
+    const [hiswork, setHiswork] = useState([]);
+    useEffect(() => {
+        let url = 'https://server-demo.ai-for-fun-backend.com/getwork/' + cookie.user_id;
+        console.log("url for history" + url);
+        fetch(url)
+            .then(res => res.json())
+            .then(
+                (result) => setHiswork(result)
+            )
+    }, [])
 
+    console.log(hiswork);
+    for (var i = 0; i < hiswork.length; i++) {
+        console.log(hiswork[i].url);
+    }
 
     const selectedToPost = (e) => {
         previousSelectedPost.push(e.currentTarget);
@@ -180,14 +185,14 @@ function Post() {
                         <span className='left_icon' onClick={clickLeftIcon}><LeftCircleOutlined /></span>
                         <span className='right_icon' onClick={clickRightIcon}><RightCircleOutlined /></span>
                         <ul style={{ transform: `translateX(${translateX}px)` }} ref={ref}>
-                            {imgData.map(item => {
+                            {hiswork.map(item => {
                                 return <li key={item.name}>
-                                    <Image as={Image} style={{ height: '90%', witdh: '100%', objectFit: 'cover', maxHeight: '100vh' }} src={item.imgUrl} fluid={true} alt="item.name" onClick={(e) => {
+                                    <Image as={Image} style={{ height: '90%', witdh: '100%', objectFit: 'cover', maxHeight: '100vh' }} src={item.url} fluid={true} alt="item.name" onClick={(e) => {
                                         selectedToPost(e);
-                                        if (pick === item.imgUrl) {
+                                        if (pick === item.url) {
                                             setPick('')
                                         } else {
-                                            setPick(item.imgUrl);
+                                            setPick(item.url);
                                             console.log("Pick:" + pick);
                                         }
                                     }}
@@ -226,6 +231,9 @@ function Post() {
 }
 export default Post;
 
+var historydata = [
+
+]
 const imgData = [
     { imgUrl: 'https://s1.r29static.com/bin/entry/43a/0,200,2000,2000/x,80/1536749/image.jpg', name: '01', topic: 'Star' },
     { imgUrl: 'https://hips.hearstapps.com/cosmouk.cdnds.net/15/33/1439714614-celebrity-face-mashups-taylor-swift-emma-watson.jpg', name: '02', topic: 'House' },

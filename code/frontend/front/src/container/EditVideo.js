@@ -46,7 +46,7 @@ function EditVideo(props) {
     const ref = createRef();
     const { imgData } = props;
     const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg } = useContext(LoginContext);
-    const [cookie, setCookie] = useCookies(['access_token','user_id', 'refresh_token', 'name', 'email', 'avatar']);
+    const [cookie, setCookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email', 'avatar']);
     //console.log(cookie);
     const [pick, setPick] = useState('');
     const [pickid, setPickid] = useState('');
@@ -87,14 +87,14 @@ function EditVideo(props) {
     };
 
     const makeid = (length) => {
-        var result           = '';
-        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         var charactersLength = characters.length;
-        for ( var i = 0; i < length; i++ ) {
-          result += characters.charAt(Math.floor(Math.random() * charactersLength));
-       }
-       return result;
-      }
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
 
     const handleSubmit = async (e) => {
         console.log(faceimg);
@@ -118,17 +118,17 @@ function EditVideo(props) {
                     "src_url": dest,
                     "dst_url": sourceimg,
                     "user_id": cookie.user_id,
-                    "src_s3_id": dest_id, 
+                    "src_s3_id": dest_id,
                 }))
-                // const response = await fetch('https://server-python.ai-for-fun-backend.com/faceswap', {
-                const response = await fetch('http://127.0.0.1:8080/faceswap', {
+                const response = await fetch('https://server-python.ai-for-fun-backend.com/faceswap', {
+                    //const response = await fetch('http://127.0.0.1:8080/faceswap', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         "src_url": dest,
                         "dst_url": sourceimg,
                         "user_id": cookie.user_id,
-                        "src_s3_id": dest_id, 
+                        "src_s3_id": dest_id,
                     })
                 });
                 if (response.status == 200) {
@@ -226,7 +226,6 @@ function EditVideo(props) {
                             <Col md={1} xl={2}> </Col>
                             <Col md={10} xl={8}>
                                 <center>
-
                                     {dst ?
                                         <Image src={dst} style={{ minHeight: "40vh" }} fluid />
                                         :
