@@ -83,9 +83,8 @@ class UploadFace extends React.Component {
       var fileExtension = filename.name.split('.').pop()
       const hashname = this.makeid(16) + "." + fileExtension
       const result = await Storage.put(hashname, filename);
-      console.log(result);
+      console.log(result.key);
       const signedURL = await Storage.get(result.key);
-
       this.setState({
         imageUrl: signedURL,
         loading: false,
@@ -93,7 +92,7 @@ class UploadFace extends React.Component {
 
       this.context.faceimg = signedURL;
       localStorage.setItem('global_Upload_img_In_AI_FACE', signedURL);
-      localStorage.setItem('global_Upload_s3id_In_AI_FACE', result.key)
+      localStorage.setItem('global_Upload_s3id_In_AI_FACE', hashname)
       console.log(this.context.faceimg)
 
     } catch (error) {

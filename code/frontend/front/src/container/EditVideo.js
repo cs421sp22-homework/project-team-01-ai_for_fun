@@ -1,4 +1,4 @@
-import React, { useState, createRef, useContext } from 'react';
+import React, { useState, createRef, useContext,useEffect } from 'react';
 import { Row, Col, Button, Image } from 'react-bootstrap';
 import Video from '../components/Video';
 import Card from 'react-bootstrap/Card';
@@ -63,15 +63,22 @@ function EditVideo(props) {
     //     State({ selected: selected });
     // }
 
-    // const [history, setHistory] = useState([]);
-    // useEffect(()=>{
-    //     let url = 'https://server-demo.ai-for-fun-backend.com/history/'+cookie.user_id;
-    //     fetch(url)
-    //     .then(res => res.json())
-    //     .then(
-    //     (result) => setHistory(result)
-    //     )
-    // },[])
+    const [history, setHistory] = useState([]);
+    useEffect(async()=>{
+        let url = 'https://server-demo.ai-for-fun-backend.com/gethistory/'+cookie.user_id;
+        const response = await fetch(url)
+          console.log(response);
+    
+          if (response.status == 200) {
+            const content = await response.json();
+            setHistory(content)
+          }
+          else {
+            console.log('request failed', response.body);
+            message.error('Error');
+            setHistory([])
+          }
+    },[])
 
     const handleShowCard = () => {
         setShowCard(true);
@@ -120,8 +127,8 @@ function EditVideo(props) {
                     "user_id": cookie.user_id,
                     "src_s3_id": dest_id, 
                 }))
-                // const response = await fetch('https://server-python.ai-for-fun-backend.com/faceswap', {
-                const response = await fetch('http://127.0.0.1:8080/faceswap', {
+                const response = await fetch('https://server-python.ai-for-fun-backend.com/faceswap', {
+                // const response = await fetch('http://127.0.0.1:8080/faceswap', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -249,7 +256,7 @@ function EditVideo(props) {
 
                                 <Col md={10} lg={10}>
                                     <ul ref={ref} >
-                                        {imgData.map(item => {
+                                        {/* {imgData.map(item => {
                                             return <li key={item.name} className="pl-3 mt-1" style={{ display: 'inline-block' }}
                                                 onClick={(e) => {
                                                     if (pick === item.imgUrl) {
@@ -264,11 +271,11 @@ function EditVideo(props) {
                                                     onClick={(e) => selected(e)}
                                                 />
                                             </li>
-                                        })}
+                                        })} */}
 
 
-                                        {/* {history.map(item => {
-                                            return <li key={item.name} className="pl-3 mt-1" style={{ display: 'inline-block' }}
+                                        {history.slice(0,5).map(item => {
+                                            return <li key={item.his_id} className="pl-3 mt-1" style={{ display: 'inline-block' }}
                                                 onClick={(e) => {
                                                     if (pick === item.url) {
                                                         setPick('')
@@ -284,7 +291,7 @@ function EditVideo(props) {
                                                     onClick={(e) => selected(e)}
                                                 />
                                             </li>
-                                        })}  */}
+                                        })} 
 
                                     </ul>
                                 </Col>
