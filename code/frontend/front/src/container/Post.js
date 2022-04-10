@@ -183,30 +183,24 @@ function Post() {
                         <span className='right_icon' onClick={clickRightIcon}><RightCircleOutlined /></span>
                         <ul style={{ transform: `translateX(${translateX}px)` }} ref={ref}>
                             {hiswork.map(item => {
-                                return <li key={item.name}>
+                                return <li key={item.name} onClick={(e) => {
+                                    selectedToPost(e);
+                                    if (pick === item.url) {
+                                        setPick('')
+                                    } else {
+                                        setPick(item.url);
+                                        console.log("Pick in image" + pick);
+                                        if (item.type === 'image') {
+                                            setImagePost(true);
+                                        } else {
+                                            setImagePost(false);
+                                        }
+                                    }
+                                }}>
                                     {item.type === 'image' ?
-                                        <Image as={Image} style={{ height: '90%', witdh: '100%', objectFit: 'cover', maxHeight: '100vh' }} src={item.url} fluid={true} alt="item.name" onClick={(e) => {
-                                            selectedToPost(e);
-                                            if (pick === item.url) {
-                                                setPick('')
-                                            } else {
-                                                setPick(item.url);
-                                                setImagePost(true);
-                                                console.log("Pick in image" + pick);
-                                            }
-                                        }}
-                                        />
+                                        <Image as={Image} style={{ height: '100%', witdh: '100%', objectFit: 'cover', maxHeight: '100vh' }} src={item.url} fluid={true} alt="item.name" />
                                         :
-                                        <Video props={{ "videoSrc": item.url }} style={{ height: '90%', witdh: '100%', objectFit: 'cover', maxHeight: '100vh' }} onClick={(e) => {
-                                            selectedToPost(e);
-                                            if (pick === item.url) {
-                                                setPick('')
-                                            } else {
-                                                setPick(item.url);
-                                                setImagePost(false);
-                                                console.log("Pick in vedio:" + pick);
-                                            }
-                                        }} />
+                                        <Video props={{ "videoSrc": item.url }} style={{ height: '100%', witdh: '100%', objectFit: 'cover', maxHeight: '100vh' }} />
                                     }
                                 </li>;
                             })}
