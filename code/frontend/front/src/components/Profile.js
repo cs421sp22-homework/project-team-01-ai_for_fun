@@ -1,7 +1,8 @@
 
-import React, { useState, useContext, createRef } from 'react';
+import React, { useState, useContext, createRef, useEffect } from 'react';
 import { message, Input, Form } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons';
 import UploadPicinProfile from './UploadPicinProfile';
 import UploadPic from './UploadPic'
 import Card from 'react-bootstrap/Card';
@@ -14,6 +15,8 @@ import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
 import { LoginContext } from '../context/AuthProvider';
 import { useCookies } from 'react-cookie';
 import PopupPost from './PopupPost';
+import Video from './Video';
+
 // import "../style/EditVideo.css"
 import { Layout } from 'antd';
 const { TextArea } = Input;
@@ -55,12 +58,40 @@ function Profile(props) {
     const [pick, setPick] = useState('');
     const [showCard, setShowCard] = useState(false);
     const [seen, setSeen] = useState(false);
+    const [translateX, setTranslateX] = useState(0);
+
+    const clickRightIcon = () => {
+        if (ref.current.scrollWidth < Math.abs(translateX) + Math.abs(ref.current.offsetWidth)) {//到最后一页时候需要停止点击按钮
+            return;
+        }
+        setTranslateX(translateX - ref.current.offsetWidth);
+    };
+
+    /**
+     * left button
+     */
+    const clickLeftIcon = () => {
+        if (translateX === 0) return;
+        setTranslateX(translateX + ref.current.offsetWidth);
+    };
+
     // Edit Name
     const handleEditName = () => {
         console.log(1);
         // console.log(user);
         setshowInputName(true)
     };
+
+    const [hiswork, setHiswork] = useState([]);
+    useEffect(() => {
+        let url = 'https://server-demo.ai-for-fun-backend.com/getwork/' + cookie.user_id;
+        console.log("url for history" + url);
+        fetch(url)
+            .then(res => res.json())
+            .then(
+                (result) => setHiswork(result)
+            )
+    }, [])
 
 
     const selectedToPost = (e) => {
@@ -399,27 +430,25 @@ function Profile(props) {
                         <Row>
                             <Col md={9} sm={5}>
                                 <h2>My work</h2>
-                                <Col md={10} lg={10}>
-                                    <ul ref={ref} >
-                                        {imgData.map(item => {
-                                            return <li key={item.name} className="pl-3 mt-1" style={{ display: 'inline-block' }}
-                                                onClick={(e) => {
-                                                    if (pick === item.imgUrl) {
-                                                        setPick('')
-                                                    } else {
-                                                        setPick(item.imgUrl);
-                                                        console.log("Pick:" + pick);
+                                {/* <Col md={10} lg={10}> */}
+                                <Container style={{ height: '20vh', borderRadius: '20px', marginTop: '4%', maxHeight: '90vh' }}>
+                                    <div className='wrap_scrollImg' style={{ width: '100%', height: '100%' }}>
+                                        <span className='left_icon' onClick={clickLeftIcon}><LeftCircleOutlined /></span>
+                                        <span className='right_icon' onClick={clickRightIcon}><RightCircleOutlined /></span>
+                                        <ul style={{ transform: `translateX(${translateX}px)` }} ref={ref}>
+                                            {hiswork.map(item => {
+                                                return <li key={item.name}>
+                                                    {item.type === 'image' ?
+                                                        <Image as={Image} style={{ height: '100%', witdh: '200%', objectFit: 'cover', maxHeight: '100vh' }} src={item.url} fluid={true} alt="item.name" />
+                                                        :
+                                                        <Video props={{ "videoSrc": item.url }} style={{ height: '100%', witdh: '200%', objectFit: 'cover', maxHeight: '100vh' }} />
                                                     }
-                                                }} >
-                                                <Image
-                                                    className='res-img'
-                                                    src={item.imgUrl}
-                                                    onClick={(e) => selectedToPost(e)}
-                                                />
-                                            </li>
-                                        })}
-                                    </ul>
-                                </Col>
+                                                </li>;
+                                            })}
+                                        </ul>
+                                    </div>
+                                </Container>
+                                {/* </Col> */}
                             </Col>
                             {/* <Col md={3} sm={7}>
                                 <Button variant="outline-dark" onClick={handleShowCard}>Post</Button>{' '}
