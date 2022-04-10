@@ -43,7 +43,7 @@ function EditText(props) {
     const ref = createRef();
     const { imgData } = props;
     const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg, setPerson, person } = useContext(LoginContext);
-    const [cookie, setCookie] = useCookies(['access_token', 'refresh_token', 'name', 'email'])
+    const [cookie, setCookie] = useCookies(['access_token','user_id', 'refresh_token', 'name', 'email'])
     const [pick, setPick] = useState('');
     const [changeToVedio, SetchangeToVedio] = useState(false);
     const [showCard, setShowCard] = useState(false);
@@ -69,6 +69,7 @@ function EditText(props) {
                     body: JSON.stringify({
                         "text": inputText,
                         "person": person,
+                        "user_id": cookie.user_id,
                     })
                 });
                 if (response.status == 200) {
