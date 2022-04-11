@@ -72,10 +72,10 @@ function EditVideo(props) {
         if (response.status == 200) {
             const content = await response.json();
             setHistory(content)
+            console.log(content)
         }
         else {
             console.log('request failed', response.body);
-            message.error('Error');
             setHistory([])
         }
     }, [])
@@ -274,7 +274,7 @@ function EditVideo(props) {
                                         })} */}
 
 
-                                        {history.slice(0, 5).map(item => {
+                                        {history.map(item => {
                                             return <li key={item.his_id} className="pl-3 mt-1" style={{ display: 'inline-block' }}
                                                 onClick={(e) => {
                                                     if (pick === item.url) {

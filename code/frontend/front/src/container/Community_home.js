@@ -96,7 +96,8 @@ function Gallery(probs) {
           <Comment
             actions={[<span key="comment-list-reply-to-0"  >Reply to</span>]}
             author={itemP.user_name}
-            avatar={itemP.user_avater}
+            // avatar={itemP.user_avater}
+            avatar="https://joeschmoe.io/api/v1/random"
             content={<>
               {props.commentcontent}
             </>}
@@ -107,7 +108,8 @@ function Gallery(probs) {
                 return <Comment
                   key={repo.userid}
                   author={repo.username}
-                  avatar={repo.useravater}
+                  avatar="https://joeschmoe.io/api/v1/random"
+                  // avatar={repo.useravater}
                   content={repo.replycontent}
                   datetime={repo.replytime}
                 ></Comment>
@@ -268,7 +270,8 @@ function Gallery(probs) {
               <Card.Body>
                 <Row>
                   <Col md={3} xs={3}>
-                    <Avatar src={item.user_avater} alt="Han Solo" />
+                    {/* <Avatar src={item.user_avater} alt="Han Solo" /> */}
+                    <Avatar src="https://joeschmoe.io/api/v1/random"/>
                   </Col>
                   <Col md={9} xs={9}>
                     <p style={{ fontSize: "14px" }}> {item.post_text.substring(0, 40)} {item.post_text.length >= 40 && '...'}</p>
@@ -315,16 +318,24 @@ function Gallery(probs) {
       <Modal
         visible={visible}
         title={
-          <Avatar src={itemP.user_avater} alt="Han Solo" />
+          <Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />
+          // <Avatar src={itemP.user_avater} alt="Han Solo" />
         }
         onCancel={handleCancel}
         footer={null}
       >
         <Row>
-          <Image src={itemP.content_url} fluid />
+         {
+            itemP.content_url.includes("images") || itemP.content_url.includes("jpg") ?
+            <Image src={itemP.content_url} fluid />
+                  :
+            <Video props={{ "videoSrc": itemP.content_url }} />
+          }
+          
           <p>{itemP.post_text}</p>
           <Comment
-            avatar={<Avatar src={itemP.user_avater} />}
+            // avatar={<Avatar src={itemP.user_avater} />}
+            avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
             content={
               <Editor
                 onChange={handleChane}
