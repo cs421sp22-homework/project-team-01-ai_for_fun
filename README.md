@@ -42,19 +42,26 @@ brew services start mongodb-community@5.0
 
 3. start the backend
 ```shell
-cd/project-team-01-ai_for_fun/code/backend
+cd project-team-01-ai_for_fun/code/backend
 
 go run main.go
 ```
 
 4. start the frontend
 ```shell
-cd/project-team-01-ai_for_fun/code/frontend/front/
+cd project-team-01-ai_for_fun/code/frontend/front/
 
 npm install
 amplify init
 amplify push
 npm start
+```
+
+5. start the ai server. You must install Anaconda on your device. We need python 3.6+ environment.
+```shell
+cd project-team-01-ai_for_fun/code/ai-compute-sever
+pip install -r requirement.txt
+python host.py
 ```
 
 ## Developing
