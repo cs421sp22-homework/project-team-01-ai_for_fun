@@ -49,8 +49,11 @@ go run main.go
 
 4. start the frontend
 ```shell
-cd/project-team-01-ai_for_fun/code/frontend/react-ifun
+cd/project-team-01-ai_for_fun/code/frontend/front/
 
+npm install
+amplify init
+amplify push
 npm start
 ```
 
