@@ -67,9 +67,6 @@ Detailed and step-by-step documentation for setting up local development. For ex
   Then you can install React using the following commands:
 ```shell
 npm install -g create-react-app 
-cd project-team-01-ai_for_fun
-npm start
-
 ```
 3. Install Golang and Gin
 We use Golang to develop our backend and it can be download at: https://go.dev/doc/install. Gin is Web framework for Golang, it can be install using the following commands:
@@ -81,13 +78,6 @@ go get -u github.com/gin-gonic/gin
 4. Install MongoDB
 Mongodb is the database we used for this application. It can be downloaded at: https://docs.mongodb.com/manual/installation/
 
-
-5. Install Heroku
-  We will develop our app on heroku. It can be installed using the following command:
-```shell
-npm install -g heroku
-```
-  More documentation about how to use heroku can be found here: https://devcenter.heroku.com/articles
 
 You should include what is needed (e.g. all of the configurations) to set up the dev environment. For instance, global dependencies or any other tools (include download links), explaining what database (and version) has been used, etc. If there is any virtual environment, local server, ..., explain here. 
 
