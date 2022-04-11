@@ -57,10 +57,13 @@ amplify push
 npm start
 ```
 
-5. start the ai server. You must install Anaconda on your device. We need python 3.6+ environment.
+5. start the ai server. You must install Anaconda on your device. We need python 3.6+ environment. Since we use opencv in our ai server, you must install cmake: https://cmake.org/download/ and other dependcy according to your OS: https://docs.opencv.org/4.x/da/df6/tutorial_py_table_of_contents_setup.html
 ```shell
+
 cd project-team-01-ai_for_fun/code/ai-compute-sever
+conda create --name <your-env> python=3.8
 pip install -r requirement.txt
+conda activate <your-env>
 python host.py
 ```
 
@@ -84,6 +87,9 @@ go get -u github.com/gin-gonic/gin
 ```
 4. Install MongoDB
 Mongodb is the database we used for this application. It can be downloaded at: https://docs.mongodb.com/manual/installation/
+
+5. Install Anaconda 
+You can find the information for Anaconda installation on https://www.anaconda.com/
 
 
 You should include what is needed (e.g. all of the configurations) to set up the dev environment. For instance, global dependencies or any other tools (include download links), explaining what database (and version) has been used, etc. If there is any virtual environment, local server, ..., explain here. 
