@@ -109,6 +109,17 @@ export class Home extends React.Component {
                                 <Slideshow imgData={tempimage_Face} />
                             </div>
                         </Tab>
+                        <Tab eventKey="Voice" title="Voice">
+                            <div className="mt-3">
+                                <Slideshow imgData={Voice_img} />
+                            </div>
+                        </Tab>
+
+                        <Tab eventKey="Style" title="Style">
+                            <div className="mt-3">
+                                <Slideshow imgData={Style_img} />
+                            </div>
+                        </Tab>
                     </Tabs>
                 </Container>
             </>
@@ -141,4 +152,18 @@ const tempimage_Face = [
     { imgUrl: 'https://www.filmcompanion.in/wp-content/uploads/2020/07/film-comapnion-Joey-Lead-2.jpg', name: 'friends_1', topic: 'Friends' },
     { imgUrl: 'https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTc5ODc1NTM4NjMyOTc2Mzcz/gettyimages-693134468.jpg', name: 'movieStart_1', topic: 'Movie Stars' },
     { imgUrl: 'https://cdn.vox-cdn.com/thumbor/84BoAJ5wM2CSqDoaTOZNBnPDU4U=/0x0:2040x1360/1200x675/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/63940677/jbareham_190520_0907_got_0004.0.jpg', name: '04', topic: 'Game of Thrones' },
+]
+
+const Style_img = [//{ imgUrl: 'https://raw.githubusercontent.com/cs421sp22-homework/project-team-01-ai_for_fun/iter-04-backend/code/ai-compute-sever/StyleTransfer/images/21styles/escher_sphere.jpg?token=GHSAT0AAAAAABRYH3ME5TAYK54BMGQ3JS7KYSWBCRQ', name: '06', topic: 'Style' },
+    { imgUrl: 'https://www.artic.edu/iiif/2/1adf2696-8489-499b-cad2-821d7fde4b33/full/843,/0/default.jpg', name: '24', topic: 'Vincent van Gogh' },
+    { imgUrl: 'https://www.artic.edu/iiif/2/25c31d8d-21a4-9ea1-1d73-6a2eca4dda7e/full/843,/0/default.jpg', name: '25', topic: 'Vincent van Gogh' },
+    { imgUrl: 'https://www.artic.edu/iiif/2/9ea77636-76e9-9031-6b92-ff34512d7cbc/full/843,/0/default.jpg', name: '26', topic: 'Vincent van Gogh' },
+    { imgUrl: 'https://www.artic.edu/iiif/2/d0ff5b36-bb38-b156-6042-5c8545352c2f/full/843,/0/default.jpg', name: '27', topic: 'Vincent van Gogh' },
+    { imgUrl: 'https://www.artic.edu/iiif/2/92827fc4-78a3-a263-75a2-6470eabad38b/full/843,/0/default.jpg', name: '28', topic: 'Vincent van Gogh' },
+]
+
+const Voice_img = [
+    { imgUrl: 'https://d23.com/app/uploads/2020/05/1180w-600h_060120_mickey-mornings-launch.jpg', name: '1', topic: 'Mickey Mouse' },
+    { imgUrl: 'https://www.disneyonice.com/sites/default/files/2020-10/quackers-donald-featured.jpg', name: '2', topic: 'Donald Duck' },
+    { imgUrl: 'https://wallpaperaccess.com/full/1258313.jpg', name: '3', topic: 'Minnie Mouse' },
 ]

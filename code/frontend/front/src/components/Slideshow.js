@@ -28,8 +28,6 @@ function Slideshow(props) {
     if (translateX === 0) return;
     setTranslateX(translateX + ref.current.offsetWidth);
   };
-  //console.log('translateX', translateX);
-  //console.log('ref', ref);
 
   return (
     <Container fluid>
@@ -50,14 +48,6 @@ function Slideshow(props) {
                   </Card.Text>
                 </Card.Body>
               </Card>
-              {/* <img src={item.imgUrl} alt={item.name}/> */}
-              {/* 
-            <div className='img_contianer'>
-                <img src={item.imgUrl} alt={item.name}/>
-                <div className="overlay">{item.name}</div>
-            </div>
-             */}
-
             </li>;
           })}
         </ul>
