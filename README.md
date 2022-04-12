@@ -62,8 +62,8 @@ npm start
 
 cd project-team-01-ai_for_fun/code/ai-compute-sever
 conda create --name <your-env> python=3.8
-pip install -r requirement.txt
 conda activate <your-env>
+pip install -r requirement.txt
 python host.py
 ```
 
