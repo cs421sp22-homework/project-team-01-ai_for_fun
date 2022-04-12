@@ -17,7 +17,7 @@ A brief description of your project (elevator pitch goes here).
 
 | Name | JHU Email | GitHub Username |
 | ---- | --------- | --------------- |
-|      |           |                 |
+| Qifan Yu     |    qyu24@jhmi.edu       |       qifanyyy          |
 
 ## Documentation
 
