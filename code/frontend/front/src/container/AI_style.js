@@ -45,7 +45,13 @@ const leftData = [
     { imgUrl: 'https://raw.githubusercontent.com/cs421sp22-homework/project-team-01-ai_for_fun/iter-04-backend/code/ai-compute-sever/StyleTransfer/images/21styles/candy.jpg?token=GHSAT0AAAAAABRYH3MF2WLJO4BR34PWCBTYYSWBAEQ', name: 'singers_1', topic: 'Sytle' },
     { imgUrl: 'https://raw.githubusercontent.com/cs421sp22-homework/project-team-01-ai_for_fun/iter-04-backend/code/ai-compute-sever/StyleTransfer/images/21styles/Robert_Delaunay%2C_1906%2C_Portrait.jpg?token=GHSAT0AAAAAABRYH3MESSJBMLCX2QNO6TXQYSWBBLA', name: '04', topic: 'Style' },
     { imgUrl: 'https://raw.githubusercontent.com/cs421sp22-homework/project-team-01-ai_for_fun/iter-04-backend/code/ai-compute-sever/StyleTransfer/images/21styles/composition_vii.jpg?token=GHSAT0AAAAAABRYH3MFVB63ETPCR6LSFGGSYSWBB4Q', name: 'meme_01', topic: 'Style' },
-    { imgUrl: 'https://raw.githubusercontent.com/cs421sp22-homework/project-team-01-ai_for_fun/iter-04-backend/code/ai-compute-sever/StyleTransfer/images/21styles/escher_sphere.jpg?token=GHSAT0AAAAAABRYH3ME5TAYK54BMGQ3JS7KYSWBCRQ', name: '06', topic: 'Style' },
+    //{ imgUrl: 'https://raw.githubusercontent.com/cs421sp22-homework/project-team-01-ai_for_fun/iter-04-backend/code/ai-compute-sever/StyleTransfer/images/21styles/escher_sphere.jpg?token=GHSAT0AAAAAABRYH3ME5TAYK54BMGQ3JS7KYSWBCRQ', name: '06', topic: 'Style' },
+    { imgUrl: 'https://www.artic.edu/iiif/2/1adf2696-8489-499b-cad2-821d7fde4b33/full/843,/0/default.jpg', name: '24', topic: 'Style' },
+    { imgUrl: 'https://www.artic.edu/iiif/2/25c31d8d-21a4-9ea1-1d73-6a2eca4dda7e/full/843,/0/default.jpg', name: '25', topic: 'Style' },
+    { imgUrl: 'https://www.artic.edu/iiif/2/9ea77636-76e9-9031-6b92-ff34512d7cbc/full/843,/0/default.jpg', name: '26', topic: 'Style' },
+    { imgUrl: 'https://www.artic.edu/iiif/2/d0ff5b36-bb38-b156-6042-5c8545352c2f/full/843,/0/default.jpg', name: '27', topic: 'Style' },
+    { imgUrl: 'https://www.artic.edu/iiif/2/92827fc4-78a3-a263-75a2-6470eabad38b/full/843,/0/default.jpg', name: '28', topic: 'Style' },
+    { imgUrl: 'https://www.artic.edu/iiif/2/f11bd233-6cc3-4221-59eb-f7363be4119e/full/843,/0/default.jpg', name: '29', topic: 'Style' },
     { imgUrl: 'https://raw.githubusercontent.com/cs421sp22-homework/project-team-01-ai_for_fun/iter-04-backend/code/ai-compute-sever/StyleTransfer/images/21styles/feathers.jpg?token=GHSAT0AAAAAABRYH3MECEAFXNVAC4UTD7P6YSWBC2Q', name: '07', topic: 'Style' },
     { imgUrl: 'https://raw.githubusercontent.com/cs421sp22-homework/project-team-01-ai_for_fun/iter-04-backend/code/ai-compute-sever/StyleTransfer/images/21styles/frida_kahlo.jpg?token=GHSAT0AAAAAABRYH3MFR76KTAGGPCCGF5L2YSWBDSA', name: '08', topic: 'Style' },
     { imgUrl: 'https://raw.githubusercontent.com/cs421sp22-homework/project-team-01-ai_for_fun/iter-04-backend/code/ai-compute-sever/StyleTransfer/images/21styles/la_muse.jpg?token=GHSAT0AAAAAABRYH3MFREIZ6NT4PNGJPP4AYSWBDZQ', name: '09', topic: 'Style' },
@@ -63,8 +69,7 @@ const leftData = [
     { imgUrl: 'https://raw.githubusercontent.com/cs421sp22-homework/project-team-01-ai_for_fun/iter-04-backend/code/ai-compute-sever/StyleTransfer/images/21styles/udnie.jpg?token=GHSAT0AAAAAABRYH3MFP4SGT3QUDEJRDIHKYSWBJBA', name: '21', topic: 'Style' },
     { imgUrl: 'https://raw.githubusercontent.com/cs421sp22-homework/project-team-01-ai_for_fun/iter-04-backend/code/ai-compute-sever/StyleTransfer/images/21styles/wave.jpg?token=GHSAT0AAAAAABRYH3MENIA5EY4CKD3JVLL4YSWBJHA', name: '22', topic: 'Style' },
     { imgUrl: 'https://raw.githubusercontent.com/cs421sp22-homework/project-team-01-ai_for_fun/iter-04-backend/code/ai-compute-sever/StyleTransfer/images/21styles/woman-with-hat-matisse.jpg?token=GHSAT0AAAAAABRYH3MFH6KTU7WQIIFOMOZ4YSWBJPA', name: '23', topic: 'Style' },
-    // { imgUrl: '', name: '24', topic: 'Style' },
-    // { imgUrl: '', name: '25', topic: 'Style' },
+
 
 ]
 
