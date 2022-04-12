@@ -15,7 +15,7 @@ import SlidesShowInLeft from "../components/recommend-in-mode/SlidesShowInLeft";
 import CollectionInLeft from "../components/recommend-in-mode/CollectionInLeft";
 import Video from '../components/Video';
 import UploadFace from '../components/UploadFace';
-import EditVideo from './EditVideo';
+import EditStyle from './EditStyle';
 
 import { Layout, Menu, Breadcrumb } from 'antd';
 import {
@@ -72,10 +72,9 @@ export const AI_style = (props) => {
                     < CollectionInLeft leftSourceImg={leftData} />
                 </Col>
                 <Col xs={9}>
-                    <EditVideo imgData={tempimage} />
+                    <EditStyle imgData={tempimage} />
                 </Col>
             </Row>
-
         </>
     );
 };
