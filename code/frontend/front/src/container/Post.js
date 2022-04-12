@@ -17,6 +17,7 @@ import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons';
 import { motion } from 'framer-motion';
 import Macy from 'macy';
 import { Layout } from 'antd';
+import Video from '../components/Video';
 const { TextArea } = Input;
 const { Content } = Layout;
 const previousSelectedPost = [];
@@ -78,6 +79,7 @@ function Post() {
     const [email, setEmail] = useState(cookie.email);
     const [password, setPassword] = useState('');
     const [oriPsw, setOriPsw] = useState('');
+    const [ImagePost, setImagePost] = useState(true);
     const [showInputEmail, setshowInputEmail] = useState(false);
     // const { avatarimg } = useContext(LoginContext);
     const [showEditPsw, setShowEditPsw] = useState(false)
@@ -93,6 +95,20 @@ function Post() {
     const ref = createRef();
     const [pick, setPick] = useState('');
     const [translateX, setTranslateX] = useState(0);
+
+
+
+    // getHistoryWork
+    const [hiswork, setHiswork] = useState([]);
+    useEffect(() => {
+        let url = 'https://server-demo.ai-for-fun-backend.com/getwork/' + cookie.user_id;
+        console.log("url for history" + url);
+        fetch(url)
+            .then(res => res.json())
+            .then(
+                (result) => setHiswork(result)
+            )
+    }, [])
 
     const selectedToPost = (e) => {
         previousSelectedPost.push(e.currentTarget);
@@ -166,18 +182,26 @@ function Post() {
                         <span className='left_icon' onClick={clickLeftIcon}><LeftCircleOutlined /></span>
                         <span className='right_icon' onClick={clickRightIcon}><RightCircleOutlined /></span>
                         <ul style={{ transform: `translateX(${translateX}px)` }} ref={ref}>
-                            {imgData.map(item => {
-                                return <li key={item.name}>
-                                    <Image as={Image} style={{ height: '90%', witdh: '100%', objectFit: 'cover', maxHeight: '100vh' }} src={item.imgUrl} fluid={true} alt="item.name" onClick={(e) => {
-                                        selectedToPost(e);
-                                        if (pick === item.imgUrl) {
-                                            setPick('')
+                            {hiswork.map(item => {
+                                return <li key={item.name} onClick={(e) => {
+                                    selectedToPost(e);
+                                    if (pick === item.url) {
+                                        setPick('')
+                                    } else {
+                                        setPick(item.url);
+                                        console.log("Pick in image" + pick);
+                                        if (item.type === 'image') {
+                                            setImagePost(true);
                                         } else {
-                                            setPick(item.imgUrl);
-                                            console.log("Pick:" + pick);
+                                            setImagePost(false);
                                         }
-                                    }}
-                                    />
+                                    }
+                                }}>
+                                    {item.type === 'image' ?
+                                        <Image as={Image} style={{ height: '100%', witdh: '100%', objectFit: 'cover', maxHeight: '100vh' }} src={item.url} fluid={true} alt="item.name" />
+                                        :
+                                        <Video props={{ "videoSrc": item.url }} style={{ height: '100%', witdh: '100%', objectFit: 'cover', maxHeight: '100vh' }} />
+                                    }
                                 </li>;
                             })}
                         </ul>
@@ -195,11 +219,17 @@ function Post() {
                             <TextArea showCount maxLength={100} style={{ height: 100 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" /></Row>
                         <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Submit</Button> */}
                             <Col md={5}>
-                                <Image src={pick ? pick : "https://joeschmoe.io/api/v1/random"} fluid alt="choose" style={{ height: 350, display: 'block', marginLeft: 'auto', marginRight: 'auto', witdh: '50%' }} />
+                                {ImagePost ?
+                                    <Image src={pick ? pick : "https://joeschmoe.io/api/v1/random"} fluid alt="choose" style={{ height: 350, display: 'block', marginLeft: 'auto', marginRight: 'auto', witdh: '50%' }} />
+                                    :
+                                    <Video props={{ "videoSrc": pick }} />
+                                }
+
                             </Col>
                             <Col md={6} style={{ margin: '4%', marginTop: '5%' }}>
                                 <TextArea showCount maxLength={100} style={{ height: 100 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
-                                <Button onClick={handlePost} style={{ float: "right", marginTop: '25px' }}>Submit</Button>
+                                <Button variant="danger" style={{ float: "right", marginTop: '25px' }} href="/gallery">Back</Button>{' '}
+                                <Button onClick={handlePost} style={{ float: "right", marginTop: '25px', marginRight: '10px' }}>Submit</Button>{' '}
                             </Col>
                         </Row>
                     </Content>
@@ -211,6 +241,9 @@ function Post() {
 }
 export default Post;
 
+var historydata = [
+
+]
 const imgData = [
     { imgUrl: 'https://s1.r29static.com/bin/entry/43a/0,200,2000,2000/x,80/1536749/image.jpg', name: '01', topic: 'Star' },
     { imgUrl: 'https://hips.hearstapps.com/cosmouk.cdnds.net/15/33/1439714614-celebrity-face-mashups-taylor-swift-emma-watson.jpg', name: '02', topic: 'House' },

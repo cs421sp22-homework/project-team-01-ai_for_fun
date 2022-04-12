@@ -50,25 +50,59 @@ export const AI_text = (props) => {
                     }}
                 >
                     <div className="logo" />
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1', 'sub2', 'sub3', 'sub4']}>
-                        <SubMenu key="sub1" icon={<UserAddOutlined />} title="Standard Voice">
+                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub5', 'sub6', 'sub4']}>
+                        {/* <SubMenu key="sub1" icon={<UserAddOutlined />} title="Standard Voice">
+                            <Image
+                                width={'100%'}
+                                height={'50%'}
+                                onClick={() => {
+                                    setDst('');
+                                    setSourceimg("https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80");
+                                    setPerson('Normal');
+                                }}
+                                src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
+                            />
+                        </SubMenu> */}
+                        <SubMenu key="sub4" icon={<UserOutlined />} title="Donald Duck">
                             <Image
                                 width={'100%'}
                                 onClick={() => {
                                     setDst('');
-                                    setSourceimg("https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80");
-                                    setPerson('0');
+                                    setSourceimg("https://www.disneyonice.com/sites/default/files/2020-10/quackers-donald-featured.jpg");
+                                    setPerson('donald-duck');
                                 }}
-                                src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
+                                src="https://www.disneyonice.com/sites/default/files/2020-10/quackers-donald-featured.jpg"
                             />
                         </SubMenu>
-                        <SubMenu key="sub2" icon={<UserDeleteOutlined />} title="Joe Bide">
+                        <SubMenu key="sub5" icon={<UserOutlined />} title="Mickey Mouse">
+                            <Image
+                                width={'100%'}
+                                onClick={() => {
+                                    setDst('');
+                                    setSourceimg("https://d23.com/app/uploads/2020/05/1180w-600h_060120_mickey-mornings-launch.jpg");
+                                    setPerson('mickey-mouse');
+                                }}
+                                src="https://d23.com/app/uploads/2020/05/1180w-600h_060120_mickey-mornings-launch.jpg"
+                            />
+                        </SubMenu>
+                        <SubMenu key="sub6" icon={<UserOutlined />} title="Minnie Mouse">
+                            <Image
+                                width={'100%'}
+                                onClick={() => {
+                                    setDst('');
+                                    setSourceimg("https://lumiere-a.akamaihd.net/v1/images/r_mickeymousefranchise_minniemouse_ddt-16970_52a2771b.jpeg?region=0%2C0%2C1536%2C450");
+                                    setPerson('minnie-mouse');
+                                }}
+                                src="https://lumiere-a.akamaihd.net/v1/images/r_mickeymousefranchise_minniemouse_ddt-16970_52a2771b.jpeg?region=0%2C0%2C1536%2C450"
+                            />
+                        </SubMenu>
+                        {/* <SubMenu key="sub2" icon={<UserDeleteOutlined />} title="Joe Bide">
                             <Image
                                 width={'100%'}
                                 onClick={() => {
                                     setDst('');
                                     setSourceimg("https://static01.nyt.com/images/2021/01/20/us/politics/20Biden-profile-top/20Biden-profile-top-superJumbo.jpg");
-                                    setPerson('1');
+                                    setPerson('Biden');
                                 }}
                                 src="https://static01.nyt.com/images/2021/01/20/us/politics/20Biden-profile-top/20Biden-profile-top-superJumbo.jpg"
                             />
@@ -79,11 +113,11 @@ export const AI_text = (props) => {
                                 onClick={() => {
                                     setDst('');
                                     setSourceimg("https://media.vanityfair.com/photos/6226893d6df0fdac83f860fe/master/w_2560%2Cc_limit/487401374");
-                                    setPerson('2');
+                                    setPerson('Trump');
                                 }}
                                 src="https://media.vanityfair.com/photos/6226893d6df0fdac83f860fe/master/w_2560%2Cc_limit/487401374"
                             />
-                        </SubMenu>
+                        </SubMenu> */}
                     </Menu>
                 </Sider>
 

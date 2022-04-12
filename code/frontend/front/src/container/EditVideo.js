@@ -1,4 +1,4 @@
-import React, { useState, createRef, useContext } from 'react';
+import React, { useState, createRef, useContext, useEffect } from 'react';
 import { Row, Col, Button, Image } from 'react-bootstrap';
 import Video from '../components/Video';
 import Card from 'react-bootstrap/Card';
@@ -15,16 +15,6 @@ import Amplify, { Storage } from 'aws-amplify'
 import config from '../aws-exports';
 Amplify.configure(config)
 
-function getBase64(file) {
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-        console.log(reader.result);
-    };
-    reader.onerror = function (error) {
-        console.log('Error: ', error);
-    };
-}
 
 const { Content, Footer } = Layout;
 const { TextArea } = Input;
@@ -56,13 +46,15 @@ function EditVideo(props) {
     const ref = createRef();
     const { imgData } = props;
     const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg } = useContext(LoginContext);
-    const [cookie, setCookie] = useCookies(['access_token', 'refresh_token', 'name', 'email', 'avatar']);
+    const [cookie, setCookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email', 'avatar']);
     //console.log(cookie);
     const [pick, setPick] = useState('');
+    const [pickid, setPickid] = useState('');
     // const [postText, setPostText] = useState('');
     const [showCard, setShowCard] = useState(false);
     var postText = "empty";
-
+    var upload_img_in_AI_FACE = localStorage.getItem('global_Upload_img_In_AI_FACE');
+    var upload_s3id_in_AI_FACE = localStorage.getItem('global_Upload_s3id_In_AI_FACE');
     // const [visible, setVisible] = useState(false);
     // const [imgId, setImgId] = useState('');
     // const selectImage = (id) => {
@@ -70,6 +62,23 @@ function EditVideo(props) {
     //     if (selected.indexOf(id) !== -1) selected.push(id);
     //     State({ selected: selected });
     // }
+
+    const [history, setHistory] = useState([]);
+    useEffect(async () => {
+        let url = 'https://server-demo.ai-for-fun-backend.com/gethistory/' + cookie.user_id;
+        const response = await fetch(url)
+        console.log(response);
+
+        if (response.status == 200) {
+            const content = await response.json();
+            setHistory(content)
+            console.log(content)
+        }
+        else {
+            console.log('request failed', response.body);
+            setHistory([])
+        }
+    }, [])
 
     const handleShowCard = () => {
         setShowCard(true);
@@ -84,28 +93,50 @@ function EditVideo(props) {
         postText = e.target.value;
     };
 
+    const makeid = (length) => {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
+
     const handleSubmit = async (e) => {
         console.log(faceimg);
         console.log(pick);
         console.log(sourceimg);
-        if (!sourceimg || (!pick && !faceimg)) {
+        console.log("global_upload " + upload_img_in_AI_FACE)
+        if (!sourceimg || (!pick && !upload_img_in_AI_FACE)) {
             message.error('Please choose one picture!');
         } else {
             let dest = '';
+            let dest_id = '';
             if (!pick) {
-                dest = faceimg
+                dest = upload_img_in_AI_FACE
+                dest_id = upload_s3id_in_AI_FACE
             } else {
                 dest = pick
+                dest_id = pickid
             }
             if (cookie.access_token) {
-                //const response = await fetch('https://server-python.ai-for-fun-backend.com/faceswap', {
-                const response = await fetch('http://127.0.0.1:8080/faceswap', {
+                console.log(JSON.stringify({
+                    "src_url": dest,
+                    "dst_url": sourceimg,
+                    "user_id": cookie.user_id,
+                    "src_s3_id": dest_id,
+                }))
+                const response = await fetch('https://server-python.ai-for-fun-backend.com/faceswap', {
+                    // const response = await fetch('http://127.0.0.1:8080/faceswap', {
+
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         "src_url": dest,
                         "dst_url": sourceimg,
-                        "user_id": cookie.access_token
+                        "user_id": cookie.user_id,
+                        "src_s3_id": dest_id,
                     })
                 });
                 if (response.status == 200) {
@@ -121,17 +152,17 @@ function EditVideo(props) {
                 alert('Login first!')
             }
         }
-
     };
 
     //TODO: can not connect
     const handlePost = async (e) => {
         try {
             console.log(dst);
-            const result = await Storage.put(getBase64(dst), dst);
-            console.log(result);
+            const hashname = makeid(16)
+            const result = await Storage.put(hashname, dst);
+            console.log("resultkey " + result.key);
             const signedURL = await Storage.get(result.key);
-            console.log(signedURL);
+            console.log("url from key get" + signedURL);
             //localStorage.setItem('global_profile_img',signedURL);
         } catch (error) {
             console.log("Error uploading file:", error)
@@ -147,18 +178,19 @@ function EditVideo(props) {
             dest = pick
         }
         if (cookie.access_token) {
-            console.log("content " + dst);
+            console.log("content url ID   " + dst.substring(31, 51));
+            console.log("content url" + dst);
             console.log("postText " + postText);
-            console.log("user_id " + cookie.access_token);
+            console.log("user_id " + cookie.user_id);
             console.log("user_name " + cookie.name);
             const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
                 //const response = await fetch('http://127.0.0.1:8080/faceswap', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    "content_url": dst,
+                    "content_url": "id=" + dst.substring(31, 51),
                     "post_text": postText,
-                    "user_id": cookie.access_token, //not user id, user id is not in cookie.
+                    "user_id": cookie.user_id,
                     "user_name": cookie.name,
                     "user_avater": cookie.avatar
                 })
@@ -202,7 +234,6 @@ function EditVideo(props) {
                             <Col md={1} xl={2}> </Col>
                             <Col md={10} xl={8}>
                                 <center>
-
                                     {dst ?
                                         <Image src={dst} style={{ minHeight: "40vh" }} fluid />
                                         :
@@ -225,7 +256,7 @@ function EditVideo(props) {
 
                                 <Col md={10} lg={10}>
                                     <ul ref={ref} >
-                                        {imgData.map(item => {
+                                        {/* {imgData.map(item => {
                                             return <li key={item.name} className="pl-3 mt-1" style={{ display: 'inline-block' }}
                                                 onClick={(e) => {
                                                     if (pick === item.imgUrl) {
@@ -240,11 +271,33 @@ function EditVideo(props) {
                                                     onClick={(e) => selected(e)}
                                                 />
                                             </li>
+                                        })} */}
+
+
+                                        {history.map(item => {
+                                            return <li key={item.his_id} className="pl-3 mt-1" style={{ display: 'inline-block' }}
+                                                onClick={(e) => {
+                                                    if (pick === item.url) {
+                                                        setPick('')
+                                                        setPickid('');
+                                                    } else {
+                                                        setPick(item.url);
+                                                        setPickid(item.s3_id);
+                                                    }
+                                                }} >
+                                                <Image
+                                                    className='res-img'
+                                                    src={item.url}
+                                                    onClick={(e) => selected(e)}
+                                                />
+                                            </li>
                                         })}
+
                                     </ul>
                                 </Col>
 
                             </Row>
+                            {/* when do not use AI model, disable the post */}
                             {dst ?
                                 <Button onClick={handleShowCard} style={{ float: "right", marginRight: '30px' }}>Post</Button> :
                                 <Button onClick={handleShowCard} style={{ float: "right", marginRight: '30px' }} disabled>Post</Button>
