@@ -179,7 +179,6 @@ function EditStyle(props) {
             console.log("user_id " + cookie.user_id);
             console.log("user_name " + cookie.name);
             const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
-                //const response = await fetch('http://127.0.0.1:8080/faceswap', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
