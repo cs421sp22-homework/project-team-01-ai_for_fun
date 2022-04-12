@@ -1,0 +1,110 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-aiforfun-ifun-20811-authRole",
+      "UnauthRoleArn": "arn:aws:iam::517998157652:role/amplify-aiforfun-ifun-20811-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::517998157652:role/amplify-aiforfun-ifun-20811-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-aiforfun-ifun-20811-deployment",
+      "UnauthRoleName": "amplify-aiforfun-ifun-20811-unauthRole",
+      "StackName": "amplify-aiforfun-ifun-20811",
+      "StackId": "arn:aws:cloudformation:us-east-1:517998157652:stack/amplify-aiforfun-ifun-20811/4a357960-a8dd-11ec-bf8f-12083211e679",
+      "AmplifyAppId": "dl2aw8e9k8n39"
+    }
+  },
+  "auth": {
+    "aiforfunbb20ad0f": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "output": {
+        "UserPoolId": "us-east-1_br86NFQpw",
+        "AppClientIDWeb": "579a7uip3f29vphpnte37lbg70",
+        "AppClientID": "5ifmhq9rmqo170pfa6go4oq3bk",
+        "IdentityPoolId": "us-east-1:3e1d3e88-e58e-42ed-b5f5-267992eea52e",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-1:517998157652:userpool/us-east-1_br86NFQpw",
+        "IdentityPoolName": "aiforfunbb20ad0f_identitypool_bb20ad0f__ifun",
+        "UserPoolName": "aiforfunbb20ad0f_userpool_bb20ad0f"
+      },
+      "lastPushTimeStamp": "2022-04-11T18:46:40.632Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-aiforfun-ifun-20811-deployment/amplify-cfn-templates/auth/aiforfunbb20ad0f-cloudformation-template.json",
+        "logicalId": "authaiforfunbb20ad0f"
+      },
+      "lastPushDirHash": "0+idzwWvsli7RogeChYYFO4dk7I="
+    }
+  },
+  "function": {
+    "S3Trigger42b79617": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true,
+      "output": {
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:517998157652:function:S3Trigger42b79617-ifun",
+        "Name": "S3Trigger42b79617-ifun",
+        "LambdaExecutionRole": "S3Trigger42b79617LambdaRole42b79617-ifun"
+      },
+      "lastPushTimeStamp": "2022-04-11T18:46:40.633Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-aiforfun-ifun-20811-deployment/amplify-cfn-templates/function/S3Trigger42b79617-cloudformation-template.json",
+        "logicalId": "functionS3Trigger42b79617"
+      },
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-aiforfun-ifun-20811-deployment",
+        "s3Key": "amplify-builds/S3Trigger42b79617-766d5766633951564657-build.zip"
+      },
+      "lastBuildTimeStamp": "2022-04-08T20:48:38.121Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2022-04-08T20:48:38.192Z",
+      "distZipFilename": "S3Trigger42b79617-766d5766633951564657-build.zip",
+      "lastPushDirHash": "bb90VN3LFmKMdEy1IOL6Z7lyBqQ="
+    }
+  },
+  "storage": {
+    "aiforfund40b4abb": {
+      "service": "S3",
+      "serviceType": "imported",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "output": {
+        "BucketName": "aifun",
+        "Region": "us-east-1"
+      },
+      "lastPushTimeStamp": "2022-03-21T06:12:32.004Z"
+    }
+  },
+  "hosting": {
+    "amplifyhosting": {
+      "service": "amplifyhosting",
+      "providerPlugin": "awscloudformation",
+      "type": "manual",
+      "output": {},
+      "lastPushTimeStamp": "2022-04-11T18:46:40.634Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-aiforfun-ifun-20811-deployment/amplify-cfn-templates/hosting/amplifyhosting-template.json",
+        "logicalId": "hostingamplifyhosting"
+      },
+      "lastPushDirHash": "CWerARbG8hLpRrtqK0P5XMlrKos="
+    }
+  }
+}

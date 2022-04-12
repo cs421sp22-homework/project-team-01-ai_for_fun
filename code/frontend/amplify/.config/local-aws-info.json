@@ -1,0 +1,12 @@
+{
+  "dev": {
+    "configLevel": "project",
+    "useProfile": true,
+    "profileName": "aiforfun"
+  },
+  "ifun": {
+    "configLevel": "project",
+    "useProfile": false,
+    "awsConfigFilePath": "/Users/zouxinrui/.amplify/awscloudformation/gNpR1V4s0I"
+  }
+}

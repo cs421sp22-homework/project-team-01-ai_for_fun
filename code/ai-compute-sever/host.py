@@ -5,50 +5,19 @@ import numpy as np
 import os
 import cv2
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from util import upload_image, generate_random_name, url_to_image,edit_video, createAudio
+from util import upload_image, generate_random_name, url_to_image
 from run_cifar import eval_cifar
 from FaceSwap.output import faceSwapFunction
 from  connect2db import  savefileinfo, getuploadrecord, saveuploadfile, saveworkfile
-# from Text2audio.TTS_tf_package import create_wav_tf
-from StyleTransfer.style_transfer import style_transfer_api
 
 def Aichange(url):
     result=eval_cifar(url)
     return result
 def style_transfer(content_image_url, style_image_url):
-     content_image_path = generate_random_name(16)
-     style_image_path = generate_random_name(16)
-     content_image = url_to_image(content_image_url)
-     style_image = url_to_image(style_image_url)
-     cv2.imwrite(content_image_path, content_image)
-     cv2.imwrite(style_image_path, style_image)
-     output_image_path = generate_random_name(16)
-     style_transfer_api(content_image_path, style_image_path, output_image_path)
-     outName, outUrl = upload_image(output_image_path)
-     os.remove(output_image_path)
-     os.remove(content_image_path)
-     os.remove(style_image_path)
-     return outName, outUrl
+     return " ", " "
 
 def exchangeaudio(text,person):
-    # if person=="Normal":
-    #     filename=create_wav_tf(text,"result.wav")
-    #     outName, outUrl = edit_video("Normal", filename, "./TrumpSpeak/output/final_normal.mp4")
-    # if person=="Trump":
-    #     os.system("cd TrumpSpeak")
-    #     str="cd TrumpSpeak && python gen_forward.py --alpha 0.9 --input_text '"+text+ "' --hp_file 'pretrained/pretrained_hparams.py' --tts_weights 'checkpoints/ljspeech_tts.forward/80k.pyt' wavernn --voc_weights 'pretrained/wave_800K.pyt' --batched --target=4096 --overlap=32"
-    #     os.system(str)
-    #     filepath="./TrumpSpeak/output/"+text+".wav"
-    #     outName,outUrl=edit_video("Trump",filepath,"./TrumpSpeak/output/final_trump.mp4")
-    outName, outUrl = "", ""
-    audio_path = "./Text_to_audio/audio/" + person + "_" + text + ".wav"
-    video_path = "./Text_to_audio/video/" + person + ".mp4"
-    output_path = "./Text_to_audio/output/"+ person + "_" + text +".mp4"
-    createAudio(person, text, audio_path)
-    outName,outUrl = edit_video(audio_path, video_path, output_path)
-    os.remove(audio_path)
-    os.remove(output_path)
-    return outName, outUrl
+    return "", ""
     
 
     return outName,outUrl
