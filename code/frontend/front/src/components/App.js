@@ -20,6 +20,7 @@ import { CookiesProvider } from 'react-cookie';
 import Community_home from '../container/HomeCommunity';
 import YourPost from "../container/YourPost";
 import Post from "../container/Post";
+import { AI_style } from "../container/AI_style";
 
 const info = { pic: './img/01_1.png', name: 'Sample', email: '1234@jh.edu' }
 
@@ -44,6 +45,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/AI_face" element={<AI_face />} />
               <Route path="/AI_text" element={<AI_text />} />
+              <Route path="/AI_style" element={<AI_style />} />
               <Route path="/AI_face_topic" element={<AI_face_topic />} />
               <Route path="/gallery" element={<Community_home />} />
               <Route path="/your_posts" element={<YourPost />} />

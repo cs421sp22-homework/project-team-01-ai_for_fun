@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react'
 import { Form, Input, Button, Checkbox } from 'antd';
 import Alert from 'react-bootstrap/Alert'

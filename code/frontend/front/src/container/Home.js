@@ -87,7 +87,7 @@ export class Home extends React.Component {
 
                                 <Button variant="outline-primary" size="lg" href="/AI_face">AI Face</Button>{' '}
                                 <Button variant="outline-dark" size="lg" href="/AI_text">AI Voice</Button>{' '}
-                                <Button variant="outline-success" size="lg" href="#">AI Style</Button>{' '}
+                                <Button variant="outline-success" size="lg" href="/AI_style">AI Style</Button>{' '}
                             </div>
                         </div>
                     </div>
