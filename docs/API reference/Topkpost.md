@@ -10,7 +10,7 @@ Returns top k posts which is sort by liked number,commentnumber, imagepost, or v
 **Data constraints**
 
 ```json
-{"sorttype":"[the type of sort, which can be "likeNumber"/"commentNumber"/"imagePost"/"videoPost"]",
+{"sorttype":"[the type of sort, which can be likeNumber/commentNumber/imagePost/videoPost]",
  "k":"[the number of return post]"
 }
 ```
@@ -30,7 +30,8 @@ Returns top k posts which is sort by liked number,commentnumber, imagepost, or v
 
 **Content example**
 
-```json
+```
+json
 [
     {
         "_id": "6244a5ff413280b986b387c1",
@@ -92,8 +93,9 @@ Returns top k posts which is sort by liked number,commentnumber, imagepost, or v
         "user_name": "mx"
     }
 ]
+```
 
 ## Error Response
-
 **Code** : `500 Internal Server Error`
+
 
