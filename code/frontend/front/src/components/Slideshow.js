@@ -10,7 +10,6 @@ function Slideshow(props) {
   const ref = createRef();
   const { imgData } = props;
   const [translateX, setTranslateX] = useState(0);
-
   /**
    * right button
    */
