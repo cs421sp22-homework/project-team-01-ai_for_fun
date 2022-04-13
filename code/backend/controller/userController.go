@@ -269,3 +269,47 @@ func ChangeUser() gin.HandlerFunc {
 		c.JSON(http.StatusOK, foundUser)
 	}
 }
+
+func Follow() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		var followInfo model.FollowInfo
+
+		err := c.BindJSON(&followInfo)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		filter := bson.M{"user_id": followInfo.Followed_Id}
+		update_op := bson.M{
+			"$push": bson.M{"follower_list": followInfo.Follower_Id},
+		}
+		updateResult, err := userCollection.UpdateOne(ctx, filter, update_op)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error() + " fail to update the follower list of followed user on mongodb"})
+			return
+		}
+		if updateResult.MatchedCount == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "followed_id doesn't match with any record on database"})
+			return
+		}
+		filter = bson.M{"user_id": followInfo.Follower_Id}
+		update_op = bson.M{
+			"$push": bson.M{"followed_list": followInfo.Followed_Id},
+		}
+		updateResult, err = userCollection.UpdateOne(ctx, filter, update_op)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error() + " fail to update the followed list of follower user on mongodb"})
+			return
+		}
+		if updateResult.MatchedCount == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "follower_id doesn't match with any record on database"})
+			return
+		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Origin,Content-Length,Content-Type,token")
+		c.JSON(http.StatusOK, "Follow Success")
+
+	}
+}
