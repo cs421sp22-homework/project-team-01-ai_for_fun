@@ -29,6 +29,9 @@ This file records APIs for AIforfun project
 * [Createcomment](Createcomment.md): `Post /createcomment`
 * [Createreply](Createreply.md): `Post /createreply`
 * [Likepost](Likepost.md): `Post /likepost`
+* [Follow](Follow.md):`Post /follow`
+* [Unfollow](Unfollow.md):`Post /unfollow`
+* [Topkpost](Topkpost.md):`Post /topkpost`
 
 ## Work Service
 * [GetHistory](GetHistory.md) : `Get /gethistory`
