@@ -96,7 +96,7 @@ export const AI_text = (props) => {
                                 src="https://lumiere-a.akamaihd.net/v1/images/r_mickeymousefranchise_minniemouse_ddt-16970_52a2771b.jpeg?region=0%2C0%2C1536%2C450"
                             />
                         </SubMenu>
-                        <SubMenu key="sub6" icon={<UserOutlined />} title="Goofy">
+                        <SubMenu key="sub7" icon={<UserOutlined />} title="Goofy">
                             <Image
                                 width={'100%'}
                                 onClick={() => {
@@ -107,7 +107,7 @@ export const AI_text = (props) => {
                                 src="https://celebrationspress.com/wp-content/uploads/2018/01/010218Goofy.jpg"
                             />
                         </SubMenu>
-                        <SubMenu key="sub6" icon={<UserOutlined />} title="Goofy">
+                        <SubMenu key="sub8" icon={<UserOutlined />} title="Goofy">
                             <Image
                                 width={'100%'}
                                 onClick={() => {
@@ -118,18 +118,18 @@ export const AI_text = (props) => {
                                 src="https://www.snopes.com/tachyon/2019/01/goofy.jpg"
                             />
                         </SubMenu>
-                        <SubMenu key="sub6" icon={<UserOutlined />} title="Minnie Mouse">
+                        <SubMenu key="sub9" icon={<UserOutlined />} title="Pete">
                             <Image
                                 width={'100%'}
                                 onClick={() => {
                                     setDst('');
-                                    setSourceimg("https://static.wikia.nocookie.net/disney/images/2/24/Threemusketeers_583.jpg/revision/latest?cb=20101203211722");
+                                    setSourceimg("https://pm1.narvii.com/7164/310cf185064c0da2a5528b4f7d199fa972560e53r1-2048-1512v2_hq.jpg");
                                     setPerson('pete');
                                 }}
-                                src="https://static.wikia.nocookie.net/disney/images/2/24/Threemusketeers_583.jpg/revision/latest?cb=20101203211722"
+                                src="https://pm1.narvii.com/7164/310cf185064c0da2a5528b4f7d199fa972560e53r1-2048-1512v2_hq.jpg"
                             />
                         </SubMenu>
-                        <SubMenu key="sub6" icon={<UserOutlined />} title="Minnie Mouse">
+                        <SubMenu key="sub10" icon={<UserOutlined />} title="Daisy Duck">
                             <Image
                                 width={'100%'}
                                 onClick={() => {
@@ -140,7 +140,7 @@ export const AI_text = (props) => {
                                 src="https://www.seekpng.com/png/detail/307-3078164_confused-daisy-duck-clipart-png-images-daisy-duck.png"
                             />
                         </SubMenu>
-                        <SubMenu key="sub6" icon={<UserOutlined />} title="Minnie Mouse">
+                        <SubMenu key="sub11" icon={<UserOutlined />} title="Ludwig Von Drake">
                             <Image
                                 width={'100%'}
                                 onClick={() => {
