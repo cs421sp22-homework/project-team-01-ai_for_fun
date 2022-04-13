@@ -388,3 +388,40 @@ func GetFollowerPost() gin.HandlerFunc {
 		c.JSON(http.StatusOK, allPost)
 	}
 }
+
+func PostLikeInfo() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		userId := c.Param("user_id")
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		matchStage := bson.D{{Key: "$match", Value: bson.D{{Key: "user_id", Value: userId}}}}
+		addFieldStage := bson.D{
+			{Key: "$addFields", Value: bson.D{
+				{Key: "liked_count", Value: bson.D{
+					{Key: "$size", Value: "$liked_time"}}}}}}
+		groupStage := bson.D{
+			{Key: "$group", Value: bson.D{
+				{Key: "_id", Value: "null"},
+				{Key: "like_sum", Value: bson.D{{Key: "$sum", Value: "$liked_count"}}},
+			}}}
+		projectStage := bson.D{
+			{Key: "$project", Value: bson.D{
+				{Key: "_id", Value: 0},
+				{Key: "liked_sum", Value: "$like_sum"}}}}
+
+		result, err := postCollection.Aggregate(ctx, mongo.Pipeline{matchStage, addFieldStage, groupStage, projectStage})
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while counting liked_count"})
+			return
+		}
+		var allPost []bson.M
+		err = result.All(ctx, &allPost)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while binding results"})
+			return
+		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Content-Type")
+		c.JSON(http.StatusOK, allPost)
+	}
+}

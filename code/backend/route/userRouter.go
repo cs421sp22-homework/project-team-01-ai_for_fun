@@ -7,6 +7,7 @@ import (
 )
 
 func UserRoutes(router *gin.Engine) {
+	router.GET("/getfollowinfo/:user_id", controller.GetFollowInfo())
 	router.POST("/follow", controller.Follow())
 	router.POST("/unfollow", controller.UnFollow())
 	router.Use(middleware.Authenticate())

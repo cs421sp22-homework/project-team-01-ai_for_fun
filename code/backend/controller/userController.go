@@ -222,12 +222,6 @@ func GetUser() gin.HandlerFunc {
 func ChangeUser() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		userId := c.Param("user_id")
-		// err := helper.MatchUserTypeToUid(c, userId)
-		// if err != nil {
-		// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		// 	return
-		// }
-
 		var changeinfo ChangeInfo
 		var foundUser model.User
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
@@ -297,56 +291,6 @@ func Follow() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "followed_id doesn't match with any record on database"})
 			return
 		}
-		//filter = bson.M{"user_id": followInfo.Follower_Id}
-		//update_op = bson.M{
-		//	"$push": bson.M{"followed_list": followInfo.Followed_Id},
-		//}
-		filter=bson.M{"user_id": followInfo.Follower_Id}
-		update_op = bson.M{
-			"$pull": bson.M{"followed_list": followInfo.Followed_Id},
-		}
-		updateResult, err = userCollection.UpdateOne(ctx, filter, update_op)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error() + " fail to update the followed list of follower user on mongodb"})
-			return
-		}
-		if updateResult.MatchedCount == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "follower_id doesn't match with any record on database"})
-			return
-		}
-		c.Header("Access-Control-Allow-Origin", "*")
-		c.Header("Access-Control-Allow-Headers", "Origin,Content-Length,Content-Type,token")
-		c.JSON(http.StatusOK, "Follow Success")
-
-	}
-
-
-}
-
-func UnFollow() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
-		defer cancel()
-		var followInfo model.FollowInfo
-
-		err := c.BindJSON(&followInfo)
-		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
-		}
-		filter := bson.M{"user_id": followInfo.Followed_Id}
-		update_op := bson.M{
-			"$push": bson.M{"follower_list": followInfo.Follower_Id},
-		}
-		updateResult, err := userCollection.UpdateOne(ctx, filter, update_op)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error() + " fail to update the follower list of followed user on mongodb"})
-			return
-		}
-		if updateResult.MatchedCount == 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "followed_id doesn't match with any record on database"})
-			return
-		}
 		filter = bson.M{"user_id": followInfo.Follower_Id}
 		update_op = bson.M{
 			"$push": bson.M{"followed_list": followInfo.Followed_Id},
@@ -362,7 +306,86 @@ func UnFollow() gin.HandlerFunc {
 		}
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.Header("Access-Control-Allow-Headers", "Origin,Content-Length,Content-Type,token")
+		c.JSON(http.StatusOK, "Follow Success")
+	}
+}
+
+func UnFollow() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		var followInfo model.FollowInfo
+
+		err := c.BindJSON(&followInfo)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		filter := bson.M{"user_id": followInfo.Followed_Id}
+		update_op := bson.M{
+			"$pull": bson.M{"follower_list": followInfo.Follower_Id},
+		}
+		updateResult, err := userCollection.UpdateOne(ctx, filter, update_op)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error() + " fail to update the follower list of followed user on mongodb"})
+			return
+		}
+		if updateResult.MatchedCount == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "followed_id doesn't match with any record on database"})
+			return
+		}
+		filter = bson.M{"user_id": followInfo.Follower_Id}
+		update_op = bson.M{
+			"$pull": bson.M{"followed_list": followInfo.Followed_Id},
+		}
+		updateResult, err = userCollection.UpdateOne(ctx, filter, update_op)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error() + " fail to update the followed list of follower user on mongodb"})
+			return
+		}
+		if updateResult.MatchedCount == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "follower_id doesn't match with any record on database"})
+			return
+		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Origin,Content-Length,Content-Type,token")
 		c.JSON(http.StatusOK, "UnFollow Success")
 
+	}
+}
+
+func GetFollowInfo() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		userId := c.Param("user_id")
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		matchStage := bson.D{{Key: "$match", Value: bson.D{{Key: "user_id", Value: userId}}}}
+		addFieldStage1 := bson.D{
+			{Key: "$addFields", Value: bson.D{
+				{Key: "follower_count", Value: bson.D{
+					{Key: "$size", Value: "$follower_list"}}}}}}
+		addFieldStage2 := bson.D{
+			{Key: "$addFields", Value: bson.D{
+				{Key: "followed_count", Value: bson.D{
+					{Key: "$size", Value: "$followed_list"}}}}}}
+		projectStage := bson.D{
+			{Key: "$project", Value: bson.D{
+				{Key: "_id", Value: 0},
+				{Key: "follower_count", Value: "$follower_count"},
+				{Key: "followed_count", Value: "$followed_count"}}}}
+		result, err := userCollection.Aggregate(ctx, mongo.Pipeline{matchStage, addFieldStage1, addFieldStage2, projectStage})
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while counting liked_count"})
+			return
+		}
+		var allUser []bson.M
+		err = result.All(ctx, &allUser)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while binding results"})
+			return
+		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Content-Type")
+		c.JSON(http.StatusOK, allUser)
 	}
 }
