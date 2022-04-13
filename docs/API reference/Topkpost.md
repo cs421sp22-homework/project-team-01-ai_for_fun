@@ -12,7 +12,7 @@ Returns top k posts which is sort by liked number,commentnumber, imagepost, or v
 ```json
 {
 "sorttype":"[the type of sort, which can be likeNumber/commentNumber/imagePost/videoPost]",
- "k":[the number of return post]
+ "k":["the number of return post"]
 }
 ```
 
