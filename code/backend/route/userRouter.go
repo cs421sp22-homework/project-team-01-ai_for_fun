@@ -8,6 +8,7 @@ import (
 
 func UserRoutes(router *gin.Engine) {
 	router.POST("/follow", controller.Follow())
+	router.POST("/unfollow", controller.UnFollow())
 	router.Use(middleware.Authenticate())
 	router.GET("/users", controller.GetUsers())
 	router.GET("/users/:user_id", controller.GetUser())

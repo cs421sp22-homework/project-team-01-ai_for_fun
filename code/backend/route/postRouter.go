@@ -9,6 +9,7 @@ func PostRoutes(router *gin.Engine) {
 	router.GET("/getpost", controller.Getpost())
 	router.GET("/getuserpost/:user_id", controller.Getuserpost())
 	router.GET("/getfollowedpost/:user_id", controller.GetFollowedPost())
+	router.GET("/getfollowerpost/:user_id", controller.GetFollowerPost())
 	router.POST("/createpost", controller.Createpost())
 	router.POST("/deletepost", controller.Deletepost())
 	router.POST("/likepost", controller.Likepost())

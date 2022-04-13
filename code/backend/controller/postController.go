@@ -351,3 +351,40 @@ func GetFollowedPost() gin.HandlerFunc {
 		c.JSON(http.StatusOK, allPost)
 	}
 }
+
+func GetFollowerPost() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		userId := c.Param("user_id")
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		var user model.User
+		var allPost []bson.M
+		err := userCollection.FindOne(ctx, bson.M{"user_id": userId}).Decode(&user)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "no match record on mongodb for given user_id"})
+			return
+		}
+		result, err := postCollection.Find(ctx, bson.M{"user_id": bson.M{"$in": user.Follower_List}})
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while listing post"})
+			return
+		}
+		err = result.All(ctx, &allPost)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while binding results to post"})
+			return
+		}
+		if allPost == nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "No Post match"})
+			return
+		}
+		allPost, err = helper.UpdatePost(allPost)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating url"})
+			return
+		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Content-Type")
+		c.JSON(http.StatusOK, allPost)
+	}
+}
