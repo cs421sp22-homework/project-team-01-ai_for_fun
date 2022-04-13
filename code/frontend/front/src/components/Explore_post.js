@@ -15,133 +15,133 @@ import CollectionInLeft from "../components/recommend-in-mode/CollectionInLeft";
 import { motion } from 'framer-motion';
 import Macy from 'macy';
 import { Layout } from 'antd';
-// const { TextArea } = Input;
-// const { Content } = Layout;
-// const previousSelectedPost = [];
+const { TextArea } = Input;
+const { Content } = Layout;
+const previousSelectedPost = [];
 
-// const macyOptions = {
-//     container: '#macy-grid',
-//     trueOrder: true,
-//     mobileFirst: true,
-//     margin: 10,
-//     columns: 1,
-//     breakAt: {
-//         1800: 3,
-//         1400: 2,
-//         650: {
-//             margin: 10,
-//             columns: 1,
-//         },
-//     },
-// }
+const macyOptions = {
+    container: '#macy-grid',
+    trueOrder: true,
+    mobileFirst: true,
+    margin: 10,
+    columns: 1,
+    breakAt: {
+        1800: 3,
+        1400: 2,
+        650: {
+            margin: 10,
+            columns: 1,
+        },
+    },
+}
 
-// const galleryAnimation = {
-//     hide: {
-//         opacity: 0,
-//     },
-//     show: {
-//         opacity: 1,
-//         transition: {
-//             staggerChildren: 0.25,
-//             ease: 'easeOut',
-//             delayChildren: 1.5,
-//         },
-//     },
-// }
+const galleryAnimation = {
+    hide: {
+        opacity: 0,
+    },
+    show: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.25,
+            ease: 'easeOut',
+            delayChildren: 1.5,
+        },
+    },
+}
 
-// const cardAnimation = {
-//     hide: {
-//         opacity: 0,
-//     },
-//     show: {
-//         opacity: 1,
-//         transition: {
-//             duration: 0.5,
-//         },
-//     },
-// }
+const cardAnimation = {
+    hide: {
+        opacity: 0,
+    },
+    show: {
+        opacity: 1,
+        transition: {
+            duration: 0.5,
+        },
+    },
+}
 
 function Post() {
-    // useEffect(() => {
-    //     new Macy(macyOptions)
-    // }, [])
+    useEffect(() => {
+        new Macy(macyOptions)
+    }, [])
 
-    // //const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg } = useContext(LoginContext);
+    //const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg } = useContext(LoginContext);
 
-    // // const {user,setUser,email,setEmail} = useContext(LoginContext);
-    // const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
-    // console.log(cookie);
-    // const [avatar, setAvatar] = useState(cookie.avatar);
-    // const [name, setName] = useState(cookie.name);
-    // const [email, setEmail] = useState(cookie.email);
-    // const [password, setPassword] = useState('');
-    // const [oriPsw, setOriPsw] = useState('');
-    // const [showInputEmail, setshowInputEmail] = useState(false);
-    // // const { avatarimg } = useContext(LoginContext);
-    // const [showEditPsw, setShowEditPsw] = useState(false)
-    // const [showInputName, setshowInputName] = useState(false);
+    // const {user,setUser,email,setEmail} = useContext(LoginContext);
+    const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
+    console.log(cookie);
+    const [avatar, setAvatar] = useState(cookie.avatar);
+    const [name, setName] = useState(cookie.name);
+    const [email, setEmail] = useState(cookie.email);
+    const [password, setPassword] = useState('');
+    const [oriPsw, setOriPsw] = useState('');
+    const [showInputEmail, setshowInputEmail] = useState(false);
+    // const { avatarimg } = useContext(LoginContext);
+    const [showEditPsw, setShowEditPsw] = useState(false)
+    const [showInputName, setshowInputName] = useState(false);
 
-    // var user_id = localStorage.getItem('global_userID');
-    // var globla_token = localStorage.getItem('global_token');
-    // var profileimg = localStorage.getItem('global_profile_IMG');
-    // var postText = "empty";
-    // console.log(user_id);
-    // console.log(globla_token);
-    // console.log("img" + profileimg)
-    // const ref = createRef();
-    // const [pick, setPick] = useState('');
+    var user_id = localStorage.getItem('global_userID');
+    var globla_token = localStorage.getItem('global_token');
+    var profileimg = localStorage.getItem('global_profile_IMG');
+    var postText = "empty";
+    console.log(user_id);
+    console.log(globla_token);
+    console.log("img" + profileimg)
+    const ref = createRef();
+    const [pick, setPick] = useState('');
 
-    // const selectedToPost = (e) => {
-    //     previousSelectedPost.push(e.currentTarget);
-    //     for (var i = 0; i < previousSelectedPost.length; i++) {
-    //         if (previousSelectedPost[i] === e.currentTarget) {
-    //             continue;
-    //         }
-    //         previousSelectedPost[i].classList.remove('selected');
-    //     }
-    //     let target = e.currentTarget;
-    //     target.classList.toggle('selected');
-    //     console.log("new " + previousSelectedPost.length);
-    // }
+    const selectedToPost = (e) => {
+        previousSelectedPost.push(e.currentTarget);
+        for (var i = 0; i < previousSelectedPost.length; i++) {
+            if (previousSelectedPost[i] === e.currentTarget) {
+                continue;
+            }
+            previousSelectedPost[i].classList.remove('selected');
+        }
+        let target = e.currentTarget;
+        target.classList.toggle('selected');
+        console.log("new " + previousSelectedPost.length);
+    }
 
 
-    // const onChangeText = (e) => {
-    //     postText = e.target.value;
-    // };
+    const onChangeText = (e) => {
+        postText = e.target.value;
+    };
 
-    // const handlePost = async (e) => {
-    //     if (cookie.access_token) {
-    //         console.log("content(pick) " + pick);
-    //         console.log("postText " + postText);
-    //         console.log("user_id " + cookie.access_token);
-    //         console.log("user_name " + cookie.name);
-    //         const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
-    //             method: 'POST',
-    //             headers: { 'Content-Type': 'application/json' },
-    //             body: JSON.stringify({
-    //                 "content_url": pick,
-    //                 "post_text": postText,
-    //                 "user_id": cookie.access_token, //not user id, user id is not in cookie.
-    //                 "user_name": cookie.name,
-    //                 "user_avater": cookie.avatar
-    //             })
-    //         });
-    //         if (response.status == 200) {
-    //             const content = await response.json();
-    //             message.success('Post success!');
-    //         }
-    //         else {
-    //             console.log('post failed', response);
-    //             message.error('failed.');
-    //         }
-    //     } else {
-    //         alert('Login first!')
-    //     }
-    // };
+    const handlePost = async (e) => {
+        if (cookie.access_token) {
+            console.log("content(pick) " + pick);
+            console.log("postText " + postText);
+            console.log("user_id " + cookie.access_token);
+            console.log("user_name " + cookie.name);
+            const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    "content_url": pick,
+                    "post_text": postText,
+                    "user_id": cookie.access_token, //not user id, user id is not in cookie.
+                    "user_name": cookie.name,
+                    "user_avater": cookie.avatar
+                })
+            });
+            if (response.status == 200) {
+                const content = await response.json();
+                message.success('Post success!');
+            }
+            else {
+                console.log('post failed', response);
+                message.error('failed.');
+            }
+        } else {
+            alert('Login first!')
+        }
+    };
 
     return (
         <Container style={{ minHeight: '90vh' }}>
-            {/* <Row className='pt-3'>
+            <Row className='pt-3'>
                 <Col md={4} style={{ margin: '10' }} className="mr-1">
                     <h4 style={{ textAlign: 'center' }}>My work</h4>
                     <Row className="pt-1 pl-3 overflow-auto" style={{ height: "90vh", backgroundColor: "" }}>
@@ -191,7 +191,7 @@ function Post() {
                         </Content>
                     </Row>
                 </Col>
-            </Row> */}
+            </Row>
         </Container >
     )
 }

@@ -6,6 +6,7 @@ import data from '../data/gallery.json';
 import { Image } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
 import {Row, Col} from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 import "../style/Gallery.css";
 import {LikeOutlined,CommentOutlined,ArrowRightOutlined} from '@ant-design/icons';
 import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
@@ -83,7 +84,8 @@ function Gallery(probs) {
     const [value, setValue] = useState('');
     const [itemP, setitemP] = useState({content_url:"",user_avater:"",post_text:"",comment:null,post_id:""});
     const handleChane = (e) => {setValue(e.target.value)};
-
+    const navigate = useNavigate();
+    
     const CommentList = ({ comments }) => (
       <List
         dataSource={comments}
@@ -207,7 +209,13 @@ function Gallery(probs) {
                     <Card.Body>
                     <Row>
                     <Col md={3} xs={3}>
-                    <Avatar src={item.user_avater} alt="Han Solo" />
+                    <Avatar src={cookie.avatar} alt="Han Solo" 
+                      cursor="pointer"
+                      onClick={() => {
+                        navigate("/profile/" + cookie.user_id);
+                      }}
+                    />
+
                     </Col>
                     <Col md={9} xs={9}>
                     <p style={{fontSize:"14px"}}> {item.post_text.substring(0, 40)} {item.post_text.length >= 40 && '...'}</p>
