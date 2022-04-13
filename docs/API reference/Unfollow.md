@@ -11,7 +11,7 @@ Unfollow a user, then can not get new post for the user
 
 ```json
 {"user_id":"[the id of follower]",
- "fol_user_id":"[the id of user been followed]"
+ "fol_user_id":"[the id of user been unfollowed]"
 }
 ```
 
