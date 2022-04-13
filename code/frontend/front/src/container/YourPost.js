@@ -20,6 +20,7 @@ import Feed from '../components/Feed'
 import Widgets from '../components/Widgets';
 import Loader from "../components/Loader";
 import Explore_Feed from '../components/explore_feed'
+import Post_avatar from '../components/Post_avatar';
 
 const { TextArea } = Input;
 
@@ -92,6 +93,7 @@ function Yourposts(probs){
         </Col>
         <Col>
         <div className="flex flex-col sm:flex-row sm:space-x-4 justify-center w-full max-w-6xl sm:mx-auto my-2 sm:my-4 px-4">
+          <Post_avatar />
           <Explore_Feed
           isExplore={false}
           isLibrary={false}

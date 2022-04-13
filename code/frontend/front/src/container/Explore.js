@@ -102,10 +102,17 @@ function Explore(probs){
           isFollower={false}
           homePosts={false}
         />
-          {/* <Widgets /> */}
-        </div>
+          </div>
+        </Col>
+        <Col>
+        <Widgets />
         </Col>
         </Row>
+        
+          
+        
+        
+        
         </React.Fragment>
         </>
     );
