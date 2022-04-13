@@ -10,16 +10,18 @@ follow a user, then can get new post for the user
 **Data constraints**
 
 ```json
-{"user_id":"[the id of follower]",
- "fol_user_id":"[the id of user been followed]"
+{
+ "follower_id":"[the user_id of follower]",
+ "followed_id":"[the user_id of user been followed]"
 }
 ```
 
 **Data example**
 
 ```json
-{"user_id":"001",
-"fol_user_id","002"
+{
+"follower_id":"001",
+"followed_id","002"
 }
 ```
 
