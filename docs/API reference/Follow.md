@@ -21,7 +21,7 @@ follow a user, then can get new post for the user
 ```json
 {
 "follower_id":"001",
-"followed_id","002"
+"followed_id":"002"
 }
 ```
 
