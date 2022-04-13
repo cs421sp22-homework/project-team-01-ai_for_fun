@@ -10,16 +10,18 @@ Returns top k posts which is sort by liked number,commentnumber, imagepost, or v
 **Data constraints**
 
 ```json
-{"sorttype":"[the type of sort, which can be likeNumber/commentNumber/imagePost/videoPost]",
- "k":"[the number of return post]"
+{
+"sorttype":"[the type of sort, which can be likeNumber/commentNumber/imagePost/videoPost]",
+ "k":[the number of return post]
 }
 ```
 
 **Data example**
 
 ```json
-{"sorttype":"likeNumber",
- "k":"10"
+{
+"sorttype":"likeNumber",
+ "k":10
 }
 ```
 
