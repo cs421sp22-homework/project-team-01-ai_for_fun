@@ -85,6 +85,9 @@ func Register() gin.HandlerFunc {
 		token, refreshToken, _ := helper.GenerateAllTokens(user.Email, user.Name, user.User_type, user.User_id)
 		user.Token = token
 		user.Refresh_token = refreshToken
+		user.Avatar = ""
+		user.Followed_List = []string{}
+		user.Follower_List = []string{}
 
 		resultInsertionNumber, insertErr := userCollection.InsertOne(ctx, user)
 		if insertErr != nil {
