@@ -96,28 +96,62 @@ export const AI_text = (props) => {
                                 src="https://lumiere-a.akamaihd.net/v1/images/r_mickeymousefranchise_minniemouse_ddt-16970_52a2771b.jpeg?region=0%2C0%2C1536%2C450"
                             />
                         </SubMenu>
-                        {/* <SubMenu key="sub2" icon={<UserDeleteOutlined />} title="Joe Bide">
+                        <SubMenu key="sub6" icon={<UserOutlined />} title="Goofy">
                             <Image
                                 width={'100%'}
                                 onClick={() => {
                                     setDst('');
-                                    setSourceimg("https://static01.nyt.com/images/2021/01/20/us/politics/20Biden-profile-top/20Biden-profile-top-superJumbo.jpg");
-                                    setPerson('Biden');
+                                    setSourceimg("https://celebrationspress.com/wp-content/uploads/2018/01/010218Goofy.jpg");
+                                    setPerson('max-goof');
                                 }}
-                                src="https://static01.nyt.com/images/2021/01/20/us/politics/20Biden-profile-top/20Biden-profile-top-superJumbo.jpg"
+                                src="https://celebrationspress.com/wp-content/uploads/2018/01/010218Goofy.jpg"
                             />
                         </SubMenu>
-                        <SubMenu key="sub3" icon={<UserOutlined />} title="Donald J. Trump">
+                        <SubMenu key="sub6" icon={<UserOutlined />} title="Goofy">
                             <Image
                                 width={'100%'}
                                 onClick={() => {
                                     setDst('');
-                                    setSourceimg("https://media.vanityfair.com/photos/6226893d6df0fdac83f860fe/master/w_2560%2Cc_limit/487401374");
-                                    setPerson('Trump');
+                                    setSourceimg("https://www.snopes.com/tachyon/2019/01/goofy.jpg");
+                                    setPerson('goofy');
                                 }}
-                                src="https://media.vanityfair.com/photos/6226893d6df0fdac83f860fe/master/w_2560%2Cc_limit/487401374"
+                                src="https://www.snopes.com/tachyon/2019/01/goofy.jpg"
                             />
-                        </SubMenu> */}
+                        </SubMenu>
+                        <SubMenu key="sub6" icon={<UserOutlined />} title="Minnie Mouse">
+                            <Image
+                                width={'100%'}
+                                onClick={() => {
+                                    setDst('');
+                                    setSourceimg("https://static.wikia.nocookie.net/disney/images/2/24/Threemusketeers_583.jpg/revision/latest?cb=20101203211722");
+                                    setPerson('pete');
+                                }}
+                                src="https://static.wikia.nocookie.net/disney/images/2/24/Threemusketeers_583.jpg/revision/latest?cb=20101203211722"
+                            />
+                        </SubMenu>
+                        <SubMenu key="sub6" icon={<UserOutlined />} title="Minnie Mouse">
+                            <Image
+                                width={'100%'}
+                                onClick={() => {
+                                    setDst('');
+                                    setSourceimg("https://www.seekpng.com/png/detail/307-3078164_confused-daisy-duck-clipart-png-images-daisy-duck.png");
+                                    setPerson('daisy-duck');
+                                }}
+                                src="https://www.seekpng.com/png/detail/307-3078164_confused-daisy-duck-clipart-png-images-daisy-duck.png"
+                            />
+                        </SubMenu>
+                        <SubMenu key="sub6" icon={<UserOutlined />} title="Minnie Mouse">
+                            <Image
+                                width={'100%'}
+                                onClick={() => {
+                                    setDst('');
+                                    setSourceimg("https://cartoonresearch.com/wp-content/uploads/2014/07/Ludwig-Record344.jpg");
+                                    setPerson('ludwig-von-drake');
+                                }}
+                                src="https://cartoonresearch.com/wp-content/uploads/2014/07/Ludwig-Record344.jpg"
+                            />
+                        </SubMenu>
+
                     </Menu>
                 </Sider>
 
