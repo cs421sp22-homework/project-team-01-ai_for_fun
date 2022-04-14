@@ -107,15 +107,15 @@ export const AI_text = (props) => {
                                 src="https://celebrationspress.com/wp-content/uploads/2018/01/010218Goofy.jpg"
                             />
                         </SubMenu>
-                        <SubMenu key="sub8" icon={<UserOutlined />} title="Goofy">
+                        <SubMenu key="sub8" icon={<UserOutlined />} title="Max Goof">
                             <Image
                                 width={'100%'}
                                 onClick={() => {
                                     setDst('');
-                                    setSourceimg("https://www.snopes.com/tachyon/2019/01/goofy.jpg");
-                                    setPerson('goofy');
+                                    setSourceimg("https://pm1.narvii.com/7610/c720a58bfb518ad2d9a1da897fd668ec73ee466fr1-1200-630v2_hq.jpg");
+                                    setPerson('max-goof');
                                 }}
-                                src="https://www.snopes.com/tachyon/2019/01/goofy.jpg"
+                                src="https://pm1.narvii.com/7610/c720a58bfb518ad2d9a1da897fd668ec73ee466fr1-1200-630v2_hq.jpg"
                             />
                         </SubMenu>
                         <SubMenu key="sub9" icon={<UserOutlined />} title="Pete">

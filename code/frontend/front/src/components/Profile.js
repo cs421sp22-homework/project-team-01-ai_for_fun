@@ -1,6 +1,6 @@
 
 import React, { useState, useContext, createRef, useEffect } from 'react';
-import { message, Input, Form } from 'antd';
+import { message, Input, Form, Layout, InputNumber } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons';
 import UploadPicinProfile from './UploadPicinProfile';
@@ -16,9 +16,7 @@ import { LoginContext } from '../context/AuthProvider';
 import { useCookies } from 'react-cookie';
 import PopupPost from './PopupPost';
 import Video from './Video';
-
 // import "../style/EditVideo.css"
-import { Layout } from 'antd';
 const { TextArea } = Input;
 const { Content } = Layout;
 const previousSelectedPost = [];
@@ -46,6 +44,7 @@ function Profile(props) {
     // const { avatarimg } = useContext(LoginContext);
     const [showEditPsw, setShowEditPsw] = useState(false)
     const [showInputName, setshowInputName] = useState(false);
+    const [showAvater, setshowAvater] = useState(false);
     const [pic, setPic] = useState(props.pic);
     var user_id = localStorage.getItem('global_userID');
     var globla_token = localStorage.getItem('global_token');
@@ -152,16 +151,6 @@ function Profile(props) {
     const handleCloseName = () => {
         setshowInputName(false)
     };
-    // Edit Email
-    const handleEditEamil = () => {
-        setshowInputEmail(true)
-    };
-    const handleAffirmEamil = () => {
-
-    };
-    const handleCloseEmail = () => {
-        setshowInputEmail(false)
-    };
 
     const handleEditPsw = () => {
         setShowEditPsw(true)
@@ -169,6 +158,14 @@ function Profile(props) {
     const handleClosePsw = () => {
         setShowEditPsw(false)
     }
+
+    const handleEditAvater = () => {
+        setshowAvater(true)
+    }
+    const handleCloseAvater = () => {
+        setshowAvater(false)
+    }
+
     const handleAffirmPsw = async () => {
         if (password && oriPsw) {
             try {
@@ -236,6 +233,7 @@ function Profile(props) {
                 setCookie('avatar', content.avatar);
                 // avatar = content.avatar;
                 message.success('change IMG successful😊')
+                setshowAvater(false);
                 // document.location.reload(true)
             }
             else {
@@ -299,6 +297,15 @@ function Profile(props) {
         } else {
             alert('Login first!')
         }
+    };
+
+    const layout = {
+        labelCol: {
+            span: 8,
+        },
+        wrapperCol: {
+            span: 16,
+        },
     };
 
     const handletogglePop = () => {
@@ -380,18 +387,52 @@ function Profile(props) {
                         </div>
 
                         :
-
-                        <center>
-                            <Button variant="outline-dark" size="sm" onClick={handleEditPsw} >Edit Password</Button>
-                            <hr />
-                        </center>
-
-
+                        showInputName ?
+                            <Form>
+                                <Form.Item>
+                                    <center>
+                                        <Button variant="outline-dark" size="sm" onClick={handleCloseName} >Cancel</Button>
+                                        <hr />
+                                    </center>
+                                </Form.Item>
+                                <Form.Item
+                                    name="editName"
+                                    label="Name"
+                                    rules={[
+                                        {
+                                            required: true,
+                                        },
+                                    ]}
+                                >
+                                    <Input onChange={e => setName(e.target.value)} placeholder="Enter Name" />
+                                </Form.Item>
+                                <Form.Item>
+                                    <center>
+                                        <Button variant="outline-dark" size="sm" onClick={handleAffirmName} >Confirm</Button>
+                                    </center>
+                                </Form.Item>
+                            </Form>
+                            :
+                            showAvater ?
+                                <div>
+                                    <center>
+                                        <Button variant="outline-dark" size="sm" onClick={handleCloseAvater} >Cancel</Button>
+                                        <hr />
+                                        <UploadPicinProfile />
+                                        <Button variant="outline-dark" onClick={handleImg}>Confirm</Button>
+                                    </center>
+                                </div>
+                                :
+                                <center>
+                                    <Button variant="outline-dark" size="sm" onClick={handleEditName} >Edit Name</Button> {' '}
+                                    <Button variant="outline-dark" size="sm" onClick={handleEditAvater} >Edit Avatar</Button> {' '}
+                                    <Button variant="outline-dark" size="sm" onClick={handleEditPsw} >Edit Password</Button>
+                                    <hr />
+                                </center>
                     }
-
                 </Col>
                 <Col md={7}>
-                    <Row style={{ backgroundColor: 'whitesmoke' }}>
+                    {/* <Row style={{ backgroundColor: 'whitesmoke' }}>
                         <Row className='mt-4' >
                             <Col md={9}>
                                 <UploadPicinProfile />
@@ -425,7 +466,7 @@ function Profile(props) {
                                 </Col>
                             </Row>
                         }
-                    </Row>
+                    </Row> */}
                     <Row className="mt-1" style={{ backgroundColor: 'whitesmoke', minHeight: '80vh' }}>
                         <Row>
                             <Col md={9} sm={5}>
@@ -505,7 +546,7 @@ function Profile(props) {
 
                     </Row>
                 </Col>
-            </Row>
+            </Row >
             <div>
 
                 {/* {!showInputEmail?
@@ -538,11 +579,3 @@ function Profile(props) {
     )
 }
 export default Profile;
-
-const imgData = [
-    { imgUrl: 'https://s1.r29static.com/bin/entry/43a/0,200,2000,2000/x,80/1536749/image.jpg', name: '01', topic: 'Star' },
-    { imgUrl: 'https://hips.hearstapps.com/cosmouk.cdnds.net/15/33/1439714614-celebrity-face-mashups-taylor-swift-emma-watson.jpg', name: '02', topic: 'House' },
-    { imgUrl: 'https://stylesatlife.com/wp-content/uploads/2021/11/Emma-Watson-face-shape.jpg.webp', name: '03', topic: 'New Year' },
-    { imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScxopB3Y_Z0Yu1v5JpXdx-3NOKX7yqg1iIHg&usqp=CAU', name: '04', topic: 'Amazing' },
-    { imgUrl: 'https://c4.wallpaperflare.com/wallpaper/485/848/917/actresses-mckenna-grace-actress-blonde-blue-eyes-hd-wallpaper-preview.jpg', name: '05', topic: 'Fashion' },
-]
