@@ -372,7 +372,9 @@ func GetFollowInfo() gin.HandlerFunc {
 			{Key: "$project", Value: bson.D{
 				{Key: "_id", Value: 0},
 				{Key: "follower_count", Value: "$follower_count"},
-				{Key: "followed_count", Value: "$followed_count"}}}}
+				{Key: "followed_count", Value: "$followed_count"},
+				{Key: "follower_list", Value: "$follower_list"},
+				{Key: "followed_list", Value: "$followed_list"}}}}
 		result, err := userCollection.Aggregate(ctx, mongo.Pipeline{matchStage, addFieldStage1, addFieldStage2, projectStage})
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while counting liked_count"})
