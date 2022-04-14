@@ -36,7 +36,6 @@ This file records APIs for AIforfun project
 * [GetFollowedPost](GetFollowedPost.md):`Get /getfollowedpost/:user_id`
 * [PostLikeInfo](PostLikeInfo.md):`Get /postlikeinfo/:user_id`
 * [GetFollowInfo](GetFollowInfo.md):`Get /getfollowinfo/:user_id`
-* 
 
 ## Work Service
 * [GetHistory](GetHistory.md) : `Get /gethistory/:user_id`
