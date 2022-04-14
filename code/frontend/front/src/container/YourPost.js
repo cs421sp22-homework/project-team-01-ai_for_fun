@@ -13,19 +13,17 @@ function YourPost() {
   }, []);
   const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
   const [posts, setPosts]=useState([]);
-  useEffect(()=>{
-    let url = 'https://server-demo.ai-for-fun-backend.com/getuserpost/'+cookie.user_id;
-    fetch(url)
-        .then(res => res.json())
-        .then(
-        (result) => {
-            if (result){
-                setPosts(result)
-            }else{
-                setPosts([])
-            }
+  useEffect(async()=>{
+        let url = 'https://server-demo.ai-for-fun-backend.com/getuserpost/' + cookie.user_id;
+        const response = await fetch(url)
+        console.log(response);
+        if (response.status == 200) {
+            const content = await response.json();
+            setPosts(content)
         }
-        )
+        else {
+          setPosts([])
+        }
     },[])
   return (
     <Row>

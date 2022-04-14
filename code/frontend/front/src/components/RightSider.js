@@ -7,16 +7,50 @@ import {
   Tooltip,
   useColorMode,
 } from "@chakra-ui/react";
-import React from "react";
+import { React, useState, useEffect} from "react";
 import { FaHome } from "react-icons/fa";
 import { MdExplore, MdPhotoLibrary } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { IoMdCreate, IoMdImages } from "react-icons/io";
 import { RiUserFollowFill } from "react-icons/ri";
+import { useCookies } from 'react-cookie';
+import { Avatar} from 'antd';
 
 function RightSidebar() {
   const { colorMode } = useColorMode();
   const navigate = useNavigate();
+  const [cookie, setCookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email', 'avatar']);
+  const [followers, setFollowers] = useState('');
+  const [likes, setLikes] = useState('');
+  useEffect(async () => {
+    if (cookie.user_id){
+      let url = 'https://server-demo.ai-for-fun-backend.com/postlikeinfo/' + cookie.user_id;
+      let url2 = 'https://server-demo.ai-for-fun-backend.com/getfollowinfo/' + cookie.user_id;
+      const response = await fetch(url)
+      const response2 = await fetch(url2)
+      console.log(response);
+      if (response.status == 200) {
+          const content = await response.json();
+          setLikes(content[0].liked_sum)
+          console.log(content)
+      }
+      else {
+          console.log('request failed', response.body);
+          setLikes(0)
+      }
+      if (response2.status == 200) {
+        const content2 = await response2.json();
+        setFollowers(content2[0].follower_count)
+        console.log(content2)
+    }
+    else {
+        console.log('request failed', response2.body);
+        setFollowers(0)
+    }
+      }
+
+}, [])
+  
   return (
     <Flex
       position="sticky"
@@ -24,8 +58,45 @@ function RightSidebar() {
       height="max-content"
       flexDirection="column"
     >
-      <Tooltip label="Creator of this shit" openDelay={300}>
-        <Flex
+      <Tooltip label="The user information" openDelay={300}>
+        {cookie.user_id?
+                <Flex
+                // className="profilestuff"
+                // cursor="pointer"
+                alignItems="center"
+                width="100%"
+                padding="1rem"
+                borderRadius="1rem"
+                gap="0.2rem"
+                boxShadow="0 3px 10px rgb(0 0 0 / 0.2)"
+                flexDirection="column"
+              >
+                <Flex>
+                  <Avatar src={cookie.avatar} size={80} alt=""/>
+                </Flex>
+                <Flex flexDirection="column" alignItems="center">
+                  <Heading as="h5" size="lg">
+                    {cookie.name}
+                  </Heading>
+                </Flex>
+                <hr/>
+                <Flex flexDirection="row" alignItems="stretch">
+                  <Flex flexDirection="column" alignItems="center" style={{'width':'45%','marginRight':'15px'}}>
+                  <Heading as="h5" size="lg">
+                    Followers
+                  </Heading>
+                  <Text>{followers}</Text>
+                  </Flex>
+                  <Flex flexDirection="column" alignItems="center"  style={{'width':'45%'}}>
+                  <Heading as="h5" size="lg">
+                    Likes
+                  </Heading>
+                  <Text>{likes}</Text>
+                  </Flex>
+                </Flex>
+              </Flex>
+      :
+          <Flex
           className="profilestuff"
           cursor="pointer"
           alignItems="center"
@@ -45,6 +116,8 @@ function RightSidebar() {
             <Text>@painman</Text>
           </Flex>
         </Flex>
+      }
+
       </Tooltip>
       <Flex
         borderRadius="1rem"

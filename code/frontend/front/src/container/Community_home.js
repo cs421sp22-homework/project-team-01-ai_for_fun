@@ -2,8 +2,6 @@ import { motion } from 'framer-motion';
 import Macy from 'macy';
 import React, { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
-import data from '../data/gallery.json';
-import { Navigate } from "react-router-dom";
 import { Image } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
 import { Row, Col } from 'react-bootstrap';
@@ -15,6 +13,7 @@ import { Comment, Avatar, Form, List, Input, message } from 'antd';
 import moment from 'moment';
 import LikeBtn from '../components/LikeBtn'
 import Video from '../components/Video';
+import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 
 const { TextArea } = Input;
 
@@ -33,16 +32,22 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
 
 const macyOptions = {
   container: '#macy-grid',
-  trueOrder: true,
+  trueOrder: false,
+  waitForImages: false,
+  useOwnImageLoader: false,
   mobileFirst: true,
   margin: 23,
-  columns: 1,
+  columns: 5,
   breakAt: {
     1400: 4,
     1000: 3,
     650: {
       margin: 40,
       columns: 2,
+    },
+    400: {
+      margin: 23,
+      columns: 1,
     },
   },
 }
@@ -74,10 +79,10 @@ const cardAnimation = {
 }
 
 function Gallery(probs) {
-  const posts = probs.props
   useEffect(() => {
     new Macy(macyOptions)
   }, [])
+  const posts = probs.props
   const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
   const [visible, setVisible] = useState(false);
   const [comments, setComments] = useState([]);
