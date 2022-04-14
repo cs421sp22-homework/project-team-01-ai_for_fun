@@ -104,7 +104,7 @@ function EditStyle(props) {
     }
 
     const handleSubmit = async (e) => {
-        console.log("global_upload " + upload_img_in_AI_FACE)
+        console.log("global_upload " + localStorage.getItem('global_Upload_img_In_AI_FACE'))
         if (!sourceimg || (!pick && !upload_img_in_AI_FACE)) {
             message.error('Please choose one picture!');
         } else {
