@@ -13,7 +13,7 @@ import { Comment, Avatar, Form, List, Input, message } from 'antd';
 import moment from 'moment';
 import LikeBtn from '../components/LikeBtn'
 import Video from '../components/Video';
-import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
+import Masonry from 'react-masonry-css';
 
 const { TextArea } = Input;
 
@@ -66,6 +66,12 @@ const galleryAnimation = {
   },
 }
 
+const Cardtransition = {
+  type: "spring",
+  damping: 10,
+  stiffness: 100
+}
+
 const cardAnimation = {
   hide: {
     opacity: 0,
@@ -79,9 +85,9 @@ const cardAnimation = {
 }
 
 function Gallery(probs) {
-  useEffect(() => {
-    new Macy(macyOptions)
-  }, [])
+  // useEffect(() => {
+  //   new Macy(macyOptions)
+  // }, [])
   const posts = probs.props
   const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
   const [visible, setVisible] = useState(false);
@@ -248,24 +254,36 @@ function Gallery(probs) {
       setSubmitting(false);
     }
   }
-
+  const breakpointColumnsObj = {
+  default: 4,
+  1100: 3,
+  700: 2,
+  500: 1
+};
+//Todo: https://www.npmjs.com/package/react-masonry-css
   return (
     <>
-      <motion.div>
-        <motion.ul
-          id="macy-grid"
-          initial="hide"
-          animate="show"
-          variants={galleryAnimation}
-        >
-          {posts.map((item) => {
+    <motion.div
+    initial="hide"
+    animate="show"
+    variants={galleryAnimation}
+    >
+    <Masonry
+  breakpointCols={breakpointColumnsObj}
+  className="my-masonry-grid"
+  columnClassName="my-masonry-grid_column"
+>
+{posts.map((item) => {
             { console.log(item) }
-            return <motion.li
+            return <motion.div
               key={item._id}
-              variants={cardAnimation}
+              // variants={cardAnimation}
+              animate={{ y: [-5, 5, 0] }}
+              transition={Cardtransition}
               whileHover={{ scale: 1.05 }}
               className="gallery"
             >
+              <Card>
               {
                 item.content_url.includes("images") || item.content_url.includes("jpg") ?
                   <Card.Img as={Image} src={item.content_url} alt="item._id" />
@@ -316,10 +334,12 @@ function Gallery(probs) {
                   </Col>
                 </Row>
               </Card.Body>
-            </motion.li>
+              </Card>
+            </motion.div>
           })}
-        </motion.ul>
-      </motion.div>
+
+</Masonry>
+</motion.div>
       <Modal
         visible={visible}
         title={
