@@ -42,7 +42,7 @@ export const AI_text = (props) => {
     return (
         <>
             <Header className="site-layout-background" style={{ padding: 0, textAlign: 'center', background: 'white', marginTop: 20 }} > <h2>AI Text to Audio</h2></Header>
-            <Layout className="site-layout" style={{ marginRight: 80, marginLeft: 80 }}>
+            <Layout className="site-layout" style={{ marginRight: 80, marginLeft: 80, background: 'white' }}>
                 <Card>
                     <Card.Grid style={gridStyle} onClick={() => {
                         setDst('');
@@ -180,7 +180,7 @@ export const AI_text = (props) => {
                     </Card.Grid>
                 </Card>
 
-                <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+                <Content style={{ margin: '24px 16px 0', overflow: 'initial', background: 'white', marginLeft: 30, marginRight: 30 }}>
                     <div className="site-layout-background" style={{ padding: 0, textAlign: 'center' }}>
                         <EditText imgData={trumpImg} />
                     </div>

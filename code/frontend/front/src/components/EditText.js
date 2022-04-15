@@ -160,7 +160,7 @@ function EditText(props) {
     };
 
     return (
-        <Layout className="site-layout" >
+        <Layout className="site-layout" style={{ background: 'white' }}>
             {
                 showCard ?
                     <Content className='center-box'>
