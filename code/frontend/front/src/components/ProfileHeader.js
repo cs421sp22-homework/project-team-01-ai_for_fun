@@ -3,7 +3,7 @@ import "../style/ProfileHeader.css"
 import React, { useState, useContext, useEffect } from 'react';
 import { Image } from "react-bootstrap";
 import Gallery from "../container/Community_home";
-import Widget from "./Widget";
+import FriendList from "./FriendList";
 import { useCookies } from 'react-cookie';
 import { motion } from 'framer-motion';
 
@@ -15,6 +15,8 @@ function ProfileHeader() {
     const [followers, setFollowers] = useState(0)
     const [following, setFollowing] = useState(0)
     const [likes, setLikes] = useState(0)
+    const [fowlist, setfowlist] = useState([])
+    const [finglist, setfinglist] = useState([])
     const [postnum, setPostnum] = useState(0)
     useEffect(async()=>{
         let url_follow = 'https://server-demo.ai-for-fun-backend.com/getfollowinfo/' + user;
@@ -25,6 +27,8 @@ function ProfileHeader() {
         if (res_follow.status == 200) {
             const fer = await res_follow.json();
             setFollowers(fer[0].follower_count)
+            setfowlist(fer[0].follower_list)
+            setfinglist(fer[0].followed_list)
             setFollowing(fer[0].followed_count)
         }
         if (res_like.status == 200) {
@@ -66,16 +70,14 @@ function ProfileHeader() {
         </div>
     </div>
     <div className="row">
-        <div className="panel">
         {compid == 'post'? (
         <Gallery props={userposts}/>)
         : compid == 'followers'? (
-            <></>
+          <FriendList props={fowlist}/>
         )
         :
-        <></>
+        <FriendList props={finglist}/>
         }
-        </div>
     </div>
 </div>
     )

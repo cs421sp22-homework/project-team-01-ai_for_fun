@@ -20,11 +20,10 @@ function Widget(props) {
         }
     },[])
     return (
-        <div className="col-md-4">
+        <div className="row">
         <div className="box box-widget widget-user">
-          <div className="widget-user-header bg-yellow">
+          <div className="widget-user-header bg-blue">
             <h3 className="widget-user-username">Alexander Pierce</h3>
-            <h5 className="widget-user-desc">Founder &amp; CEO</h5>
           </div>
           <div className="widget-user-image">
             <img className="img-circle" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="User Avatar"/>
@@ -34,7 +33,7 @@ function Widget(props) {
               <div className="col-sm-4 border-right">
                 <div className="description-block">
                   <h5 className="description-header">3,200</h5>
-                  <span className="description-text">SALES</span>
+                  <span className="description-text">Likes</span>
                 </div>
               </div>
               <div className="col-sm-4 border-right">
@@ -46,7 +45,7 @@ function Widget(props) {
               <div className="col-sm-4">
                 <div className="description-block">
                   <h5 className="description-header">35</h5>
-                  <span className="description-text">PRODUCTS</span>
+                  <span className="description-text">FOLLOWING</span>
                 </div>
               </div>
             </div>

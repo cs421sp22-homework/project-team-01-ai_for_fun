@@ -1,7 +1,3 @@
-body{
-    margin-top:20px;
-    background:#eee;
-}
 .box-widget {
     border: none;
     position: relative;
@@ -9,11 +5,11 @@ body{
 .box {
     position: relative;
     border-radius: 3px;
-    background: #ffffff;
-    border-top: 3px solid #d2d6de;
+    /* background: #ffffff; */
+    /* border-top: 3px solid #d2d6de; */
     margin-bottom: 20px;
     width: 100%;
-    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    /* box-shadow: 0 1px 1px rgba(0,0,0,0.1); */
 }
 .widget-user .widget-user-header {
     padding: 20px;
@@ -39,7 +35,7 @@ body{
 .widget-user .widget-user-username {
     margin-top: 0;
     margin-bottom: 5px;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 300;
     text-shadow: 0 1px 1px rgba(0,0,0,0.2);
     color:#fff;
