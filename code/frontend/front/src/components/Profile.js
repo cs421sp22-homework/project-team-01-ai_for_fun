@@ -15,6 +15,9 @@ import { LoginContext } from '../context/AuthProvider';
 import { useCookies } from 'react-cookie';
 import PopupPost from './PopupPost';
 import Video from './Video';
+import { motion } from 'framer-motion';
+import FriendList from "./FriendList";
+import Gallery from "../container/Community_home";
 import {
     StyleSheet,
     Text,
@@ -34,7 +37,16 @@ const compareToFirstPassword = ({ getFieldValue }) => ({
 });
 
 function Profile(props) {
-    //const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg } = useContext(LoginContext);
+    const user = window.location.pathname.split("/")[2]
+    const [compid, setCompid] = useState('post')
+    //const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
+    const [userposts, setUserposts] = useState([])
+    const [followers, setFollowers] = useState(0)
+    const [following, setFollowing] = useState(0)
+    const [likes, setLikes] = useState(0)
+    const [fowlist, setfowlist] = useState([])
+    const [finglist, setfinglist] = useState([])
+    const [postnum, setPostnum] = useState(0)
     props = props.props
     // const {user,setUser,email,setEmail} = useContext(LoginContext);
     const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
@@ -88,10 +100,37 @@ function Profile(props) {
     const [hiswork, setHiswork] = useState([]);
     const [hisupload, setHisupload] = useState([]);
 
-    useEffect(() => {
-        let url = 'https://server-demo.ai-for-fun-backend.com/getwork/' + cookie.user_id;
-        console.log("url for history" + url);
-        fetch(url)
+    useEffect(async () => {
+        let url_follow = 'https://server-demo.ai-for-fun-backend.com/getfollowinfo/' + user_id;
+        let url_like = 'https://server-demo.ai-for-fun-backend.com/postlikeinfo/' + user_id;
+        let url = 'https://server-demo.ai-for-fun-backend.com/getuserpost/' + user_id;
+        const res_follow = await fetch(url_follow)
+        const res_like = await fetch(url_like)
+        if (res_follow.status == 200) {
+            const fer = await res_follow.json();
+            setFollowers(fer[0].follower_count)
+            setfowlist(fer[0].follower_list)
+            setfinglist(fer[0].followed_list)
+            setFollowing(fer[0].followed_count)
+        }
+        if (res_like.status == 200) {
+            const lk = await res_like.json();
+            setLikes(lk[0].liked_sum)
+        }
+        const response = await fetch(url)
+        console.log(response);
+        if (response.status == 200) {
+            const content = await response.json();
+            setUserposts(content)
+            setPostnum(content.length)
+        }
+        else {
+            setUserposts([])
+        }
+
+        let url1 = 'https://server-demo.ai-for-fun-backend.com/getwork/' + cookie.user_id;
+        console.log("url for history" + url1);
+        fetch(url1)
             .then(res => res.json())
             .then(
                 (result) => setHiswork(result)
@@ -321,6 +360,60 @@ function Profile(props) {
 
     return (
         <Container style={{ minHeight: '100vh' }}>
+            <div className="container">
+                <div className="row mt-3">
+                    <div className="panel profile-cover">
+                        <div className="profile-cover__img">
+                            <Image src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" />
+                            <h3 className="h3">{name}</h3>
+                            <h4 className="h4"> {cookie.email}</h4>
+                        </div>
+                        <div className="profile-cover__action bg--img" data-overlay="0.3">
+                            <button className="btn btn-rounded btn-info">
+                                <i className="fa fa-plus"></i>
+                                <Button variant="outline-dark" size="sm" onClick={handleEditName} >Edit Name</Button> {' '}
+                                <Button variant="outline-dark" size="sm" onClick={handleEditAvater} >Edit Avatar</Button> {' '}
+                                <Button variant="outline-dark" size="sm" onClick={handleEditPsw} >Edit Password</Button>
+                            </button>
+                        </div>
+                        <div className="profile-cover__info">
+                            <ul className="nav">
+                                {compid == 'post' ? (
+                                    <>
+                                        <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')} style={{ "fontWeight": "bolder" }}><strong>{postnum}</strong><p >Post</p></motion.li>
+                                        <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('followers')}><strong>{followers}</strong>Followers</motion.li>
+                                        <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('following')}><strong>{following}</strong>Following</motion.li>
+                                    </>
+                                )
+                                    : compid == 'followers' ? (
+                                        <>
+                                            <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')}><strong>{postnum}</strong>Post</motion.li>
+                                            <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('followers')} style={{ "fontWeight": "bolder" }}><strong>{followers}</strong>Followers</motion.li>
+                                            <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('following')}><strong>{following}</strong>Following</motion.li>
+                                        </>
+                                    )
+                                        :
+                                        <>
+                                            <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')}><strong>{postnum}</strong>Post</motion.li>
+                                            <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('followers')}><strong>{followers}</strong>Followers</motion.li>
+                                            <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('following')} style={{ "fontWeight": "bolder" }}><strong>{following}</strong>Following</motion.li>
+                                        </>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div className="row">
+                    {compid == 'post' ? (
+                        <Gallery props={userposts} />)
+                        : compid == 'followers' ? (
+                            <FriendList props={fowlist} />
+                        )
+                            :
+                            <FriendList props={finglist} />
+                    }
+                </div>
+            </div>
             <Row style={{ marginTop: '3%' }}>
                 <Col>
                     <Card style={{ width: '30rem' }} >
