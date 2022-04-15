@@ -3,20 +3,40 @@ import "../style/ProfileHeader.css"
 import React, { useState, useContext, useEffect } from 'react';
 import { Image } from "react-bootstrap";
 import Gallery from "../container/Community_home";
+import Widget from "./Widget";
 import { useCookies } from 'react-cookie';
+import { motion } from 'framer-motion';
 
-function ProfileHeader(props) {
-    const userinfo = props.props
+function ProfileHeader() {
+    const user = window.location.pathname.split("/")[2]
     const [compid, setCompid] = useState('post')
     const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
     const [userposts, setUserposts] = useState([])
+    const [followers, setFollowers] = useState(0)
+    const [following, setFollowing] = useState(0)
+    const [likes, setLikes] = useState(0)
+    const [postnum, setPostnum] = useState(0)
     useEffect(async()=>{
-        let url = 'https://server-demo.ai-for-fun-backend.com/getuserpost/' + cookie.user_id;
+        let url_follow = 'https://server-demo.ai-for-fun-backend.com/getfollowinfo/' + user;
+        let url_like = 'https://server-demo.ai-for-fun-backend.com/postlikeinfo/' + user;
+        let url = 'https://server-demo.ai-for-fun-backend.com/getuserpost/' + user;
+        const res_follow = await fetch(url_follow)
+        const res_like = await fetch(url_like)
+        if (res_follow.status == 200) {
+            const fer = await res_follow.json();
+            setFollowers(fer[0].follower_count)
+            setFollowing(fer[0].followed_count)
+        }
+        if (res_like.status == 200) {
+            const lk = await res_like.json();
+            setLikes(lk[0].liked_sum)
+        }
         const response = await fetch(url)
         console.log(response);
         if (response.status == 200) {
             const content = await response.json();
             setUserposts(content)
+            setPostnum(content.length)
         }
         else {
           setUserposts([])
@@ -38,14 +58,15 @@ function ProfileHeader(props) {
             </div>
             <div className="profile-cover__info">
                 <ul className="nav">
-                    <li><strong>26</strong>Post</li>
-                    <li><strong>33</strong>Followers</li>
-                    <li><strong>136</strong>Following</li>
+                    <motion.li whileHover={{ scale: 1.05 }} onClick={()=>setCompid('post')}><strong>{postnum}</strong>Post</motion.li>
+                    <motion.li whileHover={{ scale: 1.05 }} onClick={()=>setCompid('followers')}><strong>{followers}</strong>Followers</motion.li>
+                    <motion.li whileHover={{ scale: 1.05 }} onClick={()=>setCompid('following')}><strong>{following}</strong>Following</motion.li>
                 </ul>
             </div>
         </div>
     </div>
     <div className="row">
+        <div className="panel">
         {compid == 'post'? (
         <Gallery props={userposts}/>)
         : compid == 'followers'? (
@@ -54,6 +75,7 @@ function ProfileHeader(props) {
         :
         <></>
         }
+        </div>
     </div>
 </div>
     )

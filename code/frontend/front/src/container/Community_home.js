@@ -294,7 +294,7 @@ function Gallery(probs) {
                 <Row>
                   <Col md={3} xs={3}>
                     {/* <Avatar src={item.user_avater} alt="Han Solo" /> */}
-                    <Avatar src="https://joeschmoe.io/api/v1/random"/>
+                    <Card.Link href={"/userdetail/"+item.user_id}><Avatar src="https://joeschmoe.io/api/v1/random"/></Card.Link>
                   </Col>
                   <Col md={9} xs={9}>
                     <p style={{ fontSize: "14px" }}> {item.post_text.substring(0, 40)} {item.post_text.length >= 40 && '...'}</p>

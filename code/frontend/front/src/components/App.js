@@ -21,7 +21,7 @@ import Community_home from '../container/HomeCommunity';
 import YourPost from "../container/YourPost";
 import Post from "../container/Post";
 import { AI_style } from "../container/AI_style";
-import ProfileHeader from "../components/ProfileHeader";
+import ProfileHeader from "./ProfileHeader";
 
 const info = { pic: './img/01_1.png', name: 'Sample', email: '1234@jh.edu' }
 
@@ -51,7 +51,7 @@ function App() {
               <Route path="/gallery" element={<Community_home />} />
               <Route path="/your_posts" element={<YourPost />} />
               <Route path="/post" element={<Post />} />
-              <Route path="/userdetail" element={<ProfileHeader/>}/>
+              <Route path="/userdetail/:name" element={<ProfileHeader/>}/>
             </Routes>
           </div>
         </Router>
