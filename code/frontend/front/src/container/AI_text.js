@@ -3,7 +3,7 @@ import { useState, createRef, useContext } from 'react';
 import { Image } from 'react-bootstrap';
 import { LoginContext } from '../context/AuthProvider';
 import EditText from '../components/EditText';
-import { Layout, Menu, Breadcrumb, Input } from 'antd';
+import { Layout, Menu, Breadcrumb, Input, Col, Row, Card } from 'antd';
 import {
     UserOutlined,
     UserAddOutlined,
@@ -41,129 +41,158 @@ export const AI_text = (props) => {
 
     return (
         <>
-            <Layout hasSider>
-                <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}
-                    theme="dark" width='30%' collapsedWidth='5%'
-                    style={{
-                        height: 'auto',
-                        width: '100%',
-                    }}
-                >
-                    <div className="logo" />
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub5', 'sub6', 'sub4']}>
-                        {/* <SubMenu key="sub1" icon={<UserAddOutlined />} title="Standard Voice">
-                            <Image
-                                width={'100%'}
-                                height={'50%'}
-                                onClick={() => {
-                                    setDst('');
-                                    setSourceimg("https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80");
-                                    setPerson('Normal');
-                                }}
-                                src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
-                            />
-                        </SubMenu> */}
-                        <SubMenu key="sub4" icon={<UserOutlined />} title="Donald Duck">
-                            <Image
-                                width={'100%'}
-                                onClick={() => {
-                                    setDst('');
-                                    setSourceimg("https://www.disneyonice.com/sites/default/files/2020-10/quackers-donald-featured.jpg");
-                                    setPerson('donald-duck');
-                                }}
-                                src="https://www.disneyonice.com/sites/default/files/2020-10/quackers-donald-featured.jpg"
-                            />
-                        </SubMenu>
-                        <SubMenu key="sub5" icon={<UserOutlined />} title="Mickey Mouse">
-                            <Image
-                                width={'100%'}
-                                onClick={() => {
-                                    setDst('');
-                                    setSourceimg("https://d23.com/app/uploads/2020/05/1180w-600h_060120_mickey-mornings-launch.jpg");
-                                    setPerson('mickey-mouse');
-                                }}
-                                src="https://d23.com/app/uploads/2020/05/1180w-600h_060120_mickey-mornings-launch.jpg"
-                            />
-                        </SubMenu>
-                        <SubMenu key="sub6" icon={<UserOutlined />} title="Minnie Mouse">
-                            <Image
-                                width={'100%'}
-                                onClick={() => {
-                                    setDst('');
-                                    setSourceimg("https://lumiere-a.akamaihd.net/v1/images/r_mickeymousefranchise_minniemouse_ddt-16970_52a2771b.jpeg?region=0%2C0%2C1536%2C450");
-                                    setPerson('minnie-mouse');
-                                }}
-                                src="https://lumiere-a.akamaihd.net/v1/images/r_mickeymousefranchise_minniemouse_ddt-16970_52a2771b.jpeg?region=0%2C0%2C1536%2C450"
-                            />
-                        </SubMenu>
-                        <SubMenu key="sub7" icon={<UserOutlined />} title="Goofy">
-                            <Image
-                                width={'100%'}
-                                onClick={() => {
-                                    setDst('');
-                                    setSourceimg("https://celebrationspress.com/wp-content/uploads/2018/01/010218Goofy.jpg");
-                                    setPerson('max-goof');
-                                }}
-                                src="https://celebrationspress.com/wp-content/uploads/2018/01/010218Goofy.jpg"
-                            />
-                        </SubMenu>
-                        <SubMenu key="sub8" icon={<UserOutlined />} title="Max Goof">
-                            <Image
-                                width={'100%'}
-                                onClick={() => {
-                                    setDst('');
-                                    setSourceimg("https://pm1.narvii.com/7610/c720a58bfb518ad2d9a1da897fd668ec73ee466fr1-1200-630v2_hq.jpg");
-                                    setPerson('max-goof');
-                                }}
-                                src="https://pm1.narvii.com/7610/c720a58bfb518ad2d9a1da897fd668ec73ee466fr1-1200-630v2_hq.jpg"
-                            />
-                        </SubMenu>
-                        <SubMenu key="sub9" icon={<UserOutlined />} title="Pete">
-                            <Image
-                                width={'100%'}
-                                onClick={() => {
-                                    setDst('');
-                                    setSourceimg("https://pm1.narvii.com/7164/310cf185064c0da2a5528b4f7d199fa972560e53r1-2048-1512v2_hq.jpg");
-                                    setPerson('pete');
-                                }}
-                                src="https://pm1.narvii.com/7164/310cf185064c0da2a5528b4f7d199fa972560e53r1-2048-1512v2_hq.jpg"
-                            />
-                        </SubMenu>
-                        <SubMenu key="sub10" icon={<UserOutlined />} title="Daisy Duck">
-                            <Image
-                                width={'100%'}
-                                onClick={() => {
-                                    setDst('');
-                                    setSourceimg("https://www.seekpng.com/png/detail/307-3078164_confused-daisy-duck-clipart-png-images-daisy-duck.png");
-                                    setPerson('daisy-duck');
-                                }}
-                                src="https://www.seekpng.com/png/detail/307-3078164_confused-daisy-duck-clipart-png-images-daisy-duck.png"
-                            />
-                        </SubMenu>
-                        <SubMenu key="sub11" icon={<UserOutlined />} title="Ludwig Von Drake">
-                            <Image
-                                width={'100%'}
-                                onClick={() => {
-                                    setDst('');
-                                    setSourceimg("https://cartoonresearch.com/wp-content/uploads/2014/07/Ludwig-Record344.jpg");
-                                    setPerson('ludwig-von-drake');
-                                }}
-                                src="https://cartoonresearch.com/wp-content/uploads/2014/07/Ludwig-Record344.jpg"
-                            />
-                        </SubMenu>
+            <Header className="site-layout-background" style={{ padding: 0, textAlign: 'center', background: 'white', marginTop: 20 }} > <h2>AI Text to Audio</h2></Header>
+            <Layout className="site-layout" style={{ marginRight: 80, marginLeft: 80 }}>
+                <Card>
+                    <Card.Grid style={gridStyle} onClick={() => {
+                        setDst('');
+                        setSourceimg("https://64.media.tumblr.com/971da5e710cd33ce4acfaec9902d6137/c5766a70deeb9df7-76/s1280x1920/484d0783f13728ca6ee2ff19759bf4264509774f.png");
+                        setPerson('ludwig-von-drake');
+                    }}>
+                        <Row style={{ borderBlockColor: 'Black', textAlign: 'center' }}>
+                            <Col>
+                                <Image
+                                    style={{ height: '5vw' }}
+                                    src="https://64.media.tumblr.com/971da5e710cd33ce4acfaec9902d6137/c5766a70deeb9df7-76/s1280x1920/484d0783f13728ca6ee2ff19759bf4264509774f.png"
+                                /></Col>
+                            <Col style={{ marginTop: 20, marginBottom: 20, marginLeft: 30 }}>
+                                <div style={style}>Ludwing Von Drake</div>
+                            </Col>
+                        </Row>
+                    </Card.Grid>
+                    <Card.Grid style={gridStyle} onClick={() => {
+                        setDst('');
+                        setSourceimg("https://www.disneyonice.com/sites/default/files/2020-10/quackers-donald-featured.jpg");
+                        setPerson('donald-duck');
+                    }}>
+                        <Row>
+                            <Col>
+                                <Image
+                                    style={{ height: '5vw' }}
+                                    src="https://www.disneyonice.com/sites/default/files/2020-10/quackers-donald-featured.jpg"
+                                />
+                            </Col>
+                            <Col style={{ marginTop: 20, marginBottom: 20, marginLeft: 30 }}>
+                                <div style={style}>Donald Duck</div>
+                            </Col>
+                        </Row>
+                    </Card.Grid>
+                    <Card.Grid style={gridStyle} onClick={() => {
+                        setDst('');
+                        setSourceimg("https://d23.com/app/uploads/2020/05/1180w-600h_060120_mickey-mornings-launch.jpg");
+                        setPerson('mickey-mouse');
+                    }}>
+                        <Row>
+                            <Col>
+                                <Image
+                                    style={{ height: '5vw' }}
+                                    src="https://d23.com/app/uploads/2020/05/1180w-600h_060120_mickey-mornings-launch.jpg"
+                                />
+                            </Col>
+                            <Col style={{ marginTop: 20, marginBottom: 20, marginLeft: 30 }}>
+                                <div style={style}>Mickey Mouse</div>
+                            </Col>
+                        </Row>
+                    </Card.Grid>
+                    <Card.Grid style={gridStyle} onClick={() => {
+                        setDst('');
+                        setSourceimg("https://d23.com/app/uploads/2013/04/1180w-600h_minnie-mouse_1.jpg");
+                        setPerson('minnie-mouse');
+                    }}>
+                        <Row>
+                            <Col>
+                                <Image
+                                    style={{ height: '5vw' }}
+                                    src="https://d23.com/app/uploads/2013/04/1180w-600h_minnie-mouse_1.jpg"
+                                />
+                            </Col>
+                            <Col style={{ marginTop: 20, marginBottom: 20, marginLeft: 30 }}>
+                                <div style={style}>Minnie Mouse</div>
+                            </Col>
+                        </Row>
+                    </Card.Grid>
+                    <Card.Grid style={gridStyle} onClick={() => {
+                        setDst('');
+                        setSourceimg("https://celebrationspress.com/wp-content/uploads/2018/01/010218Goofy.jpg");
+                        setPerson('goofy');
+                    }}>
+                        <Row>
+                            <Col>
+                                <Image
+                                    style={{ height: '5vw' }}
+                                    src="https://celebrationspress.com/wp-content/uploads/2018/01/010218Goofy.jpg"
+                                />
+                            </Col>
+                            <Col style={{ marginTop: 20, marginBottom: 20, marginLeft: 30 }}>
+                                <div style={style}>Goofy</div>
+                            </Col>
+                        </Row>
+                    </Card.Grid>
+                    <Card.Grid style={gridStyle} onClick={() => {
+                        setDst('');
+                        setSourceimg("https://pm1.narvii.com/7610/c720a58bfb518ad2d9a1da897fd668ec73ee466fr1-1200-630v2_hq.jpg");
+                        setPerson('max-goof');
+                    }}>
+                        <Row>
+                            <Col>
+                                <Image
+                                    style={{ height: '5vw' }}
+                                    src="https://pm1.narvii.com/7610/c720a58bfb518ad2d9a1da897fd668ec73ee466fr1-1200-630v2_hq.jpg"
+                                />
+                            </Col>
+                            <Col style={{ marginTop: 20, marginBottom: 20, marginLeft: 30 }}>
+                                <div style={style}>Max Goof</div>
+                            </Col>
+                        </Row>
+                    </Card.Grid>
+                    <Card.Grid style={gridStyle} onClick={() => {
+                        setDst('');
+                        setSourceimg("https://www.seekpng.com/png/detail/307-3078164_confused-daisy-duck-clipart-png-images-daisy-duck.png");
+                        setPerson('daisy-duck');
+                    }}>
+                        <Row>
+                            <Col>
+                                <Image
+                                    style={{ height: '5vw' }}
+                                    src="https://www.seekpng.com/png/detail/307-3078164_confused-daisy-duck-clipart-png-images-daisy-duck.png"
+                                />
+                            </Col>
+                            <Col style={{ marginTop: 20, marginBottom: 20, marginLeft: 30 }}>
+                                <div style={style}>Daisy Duck</div>
+                            </Col>
+                        </Row>
+                    </Card.Grid>
+                    <Card.Grid style={gridStyle} onClick={() => {
+                        setDst('');
+                        setSourceimg("https://pm1.narvii.com/7164/310cf185064c0da2a5528b4f7d199fa972560e53r1-2048-1512v2_hq.jpg");
+                        setPerson('pete');
+                    }}>
+                        <Row>
+                            <Col>
+                                <Image
+                                    style={{ height: '5vw' }}
+                                    src="https://pm1.narvii.com/7164/310cf185064c0da2a5528b4f7d199fa972560e53r1-2048-1512v2_hq.jpg"
+                                /> </Col>
+                            <Col style={{ marginTop: 20, marginBottom: 20, marginLeft: 30 }}>
+                                <div style={style}>Pete</div>
+                            </Col>
+                        </Row>
+                    </Card.Grid>
+                </Card>
 
-                    </Menu>
-                </Sider>
-
-                <Layout className="site-layout" style={{ marginLeft: 0 }}>
-                    <Header className="site-layout-background" style={{ padding: 0, textAlign: 'center', background: '#f0f0f0' }} > <h2>AI Text</h2></Header>
-                    <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-                        <div className="site-layout-background" style={{ padding: 0, textAlign: 'center' }}>
-                            <EditText imgData={trumpImg} />
-                        </div>
-                    </Content>
-                </Layout>
+                <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+                    <div className="site-layout-background" style={{ padding: 0, textAlign: 'center' }}>
+                        <EditText imgData={trumpImg} />
+                    </div>
+                </Content>
             </Layout>
+
         </>
     );
+};
+
+const style = { background: '', padding: '8px 0' };
+const gridStyle = {
+    width: '25%',
+    textAlign: 'center',
 };

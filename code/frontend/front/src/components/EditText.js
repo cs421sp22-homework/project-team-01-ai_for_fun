@@ -160,33 +160,29 @@ function EditText(props) {
     };
 
     return (
-        <Layout className="site-layout" style={{ minHeight: '100vh' }}>
+        <Layout className="site-layout" >
             {
                 showCard ?
-                    <Content style={{ margin: '0 16px' }} className='center-box'>
-                        <Card style={{ height: '100%', weight: '100%', margin: 35 }}>
-                            {/* <Card.Img variant="top" src={dst ? dst : "https://joeschmoe.io/api/v1/random"} style={{ minHeight: "40vh" }} /> */}
-                            <Card.Body>
+                    <Content className='center-box'>
+                        <Row>
+                            <Col style={{ marginLeft: 30 }}>
                                 <center style={{ width: "60%", height: "50%" }}>
                                     <Video props={{ "videoSrc": dst }} />
                                 </center>
-                                <Card.Title>Post to Community</Card.Title>
-                                <Card.Text>
-                                    <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
-                                </Card.Text>
-                            </Card.Body>
-                            <Card.Footer>
+                            </Col>
+                            <Col>
+                                <h3 style={{ margin: 10 }}>Post to Community</h3>
+                                <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
                                 <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Submit</Button>
                                 <Button onClick={handleHideCard} variant="danger" style={{ float: "right", marginRight: '15px' }}>Cancel</Button>{''}
-                            </Card.Footer>
-                        </Card>
-                    </Content>
+                            </Col>
+                        </Row>
+                    </Content >
                     :
                     <Content>
                         <Content style={{ margin: '0 16px' }} className='center-box'>
                             <Row>
-                                <Col md={1} xl={2}> </Col>
-                                <Col md={10} xl={8}>
+                                <Col>
                                     <center>
                                         {console.log(dst)}
                                         {dst ?
@@ -202,18 +198,16 @@ function EditText(props) {
                                         {console.log("person" + person)}
                                     </center>
                                 </Col>
-                                <Col md={1} xl={2}> </Col>
+                                <Col>
+                                    <h3 style={{ margin: 10 }}>Please input the content you would like to manipulate</h3>
+                                    <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} />,
+                                    {dst ?
+                                        <Button onClick={handleShowCard} size="lg" style={{ float: "right", marginRight: '50px' }}>Post</Button> :
+                                        <Button onClick={handleShowCard} size="lg" style={{ float: "right", marginRight: '50px' }} disabled>Post</Button>
+                                    }
+                                    <Button variant="outline-dark" size="lg" onClick={handleInput}>Continue</Button>{' '}
+                                </Col>
                             </Row>
-                        </Content>
-                        <Content >
-                            <h3 style={{ margin: 10 }}>Please input the content you would like to manipulate</h3>
-                            {/* <MediaComponent /> */}
-                            <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} />,
-                            {dst ?
-                                <Button onClick={handleShowCard} size="lg" style={{ float: "right", marginRight: '50px' }}>Post</Button> :
-                                <Button onClick={handleShowCard} size="lg" style={{ float: "right", marginRight: '50px' }} disabled>Post</Button>
-                            }
-                            <Button variant="outline-dark" size="lg" onClick={handleInput}>Continue</Button>{' '}
                         </Content>
                     </Content>
             }
