@@ -255,9 +255,10 @@ function Gallery(probs) {
     }
   }
   const breakpointColumnsObj = {
-  default: 4,
-  1100: 3,
-  700: 2,
+  default: 5,
+  1800: 4,
+  1300: 3,
+  1000: 2,
   500: 1
 };
 //Todo: https://www.npmjs.com/package/react-masonry-css
