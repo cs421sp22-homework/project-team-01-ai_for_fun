@@ -163,18 +163,22 @@ function EditText(props) {
         <Layout className="site-layout" style={{ background: 'white' }}>
             {
                 showCard ?
-                    <Content className='center-box'>
+                    <Content style={{ margin: '0 16px' }} className='center-box' >
                         <Row>
-                            <Col style={{ marginLeft: 30 }}>
-                                <center style={{ width: "60%", height: "50%" }}>
-                                    <Video props={{ "videoSrc": dst }} />
+                            <Col>
+                                <center>
+                                    <center style={{ width: "60%", height: "50%" }}>
+                                        <Video props={{ "videoSrc": dst }} />
+                                    </center>
                                 </center>
                             </Col>
                             <Col>
-                                <h3 style={{ margin: 10 }}>Post to Community</h3>
-                                <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
-                                <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Submit</Button>
-                                <Button onClick={handleHideCard} variant="danger" style={{ float: "right", marginRight: '15px' }}>Cancel</Button>{''}
+                                <center>
+                                    <h3 style={{ margin: 10 }}>Post to Community</h3>
+                                    <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
+                                    <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Submit</Button>
+                                    <Button onClick={handleHideCard} variant="danger" style={{ float: "right", marginRight: '15px' }}>Cancel</Button>{''}
+                                </center>
                             </Col>
                         </Row>
                     </Content >
@@ -199,13 +203,15 @@ function EditText(props) {
                                     </center>
                                 </Col>
                                 <Col>
-                                    <h3 style={{ margin: 10 }}>Please input the content you would like to manipulate</h3>
-                                    <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} />,
-                                    {dst ?
-                                        <Button onClick={handleShowCard} size="lg" style={{ float: "right", marginRight: '50px' }}>Post</Button> :
-                                        <Button onClick={handleShowCard} size="lg" style={{ float: "right", marginRight: '50px' }} disabled>Post</Button>
-                                    }
-                                    <Button variant="outline-dark" size="lg" onClick={handleInput}>Continue</Button>{' '}
+                                    <center>
+                                        <h3 style={{ margin: 10 }}>Please input the content you would like to manipulate</h3>
+                                        <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} />,
+                                        {dst ?
+                                            <Button onClick={handleShowCard} size="lg" style={{ float: "right", marginRight: '50px' }}>Post</Button> :
+                                            <Button onClick={handleShowCard} size="lg" style={{ float: "right", marginRight: '50px' }} disabled>Post</Button>
+                                        }
+                                        <Button variant="outline-dark" size="lg" onClick={handleInput}>Continue</Button>{' '}
+                                    </center>
                                 </Col>
                             </Row>
                         </Content>
