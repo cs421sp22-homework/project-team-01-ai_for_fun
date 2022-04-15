@@ -62,9 +62,27 @@ function ProfileHeader() {
             </div>
             <div className="profile-cover__info">
                 <ul className="nav">
+                {compid == 'post'? (
+                <>
+                <motion.li whileHover={{ scale: 1.05 }} onClick={()=>setCompid('post')} style={{"fontWeight": "bolder"}}><strong>{postnum}</strong><p >Post</p></motion.li>
+                <motion.li whileHover={{ scale: 1.05 }} onClick={()=>setCompid('followers')}><strong>{followers}</strong>Followers</motion.li>
+                <motion.li whileHover={{ scale: 1.05 }} onClick={()=>setCompid('following')}><strong>{following}</strong>Following</motion.li>
+                </>
+                )
+                : compid == 'followers'? (
+                    <>
                     <motion.li whileHover={{ scale: 1.05 }} onClick={()=>setCompid('post')}><strong>{postnum}</strong>Post</motion.li>
-                    <motion.li whileHover={{ scale: 1.05 }} onClick={()=>setCompid('followers')}><strong>{followers}</strong>Followers</motion.li>
+                    <motion.li whileHover={{ scale: 1.05 }} onClick={()=>setCompid('followers')} style={{"fontWeight": "bolder"}}><strong>{followers}</strong>Followers</motion.li>
                     <motion.li whileHover={{ scale: 1.05 }} onClick={()=>setCompid('following')}><strong>{following}</strong>Following</motion.li>
+                    </>
+                )
+                :
+                <>
+                <motion.li whileHover={{ scale: 1.05 }} onClick={()=>setCompid('post')}><strong>{postnum}</strong>Post</motion.li>
+                <motion.li whileHover={{ scale: 1.05 }} onClick={()=>setCompid('followers')}><strong>{followers}</strong>Followers</motion.li>
+                <motion.li whileHover={{ scale: 1.05 }} onClick={()=>setCompid('following')} style={{"fontWeight": "bolder"}}><strong>{following}</strong>Following</motion.li>
+                </>
+                }
                 </ul>
             </div>
         </div>
