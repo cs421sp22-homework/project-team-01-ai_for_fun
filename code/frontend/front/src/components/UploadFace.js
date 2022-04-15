@@ -93,6 +93,8 @@ class UploadFace extends React.Component {
       this.context.faceimg = signedURL;
       localStorage.setItem('global_Upload_img_In_AI_FACE', signedURL);
       localStorage.setItem('global_Upload_s3id_In_AI_FACE', hashname)
+      console.log(localStorage.getItem('global_Upload_img_In_AI_FACE'));
+      console.log(localStorage.getItem('global_Upload_s3id_In_AI_FACE'));
       console.log(this.context.faceimg)
 
     } catch (error) {

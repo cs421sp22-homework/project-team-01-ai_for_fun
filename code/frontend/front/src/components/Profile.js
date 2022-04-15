@@ -1,6 +1,5 @@
-
 import React, { useState, useContext, createRef, useEffect } from 'react';
-import { message, Input, Form } from 'antd';
+import { message, Input, Form, Layout, InputNumber } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons';
 import UploadPicinProfile from './UploadPicinProfile';
@@ -16,9 +15,12 @@ import { LoginContext } from '../context/AuthProvider';
 import { useCookies } from 'react-cookie';
 import PopupPost from './PopupPost';
 import Video from './Video';
-
+import {
+    StyleSheet,
+    Text,
+    View,
+} from 'react-native';
 // import "../style/EditVideo.css"
-import { Layout } from 'antd';
 const { TextArea } = Input;
 const { Content } = Layout;
 const previousSelectedPost = [];
@@ -46,6 +48,7 @@ function Profile(props) {
     // const { avatarimg } = useContext(LoginContext);
     const [showEditPsw, setShowEditPsw] = useState(false)
     const [showInputName, setshowInputName] = useState(false);
+    const [showAvater, setshowAvater] = useState(false);
     const [pic, setPic] = useState(props.pic);
     var user_id = localStorage.getItem('global_userID');
     var globla_token = localStorage.getItem('global_token');
@@ -83,6 +86,8 @@ function Profile(props) {
     };
 
     const [hiswork, setHiswork] = useState([]);
+    const [hisupload, setHisupload] = useState([]);
+
     useEffect(() => {
         let url = 'https://server-demo.ai-for-fun-backend.com/getwork/' + cookie.user_id;
         console.log("url for history" + url);
@@ -152,16 +157,6 @@ function Profile(props) {
     const handleCloseName = () => {
         setshowInputName(false)
     };
-    // Edit Email
-    const handleEditEamil = () => {
-        setshowInputEmail(true)
-    };
-    const handleAffirmEamil = () => {
-
-    };
-    const handleCloseEmail = () => {
-        setshowInputEmail(false)
-    };
 
     const handleEditPsw = () => {
         setShowEditPsw(true)
@@ -169,6 +164,14 @@ function Profile(props) {
     const handleClosePsw = () => {
         setShowEditPsw(false)
     }
+
+    const handleEditAvater = () => {
+        setshowAvater(true)
+    }
+    const handleCloseAvater = () => {
+        setshowAvater(false)
+    }
+
     const handleAffirmPsw = async () => {
         if (password && oriPsw) {
             try {
@@ -236,6 +239,7 @@ function Profile(props) {
                 setCookie('avatar', content.avatar);
                 // avatar = content.avatar;
                 message.success('change IMG successful😊')
+                setshowAvater(false);
                 // document.location.reload(true)
             }
             else {
@@ -301,6 +305,15 @@ function Profile(props) {
         }
     };
 
+    const layout = {
+        labelCol: {
+            span: 8,
+        },
+        wrapperCol: {
+            span: 16,
+        },
+    };
+
     const handletogglePop = () => {
         setSeen(!seen);
         //console.log(seen);
@@ -308,241 +321,156 @@ function Profile(props) {
 
     return (
         <Container style={{ minHeight: '100vh' }}>
-            <Row className='pt-3'>
-                <Col md={4} style={{ backgroundColor: 'whitesmoke' }} className="mr-1">
-                    <Row className='mt-4'>
-                        <div style={{ width: '100px' }} className="mx-auto">
-                            {/* <Image roundedCircle src={pic} fluid /> */}
-                            {/* <UploadPicinProfile /> */}
-                            <Image
-                                width={'90%'}
-                                src={avatar}
-                                center={'true'}
-                            />
-                        </div>
-                    </Row>
-                    <br />
-                    <Row>
-                        <p className="font-weight-bold text-center">{cookie.name}</p>
-                        <p className="text-center">{cookie.email}</p>
-
-                    </Row>
-                    {showEditPsw ?
-                        <div>
+            <Row style={{ marginTop: '3%' }}>
+                <Col>
+                    <Card style={{ width: '30rem' }} >
+                        <Card.Header>Personal Info</Card.Header>
+                        <Card.Body>
+                            <Row className='mt-4'>
+                                <div style={{ width: '100px' }} className="mx-auto">
+                                    <Image
+                                        width={'90%'}
+                                        src={avatar}
+                                        center={'true'}
+                                    />
+                                </div>
+                            </Row>
+                            <br />
                             <center>
-                                <Button variant="outline-dark" size="sm" onClick={handleClosePsw} >Cancle</Button>
-                                <hr />
+                                <Card.Title>{cookie.name}</Card.Title>
+                                <Card.Subtitle className="mb-2 text-muted">{cookie.email}</Card.Subtitle>
                             </center>
-                            <Form>
-                                <Form.Item
-                                    label="Original"
-                                    name="original"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input your original password!',
-                                        },
-                                    ]}
-                                >
-                                    <Input.Password onChange={e => setOriPsw(e.target.value)} />
-                                </Form.Item>
-                                <Form.Item
-                                    label="Password"
-                                    name="password"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input your password!',
-                                        },
-                                    ]}
-                                >
-                                    <Input.Password onChange={e => setPassword(e.target.value)} />
-                                </Form.Item>
-                                <Form.Item
-                                    label="Confirm "
-                                    name="confirm"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please confirm your password!',
-                                        },
-                                        compareToFirstPassword,
-                                    ]}
-                                >
-                                    <Input.Password onChange={e => setPassword(e.target.value)} />
-                                </Form.Item>
-                                <Form.Item>
+                            {showEditPsw ?
+                                <div>
                                     <center>
-                                        <Button variant="outline-dark" size="sm" onClick={handleAffirmPsw} >Confirm</Button>
+                                        <Button variant="outline-dark" size="sm" onClick={handleClosePsw} >Cancle</Button>
+                                        <hr />
                                     </center>
-                                </Form.Item>
-                            </Form>
-                        </div>
+                                    <Form>
+                                        <Form.Item
+                                            label="Original"
+                                            name="original"
+                                            rules={[
+                                                {
+                                                    required: true,
+                                                    message: 'Please input your original password!',
+                                                },
+                                            ]}
+                                        >
+                                            <Input.Password onChange={e => setOriPsw(e.target.value)} />
+                                        </Form.Item>
+                                        <Form.Item
+                                            label="Password"
+                                            name="password"
+                                            rules={[
+                                                {
+                                                    required: true,
+                                                    message: 'Please input your password!',
+                                                },
+                                            ]}
+                                        >
+                                            <Input.Password onChange={e => setPassword(e.target.value)} />
+                                        </Form.Item>
+                                        <Form.Item
+                                            label="Confirm "
+                                            name="confirm"
+                                            rules={[
+                                                {
+                                                    required: true,
+                                                    message: 'Please confirm your password!',
+                                                },
+                                                compareToFirstPassword,
+                                            ]}
+                                        >
+                                            <Input.Password onChange={e => setPassword(e.target.value)} />
+                                        </Form.Item>
+                                        <Form.Item>
+                                            <center>
+                                                <Button variant="outline-dark" size="sm" onClick={handleAffirmPsw} >Confirm</Button>
+                                            </center>
+                                        </Form.Item>
+                                    </Form>
+                                </div>
 
-                        :
-
-                        <center>
-                            <Button variant="outline-dark" size="sm" onClick={handleEditPsw} >Edit Password</Button>
-                            <hr />
-                        </center>
-
-
-                    }
-
+                                :
+                                showInputName ?
+                                    <Form>
+                                        <Form.Item>
+                                            <center>
+                                                <Button variant="outline-dark" size="sm" onClick={handleCloseName} >Cancel</Button>
+                                                <hr />
+                                            </center>
+                                        </Form.Item>
+                                        <Form.Item
+                                            name="editName"
+                                            label="Name"
+                                            rules={[
+                                                {
+                                                    required: true,
+                                                },
+                                            ]}
+                                        >
+                                            <Input onChange={e => setName(e.target.value)} placeholder="Enter Name" />
+                                        </Form.Item>
+                                        <Form.Item>
+                                            <center>
+                                                <Button variant="outline-dark" size="sm" onClick={handleAffirmName} >Confirm</Button>
+                                            </center>
+                                        </Form.Item>
+                                    </Form>
+                                    :
+                                    showAvater ?
+                                        <div>
+                                            <center>
+                                                <Button variant="outline-dark" size="sm" onClick={handleCloseAvater} >Cancel</Button>
+                                                <hr />
+                                                <UploadPicinProfile />
+                                                <Button variant="outline-dark" onClick={handleImg}>Confirm</Button>
+                                            </center>
+                                        </div>
+                                        :
+                                        <center>
+                                            <Button variant="outline-dark" size="sm" onClick={handleEditName} >Edit Name</Button> {' '}
+                                            <Button variant="outline-dark" size="sm" onClick={handleEditAvater} >Edit Avatar</Button> {' '}
+                                            <Button variant="outline-dark" size="sm" onClick={handleEditPsw} >Edit Password</Button>
+                                            <hr />
+                                        </center>
+                            }
+                        </Card.Body>
+                    </Card>
                 </Col>
                 <Col md={7}>
-                    <Row style={{ backgroundColor: 'whitesmoke' }}>
-                        <Row className='mt-4' >
-                            <Col md={9}>
-                                <UploadPicinProfile />
-                            </Col>
-                            <Col md={3} className='pt-4'>
-                                <Button variant="outline-dark" onClick={handleImg}>Change IMG</Button>
-                            </Col>
-                        </Row>
-                        <br />
-                        {!showInputName ?
-                            <Row className='mt-4 md-4'>
-                                <Col md={9}>
-                                    <p>{name}</p>
-                                </Col>
-                                <Col md={3}>
-                                    <Button variant="outline-dark" onClick={handleEditName}>Edit</Button>
-                                </Col>
-                            </Row>
-                            :
-                            <Row className='mt-4 md-4'>
-                                <Col md={9} sm={5}>
-                                    <Form.Item
-                                        name="editName"
-                                    >
-                                        <Input onChange={e => setName(e.target.value)} placeholder="Enter Name" />
-                                    </Form.Item>
-                                </Col>
-                                <Col md={3} sm={7}>
-                                    <CheckCircleOutlined onClick={handleAffirmName} />
-                                    <CloseCircleOutlined onClick={handleCloseName} />
-                                </Col>
-                            </Row>
-                        }
-                    </Row>
-                    <Row className="mt-1" style={{ backgroundColor: 'whitesmoke', minHeight: '80vh' }}>
-                        <Row>
-                            <Col md={9} sm={5}>
-                                <h2>My work</h2>
-                                {/* <Col md={10} lg={10}> */}
-                                <Container style={{ height: '20vh', borderRadius: '20px', marginTop: '4%', maxHeight: '90vh' }}>
-                                    <div className='wrap_scrollImg' style={{ width: '100%', height: '100%' }}>
-                                        <span className='left_icon' onClick={clickLeftIcon}><LeftCircleOutlined /></span>
-                                        <span className='right_icon' onClick={clickRightIcon}><RightCircleOutlined /></span>
-                                        <ul style={{ transform: `translateX(${translateX}px)` }} ref={ref}>
-                                            {hiswork.map(item => {
-                                                return <li key={item.name}>
-                                                    {item.type === 'image' ?
-                                                        <Image as={Image} style={{ height: '100%', witdh: '200%', objectFit: 'cover', maxHeight: '100vh' }} src={item.url} fluid={true} alt="item.name" />
-                                                        :
-                                                        <Video props={{ "videoSrc": item.url }} style={{ height: '100%', witdh: '200%', objectFit: 'cover', maxHeight: '100vh' }} />
-                                                    }
-                                                </li>;
-                                            })}
-                                        </ul>
-                                    </div>
-                                </Container>
-                                {/* </Col> */}
-                            </Col>
-                            {/* <Col md={3} sm={7}>
-                                <Button variant="outline-dark" onClick={handleShowCard}>Post</Button>{' '}
-                                <Button
-                                    variant="outline-dark"
-                                    //type="button"
-                                    //value="Post In Pop"
-                                    onClick={handletogglePop}
-                                >Post In Pop</Button>
-                            </Col> */}
-                            {seen && <PopupPost
-                                content={<>
-                                    <Content style={{ margin: '0 16px' }} className='center-box'>
-                                        <Card style={{ height: '50%', weight: '50%', margin: 35 }}>
-                                            <Card.Img variant="top" src={pick ? pick : "https://joeschmoe.io/api/v1/random"} style={{ minHeight: "40vh" }} />
-                                            <Card.Body>
-                                                <Card.Title>Post to Community</Card.Title>
-                                                <Card.Text>
-                                                    <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
-                                                </Card.Text>
-                                            </Card.Body>
-                                            <Card.Footer>
-                                                <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Submit</Button>
-                                                <Button onClick={handleHideCard} variant="danger" style={{ float: "right", marginRight: '15px' }}>Cancel</Button>{''}
-                                            </Card.Footer>
-                                        </Card>
-                                    </Content>
-                                </>}
-                                handleClose={handletogglePop}
-                            />}
-                        </Row>
-
-                        {showCard ?
-                            <Content style={{ margin: '0 16px' }} className='center-box'>
-                                <Card style={{ height: '100%', weight: '100%', margin: 35 }}>
-                                    <Card.Img variant="top" src={pick ? pick : "https://joeschmoe.io/api/v1/random"} style={{ minHeight: "40vh" }} />
-                                    <Card.Body>
-                                        <Card.Title>Post to Community</Card.Title>
-                                        <Card.Text>
-                                            <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
-                                        </Card.Text>
-                                    </Card.Body>
-                                    <Card.Footer>
-                                        <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Submit</Button>
-                                        <Button onClick={handleHideCard} variant="danger" style={{ float: "right", marginRight: '15px' }}>Cancel</Button>{''}
-                                    </Card.Footer>
-                                </Card>
-                            </Content>
-                            :
-                            <Content>
-
-                            </Content>
-                        }
-
+                    {/* <Row className="mt-1" style={{ backgroundColor: 'whitesmoke', minHeight: '80vh' }}> */}
+                    <Row>
+                        <center>
+                            <h2 class="d-flex align-items-center mb-3">My work</h2>
+                            <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Historical</i>AI work</h6>
+                        </center>
+                        {/* <Col md={10} lg={10}> */}
+                        <Container style={{ height: '20vh', borderRadius: '20px', marginTop: '4%', maxHeight: '90vh' }}>
+                            <div className='wrap_scrollImg' style={{ width: '100%', height: '100%' }}>
+                                <span className='left_icon' onClick={clickLeftIcon}><LeftCircleOutlined /></span>
+                                <span className='right_icon' onClick={clickRightIcon}><RightCircleOutlined /></span>
+                                <ul style={{ transform: `translateX(${translateX}px)` }} ref={ref}>
+                                    {hiswork.map(item => {
+                                        return <li key={item.name}>
+                                            {item.type === 'image' ?
+                                                <Image as={Image} style={{ height: '100%', witdh: '200%', objectFit: 'cover', maxHeight: '100vh' }} src={item.url} fluid={true} alt="item.name" />
+                                                :
+                                                <Video props={{ "videoSrc": item.url }} style={{ height: '100%', witdh: '200%', objectFit: 'cover', maxHeight: '100vh' }} />
+                                            }
+                                        </li>;
+                                    })}
+                                </ul>
+                                {/* <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">There is no historical work, Let's start creating</i></h6>
+                                <Button variant="outline-primary" size="lg" href="/AI_face_topic" style={{ marginTop: 20, marginRight: 10 }}>Get Start</Button>{' '}
+ */}
+                            </div>
+                        </Container>
                     </Row>
                 </Col>
-            </Row>
-            <div>
-
-                {/* {!showInputEmail?
-                <Row>
-                    <Col md={9}>
-                        <p>{email}</p>
-                    </Col>
-                    <Col md={3}>
-                        <Button variant="outline-dark" onClick={handleEditEamil}>Edit</Button>
-                    </Col>
-                </Row>
-                :
-                <Row>
-                    <Col md = {9} sm = {5}>
-                        <Form.Control
-                             type="text"
-                             placeholder="Enter Email"
-                             onChange={(e) => setEmail(e.target.value)}></Form.Control>
-                    </Col>
-                    <Col md = {3} sm = {7}>
-                        <CheckCircleOutlined onClick={handleAffirmEamil}/>
-                        <CloseCircleOutlined onClick={handleCloseEmail} />
-                    </Col>
-                </Row>
-            } */}
-            </div>
-            {/* </Col>
-            </Row > */}
+            </Row >
         </Container >
     )
 }
 export default Profile;
-
-const imgData = [
-    { imgUrl: 'https://s1.r29static.com/bin/entry/43a/0,200,2000,2000/x,80/1536749/image.jpg', name: '01', topic: 'Star' },
-    { imgUrl: 'https://hips.hearstapps.com/cosmouk.cdnds.net/15/33/1439714614-celebrity-face-mashups-taylor-swift-emma-watson.jpg', name: '02', topic: 'House' },
-    { imgUrl: 'https://stylesatlife.com/wp-content/uploads/2021/11/Emma-Watson-face-shape.jpg.webp', name: '03', topic: 'New Year' },
-    { imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScxopB3Y_Z0Yu1v5JpXdx-3NOKX7yqg1iIHg&usqp=CAU', name: '04', topic: 'Amazing' },
-    { imgUrl: 'https://c4.wallpaperflare.com/wallpaper/485/848/917/actresses-mckenna-grace-actress-blonde-blue-eyes-hd-wallpaper-preview.jpg', name: '05', topic: 'Fashion' },
-]
