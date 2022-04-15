@@ -32,6 +32,7 @@ This file records APIs for AIforfun project
 * [Likepost](Likepost.md): `Post /likepost`
 * [Follow](Follow.md):`Post /follow`
 * [Unfollow](Unfollow.md):`Post /unfollow`
+* [IsFollowed](IsFollowed.md):`Post /isfollowed`
 * [Topkpost](Topkpost.md):`Post /topkpost`
 * [GetFollowerPost](GetFollowerPost.md):`Get /getfollowerpost/:user_id`
 * [GetFollowedPost](GetFollowedPost.md):`Get /getfollowedpost/:user_id`
