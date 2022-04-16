@@ -17,6 +17,7 @@ import PopupPost from './PopupPost';
 import Video from './Video';
 import { motion } from 'framer-motion';
 import FriendList from "./FriendList";
+import Masonry from 'react-masonry-css';
 import Gallery from "../container/Community_home";
 import {
     StyleSheet,
@@ -47,6 +48,7 @@ function Profile(props) {
     const [fowlist, setfowlist] = useState([])
     const [finglist, setfinglist] = useState([])
     const [postnum, setPostnum] = useState(0)
+    const [worksnum, setWorksnum] = useState(0);
     props = props.props
     // const {user,setUser,email,setEmail} = useContext(LoginContext);
     const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
@@ -95,6 +97,7 @@ function Profile(props) {
         console.log(1);
         // console.log(user);
         setshowInputName(true)
+        setSeen(!seen);
     };
 
     const [hiswork, setHiswork] = useState([]);
@@ -130,11 +133,12 @@ function Profile(props) {
 
         let url1 = 'https://server-demo.ai-for-fun-backend.com/getwork/' + cookie.user_id;
         console.log("url for history" + url1);
-        fetch(url1)
-            .then(res => res.json())
-            .then(
-                (result) => setHiswork(result)
-            )
+        const workFetch = await fetch(url1)
+        if (workFetch.status == 200) {
+            const workRes = await workFetch.json();
+            setHiswork(workRes);
+            setWorksnum(workRes.length);
+        }
     }, [])
 
 
@@ -199,6 +203,7 @@ function Profile(props) {
 
     const handleEditPsw = () => {
         setShowEditPsw(true)
+        setSeen(!seen);
     }
     const handleClosePsw = () => {
         setShowEditPsw(false)
@@ -206,6 +211,7 @@ function Profile(props) {
 
     const handleEditAvater = () => {
         setshowAvater(true)
+        setSeen(!seen);
     }
     const handleCloseAvater = () => {
         setshowAvater(false)
@@ -358,29 +364,73 @@ function Profile(props) {
         //console.log(seen);
     }
 
+    const galleryAnimation = {
+        hide: {
+            opacity: 0,
+        },
+        show: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.25,
+                ease: 'easeOut',
+                delayChildren: 1.5,
+            },
+        },
+    }
+
+    const Cardtransition = {
+        type: "spring",
+        damping: 10,
+        stiffness: 100
+    }
+    const breakpointColumnsObj = {
+        default: 5,
+        1800: 4,
+        1300: 3,
+        1000: 2,
+        500: 1
+    };
+
     return (
         <Container style={{ minHeight: '100vh' }}>
             <div className="container">
                 <div className="row mt-3">
-                    <div className="panel profile-cover">
-                        <div className="profile-cover__img">
+                    <div className="panel profile-cover" style={{ marginBottom: '20px' }}>
+                        <div className="profile-cover__img" style={{ marginBottom: '20px' }}>
                             <Image src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" />
-                            <h3 className="h3">{name}</h3>
-                            <h4 className="h4"> {cookie.email}</h4>
+                            <center>
+                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">{email}</i></h6>
+                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i>{name}</h6>
+                            </center>
                         </div>
                         <div className="profile-cover__action bg--img" data-overlay="0.3">
-                            <button className="btn btn-rounded btn-info">
+                            <button className="btn btn-rounded btn-info" onClick={handleEditName} >
                                 <i className="fa fa-plus"></i>
+                                <span>Edit Name</span>
+                            </button>
+
+                            <button className="btn btn-rounded btn-info" onClick={handleEditAvater} >
+                                <i className="fa fa-plus"></i>
+                                <span>Edit Avatar</span>
+                            </button>
+
+                            <button className="btn btn-rounded btn-info" onClick={handleEditPsw} >
+                                <i className="fa fa-plus"></i>
+                                <span>Edit Password</span>
+                            </button>
+                            {/* 
+                            <button className="btn btn-rounded btn-info">
                                 <Button variant="outline-dark" size="sm" onClick={handleEditName} >Edit Name</Button> {' '}
                                 <Button variant="outline-dark" size="sm" onClick={handleEditAvater} >Edit Avatar</Button> {' '}
                                 <Button variant="outline-dark" size="sm" onClick={handleEditPsw} >Edit Password</Button>
-                            </button>
+                            </button> */}
                         </div>
-                        <div className="profile-cover__info">
+                        <div className="profile-cover__info" style={{ marginBottom: '20px' }}>
                             <ul className="nav">
                                 {compid == 'post' ? (
                                     <>
                                         <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')} style={{ "fontWeight": "bolder" }}><strong>{postnum}</strong><p >Post</p></motion.li>
+                                        <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('works')} ><strong>{worksnum}</strong><p >Works</p></motion.li>
                                         <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('followers')}><strong>{followers}</strong>Followers</motion.li>
                                         <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('following')}><strong>{following}</strong>Following</motion.li>
                                     </>
@@ -388,16 +438,27 @@ function Profile(props) {
                                     : compid == 'followers' ? (
                                         <>
                                             <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')}><strong>{postnum}</strong>Post</motion.li>
+                                            <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('works')}><strong>{worksnum}</strong><p >Works</p></motion.li>
                                             <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('followers')} style={{ "fontWeight": "bolder" }}><strong>{followers}</strong>Followers</motion.li>
                                             <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('following')}><strong>{following}</strong>Following</motion.li>
                                         </>
                                     )
-                                        :
-                                        <>
-                                            <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')}><strong>{postnum}</strong>Post</motion.li>
-                                            <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('followers')}><strong>{followers}</strong>Followers</motion.li>
-                                            <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('following')} style={{ "fontWeight": "bolder" }}><strong>{following}</strong>Following</motion.li>
-                                        </>
+                                        : compid == 'works' ? (
+                                            <>
+                                                <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')}><strong>{postnum}</strong>Post</motion.li>
+                                                <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('works')} style={{ "fontWeight": "bolder" }}><strong>{worksnum}</strong><p >Works</p></motion.li>
+                                                <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('followers')} ><strong>{followers}</strong>Followers</motion.li>
+                                                <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('following')}><strong>{following}</strong>Following</motion.li>
+                                            </>
+                                        )
+                                            :
+                                            <>
+                                                <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')}><strong>{postnum}</strong>Post</motion.li>
+                                                <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('works')} ><strong>{worksnum}</strong><p >Works</p></motion.li>
+                                                <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('followers')}><strong>{followers}</strong>Followers</motion.li>
+                                                <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('following')} style={{ "fontWeight": "bolder" }}><strong>{following}</strong>Following</motion.li>
+                                            </>
+
                                 }
                             </ul>
                         </div>
@@ -409,12 +470,162 @@ function Profile(props) {
                         : compid == 'followers' ? (
                             <FriendList props={fowlist} />
                         )
-                            :
-                            <FriendList props={finglist} />
+                            : compid == 'works' ? (
+                                <Container style={{ height: '20vh', borderRadius: '20px', marginTop: '4%', maxHeight: '90vh' }}>
+                                    <motion.div
+                                        initial="hide"
+                                        animate="show"
+                                        variants={galleryAnimation}
+                                    >
+                                        <Masonry
+                                            breakpointCols={breakpointColumnsObj}
+                                            className="my-masonry-grid"
+                                            columnClassName="my-masonry-grid_column"
+                                        >
+                                            {hiswork.map((item) => {
+                                                { console.log(item) }
+                                                return <motion.div
+                                                    key={item._id}
+                                                    // variants={cardAnimation}
+                                                    animate={{ y: [-5, 5, 0] }}
+                                                    transition={Cardtransition}
+                                                    whileHover={{ scale: 1.05 }}
+                                                    className="gallery"
+                                                >
+                                                    <Card>
+                                                        {
+                                                            item.url.includes("images") || item.url.includes("jpg") ?
+                                                                <Card.Img as={Image} src={item.url} alt="item._id" />
+                                                                :
+                                                                <Video props={{ "videoSrc": item.url }} />
+                                                        }
+                                                    </Card>
+                                                </motion.div>
+                                            })}
+                                        </Masonry>
+                                    </motion.div>
+                                </Container>
+                            )
+                                :
+                                <FriendList props={finglist} />
+
                     }
                 </div>
             </div>
-            <Row style={{ marginTop: '3%' }}>
+            {seen && showEditPsw && <PopupPost
+                content={<>
+                    <Content style={{ marginLeft: '30%', marginRight: '30%' }} className='center-box'>
+                        <div>
+                            <center>
+                                {/* */}
+                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Please type your old password and new password</i></h6>
+                                <hr />
+                            </center>
+                            <Form>
+                                <Form.Item
+                                    label="Original"
+                                    name="original"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Please input your original password!',
+                                        },
+                                    ]}
+                                >
+                                    <Input.Password onChange={e => setOriPsw(e.target.value)} />
+                                </Form.Item>
+                                <Form.Item
+                                    label="Password"
+                                    name="password"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Please input your password!',
+                                        },
+                                    ]}
+                                >
+                                    <Input.Password onChange={e => setPassword(e.target.value)} />
+                                </Form.Item>
+                                <Form.Item
+                                    label="Confirm "
+                                    name="confirm"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Please confirm your password!',
+                                        },
+                                        compareToFirstPassword,
+                                    ]}
+                                >
+                                    <Input.Password onChange={e => setPassword(e.target.value)} />
+                                </Form.Item>
+                                <Form.Item>
+                                    <center>
+                                        <Button variant="outline-dark" onClick={handleAffirmPsw} >Confirm</Button>{' '}
+                                        <Button variant="outline-dark" onClick={handleClosePsw} >Cancel</Button>
+                                    </center>
+                                </Form.Item>
+                            </Form>
+                        </div>
+                    </Content>
+                </>}
+                handleClose={handleClosePsw}
+            />}
+
+            {seen && showInputName && <PopupPost
+                content={<>
+                    <Content style={{ marginLeft: '30%', marginRight: '30%' }} className='center-box'>
+                        <Form>
+                            <Form.Item>
+                                <center>
+                                    {/* <Button variant="outline-dark" size="sm" onClick={handleCloseName} >Cancel</Button> */}
+                                    <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Please input your new name</i></h6>
+                                    <hr />
+                                </center>
+                            </Form.Item>
+                            <Form.Item
+                                name="editName"
+                                label="Name"
+                                rules={[
+                                    {
+                                        required: true,
+                                    },
+                                ]}
+                            >
+                                <Input onChange={e => setName(e.target.value)} placeholder="Enter Name" />
+                            </Form.Item>
+                            <Form.Item>
+                                <center>
+                                    <Button variant="outline-dark" onClick={handleAffirmName} >Confirm</Button>
+                                    {'   '}
+                                    <Button variant="outline-dark" onClick={handleCloseName} >Cancel</Button>
+                                </center>
+                            </Form.Item>
+                        </Form>
+                    </Content>
+                </>}
+                handleClose={handleCloseName}
+            />}
+
+            {seen && showAvater && <PopupPost
+                content={<>
+                    <Content style={{ marginLeft: '30%', marginRight: '30%' }} className='center-box'>
+                        <div>
+                            <center>
+                                {/* */}
+                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Please upload your new avater</i></h6>
+                                <hr />
+                                <UploadPicinProfile />
+                                <Button variant="outline-dark" onClick={handleImg}>Confirm</Button>{'    '}
+                                <Button variant="outline-dark" onClick={handleCloseAvater} >Cancel</Button>
+                            </center>
+                        </div>
+                    </Content>
+                </>}
+                handleClose={handleCloseAvater}
+            />}
+
+            {/* <Row style={{ marginTop: '3%' }}>
                 <Col>
                     <Card style={{ width: '30rem' }} >
                         <Card.Header>Personal Info</Card.Header>
@@ -434,93 +645,14 @@ function Profile(props) {
                                 <Card.Subtitle className="mb-2 text-muted">{cookie.email}</Card.Subtitle>
                             </center>
                             {showEditPsw ?
-                                <div>
-                                    <center>
-                                        <Button variant="outline-dark" size="sm" onClick={handleClosePsw} >Cancle</Button>
-                                        <hr />
-                                    </center>
-                                    <Form>
-                                        <Form.Item
-                                            label="Original"
-                                            name="original"
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                    message: 'Please input your original password!',
-                                                },
-                                            ]}
-                                        >
-                                            <Input.Password onChange={e => setOriPsw(e.target.value)} />
-                                        </Form.Item>
-                                        <Form.Item
-                                            label="Password"
-                                            name="password"
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                    message: 'Please input your password!',
-                                                },
-                                            ]}
-                                        >
-                                            <Input.Password onChange={e => setPassword(e.target.value)} />
-                                        </Form.Item>
-                                        <Form.Item
-                                            label="Confirm "
-                                            name="confirm"
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                    message: 'Please confirm your password!',
-                                                },
-                                                compareToFirstPassword,
-                                            ]}
-                                        >
-                                            <Input.Password onChange={e => setPassword(e.target.value)} />
-                                        </Form.Item>
-                                        <Form.Item>
-                                            <center>
-                                                <Button variant="outline-dark" size="sm" onClick={handleAffirmPsw} >Confirm</Button>
-                                            </center>
-                                        </Form.Item>
-                                    </Form>
-                                </div>
+                                
 
                                 :
                                 showInputName ?
-                                    <Form>
-                                        <Form.Item>
-                                            <center>
-                                                <Button variant="outline-dark" size="sm" onClick={handleCloseName} >Cancel</Button>
-                                                <hr />
-                                            </center>
-                                        </Form.Item>
-                                        <Form.Item
-                                            name="editName"
-                                            label="Name"
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                },
-                                            ]}
-                                        >
-                                            <Input onChange={e => setName(e.target.value)} placeholder="Enter Name" />
-                                        </Form.Item>
-                                        <Form.Item>
-                                            <center>
-                                                <Button variant="outline-dark" size="sm" onClick={handleAffirmName} >Confirm</Button>
-                                            </center>
-                                        </Form.Item>
-                                    </Form>
+                                    
                                     :
                                     showAvater ?
-                                        <div>
-                                            <center>
-                                                <Button variant="outline-dark" size="sm" onClick={handleCloseAvater} >Cancel</Button>
-                                                <hr />
-                                                <UploadPicinProfile />
-                                                <Button variant="outline-dark" onClick={handleImg}>Confirm</Button>
-                                            </center>
-                                        </div>
+                                        
                                         :
                                         <center>
                                             <Button variant="outline-dark" size="sm" onClick={handleEditName} >Edit Name</Button> {' '}
@@ -532,37 +664,7 @@ function Profile(props) {
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col md={7}>
-                    {/* <Row className="mt-1" style={{ backgroundColor: 'whitesmoke', minHeight: '80vh' }}> */}
-                    <Row>
-                        <center>
-                            <h2 class="d-flex align-items-center mb-3">My work</h2>
-                            <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Historical</i>AI work</h6>
-                        </center>
-                        {/* <Col md={10} lg={10}> */}
-                        <Container style={{ height: '20vh', borderRadius: '20px', marginTop: '4%', maxHeight: '90vh' }}>
-                            <div className='wrap_scrollImg' style={{ width: '100%', height: '100%' }}>
-                                <span className='left_icon' onClick={clickLeftIcon}><LeftCircleOutlined /></span>
-                                <span className='right_icon' onClick={clickRightIcon}><RightCircleOutlined /></span>
-                                <ul style={{ transform: `translateX(${translateX}px)` }} ref={ref}>
-                                    {hiswork.map(item => {
-                                        return <li key={item.name}>
-                                            {item.type === 'image' ?
-                                                <Image as={Image} style={{ height: '100%', witdh: '200%', objectFit: 'cover', maxHeight: '100vh' }} src={item.url} fluid={true} alt="item.name" />
-                                                :
-                                                <Video props={{ "videoSrc": item.url }} style={{ height: '100%', witdh: '200%', objectFit: 'cover', maxHeight: '100vh' }} />
-                                            }
-                                        </li>;
-                                    })}
-                                </ul>
-                                {/* <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">There is no historical work, Let's start creating</i></h6>
-                                <Button variant="outline-primary" size="lg" href="/AI_face_topic" style={{ marginTop: 20, marginRight: 10 }}>Get Start</Button>{' '}
- */}
-                            </div>
-                        </Container>
-                    </Row>
-                </Col>
-            </Row >
+            </Row > */}
         </Container >
     )
 }
