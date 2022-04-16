@@ -429,32 +429,32 @@ function Profile(props) {
                             <ul className="nav">
                                 {compid == 'post' ? (
                                     <>
-                                        <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')} style={{ "fontWeight": "bolder" }}><strong>{postnum}</strong><p >Post</p></motion.li>
                                         <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('works')} ><strong>{worksnum}</strong><p >Works</p></motion.li>
+                                        <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')} style={{ "fontWeight": "bolder" }}><strong>{postnum}</strong><p >Post</p></motion.li>
                                         <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('followers')}><strong>{followers}</strong>Followers</motion.li>
                                         <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('following')}><strong>{following}</strong>Following</motion.li>
                                     </>
                                 )
                                     : compid == 'followers' ? (
                                         <>
-                                            <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')}><strong>{postnum}</strong>Post</motion.li>
                                             <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('works')}><strong>{worksnum}</strong><p >Works</p></motion.li>
+                                            <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')}><strong>{postnum}</strong>Post</motion.li>
                                             <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('followers')} style={{ "fontWeight": "bolder" }}><strong>{followers}</strong>Followers</motion.li>
                                             <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('following')}><strong>{following}</strong>Following</motion.li>
                                         </>
                                     )
                                         : compid == 'works' ? (
                                             <>
-                                                <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')}><strong>{postnum}</strong>Post</motion.li>
                                                 <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('works')} style={{ "fontWeight": "bolder" }}><strong>{worksnum}</strong><p >Works</p></motion.li>
+                                                <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')}><strong>{postnum}</strong>Post</motion.li>
                                                 <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('followers')} ><strong>{followers}</strong>Followers</motion.li>
                                                 <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('following')}><strong>{following}</strong>Following</motion.li>
                                             </>
                                         )
                                             :
                                             <>
-                                                <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')}><strong>{postnum}</strong>Post</motion.li>
                                                 <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('works')} ><strong>{worksnum}</strong><p >Works</p></motion.li>
+                                                <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')}><strong>{postnum}</strong>Post</motion.li>
                                                 <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('followers')}><strong>{followers}</strong>Followers</motion.li>
                                                 <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('following')} style={{ "fontWeight": "bolder" }}><strong>{following}</strong>Following</motion.li>
                                             </>
@@ -471,7 +471,7 @@ function Profile(props) {
                             <FriendList props={fowlist} />
                         )
                             : compid == 'works' ? (
-                                <Container style={{ height: '20vh', borderRadius: '20px', marginTop: '4%', maxHeight: '90vh' }}>
+                                <Container style={{ height: '20vh', borderRadius: '20px', marginTop: '1%', maxHeight: '90vh' }}>
                                     <motion.div
                                         initial="hide"
                                         animate="show"
