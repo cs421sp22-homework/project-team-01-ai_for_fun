@@ -371,6 +371,36 @@ func UnFollow() gin.HandlerFunc {
 	}
 }
 
+func IsFollowed() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		var followInfo model.FollowInfo
+
+		err := c.BindJSON(&followInfo)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		var result bson.M
+		filter := bson.M{"user_id": followInfo.Followed_Id,"follower_list": followInfo.Follower_Id}
+		err1 := userCollection.FindOne(ctx, filter).Decode(&result)
+		if err1 != nil {
+			if err1 == mongo.ErrNoDocuments {
+				c.Header("Access-Control-Allow-Origin", "*")
+				c.Header("Access-Control-Allow-Headers", "Origin,Content-Length,Content-Type,token")
+				c.JSON(http.StatusOK, bson.M{"res": "0"})
+				return
+			}
+			log.Fatal(err1)
+		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Origin,Content-Length,Content-Type,token")
+		c.JSON(http.StatusOK, bson.M{"res": "1"})
+
+	}
+}
+
 func GetFollowInfo() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		userId := c.Param("user_id")
