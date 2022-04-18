@@ -19,6 +19,7 @@ import { motion } from 'framer-motion';
 import FriendList from "./FriendList";
 import Masonry from 'react-masonry-css';
 import Gallery from "../container/Community_home";
+import { Modal } from 'antd';
 import {
     StyleSheet,
     Text,
@@ -511,65 +512,67 @@ function Profile(props) {
                     }
                 </div>
             </div>
-            {seen && showEditPsw && <PopupPost
-                content={<>
-                    <Content style={{ marginLeft: '30%', marginRight: '30%' }} className='center-box'>
-                        <div>
-                            <center>
-                                {/* */}
-                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Please type your old password and new password</i></h6>
-                                <hr />
-                            </center>
-                            <Form>
-                                <Form.Item
-                                    label="Original"
-                                    name="original"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input your original password!',
-                                        },
-                                    ]}
-                                >
-                                    <Input.Password onChange={e => setOriPsw(e.target.value)} />
-                                </Form.Item>
-                                <Form.Item
-                                    label="Password"
-                                    name="password"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please input your password!',
-                                        },
-                                    ]}
-                                >
-                                    <Input.Password onChange={e => setPassword(e.target.value)} />
-                                </Form.Item>
-                                <Form.Item
-                                    label="Confirm "
-                                    name="confirm"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please confirm your password!',
-                                        },
-                                        compareToFirstPassword,
-                                    ]}
-                                >
-                                    <Input.Password onChange={e => setPassword(e.target.value)} />
-                                </Form.Item>
-                                <Form.Item>
-                                    <center>
-                                        <Button variant="outline-dark" onClick={handleAffirmPsw} >Confirm</Button>{' '}
-                                        <Button variant="outline-dark" onClick={handleClosePsw} >Cancel</Button>
-                                    </center>
-                                </Form.Item>
-                            </Form>
-                        </div>
-                    </Content>
-                </>}
-                handleClose={handleClosePsw}
-            />}
+
+            <Modal
+                visible={seen && showEditPsw}
+            >
+                <Content style={{ marginLeft: '30%', marginRight: '30%' }} className='center-box'>
+                    <div>
+                        <center>
+                            {/* */}
+                            <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Please type your old password and new password</i></h6>
+                            <hr />
+                        </center>
+                        <Form>
+                            <Form.Item
+                                label="Original"
+                                name="original"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your original password!',
+                                    },
+                                ]}
+                            >
+                                <Input.Password onChange={e => setOriPsw(e.target.value)} />
+                            </Form.Item>
+                            <Form.Item
+                                label="Password"
+                                name="password"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your password!',
+                                    },
+                                ]}
+                            >
+                                <Input.Password onChange={e => setPassword(e.target.value)} />
+                            </Form.Item>
+                            <Form.Item
+                                label="Confirm "
+                                name="confirm"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please confirm your password!',
+                                    },
+                                    compareToFirstPassword,
+                                ]}
+                            >
+                                <Input.Password onChange={e => setPassword(e.target.value)} />
+                            </Form.Item>
+                            <Form.Item>
+                                <center>
+                                    <Button variant="outline-dark" onClick={handleAffirmPsw} >Confirm</Button>{' '}
+                                    <Button variant="outline-dark" onClick={handleClosePsw} >Cancel</Button>
+                                </center>
+                            </Form.Item>
+                        </Form>
+                    </div>
+                </Content>
+
+            </Modal>
+
 
             {seen && showInputName && <PopupPost
                 content={<>
