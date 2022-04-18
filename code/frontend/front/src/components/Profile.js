@@ -515,8 +515,10 @@ function Profile(props) {
 
             <Modal
                 visible={seen && showEditPsw}
+                onOk={handleAffirmPsw}
+                onCancel={handleClosePsw}
             >
-                <Content style={{ marginLeft: '30%', marginRight: '30%' }} className='center-box'>
+                <Content className='center-box'>
                     <div>
                         <center>
                             {/* */}
@@ -561,112 +563,66 @@ function Profile(props) {
                             >
                                 <Input.Password onChange={e => setPassword(e.target.value)} />
                             </Form.Item>
-                            <Form.Item>
-                                <center>
-                                    <Button variant="outline-dark" onClick={handleAffirmPsw} >Confirm</Button>{' '}
-                                    <Button variant="outline-dark" onClick={handleClosePsw} >Cancel</Button>
-                                </center>
-                            </Form.Item>
                         </Form>
                     </div>
                 </Content>
 
             </Modal>
 
-
-            {seen && showInputName && <PopupPost
-                content={<>
-                    <Content style={{ marginLeft: '30%', marginRight: '30%' }} className='center-box'>
-                        <Form>
-                            <Form.Item>
-                                <center>
-                                    {/* <Button variant="outline-dark" size="sm" onClick={handleCloseName} >Cancel</Button> */}
-                                    <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Please input your new name</i></h6>
-                                    <hr />
-                                </center>
-                            </Form.Item>
-                            <Form.Item
-                                name="editName"
-                                label="Name"
-                                rules={[
-                                    {
-                                        required: true,
-                                    },
-                                ]}
-                            >
-                                <Input onChange={e => setName(e.target.value)} placeholder="Enter Name" />
-                            </Form.Item>
-                            <Form.Item>
-                                <center>
-                                    <Button variant="outline-dark" onClick={handleAffirmName} >Confirm</Button>
-                                    {'   '}
-                                    <Button variant="outline-dark" onClick={handleCloseName} >Cancel</Button>
-                                </center>
-                            </Form.Item>
-                        </Form>
-                    </Content>
-                </>}
-                handleClose={handleCloseName}
-            />}
-
-            {seen && showAvater && <PopupPost
-                content={<>
-                    <Content style={{ marginLeft: '30%', marginRight: '30%' }} className='center-box'>
-                        <div>
+            <Modal
+                visible={seen && showInputName}
+                onOk={handleAffirmName}
+                onCancel={handleCloseName}
+            >
+                <Content className='center-box'>
+                    <Form>
+                        <Form.Item>
                             <center>
-                                {/* */}
-                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Please upload your new avater</i></h6>
+                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Please input your new name</i></h6>
                                 <hr />
-                                <UploadPicinProfile />
-                                <Button variant="outline-dark" onClick={handleImg}>Confirm</Button>{'    '}
-                                <Button variant="outline-dark" onClick={handleCloseAvater} >Cancel</Button>
                             </center>
-                        </div>
-                    </Content>
-                </>}
-                handleClose={handleCloseAvater}
-            />}
-
-            {/* <Row style={{ marginTop: '3%' }}>
-                <Col>
-                    <Card style={{ width: '30rem' }} >
-                        <Card.Header>Personal Info</Card.Header>
-                        <Card.Body>
-                            <Row className='mt-4'>
-                                <div style={{ width: '100px' }} className="mx-auto">
-                                    <Image
-                                        width={'90%'}
-                                        src={avatar}
-                                        center={'true'}
-                                    />
-                                </div>
-                            </Row>
-                            <br />
+                        </Form.Item>
+                        <Form.Item
+                            name="editName"
+                            label="Name"
+                            rules={[
+                                {
+                                    required: true,
+                                },
+                            ]}
+                        >
+                            <Input onChange={e => setName(e.target.value)} placeholder="Enter Name" />
+                        </Form.Item>
+                        {/* <Form.Item>
                             <center>
-                                <Card.Title>{cookie.name}</Card.Title>
-                                <Card.Subtitle className="mb-2 text-muted">{cookie.email}</Card.Subtitle>
+                                <Button variant="outline-dark" onClick={handleAffirmName} >Confirm</Button>
+                                {'   '}
+                                <Button variant="outline-dark" onClick={handleCloseName} >Cancel</Button>
                             </center>
-                            {showEditPsw ?
-                                
+                        </Form.Item> */}
+                    </Form>
+                </Content>
+            </Modal>
 
-                                :
-                                showInputName ?
-                                    
-                                    :
-                                    showAvater ?
-                                        
-                                        :
-                                        <center>
-                                            <Button variant="outline-dark" size="sm" onClick={handleEditName} >Edit Name</Button> {' '}
-                                            <Button variant="outline-dark" size="sm" onClick={handleEditAvater} >Edit Avatar</Button> {' '}
-                                            <Button variant="outline-dark" size="sm" onClick={handleEditPsw} >Edit Password</Button>
-                                            <hr />
-                                        </center>
-                            }
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row > */}
+            <Modal
+                visible={seen && showAvater}
+                onOk={handleImg}
+                onCancel={handleCloseAvater}
+            >
+                <Content className='center-box'>
+                    <div>
+                        <center>
+                            {/* */}
+                            <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Please upload your new avater</i></h6>
+                            <hr />
+                            <UploadPicinProfile />
+                            {/* <Button variant="outline-dark" onClick={handleImg}>Confirm</Button>{'    '}
+                            <Button variant="outline-dark" onClick={handleCloseAvater} >Cancel</Button> */}
+                        </center>
+                    </div>
+                </Content>
+
+            </Modal>
         </Container >
     )
 }
