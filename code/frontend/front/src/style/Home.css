@@ -11,7 +11,7 @@
 }
 
 
-ul.nav.nav-tabs {
+.nav-tabs {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,6 +19,16 @@ ul.nav.nav-tabs {
     padding: 0px;
 }
 
+.nav-tabs .nav-link {
+    color: grey;
+    font-weight: 650;
+    font-size: 16px;
+    /* font-style:italic; */
+  }
+
+.nav-tabs .nav-link:hover{
+    color: black;
+}
 
 
 @media screen and (min-width: 1200px){

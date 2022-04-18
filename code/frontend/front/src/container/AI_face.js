@@ -1,39 +1,39 @@
 import React, { Fragment, useState, PureComponent } from "react";
-import ReactDOM from 'react-dom';
-import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Slideshow from "../components/Slideshow";
 import SlideshowInMode from "../components/recommend-in-mode/SlideshowInMode";
-import Card from 'react-bootstrap/Card'
-import UploadPic from '../components/UploadPic';
+import EditVideo from './EditVideo';
 import '../style/Slideshow.css';
 import '../style/sider.css';
 // import UploadFile from "../components/UploadFile";
 // import FaceResult from "../components/FaceResult";
-import SlidesShowInLeft from "../components/recommend-in-mode/SlidesShowInLeft";
-import CollectionInLeft from "../components/recommend-in-mode/CollectionInLeft";
-import Video from '../components/Video';
-import UploadFace from '../components/UploadFace';
-import EditVideo from './EditVideo';
+// import Card from 'react-bootstrap/Card'
+// import UploadPic from '../components/UploadPic';
+// import ReactDOM from 'react-dom';
+// import Container from 'react-bootstrap/Container';
+// import Col from 'react-bootstrap/Col';
+// import Row from 'react-bootstrap/Row';
+// import Slideshow from "../components/Slideshow";
+// import SlidesShowInLeft from "../components/recommend-in-mode/SlidesShowInLeft";
+// import CollectionInLeft from "../components/recommend-in-mode/CollectionInLeft";
+// import Video from '../components/Video';
+// import UploadFace from '../components/UploadFace';
 
 
 import { Layout, Menu, Breadcrumb } from 'antd';
 import {
-    DesktopOutlined,
-    PieChartOutlined,
-    FileOutlined,
-    TeamOutlined,
     UserOutlined,
+    UserAddOutlined,
+    UserDeleteOutlined,
+    UsergroupAddOutlined,
     AppstoreOutlined,
     BarChartOutlined,
     CloudOutlined,
     ShopOutlined,
     UploadOutlined,
     VideoCameraOutlined,
-    UserAddOutlined,
-    UserDeleteOutlined,
-    UsergroupAddOutlined,
+    DesktopOutlined,
+    PieChartOutlined,
+    FileOutlined,
+    TeamOutlined,
     MailOutlined
 
 } from '@ant-design/icons';
@@ -83,7 +83,7 @@ export const AI_face = () => {
         <>
             <Layout hasSider>
                 <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}
-                    theme="dark" width='50%' collapsedWidth='5%'
+                    theme="dark" width='30%' collapsedWidth='5%'
                     style={{
                         height: 'auto',
                         width: '100%',
@@ -99,10 +99,22 @@ export const AI_face = () => {
                         <SubMenu key="sub2" icon={<UserDeleteOutlined />} title="Meme">
                             <SlideshowInMode imgData={Face_Meme} />
                         </SubMenu>
-                        <SubMenu key="sub3" icon={<UserOutlined />} title="moive celebrity">
+                        <SubMenu key="sub3" icon={<UserOutlined />} title="Moive Star">
                             <SlideshowInMode imgData={Movie} />
                         </SubMenu>
                         <SubMenu key="sub4" icon={<UsergroupAddOutlined />} title="Friends Meme">
+                            <SlideshowInMode imgData={Friends} />
+                        </SubMenu>
+                        <SubMenu key="sub1" icon={<UserAddOutlined />} title="President">
+                            <SlideshowInMode imgData={Face_Singers} />
+                        </SubMenu>
+                        <SubMenu key="sub2" icon={<UserDeleteOutlined />} title="Game of Thrones">
+                            <SlideshowInMode imgData={Face_Meme} />
+                        </SubMenu>
+                        <SubMenu key="sub3" icon={<UserOutlined />} title="Harry Potter">
+                            <SlideshowInMode imgData={Movie} />
+                        </SubMenu>
+                        <SubMenu key="sub3" icon={<UserOutlined />} title="Marvel">
                             <SlideshowInMode imgData={Friends} />
                         </SubMenu>
                     </Menu>
