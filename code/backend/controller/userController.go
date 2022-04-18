@@ -148,6 +148,23 @@ func Login() gin.HandlerFunc {
 	}
 }
 
+func UserBasicInfo() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		userId := c.Param("user_id")
+		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		var user model.User
+		err := userCollection.FindOne(ctx, bson.M{"user_id": userId}).Decode(&user)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Origin,Content-Length,Content-Type,token")
+		c.JSON(http.StatusOK, user)
+	}
+}
+
 func GetUsers() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		err := helper.CheckUserType(c, "ADMIN")
