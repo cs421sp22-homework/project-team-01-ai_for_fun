@@ -12,7 +12,6 @@ import Login from "../container/Login";
 import Register from "../container/Register";
 import "../style/App.css"
 import { LoginContext } from '../context/AuthProvider';
-import EditVideo from "../container/EditVideo";
 import { AI_face } from "../container/AI_face";
 import { AI_text } from "../container/AI_text";
 import { AI_face_topic } from "../container/AI_face_topic";

@@ -105,15 +105,12 @@ function RightSidebar() {
           borderRadius="1rem"
           gap="0.2rem"
           boxShadow="0 3px 10px rgb(0 0 0 / 0.2)"
+          style={{'height':'200px'}}
         >
           <Flex borderRadius="50%">
-            <Image src="/catboi.jpeg" alt="" width="90%" height="90%" />
           </Flex>
           <Flex flexDirection="column" alignItems="start">
-            <Heading as="h5" size="lg">
-              Painman
-            </Heading>
-            <Text>@painman</Text>
+            <Text>Register/ Login</Text>
           </Flex>
         </Flex>
       }

@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import Macy from 'macy';
 import React, { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Image } from "react-bootstrap";
