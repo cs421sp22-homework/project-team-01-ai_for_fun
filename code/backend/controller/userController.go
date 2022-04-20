@@ -278,6 +278,11 @@ func ChangeUser() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occur when update mongodb"})
 			return
 		}
+		foundUser.Avatar, err = helper.UpdateUrl(foundUser.Avatar)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occur when update avatar url"})
+			return
+		}
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.Header("Access-Control-Allow-Headers", "Origin,Content-Length,Content-Type,token")
 		c.JSON(http.StatusOK, foundUser)
