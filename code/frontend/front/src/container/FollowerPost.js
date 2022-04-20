@@ -4,19 +4,19 @@ import Feed from "../components/Feed";
 import {Row, Col} from 'react-bootstrap';
 import { useCookies } from 'react-cookie';
 
-
-function YourPost() {
+function FollowerPost() {
   useEffect(() => {
     document.title = "Ifun-Community";
   }, []);
   const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
   const [posts, setPosts]=useState([]);
   useEffect(async()=>{
-        let url = 'https://server-demo.ai-for-fun-backend.com/getuserpost/' + cookie.user_id;
+        let url = 'https://server-demo.ai-for-fun-backend.com/getfollowedpost/' + cookie.user_id;
         const response = await fetch(url)
         console.log(response);
         if (response.status == 200) {
             const content = await response.json();
+            console.log('wowo',content)
             setPosts(content)
         }
         else {
@@ -32,10 +32,10 @@ function YourPost() {
         <Feed
           isExplore={false}
           isLibrary={false}
-          isYourPosts={posts}
+          isYourPosts={false}
           isSearch={false}
           isProfile={false}
-          isFollower={false}
+          isFollower={posts}
           homePosts={false}
         />
       </Col>
@@ -43,4 +43,4 @@ function YourPost() {
   );
 };
 
-export default YourPost;
+export default FollowerPost;

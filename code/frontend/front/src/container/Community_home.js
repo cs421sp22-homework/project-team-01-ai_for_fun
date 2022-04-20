@@ -104,7 +104,7 @@ function Gallery(probs) {
       renderItem={props => (
         <>
           <Comment
-            actions={[<span key="comment-list-reply-to-0"  >Reply to</span>]}
+            // actions={[<span key="comment-list-reply-to-0"  >Reply to</span>]}
             author={itemP.user_name}
             // avatar={itemP.user_avater}
             avatar="https://joeschmoe.io/api/v1/random"

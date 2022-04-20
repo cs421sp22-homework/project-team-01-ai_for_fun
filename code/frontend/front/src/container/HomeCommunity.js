@@ -17,7 +17,7 @@ function Community_home() {
     fetch(url)
         .then(res => res.json())
         .then(
-        (result) => setPosts(result)
+        (result) => {setPosts(result);console.log('yes',result)}
         )
     },[])
   if (posts?.length === 0) {
@@ -25,7 +25,7 @@ function Community_home() {
   }
   return (
     <Row>
-      <Col md={3} xxl={2} className="ml-2">
+     <Col md={3} xxl={2} className="ml-2">
         <RightSidebar />
       </Col>
       <Col md = {8} xxl={9} className="mt-4">

@@ -61,15 +61,16 @@ function RightSidebar() {
       <Tooltip label="The user information" openDelay={300}>
         {cookie.user_id?
                 <Flex
-                // className="profilestuff"
-                // cursor="pointer"
                 alignItems="center"
                 width="100%"
                 padding="1rem"
                 borderRadius="1rem"
-                gap="0.2rem"
+                gap="0.1rem"
                 boxShadow="0 3px 10px rgb(0 0 0 / 0.2)"
                 flexDirection="column"
+                onClick={() => {
+                  navigate("/userdetail/"+cookie.user_id);
+                }}
               >
                 <Flex>
                   <Avatar src={cookie.avatar} size={80} alt=""/>
@@ -223,7 +224,7 @@ function RightSidebar() {
             </Heading>
           </Flex>
         )}
-        {window.location.pathname === "/explore" ? (
+        {window.location.pathname === "/recommend" ? (
           <Flex
             alignItems="center"
             cursor="pointer"
@@ -232,17 +233,17 @@ function RightSidebar() {
             gap="1rem"
             backgroundColor={colorMode === "light" ? "#cfcfcf57" : "#27272983"}
             onClick={() => {
-              navigate("/explore");
+              navigate("/recommend");
             }}
           >
-            <MdExplore
+            <MdPhotoLibrary
               size="1.4rem"
               style={{
                 marginLeft: "1rem",
               }}
             />
             <Heading as="h5" size="md">
-              Explore
+              Trend
             </Heading>
           </Flex>
         ) : (
@@ -257,30 +258,7 @@ function RightSidebar() {
                 colorMode === "light" ? "#cfcfcf57" : "#27272983",
             }}
             onClick={() => {
-              navigate("/explore");
-            }}
-          >
-            <MdExplore
-              size="1.4rem"
-              style={{
-                marginLeft: "1rem",
-              }}
-            />
-            <Heading as="h5" size="md">
-              Explore
-            </Heading>
-          </Flex>
-        )}
-        {window.location.pathname === "/library" ? (
-          <Flex
-            alignItems="center"
-            cursor="pointer"
-            height="4rem"
-            transition="all 300ms ease"
-            gap="1rem"
-            backgroundColor={colorMode === "light" ? "#cfcfcf57" : "#27272983"}
-            onClick={() => {
-              navigate("/library");
+              navigate("/recommend");
             }}
           >
             <MdPhotoLibrary
@@ -290,32 +268,7 @@ function RightSidebar() {
               }}
             />
             <Heading as="h5" size="md">
-              Library
-            </Heading>
-          </Flex>
-        ) : (
-          <Flex
-            alignItems="center"
-            cursor="pointer"
-            height="4rem"
-            transition="all 300ms ease"
-            gap="1rem"
-            _hover={{
-              backgroundColor:
-                colorMode === "light" ? "#cfcfcf57" : "#27272983",
-            }}
-            onClick={() => {
-              navigate("/library");
-            }}
-          >
-            <MdPhotoLibrary
-              size="1.4rem"
-              style={{
-                marginLeft: "1rem",
-              }}
-            />
-            <Heading as="h5" size="md">
-              Library
+              Trend
             </Heading>
           </Flex>
         )}

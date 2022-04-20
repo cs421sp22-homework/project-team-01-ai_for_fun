@@ -18,6 +18,8 @@ import { AI_face_topic } from "../container/AI_face_topic";
 import { CookiesProvider } from 'react-cookie';
 import Community_home from '../container/HomeCommunity';
 import YourPost from "../container/YourPost";
+import FollowerPost from "../container/FollowerPost";
+import Recommend from "../container/Recommend";
 import Post from "../container/Post";
 import { AI_style } from "../container/AI_style";
 import ProfileHeader from "./ProfileHeader";
@@ -49,8 +51,10 @@ function App() {
               <Route path="/AI_face_topic" element={<AI_face_topic />} />
               <Route path="/gallery" element={<Community_home />} />
               <Route path="/your_posts" element={<YourPost />} />
+              <Route path="/followers" element={<FollowerPost />} />
               <Route path="/post" element={<Post />} />
               <Route path="/userdetail/:name" element={<ProfileHeader/>}/>
+              <Route path="/recommend" element={<Recommend/>}/>
             </Routes>
           </div>
         </Router>

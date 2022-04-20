@@ -42,11 +42,9 @@ import {
         height="max-content"
       >
         <Heading as="h4" size="md">
-          Saved posts
+          Recommend post
         </Heading>
-        {props?.libraryPosts?.map((post, index) => (
-          <Post key={index} posts={post} />
-        ))}
+         <Gallery props={props.isLibrary}/>
       </Flex>
     ) : props?.isYourPosts ? (
       <Flex
@@ -136,24 +134,11 @@ import {
         top="5.4rem"
         height="max-content"
       >
-        <Flex gap="2rem" alignItems="center" flexWrap="wrap" marginBottom="1rem">
-          {props?.followersData?.map((user, index) => (
-            <Tooltip label={user?.username} openDelay={400} key={index}>
-              <Avatar
-                width="16"
-                height="16"
-                cursor="pointer"
-                src={user?.pfp}
-                onClick={() => {
-                  navigate(`/profile/${user?.uid}`);
-                }}
-              />
-            </Tooltip>
-          ))}
-        </Flex>
         <Heading as="h4" size="md">
           Your followers post
         </Heading>
+         <Gallery props={props.isFollower}/>
+
       </Flex>
     ) : (
       <Flex
