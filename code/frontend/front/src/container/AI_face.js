@@ -106,16 +106,16 @@ export const AI_face = () => {
                             <SlideshowInMode imgData={Friends} />
                         </SubMenu>
                         <SubMenu key="sub1" icon={<UserAddOutlined />} title="President">
-                            <SlideshowInMode imgData={Face_Singers} />
+                            <SlideshowInMode imgData={President} />
                         </SubMenu>
                         <SubMenu key="sub2" icon={<UserDeleteOutlined />} title="Game of Thrones">
-                            <SlideshowInMode imgData={Face_Meme} />
+                            <SlideshowInMode imgData={Game_of_Thrones} />
                         </SubMenu>
                         <SubMenu key="sub3" icon={<UserOutlined />} title="Harry Potter">
-                            <SlideshowInMode imgData={Movie} />
+                            <SlideshowInMode imgData={Harry_Potter} />
                         </SubMenu>
                         <SubMenu key="sub3" icon={<UserOutlined />} title="Marvel">
-                            <SlideshowInMode imgData={Friends} />
+                            <SlideshowInMode imgData={Marvel} />
                         </SubMenu>
                     </Menu>
                 </Sider>
@@ -201,3 +201,45 @@ const Vedio = [
     { imgUrl: './img/06.png', name: '06', topic: 'Face' },
     { imgUrl: './img/07.png', name: '07', topic: 'Good' },
 ];
+
+const President = [
+    { imgUrl: 'https://images.unsplash.com/photo-1580130379624-3a069adbffc5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJlc2lkZW50fGVufDB8fDB8fA%3D%3D&w=1000&q=80', name: '01', topic: 'President' },
+    { imgUrl: 'https://image.cnbcfm.com/api/v1/image/104345735-GettyImages-653677586.jpg?v=1529474517&w=740&h=416&ffmt=webp', name: '02', topic: 'President' },
+    { imgUrl: 'https://cdn.britannica.com/55/91555-131-C5BCDFC8/Gerald-R-Ford.jpg?q=60', name: '03', topic: 'President' },
+    { imgUrl: 'https://www.loc.gov/static/portals/free-to-use/public-domain/presidential-portraits/46-joe-biden.png', name: '04', topic: 'President' },
+    { imgUrl: 'https://www.aljazeera.com/wp-content/uploads/2022/02/AP22052707918559.jpg?resize=770%2C513', name: '05', topic: 'President' },
+    { imgUrl: 'https://www.whitehouse.gov/wp-content/uploads/2021/01/43_george_w_bush.jpg', name: '06', topic: 'President' },
+    { imgUrl: 'https://c.ndtvimg.com/2020-09/46c72q8o_president-ram-nath-kovind-pti_625x300_19_September_20.jpg?im=Resize=(1230,900)', name: '07', topic: 'President' },
+];
+
+const Game_of_Thrones = [
+    { imgUrl: 'https://media.wired.com/photos/5ce2cb8cc24878f51ab12540/master/pass/Culture_GOTFinale_Crosstalk.jpg', name: '01', topic: 'Game_of_Thrones' },
+    { imgUrl: 'https://assets.vogue.com/photos/589176397edfa70512d6493d/master/pass/jon-snow-game-of-thrones.jpg', name: '02', topic: 'Game_of_Thrones' },
+    { imgUrl: 'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F6%2F2019%2F02%2Fhelen-sloan-hbo-3.jpg&q=60', name: '03', topic: 'Game_of_Thrones' },
+    { imgUrl: 'https://media.wired.com/photos/5cdcb1b82c90a35c66b7da8b/master/pass/Culture_GOT_Storytelling.jpg', name: '04', topic: 'Game_of_Thrones' },
+    { imgUrl: 'https://images.squarespace-cdn.com/content/v1/52fc05c9e4b08fc45bd99090/1563302834562-M0WSL1SOJKQ81KHSR2LR/got-emmy-nom-2019-1920+%281%29.jpg?format=2500w', name: '05', topic: 'Game_of_Thrones' },
+    { imgUrl: 'https://api.time.com/wp-content/uploads/2019/05/game-of-thrones-s8-e6-arya-stark.jpeg', name: '06', topic: 'Game_of_Thrones' },
+    { imgUrl: 'https://static.independent.co.uk/s3fs-public/thumbnails/image/2020/08/15/08/game-of-thrones-jaime-lannister-horse.jpg?quality=50&width=640&auto=webp', name: '07', topic: 'Game_of_Thrones' },
+];
+
+const Harry_Potter = [
+    { imgUrl: 'https://www.irishtimes.com/polopoly_fs/1.3170107.1501253408!/image/image.jpg_gen/derivatives/ratio_1x1_w1200/image.jpg', name: '01', topic: 'Harry_Potter' },
+    { imgUrl: 'https://i.insider.com/5ece9322f34d050a92546892?width=1000&format=jpeg&auto=webp', name: '02', topic: 'Harry_Potter' },
+    { imgUrl: 'https://deadline.com/wp-content/uploads/2021/03/MEGA420148_040-e1616112754104.jpg?w=681&h=383&crop=1', name: '03', topic: 'Harry_Potter' },
+    { imgUrl: 'https://i.insider.com/5cf6db2c594ea513a80f5597?width=700', name: '04', topic: 'Harry_Potter' },
+    { imgUrl: 'https://images.ctfassets.net/usf1vwtuqyxm/7GXo7mab9pPauATRz3qyuL/7760eadc44c1d84a161109a9df074636/HP-F2-chamber-of-secrets-hermione-writing-quill-thoughtful-web-landscape', name: '05', topic: 'Harry_Potter' },
+    { imgUrl: 'https://www.foxtel.com.au/content/dam/foxtel/whats-on/insider/2021/november/harry-potter-800x450.jpg', name: '06', topic: 'Harry_Potter' },
+    { imgUrl: 'https://media1.popsugar-assets.com/files/thumbor/xE8u-G0SXl291R6ohkFVw5nG71k/273x202:2620x2549/fit-in/550x550/filters:format_auto-!!-:strip_icc-!!-/2022/01/05/830/n/1922283/e161474f61d5e9c43455a0.98910495_/i/emma-watson-responds-to-harry-potter-emma-roberts-mistake.jpg', name: '07', topic: 'Harry_Potter' },
+];
+
+const Marvel = [
+    { imgUrl: 'https://www.thefactsite.com/wp-content/uploads/2021/04/thor-facts.jpg', name: '01', topic: 'marvel' },
+    { imgUrl: 'https://bgr.com/wp-content/uploads/2021/12/spider-man-no-way-home-2.jpg?quality=82&strip=all&w=1440&h=733&crop=1', name: '02', topic: 'marvel' },
+    { imgUrl: 'https://bgr.com/wp-content/uploads/2019/11/avengers-endgame-iron-man-gauntlet.jpg?quality=82&strip=all', name: '03', topic: 'marvel' },
+    { imgUrl: 'https://i.insider.com/5ca38e1a92c8862ab30b0f93?width=600&format=jpeg&auto=webp', name: '04', topic: 'marvel' },
+    { imgUrl: 'https://w0.peakpx.com/wallpaper/223/397/HD-wallpaper-captain-america-avengers-endgame-captain-america-marvel-marvel-comics-marvel-superheroes-superheroes.jpg', name: '05', topic: 'marvel' },
+    { imgUrl: 'https://chorus.stimg.co/23032387/hawkeye.jpg?fit=crop&crop=faces', name: '06', topic: 'marvel' },
+    { imgUrl: 'https://www.giantfreakinrobot.com/wp-content/uploads/2021/05/Brie-Larson-Captain-Marvel-feature-900x506.jpg', name: '07', topic: 'marvel' },
+];
+
+
