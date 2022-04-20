@@ -137,7 +137,8 @@ func Login() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-		foundUser.Avatar, err = helper.UpdateUrl("public/" + foundUser.Avatar)
+		id := foundUser.Avatar[3:]
+		foundUser.Avatar, err = helper.GetFile("public/" + id)
 		fmt.Println(foundUser.Avatar)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating url"})
@@ -279,7 +280,9 @@ func ChangeUser() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occur when update mongodb"})
 			return
 		}
-		foundUser.Avatar, err = helper.UpdateUrl("public/" + foundUser.Avatar)
+		id := foundUser.Avatar[3:]
+		foundUser.Avatar, err = helper.GetFile("public/" + id)
+		fmt.Println(foundUser.Avatar)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occur when update avatar url"})
 			return
