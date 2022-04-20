@@ -137,7 +137,8 @@ func Login() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-		foundUser.Avatar, err = helper.UpdateUrl(foundUser.Avatar)
+		foundUser.Avatar, err = helper.UpdateUrl("public/" + foundUser.Avatar)
+		fmt.Println(foundUser.Avatar)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating url"})
 			return
