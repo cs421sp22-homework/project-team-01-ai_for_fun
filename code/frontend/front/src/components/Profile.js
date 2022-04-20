@@ -25,6 +25,7 @@ import {
     Text,
     View,
 } from 'react-native';
+import { AWS_CLOUDWATCH_MAX_BATCH_EVENT_SIZE } from '@aws-amplify/core';
 // import "../style/EditVideo.css"
 const { TextArea } = Input;
 const { Content } = Layout;
@@ -283,6 +284,10 @@ function Profile(props) {
                 let expires = new Date();
                 expires.setTime();
                 setCookie('avatar', content.avatar);
+                setAvatar(content.avatar);
+                console.log("return avater " + content.avatar);
+                console.log("cookie avater" + cookie.avatar);
+                console.log("avater  " + avatar);
                 // avatar = content.avatar;
                 message.success('change IMG successful😊')
                 setshowAvater(false);
@@ -398,7 +403,8 @@ function Profile(props) {
                 <div className="row mt-3">
                     <div className="panel profile-cover" style={{ marginBottom: '20px' }}>
                         <div className="profile-cover__img" style={{ marginBottom: '20px', marginLeft: '5px' }}>
-                            <Image src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" />
+                            {/* <Image src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" /> */}
+                            <Image src={cookie.avatar} alt="" />
                             <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">{email}</i></h6>
                             <h6 class="d-flex align-items-center mb-3">{name}</h6>
 
