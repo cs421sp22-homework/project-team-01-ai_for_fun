@@ -278,7 +278,7 @@ func ChangeUser() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occur when update mongodb"})
 			return
 		}
-		foundUser.Avatar, err = helper.UpdateUrl(foundUser.Avatar)
+		foundUser.Avatar, err = helper.UpdateUrl("public/" + foundUser.Avatar)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occur when update avatar url"})
 			return
@@ -388,7 +388,7 @@ func IsFollowed() gin.HandlerFunc {
 			return
 		}
 		var result bson.M
-		filter := bson.M{"user_id": followInfo.Followed_Id,"follower_list": followInfo.Follower_Id}
+		filter := bson.M{"user_id": followInfo.Followed_Id, "follower_list": followInfo.Follower_Id}
 		err1 := userCollection.FindOne(ctx, filter).Decode(&result)
 		if err1 != nil {
 			if err1 == mongo.ErrNoDocuments {
