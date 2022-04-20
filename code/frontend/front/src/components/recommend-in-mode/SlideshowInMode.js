@@ -14,27 +14,27 @@ function SlideshowInMode(props) {
     const ref = createRef();
     const { imgData } = props;
     const [translateX, setTranslateX] = useState(0);
-    const { soureimg, setSourceimg, dst, setDst } = useContext(LoginContext);
-    //const { soureimg, setSourceimg } = useContext(LoginContext);
-    /**
-     * right button
-     */
+    const { sourceimg, setSourceimg, setFaceimg } = useContext(LoginContext);
+
     const clickRightIcon = () => {
-        if (ref.current.scrollWidth < Math.abs(translateX) + Math.abs(ref.current.offsetWidth)) {//到最后一页时候需要停止点击按钮
+        if (ref.current.scrollWidth < Math.abs(translateX) + Math.abs(ref.current.offsetWidth)) {
             return;
         }
         setTranslateX(translateX - ref.current.offsetWidth);
     };
 
-    /**
-     * left button
-     */
     const clickLeftIcon = () => {
         if (translateX === 0) return;
         setTranslateX(translateX + ref.current.offsetWidth);
     };
-    // console.log('translateX', translateX);
-    // console.log('ref', ref);
+
+    const handleClick = (imgUrl) =>{
+        if (!sourceimg){
+            setSourceimg(imgUrl)
+        } else{
+            setFaceimg(imgUrl)
+        }
+    }
 
     return (
         <div className='wrap_scrollImg' style={{ width: '100%', height: '100%' }}>
@@ -43,8 +43,11 @@ function SlideshowInMode(props) {
             <ul style={{ transform: `translateX(${translateX}px)` }} ref={ref}>
                 {imgData.map(item => {
                     return <li key={item.name}>
-                        <Card.Img as={Image} style={{ height: '85px', witdh: '85px', objectFit: 'cover', maxHeight: '100vh' }} src={item.imgUrl} fluid={true} alt="item.name" onClick={() => { setDst(''); setSourceimg(item.imgUrl) }
-                        } />
+                        <Card.Img as={Image} 
+                            style={{ height: '85px', witdh: '85px', objectFit: 'cover', maxHeight: '100vh' }} 
+                            src={item.imgUrl} fluid={true} alt="item.name" 
+                            onClick={()=> handleClick(item.imgUrl)}
+                        />
                     </li>;
                 })}
             </ul>

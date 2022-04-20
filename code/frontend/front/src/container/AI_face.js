@@ -1,72 +1,21 @@
-import React, { Fragment, useState, PureComponent } from "react";
+import React, {useState} from "react";
 import SlideshowInMode from "../components/recommend-in-mode/SlideshowInMode";
 import EditVideo from './EditVideo';
 import '../style/Slideshow.css';
 import '../style/sider.css';
-// import UploadFile from "../components/UploadFile";
-// import FaceResult from "../components/FaceResult";
-// import Card from 'react-bootstrap/Card'
-// import UploadPic from '../components/UploadPic';
-// import ReactDOM from 'react-dom';
-// import Container from 'react-bootstrap/Container';
-// import Col from 'react-bootstrap/Col';
-// import Row from 'react-bootstrap/Row';
-// import Slideshow from "../components/Slideshow";
-// import SlidesShowInLeft from "../components/recommend-in-mode/SlidesShowInLeft";
-// import CollectionInLeft from "../components/recommend-in-mode/CollectionInLeft";
-// import Video from '../components/Video';
-// import UploadFace from '../components/UploadFace';
 
 
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu } from 'antd';
 import {
     UserOutlined,
     UserAddOutlined,
     UserDeleteOutlined,
     UsergroupAddOutlined,
-    AppstoreOutlined,
-    BarChartOutlined,
-    CloudOutlined,
-    ShopOutlined,
-    UploadOutlined,
-    VideoCameraOutlined,
-    DesktopOutlined,
-    PieChartOutlined,
-    FileOutlined,
-    TeamOutlined,
-    MailOutlined
-
 } from '@ant-design/icons';
-const { Header, Content, Footer, Sider } = Layout;
+
+const {Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
-const tempvideo = {
-    videoSrc: "http://media.w3.org/2010/05/bunny/movie.mp4",
-    poster: "https://epe.brightspotcdn.com/f8/ca/abde5f4f4a30a6a3d1a0eaa23821/test-032021-968416412.jpg"
-}
-
-
-
-const componentDidMount = async () => {
-    const response = await fetch("https://server-demo.ai-for-fun-backend.com/getentities", {
-        method: 'POST',
-    });
-    if (response.ok) {
-        const content = await response.json();
-        for (var i = 0; i < content.length; i++) {
-            if (content[i]._id.mode === 'Face_Singers') {
-                for (var j = 0; j < content[i].entities.length; j++) {
-                    Face_Singers.push(content[i].entities[j]._id);
-                }
-            }
-        }
-        console.log(Face_Singers);
-        // alert("Success!")
-    }
-    else {
-        console.log('request failed for get entities', response);
-    }
-}
 
 export const AI_face = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -105,24 +54,12 @@ export const AI_face = () => {
                         <SubMenu key="sub4" icon={<UsergroupAddOutlined />} title="Friends Meme">
                             <SlideshowInMode imgData={Friends} />
                         </SubMenu>
-                        <SubMenu key="sub1" icon={<UserAddOutlined />} title="President">
-                            <SlideshowInMode imgData={Face_Singers} />
-                        </SubMenu>
-                        <SubMenu key="sub2" icon={<UserDeleteOutlined />} title="Game of Thrones">
-                            <SlideshowInMode imgData={Face_Meme} />
-                        </SubMenu>
-                        <SubMenu key="sub3" icon={<UserOutlined />} title="Harry Potter">
-                            <SlideshowInMode imgData={Movie} />
-                        </SubMenu>
-                        <SubMenu key="sub3" icon={<UserOutlined />} title="Marvel">
-                            <SlideshowInMode imgData={Friends} />
-                        </SubMenu>
                     </Menu>
                 </Sider>
 
                 <Layout className="site-layout" style={{ marginLeft: 0 }}>
-                    <Header className="site-layout-background" style={{ padding: 0, textAlign: 'center', background: '#f0f0f0' }} > <h2>AI FACE</h2></Header>
-                    <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+                     <h2 style={{marginTop:"2%", textAlign: "center", fontFamily:"'Times New Roman', Times, serif"}}>FACE SWAP</h2>
+                    <Content style={{overflow: 'initial' }}>
                         <div className="site-layout-background" style={{ padding: 0, textAlign: 'center' }}>
                             <EditVideo imgData={tempimage} />
                         </div>
@@ -149,15 +86,7 @@ const Face_Singers = [
     { imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9v0ICFWny_eh_HBw7yw4p44nVYOboJIXpIQ&usqp=CAU', name: '06', topic: 'Face' },
     { imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWS2o9Xhju8jsP3zCwsas--mqZYvwaAQFMww&usqp=CAU', name: '07', topic: 'Good' },
 ];
-const Face_GOT = [
-    { imgUrl: './img/01.png', name: '01', topic: 'Star' },
-    { imgUrl: './img/02.png', name: '02', topic: 'House' },
-    { imgUrl: './img/03.png', name: '03', topic: 'New Year' },
-    { imgUrl: './img/04.png', name: '04', topic: 'Amazing' },
-    { imgUrl: './img/05.png', name: '05', topic: 'Fashion' },
-    { imgUrl: './img/06.png', name: '06', topic: 'Face' },
-    { imgUrl: './img/07.png', name: '07', topic: 'Good' },
-];
+
 const Face_Meme = [
     { imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTehUF4TMPXq4SQl7Q7wBpdA3xcJgemteYx0w&usqp=CAU', name: 'meme_01', topic: 'Star' },
     { imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqhAQBMNMwl6bAhZ4XapoYXPGAqnQdh_ZKLA&usqp=CAU', name: 'meme_02', topic: 'House' },
@@ -166,15 +95,7 @@ const Face_Meme = [
     { imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ74l3eSS-cqR5RdNSD_2SH5S3t6DX3JHCuqQ&usqp=CAU', name: '05', topic: 'Fashion' },
     { imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiuMzoVpJ1O9tRNwKq32s5d7F3QTImE_-0eQ&usqp=CAU', name: '06', topic: 'Face' },
 ];
-const Face = [
-    { imgUrl: './img/01.png', name: '01', topic: 'Star' },
-    { imgUrl: './img/02.png', name: '02', topic: 'House' },
-    { imgUrl: './img/03.png', name: '03', topic: 'New Year' },
-    { imgUrl: './img/04.png', name: '04', topic: 'Amazing' },
-    { imgUrl: './img/05.png', name: '05', topic: 'Fashion' },
-    { imgUrl: './img/06.png', name: '06', topic: 'Face' },
-    { imgUrl: './img/07.png', name: '07', topic: 'Good' },
-];
+
 const Friends = [
     { imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFLysfblilvBqTDNXvMILLekdjUW2-PsEKtg&usqp=CAU', name: '01', topic: 'Star' },
     { imgUrl: 'https://d207ibygpg2z1x.cloudfront.net/image/upload/v1541181492/articles_upload/content/nsafehc82lfmkwroe1tg.jpg', name: '02', topic: 'House' },
@@ -191,13 +112,4 @@ const Movie = [
     { imgUrl: 'https://media.workandmoney.com/64/f6/64f66bf1508f415fbb5ab0a64eda450d.jpeg', name: '05', topic: 'Fashion' },
     { imgUrl: 'https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/04/2560x3532/gettyimages-476575055.jpg?resize=480:*', name: '06', topic: 'Face' },
     { imgUrl: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gal-gadot-attends-the-2020-vanity-fair-oscar-party-hosted-news-photo-1591212178.jpg?crop=1xw:0.99975xh;center,top&resize=480:*', name: '07', topic: 'Good' },
-];
-const Vedio = [
-    { imgUrl: './img/01.png', name: '01', topic: 'Star' },
-    { imgUrl: './img/02.png', name: '02', topic: 'House' },
-    { imgUrl: './img/03.png', name: '03', topic: 'New Year' },
-    { imgUrl: './img/04.png', name: '04', topic: 'Amazing' },
-    { imgUrl: './img/05.png', name: '05', topic: 'Fashion' },
-    { imgUrl: './img/06.png', name: '06', topic: 'Face' },
-    { imgUrl: './img/07.png', name: '07', topic: 'Good' },
 ];

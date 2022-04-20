@@ -1,10 +1,9 @@
-import React from "react";
+import 'antd/es/modal/style';
+import "antd/dist/antd.css";
+import React, {useContext} from "react";
 import ImgCrop from 'antd-img-crop';
 import { Upload, Button, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import 'antd/es/modal/style';
-import "antd/dist/antd.css";
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { LoginContext } from "../context/AuthProvider";
 import Amplify, { Storage } from 'aws-amplify'
 import config from '../aws-exports';
@@ -19,17 +18,16 @@ function getBase64(img, callback) {
 }
 
 
-
 class UploadFace extends React.Component {
-  // static contextType = LoginContext;
 
   state = {
     filename: null,
-    loading: false,
   };
 
+
+
   beforeUpload = file => {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
     if (!isJpgOrPng) {
       message.error('You can only upload JPG/PNG file!');
     }
@@ -43,7 +41,6 @@ class UploadFace extends React.Component {
 
   handleChange = info => {
     if (info.file.status === 'uploading') {
-      this.setState({ loading: true });
       return;
     }
     if (info.file.status === 'done') {
@@ -52,12 +49,10 @@ class UploadFace extends React.Component {
       getBase64(info.file.originFileObj, imageUrl =>
         this.setState({
           imageUrl,
-          loading: false,
         }),
       );
     } else if (info.file.status === 'error') {
       message.error(`${info.file.name} file upload failed.`);
-      this.setState({ loading: false });
     }
   };
 
@@ -72,12 +67,6 @@ class UploadFace extends React.Component {
   }
 
   handleRequest = async () => {
-
-    // const formData = new FormData();
-    // formData.append('file',filename);
-    this.setState({
-      loading: true,
-    });
     try {
       const { filename } = this.state;
       var fileExtension = filename.name.split('.').pop()
@@ -87,49 +76,51 @@ class UploadFace extends React.Component {
       const signedURL = await Storage.get(result.key);
       this.setState({
         imageUrl: signedURL,
-        loading: false,
       });
 
-      this.context.faceimg = signedURL;
-      localStorage.setItem('global_Upload_img_In_AI_FACE', signedURL);
-      localStorage.setItem('global_Upload_s3id_In_AI_FACE', hashname)
-      console.log(localStorage.getItem('global_Upload_img_In_AI_FACE'));
-      console.log(localStorage.getItem('global_Upload_s3id_In_AI_FACE'));
-      console.log(this.context.faceimg)
+      if (this.props.control == "src"){
+        this.context.setSourceimg(signedURL)
+        console.log("sourceimg: " + this.context.sourceimg)
+      }
+      else{
+        this.context.setFaceimg(signedURL)
+        console.log("faceimg: " + this.context.faceimg)
+      }
 
     } catch (error) {
       console.log("Error uploading file:", error)
       message.error(`file upload failed.`);
-      this.setState({ loading: false });
     }
 
   }
 
   render() {
-    const { loading, imageUrl } = this.state;
-    const uploadButton = (
-      <div>
-        {loading ? <LoadingOutlined /> : <PlusOutlined />}
-        <div style={{ marginTop: 8 }}>Upload</div>
-      </div>
-    );
     return (
-      <ImgCrop rotate>
-        <Upload
-          name="avatar"
-          listType="picture-card"
-          className="avatar-uploader"
-          showUploadList={false}
-          beforeUpload={this.beforeUpload}
-          onChange={this.handleChange}
-          customRequest={this.handleRequest}
-        >
-          {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-        </Upload>
-      </ImgCrop>
+      <div style={{marginTop: "0%", marginBottom: "2%"}}>
+        <ImgCrop>
+          <Upload
+            name="file"
+            showUploadList={false}
+            beforeUpload={this.beforeUpload}
+            onChange={this.handleChange}
+            customRequest={this.handleRequest}
+          >
+            <ul>
+              <img src={this.props.control=="src"? 
+                        (this.context.sourceimg? this.context.sourceimg:"images/upload_icon.png"):(this.context.faceimg?this.context.faceimg:"images/upload_icon.png")} 
+                    alt="avatar" 
+                    style={{ width: '55%' }} />
+            </ul>
+            <Button icon={<UploadOutlined />}>Click to Upload</Button>
+          </Upload>
+        </ImgCrop>
+      </div>
+  
     );
   }
 }
+
+
 UploadFace.contextType = LoginContext;
 
 export default UploadFace;
