@@ -72,7 +72,7 @@ function Profile(props) {
     var postText = "empty";
     console.log(user_id);
     console.log(globla_token);
-    console.log("img" + profileimg)
+    console.log("img " + profileimg)
     const ref = createRef();
     const [pick, setPick] = useState('');
     const [showCard, setShowCard] = useState(false);
@@ -274,20 +274,22 @@ function Profile(props) {
                     //'Token': globla_token
                 },
                 body: JSON.stringify({
-                    "new_avatar": profileimg,
+                    "new_avatar": localStorage.getItem('global_profile_IMG'),
                 })
             });
-            console.log(response.status)
+            console.log("send out new avater: " + profileimg);
 
             if (response.status == 200) {
                 const content = await response.json();
-                let expires = new Date();
-                expires.setTime();
+                console.log("return avater " + content.avatar);
+                //let expires = new Date();
+                // expires.setTime();
                 setCookie('avatar', content.avatar);
                 setAvatar(content.avatar);
                 console.log("return avater " + content.avatar);
-                console.log("cookie avater" + cookie.avatar);
+                console.log("cookie avater " + cookie.avatar);
                 console.log("avater  " + avatar);
+                console.log("img upload by user, set as global variable " + profileimg)
                 // avatar = content.avatar;
                 message.success('change IMG successful😊')
                 setshowAvater(false);
