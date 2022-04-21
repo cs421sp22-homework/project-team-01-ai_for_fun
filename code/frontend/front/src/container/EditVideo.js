@@ -55,13 +55,7 @@ function EditVideo(props) {
     var postText = "empty";
     var upload_img_in_AI_FACE = localStorage.getItem('global_Upload_img_In_AI_FACE');
     var upload_s3id_in_AI_FACE = localStorage.getItem('global_Upload_s3id_In_AI_FACE');
-    // const [visible, setVisible] = useState(false);
-    // const [imgId, setImgId] = useState('');
-    // const selectImage = (id) => {
-    //     var selected = state.selected;
-    //     if (selected.indexOf(id) !== -1) selected.push(id);
-    //     State({ selected: selected });
-    // }
+
 
     const [history, setHistory] = useState([]);
     useEffect(async () => {

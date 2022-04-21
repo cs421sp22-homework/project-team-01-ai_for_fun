@@ -105,11 +105,11 @@ function Gallery(probs) {
         <>
           <Comment
             // actions={[<span key="comment-list-reply-to-0"  >Reply to</span>]}
-            author={itemP.user_name}
-            // avatar={itemP.user_avater}
-            avatar="https://joeschmoe.io/api/v1/random"
+            author={props.user_name}
+            avatar={props.user_avater}
+            // avatar="https://joeschmoe.io/api/v1/random"
             content={<>
-              {props.commentcontent}
+              {props.comment_content}
             </>}
             datetime={props.commenttime}
           >
@@ -118,8 +118,8 @@ function Gallery(probs) {
                 return <Comment
                   key={repo.userid}
                   author={repo.username}
-                  avatar="https://joeschmoe.io/api/v1/random"
-                  // avatar={repo.useravater}
+                  // avatar="https://joeschmoe.io/api/v1/random"
+                  avatar={repo.useravater}
                   content={repo.replycontent}
                   datetime={repo.replytime}
                 ></Comment>
@@ -141,6 +141,7 @@ function Gallery(probs) {
     });
     if (name.comment != null) {
       setComments(name.comment)
+      console.log(name.comment)
     } else {
       setComments([])
     }
@@ -274,7 +275,7 @@ function Gallery(probs) {
   columnClassName="my-masonry-grid_column"
 >
 {posts.map((item) => {
-            { console.log(item) }
+            // { console.log(item) }
             return <motion.div
               key={item._id}
               // variants={cardAnimation}
@@ -371,6 +372,7 @@ function Gallery(probs) {
             }
           />
           {comments.length > 0 && <CommentList comments={comments} />}
+          {console.log('comment',comments)}
         </Row>
       </Modal>
     </>
