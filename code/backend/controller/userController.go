@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/cs421sp22-homework/project-team-01-ai_for_fun/database"
@@ -137,12 +138,13 @@ func Login() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-		id := foundUser.Avatar[3:]
-		foundUser.Avatar, err = helper.GetFile("public/" + id)
-		fmt.Println(foundUser.Avatar)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating url"})
-			return
+		if strings.HasPrefix(foundUser.Avatar, "id=") {
+			id := foundUser.Avatar[3:]
+			foundUser.Avatar, err = helper.GetFile(id)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating url"})
+				return
+			}
 		}
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.Header("Access-Control-Allow-Headers", "Content-Type")
@@ -160,6 +162,14 @@ func UserBasicInfo() gin.HandlerFunc {
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
+		}
+		if strings.HasPrefix(user.Avatar, "id=") {
+			id := user.Avatar[3:]
+			user.Avatar, err = helper.GetFile(id)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating url"})
+				return
+			}
 		}
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.Header("Access-Control-Allow-Headers", "Origin,Content-Length,Content-Type,token")
@@ -262,6 +272,10 @@ func ChangeUser() gin.HandlerFunc {
 		}
 		if changeinfo.New_Avatar != "" {
 			foundUser.Avatar = changeinfo.New_Avatar
+			if strings.HasPrefix(foundUser.Avatar, "id=") {
+				id := foundUser.Avatar[3:]
+				foundUser.Avatar = "id=" + "public/" + id
+			}
 		}
 		if changeinfo.New_password != "" && changeinfo.Old_password != "" {
 			passwordIsValid, msg := VerifyPassword(changeinfo.Old_password, foundUser.Password)
@@ -280,12 +294,13 @@ func ChangeUser() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occur when update mongodb"})
 			return
 		}
-		id := foundUser.Avatar[3:]
-		foundUser.Avatar, err = helper.GetFile("public/" + id)
-		fmt.Println(foundUser.Avatar)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occur when update avatar url"})
-			return
+		if strings.HasPrefix(foundUser.Avatar, "id=") {
+			id := foundUser.Avatar[3:]
+			foundUser.Avatar, err = helper.GetFile(id)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "error occur when update avatar url"})
+				return
+			}
 		}
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.Header("Access-Control-Allow-Headers", "Origin,Content-Length,Content-Type,token")
