@@ -50,6 +50,18 @@ func VerifyPassword(userPassword string, providedPassword string) (bool, string)
 	return check, msg
 }
 
+func ChangePostUserAvatar(userId string, userAvatar string) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+	defer cancel()
+	filter := bson.M{"user_id": userId}
+	update_op := bson.M{
+		"$set": bson.M{"user_avater": userAvatar},
+	}
+	_, err := postCollection.UpdateMany(ctx, filter, update_op)
+	return err
+
+}
+
 func Register() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
@@ -275,6 +287,11 @@ func ChangeUser() gin.HandlerFunc {
 			if strings.HasPrefix(foundUser.Avatar, "id=") {
 				id := foundUser.Avatar[3:]
 				foundUser.Avatar = "id=" + "public/" + id
+			}
+			err = ChangePostUserAvatar(userId, foundUser.Avatar)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "error occur when update post avatar on mongodb"})
+				return
 			}
 		}
 		if changeinfo.New_password != "" && changeinfo.Old_password != "" {
