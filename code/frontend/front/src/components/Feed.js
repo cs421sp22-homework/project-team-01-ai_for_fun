@@ -138,7 +138,6 @@ import {
           Your followers post
         </Heading>
          <Gallery props={props.isFollower}/>
-
       </Flex>
     ) : (
       <Flex
@@ -150,10 +149,6 @@ import {
         height="max-content"
       >
           <Gallery props={props.homePosts}/>
-        
-        {/* {props?.homePosts?.map((post, index) => (
-          <Post key={index} posts={post} />
-        ))} */}
       </Flex>
     );
   };

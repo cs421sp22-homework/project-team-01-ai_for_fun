@@ -28,7 +28,7 @@ function Community_home() {
      <Col md={3} xxl={2} className="ml-2">
         <RightSidebar />
       </Col>
-      <Col md = {8} xxl={9} className="mt-4">
+      <Col md = {8} xxl={9} style={{marginTop:100}}>
         <Feed
           isExplore={false}
           isLibrary={false}

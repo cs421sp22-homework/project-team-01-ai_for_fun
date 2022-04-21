@@ -54,7 +54,7 @@ function RightSidebar() {
   return (
     <Flex
       position="sticky"
-      top="5.4rem"
+      // top="5.4rem"
       height="max-content"
       flexDirection="column"
     >
@@ -65,12 +65,13 @@ function RightSidebar() {
                 width="100%"
                 padding="1rem"
                 borderRadius="1rem"
-                gap="0.1rem"
+                gap="0.2rem"
                 boxShadow="0 3px 10px rgb(0 0 0 / 0.2)"
                 flexDirection="column"
                 onClick={() => {
                   navigate("/userdetail/"+cookie.user_id);
                 }}
+                style={{marginTop:100}}
               >
                 <Flex>
                   <Avatar src={cookie.avatar} size={80} alt=""/>
@@ -106,7 +107,7 @@ function RightSidebar() {
           borderRadius="1rem"
           gap="0.2rem"
           boxShadow="0 3px 10px rgb(0 0 0 / 0.2)"
-          style={{'height':'200px'}}
+          style={{'height':'200px',marginTop:100}}
         >
           <Flex borderRadius="50%">
           </Flex>
