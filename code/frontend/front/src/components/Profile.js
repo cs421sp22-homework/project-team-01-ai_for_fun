@@ -310,10 +310,10 @@ function Profile(props) {
         }
     }
 
-    const handleShowCard = (s3_id, url) => {
+    const handleShowCard = (s3id, url) => {
         setShowCard(true);
         setPick(url);
-        setS3ID(s3_id);
+        setS3ID(s3id);
         setSeen(!seen);
         if (url.includes("images") || url.includes("jpg")) {
             ImagePost = true;
@@ -333,22 +333,19 @@ function Profile(props) {
         postText = e.target.value;
     };
 
-    const handlePost = async (s3_id) => {
-        setShowCard(true);
-        message.info('Post Received.');
+    const handlePost = async () => {
         if (cookie.access_token) {
             console.log("content(pick) " + s3_id);
             console.log("postText " + postText);
             console.log("user_id " + cookie.access_token);
             console.log("user_name " + cookie.name);
             const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
-                //const response = await fetch('http://127.0.0.1:8080/faceswap', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    "content_url": s3_id,
+                    "content_url": pick,
                     "post_text": postText,
-                    "user_id": cookie.access_token, //not user id, user id is not in cookie.
+                    "user_id": cookie.user_id, //not user id, user id is not in cookie.
                     "user_name": cookie.name,
                     "user_avater": cookie.avatar
                 })
@@ -356,10 +353,13 @@ function Profile(props) {
             if (response.status == 200) {
                 const content = await response.json();
                 message.success('Post success!');
+                setShowCard(false);
+                setSeen(!seen);
             }
             else {
                 console.log('post failed', response);
                 message.error('failed.');
+
             }
         } else {
             alert('Login first!')

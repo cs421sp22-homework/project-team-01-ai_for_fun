@@ -130,7 +130,7 @@ function Post() {
 
     const handlePost = async (e) => {
         if (cookie.access_token) {
-            console.log("content(pick) " + pick);
+            console.log("content(pick in post.js) " + pick);
             console.log("postText " + postText);
             console.log("user_id " + cookie.access_token);
             console.log("user_name " + cookie.name);
