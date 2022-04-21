@@ -1,6 +1,6 @@
 import React, { useState, useContext, createRef, useEffect } from 'react';
 import { message, Input, Form, Layout, InputNumber } from 'antd';
-import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { CheckCircleOutlined, CloseCircleOutlined, DeleteOutlined, FormOutlined } from '@ant-design/icons';
 import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons';
 import UploadPicinProfile from './UploadPicinProfile';
 import UploadPic from './UploadPic'
@@ -30,7 +30,7 @@ import { AWS_CLOUDWATCH_MAX_BATCH_EVENT_SIZE } from '@aws-amplify/core';
 const { TextArea } = Input;
 const { Content } = Layout;
 const previousSelectedPost = [];
-
+var ImagePost = true;
 
 const compareToFirstPassword = ({ getFieldValue }) => ({
     validator(rule, value) {
@@ -72,9 +72,10 @@ function Profile(props) {
     var postText = "empty";
     console.log(user_id);
     console.log(globla_token);
-    console.log("img" + profileimg)
+    console.log("img " + profileimg)
     const ref = createRef();
     const [pick, setPick] = useState('');
+    const [s3_id, setS3ID] = useState('');
     const [showCard, setShowCard] = useState(false);
     const [seen, setSeen] = useState(false);
     const [translateX, setTranslateX] = useState(0);
@@ -274,20 +275,22 @@ function Profile(props) {
                     //'Token': globla_token
                 },
                 body: JSON.stringify({
-                    "new_avatar": profileimg,
+                    "new_avatar": localStorage.getItem('global_profile_IMG'),
                 })
             });
-            console.log(response.status)
+            console.log("send out new avater: " + profileimg);
 
             if (response.status == 200) {
                 const content = await response.json();
-                let expires = new Date();
-                expires.setTime();
+                console.log("return avater " + content.avatar);
+                //let expires = new Date();
+                // expires.setTime();
                 setCookie('avatar', content.avatar);
                 setAvatar(content.avatar);
                 console.log("return avater " + content.avatar);
-                console.log("cookie avater" + cookie.avatar);
+                console.log("cookie avater " + cookie.avatar);
                 console.log("avater  " + avatar);
+                console.log("img upload by user, set as global variable " + profileimg)
                 // avatar = content.avatar;
                 message.success('change IMG successful😊')
                 setshowAvater(false);
@@ -306,28 +309,35 @@ function Profile(props) {
             }
         }
     }
-    const handlePostNew = async () => {
 
-    }
-
-    const handleShowCard = () => {
+    const handleShowCard = (s3_id, url) => {
         setShowCard(true);
+        setPick(url);
+        setS3ID(s3_id);
+        setSeen(!seen);
+        if (url.includes("images") || url.includes("jpg")) {
+            ImagePost = true;
+        } else {
+            ImagePost = false;
+        }
     }
 
     const handleHideCard = () => {
         setShowCard(false);
+        setSeen(!seen);
         console.log('Change:', postText);
+
     }
 
     const onChangeText = (e) => {
         postText = e.target.value;
     };
 
-    const handlePost = async (e) => {
-        setShowCard(false);
+    const handlePost = async (s3_id) => {
+        setShowCard(true);
         message.info('Post Received.');
         if (cookie.access_token) {
-            console.log("content(pick) " + pick);
+            console.log("content(pick) " + s3_id);
             console.log("postText " + postText);
             console.log("user_id " + cookie.access_token);
             console.log("user_name " + cookie.name);
@@ -336,7 +346,7 @@ function Profile(props) {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    "content_url": pick,
+                    "content_url": s3_id,
                     "post_text": postText,
                     "user_id": cookie.access_token, //not user id, user id is not in cookie.
                     "user_name": cookie.name,
@@ -355,6 +365,31 @@ function Profile(props) {
             alert('Login first!')
         }
     };
+
+    const handleDelete = async (work_id) => {
+        let url = "https://server-demo.ai-for-fun-backend.com/deletework";
+        console.log(JSON.stringify({
+            '_id': work_id,
+            'user_id': cookie.user_id,
+        }))
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                '_id': work_id,
+                'user_id': cookie.user_id,
+            })
+        });
+        if (response.status == 200) {
+            const content = await response.json();
+            window.location.reload()
+            message.success("delete success!")
+        }
+        else {
+            console.log('request failed', response);
+            message.error('Failure');
+        }
+    }
 
     const layout = {
         labelCol: {
@@ -505,10 +540,21 @@ function Profile(props) {
                                                                 :
                                                                 <Video props={{ "videoSrc": item.url }} />
                                                         }
+                                                        <Card.Footer>
+                                                            <a herf="#" style={{ fontSize: "16px", float: "right", marginRight: '5%' }}>
+                                                                <center>
+                                                                    <DeleteOutlined onClick={() => handleDelete(item._id)} />
+                                                                </center>
+                                                            </a>
+                                                            <a herf="#" style={{ fontSize: "16px", float: "right", marginRight: '5%' }}>
+                                                                <FormOutlined onClick={() => handleShowCard(item.s3_id, item.url)} />
+                                                            </a>
+                                                        </Card.Footer>
                                                     </Card>
                                                 </motion.div>
                                             })}
                                         </Masonry>
+
                                     </motion.div>
                                 </Container>
                             )
@@ -628,6 +674,27 @@ function Profile(props) {
                     </div>
                 </Content>
 
+            </Modal>
+
+            <Modal
+                visible={seen && showCard}
+                onOk={handlePost}
+                onCancel={handleHideCard}
+            >
+                <Container className='center-box' style={{ mmarginLeft: '5%', marginRight: '5%' }} >
+                    <Row>
+                        <Col md={6}>
+                            {ImagePost ?
+                                <Image src={pick ? pick : "https://joeschmoe.io/api/v1/random"} fluid alt="choose" style={{ height: 'auto', marginLeft: 'auto', marginRight: 'auto', witdh: '50%' }} />
+                                :
+                                <Video props={{ "videoSrc": pick }} />
+                            }
+                        </Col>
+                        <Col md={6}>
+                            <TextArea showCount maxLength={100} style={{ height: "90%" }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
+                        </Col>
+                    </Row>
+                </Container>
             </Modal>
         </Container >
     )

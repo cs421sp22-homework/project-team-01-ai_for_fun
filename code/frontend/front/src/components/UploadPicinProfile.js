@@ -105,7 +105,8 @@ class UploadPicinProfile extends React.Component {
       const signedURL = await Storage.get(result.key);
       console.log(signedURL);
       localStorage.setItem('global_profile_IMG', "id=" + hashname);
-
+      console.log("new add profile img in s3 id= " + hashname)
+      console.log("golabl" + localStorage.getItem('global_profile_IMG'))
       this.setState({
         imageUrl: signedURL,
         loading: false,
