@@ -10,41 +10,41 @@ function TopicCards(props) {
           <ul className='cards__items'>
             <CardItem
               src={props.info[0].src}
-              text='Popular singer photo resources provided. Exchange face with famous finger using our Face Swap now.'
-              label='Singer'
-              path='/AI_face_topic'
+              text={props.info[0].text}
+              label={props.info[0].label}
+              path={props.info[0].path}
             />
             <CardItem
               src={props.info[1].src}
-              text='A collection of movie star face. Enjoy the fun of swith your face with these movie stars.'
-              label='Movie Star'
-              path='/AI_face_topic'
+              text={props.info[1].text}
+              label={props.info[1].label}
+              path={props.info[1].path}
             />
-             <CardItem
+            <CardItem
               src={props.info[2].src}
-              text='Mickey Mouse, disney character voiced by Wayne Anthony Allwine'
-              label='Mickey Mouse'
-              path='/AI_text'
+              text={props.info[2].text}
+              label={props.info[2].label}
+              path={props.info[2].path}
             />
           </ul>
           <ul className='cards__items'>
             <CardItem
               src={props.info[3].src}
-              text='Donald Duck, disney character voiced by Tony Anselmo'
-              label='Donald Duck'
-              path='/AI_text'
+              text={props.info[3].text}
+              label={props.info[3].label}
+              path={props.info[3].path}
             />
             <CardItem
               src={props.info[4].src}
-              text='Goofy, disney character voiced by Bill Farmer'
-              label='Goofy'
-              path='/AI_text'
+              text={props.info[4].text}
+              label={props.info[4].label}
+              path={props.info[4].path}
             />
             <CardItem
               src={props.info[5].src}
-              text='Goofy, disney character voiced by Bill Farmer'
-              label='Goofy'
-              path='/AI_text'
+              text={props.info[5].text}
+              label={props.info[5].label}
+              path={props.info[5].path}
             />
           </ul>
         </div>

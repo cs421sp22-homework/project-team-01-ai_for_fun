@@ -76,6 +76,7 @@ function Profile(props) {
     const [showCard, setShowCard] = useState(false);
     const [seen, setSeen] = useState(false);
     const [translateX, setTranslateX] = useState(0);
+    const [ImagePost, setImagePost] = useState(true);
 
     const clickRightIcon = () => {
         if (ref.current.scrollWidth < Math.abs(translateX) + Math.abs(ref.current.offsetWidth)) {
@@ -332,7 +333,7 @@ function Profile(props) {
 
     const handlePost = async () => {
         if (cookie.access_token) {
-            console.log("content(pick) " + s3_id);
+            console.log("content(pick) " + pick);
             console.log("postText " + postText);
             console.log("user_id " + cookie.access_token);
             console.log("user_name " + cookie.name);
@@ -430,7 +431,7 @@ function Profile(props) {
     };
 
     return (
-        <Container style={{ minHeight: '100vh',marginTop:100 }}>
+        <Container style={{ minHeight: '100vh', marginTop: 100 }}>
             <div className="container">
                 <div className="row mt-3">
                     <div className="panel profile-cover" style={{ marginBottom: '20px' }}>
@@ -543,8 +544,23 @@ function Profile(props) {
                                                                     <DeleteOutlined onClick={() => handleDelete(item._id)} />
                                                                 </center>
                                                             </a>
-                                                            <a herf="#" style={{ fontSize: "16px", float: "right", marginRight: '5%' }}>
-                                                                <FormOutlined onClick={() => handleShowCard(item.s3_id, item.url)} />
+                                                            <a herf="#" style={{ fontSize: "16px", float: "right", marginRight: '5%' }} >
+                                                                <FormOutlined onClick={(e) => {
+                                                                    // selectedToPost(e); 
+                                                                    setShowCard(true);
+                                                                    setSeen(!seen);
+                                                                    if (pick === item.url) {
+                                                                        setPick('')
+                                                                    } else {
+                                                                        setPick(item.url);
+                                                                        console.log("Pick in image" + pick);
+                                                                        if (item.type === 'image') {
+                                                                            setImagePost(true);
+                                                                        } else {
+                                                                            setImagePost(false);
+                                                                        }
+                                                                    }
+                                                                }} />
                                                             </a>
                                                         </Card.Footer>
                                                     </Card>
