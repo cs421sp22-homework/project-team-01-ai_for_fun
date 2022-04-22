@@ -22,7 +22,7 @@ import Post from "../container/Post";
 import Explore from "../container/Explore";
 import Library from "../container/Library";
 import Yourposts from "../container/YourPost";
-
+import Post_Profile from "../container/Post_Profile";
 const info = { pic: './img/01_1.png', name: 'Sample', email: '1234@jh.edu' }
 
 
@@ -52,6 +52,7 @@ function App() {
               <Route path="/explore" element={<Explore />}/>
               <Route path="/library" element={<Library />}/>
               <Route path="/your_posts" element={<Yourposts/>}/>
+              <Route path="/post_profile/:uuid" element={<Post_Profile />}/>
             </Routes>
           </div>
         </Router>

@@ -92,9 +92,9 @@ function Explore(probs){
         </Col>
         <Col>
         <div className="flex flex-col sm:flex-row sm:space-x-4 justify-center w-full max-w-6xl sm:mx-auto my-2 sm:my-4 px-4">
-          <Post />
+          {/* <Post /> */}
           <Feed
-          isExplore={true}
+          isExplore={false}
           isLibrary={false}
           isYourPosts={false}
           isSearch={false}

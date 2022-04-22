@@ -82,7 +82,7 @@ function Gallery(probs) {
     const [comments, setComments] = useState([]);
     const [submitting, setSubmitting] = useState(false);
     const [value, setValue] = useState('');
-    const [itemP, setitemP] = useState({content_url:"",user_avater:"",post_text:"",comment:null,post_id:"",user_id:""});
+    const [itemP, setitemP] = useState({content_url:"",user_avater:"",post_text:"",comment:null,post_id:""});
     const handleChane = (e) => {setValue(e.target.value)};
     const navigate = useNavigate();
 
@@ -96,7 +96,6 @@ function Gallery(probs) {
         <Comment 
           author={itemP.user_name}
           avatar={itemP.user_avater}
-          uid = {itemP.user_id}
           content={props.commentcontent}
           datetime={props.commenttime}
         >
@@ -122,8 +121,7 @@ function Gallery(probs) {
     const showModal = (e,name) => {
         setVisible(true);
         setitemP({user_avater:name.user_avater, post_text:name.post_text,
-           content_url:name.content_url,comment:name.comment,post_id:name.post_id,user_id:name.user_id});
-        console.log(itemP)
+           content_url:name.content_url,comment:name.comment,post_id:name.post_id});
         if (name.comment != null){
           setComments(name.comment)
         } else {
@@ -214,7 +212,7 @@ function Gallery(probs) {
                     <Avatar src={cookie.avatar} alt="Han Solo" 
                       cursor="pointer"
                       onClick={() => {
-                        navigate("/post_profile/:uuid" );
+                        navigate("/profile/" + cookie.name);
                       }}
                     />
 
