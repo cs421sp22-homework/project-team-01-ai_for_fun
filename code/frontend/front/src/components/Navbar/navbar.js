@@ -57,15 +57,13 @@ function NavBar() {
           <Nav.Link href="/gallery">Community</Nav.Link>
           </Nav>
           <Nav>
-          <Nav.Link eventKey={0} href="#memes" onClick={handelHelp}>
+          {/* <Nav.Link eventKey={0} href="#memes" onClick={handelHelp}>
           Help
-          </Nav.Link>
+          </Nav.Link> */}
           {cookie.name ? 
           (
             <NavDropdown className='mr-4' title="My Account" id="collasible-nav-dropdown">
               <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">My work</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={handleLogout}>log out</NavDropdown.Item>
           </NavDropdown>
@@ -97,15 +95,13 @@ function NavBar() {
           <Nav.Link href="/gallery">Community</Nav.Link>
           </Nav>
           <Nav>
-          <Nav.Link eventKey={0} href="#memes" onClick={handelHelp}>
+          {/* <Nav.Link eventKey={0} href="#memes" onClick={handelHelp}>
           Help
-          </Nav.Link>
+          </Nav.Link> */}
           {cookie.name ? 
           (
             <NavDropdown className='mr-4' title="My Account" id="collasible-nav-dropdown">
               <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">My work</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={handleLogout}>log out</NavDropdown.Item>
           </NavDropdown>
@@ -139,15 +135,13 @@ function NavBar() {
           <Nav.Link href="/gallery">Community</Nav.Link>
           </Nav>
           <Nav>
-          <Nav.Link eventKey={0} href="#memes" onClick={handelHelp}>
+          {/* <Nav.Link eventKey={0} href="#memes" onClick={handelHelp}>
           Help
-          </Nav.Link>
+          </Nav.Link> */}
           {cookie.name ? 
           (
             <NavDropdown className='mr-4' title="My Account" id="collasible-nav-dropdown">
               <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">My work</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={handleLogout}>log out</NavDropdown.Item>
           </NavDropdown>
