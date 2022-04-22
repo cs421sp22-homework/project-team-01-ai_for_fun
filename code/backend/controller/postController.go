@@ -306,6 +306,7 @@ func Topkpost() gin.HandlerFunc {
 		}
 		allPost, err = helper.UpdatePost(allPost)
 		if err != nil {
+			fmt.Println(err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating url"})
 			return
 		}

@@ -121,14 +121,20 @@ func UpdatePost(allPost []bson.M) ([]bson.M, error) {
 		if comment, ok := post_i["comment"]; ok {
 			comment, err := UpdateAvater(comment.(bson.A))
 			if err != nil {
-				return allPost, err
+				fmt.Println(err)
+				fmt.Printf("comment  ")
+				fmt.Println(comment)
+				//return allPost, err
 			}
 			for _, comment_i := range comment {
 				comment_i := comment_i.(bson.M)
 				if reply, ok := comment_i["reply"]; ok {
 					reply, err := UpdateAvater(reply.(bson.A))
 					if err != nil {
-						return allPost, err
+						fmt.Println(err)
+						fmt.Printf("reply  ")
+						fmt.Println(reply)
+						//return allPost, err
 					}
 					comment_i["reply"] = reply
 				}
