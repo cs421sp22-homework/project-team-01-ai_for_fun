@@ -7,10 +7,6 @@ import Slideshow from "../components/Slideshow";
 import SlideshowInMode from "../components/recommend-in-mode/SlideshowInMode";
 import Card from 'react-bootstrap/Card'
 import UploadPic from '../components/UploadPic';
-// import '../style/Slideshow.css';
-// import '../style/sider.css';
-// import UploadFile from "../components/UploadFile";
-// import FaceResult from "../components/FaceResult";
 import SlidesShowInLeft from "../components/recommend-in-mode/SlidesShowInLeft";
 import CollectionInLeft from "../components/recommend-in-mode/CollectionInLeft";
 import Video from '../components/Video';

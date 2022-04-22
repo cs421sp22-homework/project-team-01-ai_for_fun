@@ -93,7 +93,7 @@ const NormalLoginForm = () => {
 
 
   return (
-    <Container>
+    <Container style={{marginTop:100}}>
       <Row ><div className="loginTitle" style={{ marginLeft: '5%' }}>Login</div></Row>
       {errMsg ? (
         <Alert variant={'danger'}>

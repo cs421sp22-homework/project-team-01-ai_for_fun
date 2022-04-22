@@ -1,7 +1,6 @@
-import React, { useState, useContext, createRef, useEffect } from 'react';
-import { message, Input, Form, Layout, InputNumber } from 'antd';
-import { CheckCircleOutlined, CloseCircleOutlined, DeleteOutlined, FormOutlined } from '@ant-design/icons';
-import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons';
+import React, { useState, createRef, useEffect } from 'react';
+import { message, Input, Form, Layout } from 'antd';
+import { DeleteOutlined, FormOutlined } from '@ant-design/icons';
 import UploadPicinProfile from './UploadPicinProfile';
 import UploadPic from './UploadPic'
 import Card from 'react-bootstrap/Card';
@@ -11,9 +10,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
-import { LoginContext } from '../context/AuthProvider';
 import { useCookies } from 'react-cookie';
-import PopupPost from './PopupPost';
 import Video from './Video';
 import { motion } from 'framer-motion';
 import FriendList from "./FriendList";
@@ -81,7 +78,7 @@ function Profile(props) {
     const [translateX, setTranslateX] = useState(0);
 
     const clickRightIcon = () => {
-        if (ref.current.scrollWidth < Math.abs(translateX) + Math.abs(ref.current.offsetWidth)) {//到最后一页时候需要停止点击按钮
+        if (ref.current.scrollWidth < Math.abs(translateX) + Math.abs(ref.current.offsetWidth)) {
             return;
         }
         setTranslateX(translateX - ref.current.offsetWidth);
@@ -433,7 +430,7 @@ function Profile(props) {
     };
 
     return (
-        <Container style={{ minHeight: '100vh' }}>
+        <Container style={{ minHeight: '100vh',marginTop:100 }}>
             <div className="container">
                 <div className="row mt-3">
                     <div className="panel profile-cover" style={{ marginBottom: '20px' }}>

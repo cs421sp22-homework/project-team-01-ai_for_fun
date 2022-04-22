@@ -43,7 +43,7 @@ function NavBar() {
       <Container fluid>
       <img
         alt=""
-        src="images/clipart3190.png"
+        src="../images/clipart3190.png"
         width="60"
         height="50"
         className="d-inline-block align-top"
@@ -80,14 +80,15 @@ function NavBar() {
       :
       <Navbar collapseOnSelect expand="lg" className="fixed-top navbar-scrolled-dark" variant='dark' style={{fontFamily:'Helvetica'}}>
       <Container fluid>
+      
+      <Navbar.Brand href="/">
       <img
         alt=""
-        src="images/clipart3190.png"
+        src="../images/clipart3190.png"
         width="60"
         height="50"
         className="d-inline-block align-top"
       />{' '}
-      <Navbar.Brand href="/">
       IFUN
     </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -124,7 +125,7 @@ function NavBar() {
       <Container fluid>
       <img
         alt=""
-        src="images/clipart3190.png"
+        src="../images/clipart3190.png"
         width="60"
         height="50"
         className="d-inline-block align-top"

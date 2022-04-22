@@ -131,7 +131,7 @@ function ProfileHeader() {
     }
   }
   return (
-    <div className="container">
+    <div className="container" style={{marginTop:100}}>
       <div className="row mt-3">
         <div className="panel profile-cover">
           <div className="profile-cover__img">
