@@ -173,7 +173,7 @@ function Post() {
     };
 
     return (
-        <Container style={{ minHeight: '100vh' }}>
+        <Container style={{ minHeight: '100vh', marginTop: '6%' }}>
             <Row className='pt-3'>
                 {/* <Col md={4}> */}
                 {/* <h4 style={{ textAlign: 'center', marginTop: '2%' }}>My work</h4> */}
@@ -220,9 +220,11 @@ function Post() {
                         <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Submit</Button> */}
                             <Col md={5}>
                                 {ImagePost ?
-                                    <Image src={pick ? pick : "https://joeschmoe.io/api/v1/random"} fluid alt="choose" style={{ height: 350, display: 'block', marginLeft: 'auto', marginRight: 'auto', witdh: '50%' }} />
+                                    <Image src={pick ? pick : "https://joeschmoe.io/api/v1/random"} fluid alt="choose" style={{ height: 350, display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '70%' }} />
                                     :
-                                    <Video props={{ "videoSrc": pick }} />
+                                    <div style={{ height: '50%', width: '50%', marginLeft: '20%', marginTop: '1%', marginBottom: '1%' }}>
+                                        <Video props={{ "videoSrc": pick }} />
+                                    </div>
                                 }
 
                             </Col>
