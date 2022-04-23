@@ -209,11 +209,11 @@ function Post() {
                     </div>
 
                     <br></br>
-                    <Content style={{ alignItems: 'center', justifyContent: 'center' }}>
+                    <Content style={{ alignItems: 'center', justifyContent: 'center', marginBottom: '5%' }}>
                         <Row>
                             <Col md={5}>
                                 {ImagePost ?
-                                    <Image src={pick ? pick : "https://joeschmoe.io/api/v1/random"} fluid alt="choose" style={{ height: 350, display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '70%' }} />
+                                    <Image src={pick ? pick : "/images/PostSteps.jpg"} fluid alt="choose" style={{ height: 350, display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '70%' }} />
                                     :
                                     <div style={{ height: '50%', width: '50%', marginLeft: '20%', marginTop: '1%', marginBottom: '1%' }}>
                                         <Video props={{ "videoSrc": pick }} />
