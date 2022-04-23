@@ -28,7 +28,7 @@ body {
     -webkit-box-pack: end;
     justify-content: flex-end;
     overflow: hidden;
-    background: url(/Users/lijingyan/Documents/GitHub/project-team-01-ai_for_fun/code/frontend/front/public/images/profileHeader.jpg) no-repeat;
+    background: url(../../public/images/profileHeader.jpg) no-repeat;
     background-size: cover;
 }
 
