@@ -9,7 +9,6 @@ from util import upload_image, generate_random_name, url_to_image,edit_video, cr
 from run_cifar import eval_cifar
 from FaceSwap.output import faceSwapFunction
 from  connect2db import  savefileinfo, getuploadrecord, saveuploadfile, saveworkfile
-# from Text2audio.TTS_tf_package import create_wav_tf
 from StyleTransfer.style_transfer import style_transfer_api
 
 def Aichange(url):
@@ -98,43 +97,55 @@ class S(BaseHTTPRequestHandler):
         if (str(self.path)=="/faceswap"):
             print("running faceswap service")
             user_id = data["user_id"]
-            print(user_id)
             src_url = data["src_url"]
-            src_s3_id = "public/"+data["src_s3_id"]
             dst_url = data["dst_url"]
+            src_s3_id = "public/"+data["src_s3_id"]
+            dst_s3_id = "public/"+data["dst_s3_id"]
+            history_type = data["type"]
             res_name, res_url = AiFaceSwap(src_url, dst_url)
             res = {"res_s3_id": res_name, "res_url": res_url}
             historydata = {}
             workdata = {}
-            historydata["user_id"] = user_id
-            historydata["url"] = src_url
-            historydata["s3_id"] = src_s3_id
             workdata["user_id"] = user_id
             workdata["s3_id"] = res_name
             workdata["type"] = "image"
             workdata["url"] = res_url
-            saveuploadfile(historydata)
             saveworkfile(workdata)
+            if (history_type != ""):
+                historydata["user_id"] = user_id
+                historydata["src_s3_id"] = src_s3_id
+                historydata["dst_s3_id"] = dst_s3_id
+                historydata["type"] = history_type
+                saveuploadfile(historydata)
+            
+            
+
         if (str(self.path)=="/styletransfer"):
             print("running styleflow service")
             user_id=data["user_id"]
-            print(user_id)
             content_url = data["content_url"]
-            content_s3_id="public/"+data["content_s3_id"]
             style_url = data["style_url"]
+            src_s3_id="public/"+data["src_s3_id"] # src <-> content
+            dst_s3_id="public/"+data["dst_s3_id"] # dst <-> style
+            history_type = data["type"]
+
             res_name, res_url = style_transfer(content_url, style_url)
             res = {"res_s3_id": res_name, "res_url":res_url}
             historydata = {}
             workdata = {}
-            historydata["user_id"] = user_id
-            historydata["url"] = content_url
-            historydata["s3_id"] = content_s3_id
             workdata["user_id"] = user_id
             workdata["s3_id"] = res_name
             workdata["type"] = "image"
             workdata["url"] = res_url
-            saveuploadfile(historydata)
             saveworkfile(workdata)
+            if (history_type != ""):
+                historydata["user_id"] = user_id
+                historydata["src_s3_id"] = src_s3_id
+                historydata["dst_s3_id"] = dst_s3_id
+                historydata["type"] = history_type
+                saveuploadfile(historydata)
+
+
         if (str(self.path)=="/exchangeaudio"):
             print("running exchangeaudio service")
             user_id = data["user_id"]
