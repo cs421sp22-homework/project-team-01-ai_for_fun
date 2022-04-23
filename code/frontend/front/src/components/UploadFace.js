@@ -109,9 +109,9 @@ class UploadFace extends React.Component {
               <img src={this.props.control=="src"? 
                         (this.context.sourceimg? this.context.sourceimg:"images/upload_icon.png"):(this.context.faceimg?this.context.faceimg:"images/upload_icon.png")} 
                     alt="avatar" 
-                    style={{ width: '55%' }} />
+                    style={{ width: '28vw', height: '19vw' }} />
             </ul>
-            <Button icon={<UploadOutlined />}>Click to Upload</Button>
+            <Button icon={<UploadOutlined />}>{this.props.text}</Button>
           </Upload>
         </ImgCrop>
       </div>

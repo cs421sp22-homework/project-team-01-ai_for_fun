@@ -1,98 +1,211 @@
-import React, { Fragment, useState, PureComponent } from "react";
-import ReactDOM from 'react-dom';
-import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Slideshow from "../components/Slideshow";
-import SlideshowInMode from "../components/recommend-in-mode/SlideshowInMode";
-import Card from 'react-bootstrap/Card'
-import UploadPic from '../components/UploadPic';
-// import '../style/Slideshow.css';
-// import '../style/sider.css';
-// import UploadFile from "../components/UploadFile";
-// import FaceResult from "../components/FaceResult";
-import SlidesShowInLeft from "../components/recommend-in-mode/SlidesShowInLeft";
-import CollectionInLeft from "../components/recommend-in-mode/CollectionInLeft";
-import Video from '../components/Video';
-import UploadFace from '../components/UploadFace';
+import React, {useState} from "react";
 import EditStyle from './EditStyle';
-
-import { Layout, Menu, Breadcrumb } from 'antd';
-import {
-    DesktopOutlined,
-    PieChartOutlined,
-    FileOutlined,
-    TeamOutlined,
-    UserOutlined,
-
-} from '@ant-design/icons';
-const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
+import Tab from 'react-bootstrap/Tab'
+import Nav from 'react-bootstrap/Nav'
+import { Row, Col} from 'react-bootstrap';
+import AIStyleGallery from "./AIStyleGallery";
+import '../style/AI_style.css'
 
 
-export const AI_style = (props) => {
-    const [collapsed, setCollapsed] = useState(false);
-    // const { leftData } = tempimage_1;
-    const onCollapse = collapsed => {
-        console.log(collapsed);
-        if (collapsed) {
-            setCollapsed(true);
-        } else {
-            setCollapsed(false);
-        }
-    };
 
+import { Layout, Menu } from 'antd';
+
+const {Content, Sider } = Layout;
+
+export const AI_style = () => {
+    const [selectTab, setSelectTab] = useState("first");
+    const [selectTab1, setSelectTab1] = useState(true);
+    const [selectTab2, setSelectTab2] = useState(false);
+    const [selectTab3, setSelectTab3] = useState(false);
+    const [selectTab4, setSelectTab4] = useState(false);
+
+    
     return (
         <>
-            <Row style={{ height: '100%' }}>
-                <Col xs={3}>
-                    < CollectionInLeft leftSourceImg={leftData} />
-                </Col>
-                <Col xs={9}>
-                    <EditStyle imgData={tempimage} />
-                </Col>
-            </Row>
+            <Layout hasSider>
+                <Sider
+                    theme="light" width='33%' collapsedWidth='5%'
+                    style={{
+                        height: 'auto',
+                        width: '100%',
+                        // overflow: 'auto',
+                        // position: 'fixed',
+                    }}
+                >
+                    {/* <div className="logo" /> */}
+                    <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+                        <Row style={{height:"100%"}}>
+                            <Col sm={4} style={{borderRight:"2px solid #E2E1E2"}}>
+                            <Nav justify variant="pills" className="flex-column myNav">
+                                <Nav.Item>
+                                    <Nav.Link eventKey="first" 
+                                    onClick={() => {setSelectTab("first")}} 
+                                    onMouseEnter ={() => {setSelectTab1(true)}}
+                                    onMouseLeave ={() => {setSelectTab1(false)}}>
+                                    <img src={(selectTab=="first"||selectTab1)?"AI_style_images/style_active.png":"AI_style_images/style_inactive.png"} width="40" height="40" style={{marginTop:"25%"}}/>
+                                    <p>Style</p>
+                                    </Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link eventKey="second" 
+                                    onClick={() => {setSelectTab("second")}} 
+                                    onMouseEnter ={() => {setSelectTab2(true)}}
+                                    onMouseLeave ={() => {setSelectTab2(false)}}>
+                                        <img src={(selectTab=="second"||selectTab2)?"AI_style_images/content_active.png":"AI_style_images/content_inactive.png"} width="40" height="40" style={{marginTop:"25%"}}/>
+                                        <p>Content</p>
+                                    </Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link eventKey="third" 
+                                    onClick={() => {setSelectTab("third")}} 
+                                    onMouseEnter ={() => {setSelectTab3(true)}}
+                                    onMouseLeave ={() => {setSelectTab3(false)}}>
+                                        <img src={(selectTab=="third"||selectTab3)?"AI_style_images/popular_active.png":"AI_style_images/popular_inactive.png"} width="40" height="40" style={{marginTop:"25%"}}/>
+                                        <p>Popular</p>
+                                    </Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                        <Nav.Link eventKey="forth" 
+                                        onClick={() => {setSelectTab("forth")}} 
+                                        onMouseEnter ={() => {setSelectTab4(true)}}
+                                        onMouseLeave ={() => {setSelectTab4(false)}}>
+                                        <img src={(selectTab=="forth" ||selectTab4)?"AI_style_images/history_active.png":"AI_style_images/history_inactive.png"} width="40" height="40" style={{marginTop:"25%"}}/>
+                                        <p>History</p>
+                                        </Nav.Link>
+                                </Nav.Item>
+                            </Nav>
+                            </Col>
+                            <Col sm={8}>
+                                <Tab.Content style={{overflowY:"scroll", maxHeight:"1080px"}}>
+                                    <Tab.Pane eventKey="first">
+                                        <AIStyleGallery title="Van Gogh" images={style1} control="style"/>
+                                        <AIStyleGallery title="Chinese" images={style_chinese} control="style"/>
+                                        <AIStyleGallery title="Raffaello" images={style_raff} control="style"/>
+                                        <AIStyleGallery title="Pencil" images={style_pencil} control="style"/>
+                                    </Tab.Pane>
+                                    <Tab.Pane eventKey="second">
+                                        <AIStyleGallery title="Building" images={content_building} control="content"/>
+                                        <AIStyleGallery title="landscape" images={content_landscape} control="content"/>
+                                        <AIStyleGallery title="People" images={content_people} control="content"/>
+                                        <AIStyleGallery title="Animal" images={content_animal} control="content"/>      
+                                    </Tab.Pane>
+                                    <Tab.Pane eventKey="third">
+                                        <AIStyleGallery title="Popular Content" images={popular_content} control="content"/>
+                                        <AIStyleGallery title="Popular Style" images={popular_style} control="style"/>
+                                    </Tab.Pane>
+                                    <Tab.Pane eventKey="forth">
+                                    <p>History</p>
+                                    </Tab.Pane>
+                                </Tab.Content>
+                            </Col>
+                        </Row>
+                    </Tab.Container>
+                   
+                </Sider >
+
+                <Layout className="site-layout" style={{ marginLeft: 0 }}>
+                     <h2 style={{marginTop:"2%", textAlign: "center", fontFamily:"'Times New Roman', Times, serif"}}>STYLE TRANSFER</h2>
+                    <Content style={{overflow: 'initial' }}>
+                        <div className="site-layout-background" style={{ padding: 0, textAlign: 'center' }}>
+                            <EditStyle/>
+                        </div>
+                    </Content>
+                </Layout>
+            </Layout>
         </>
     );
 };
 
-const tempvideo = {
-    videoSrc: "http://media.w3.org/2010/05/bunny/movie.mp4",
-    poster: "https://epe.brightspotcdn.com/f8/ca/abde5f4f4a30a6a3d1a0eaa23821/test-032021-968416412.jpg"
-}
-
-const tempimage = [
-    { imgUrl: 'https://s1.r29static.com/bin/entry/43a/0,200,2000,2000/x,80/1536749/image.jpg', name: '01', topic: 'Star' },
-    { imgUrl: 'https://hips.hearstapps.com/cosmouk.cdnds.net/15/33/1439714614-celebrity-face-mashups-taylor-swift-emma-watson.jpg', name: '02', topic: 'House' },
-    { imgUrl: 'https://stylesatlife.com/wp-content/uploads/2021/11/Emma-Watson-face-shape.jpg.webp', name: '03', topic: 'New Year' },
-    { imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScxopB3Y_Z0Yu1v5JpXdx-3NOKX7yqg1iIHg&usqp=CAU', name: '04', topic: 'Amazing' },
-    { imgUrl: 'https://c4.wallpaperflare.com/wallpaper/485/848/917/actresses-mckenna-grace-actress-blonde-blue-eyes-hd-wallpaper-preview.jpg', name: '05', topic: 'Fashion' },
+const style1 = [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/970px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+    "https://cdn.cnn.com/cnnnext/dam/assets/211015173306-meules-de-ble-painting-van-gogh-full-169.jpg",
+    "https://mymodernmet.com/wp/wp-content/uploads/2020/11/White-house-night-van-goh-worldwide-2.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Irises-Vincent_van_Gogh.jpg/640px-Irises-Vincent_van_Gogh.jpg",
+    "https://media.architecturaldigest.com/photos/5c991cc56b6fbc66bc4dd3aa/16:9/w_2560%2Cc_limit/GettyImages-973792302.jpg",
+    "https://iiif.micr.io/rAERt/full/1280,/0/default.jpg"
 ]
-const leftData = [
-    { imgUrl: 'https://www.artic.edu/iiif/2/1adf2696-8489-499b-cad2-821d7fde4b33/full/843,/0/default.jpg', name: '24', topic: 'Vincent van Gogh' },
-    { imgUrl: 'https://www.artic.edu/iiif/2/25c31d8d-21a4-9ea1-1d73-6a2eca4dda7e/full/843,/0/default.jpg', name: '25', topic: 'Vincent van Gogh' },
-    { imgUrl: 'https://www.artic.edu/iiif/2/9ea77636-76e9-9031-6b92-ff34512d7cbc/full/843,/0/default.jpg', name: '26', topic: 'Vincent van Gogh' },
-    { imgUrl: 'https://www.artic.edu/iiif/2/d0ff5b36-bb38-b156-6042-5c8545352c2f/full/843,/0/default.jpg', name: '27', topic: 'Vincent van Gogh' },
-    { imgUrl: 'https://www.artic.edu/iiif/2/92827fc4-78a3-a263-75a2-6470eabad38b/full/843,/0/default.jpg', name: '28', topic: 'Vincent van Gogh' },
-    { imgUrl: 'https://www.artic.edu/iiif/2/43fcfad0-8256-4923-9f9c-03ca90417907/full/843,/0/default.jpg', name: '29', topic: 'Vincent van Gogh' },
-    { imgUrl: 'https://www.artic.edu/iiif/2/f11bd233-6cc3-4221-59eb-f7363be4119e/full/843,/0/default.jpg', name: '29', topic: 'Vincent van Gogh' },
-    { imgUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Claude_Monet_Water_Lilies_1908.jpg/800px-Claude_Monet_Water_Lilies_1908.jpg', name: '29', topic: 'Les Nymphéas' },
-    { imgUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Nympheas_71293_3.jpg/1280px-Nympheas_71293_3.jpg', name: '29', topic: 'Les Nymphéas' },
-    { imgUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/96/Claude_Monet_-_Water-Lilies_%28Bridgestone_Museum%29.jpg', name: '29', topic: 'Les Nymphéas' },
-    { imgUrl: 'https://www.history.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTU3ODc4NTk4NjgxNjM0NTI3/hith-art-heists-scream-2.jpg', name: '29', topic: 'Style' },
-    { imgUrl: 'https://artincontext.org/wp-content/uploads/2021/10/Famous-Portrait-Paintings-848x530.jpg', name: '29', topic: 'Style' },
-    { imgUrl: 'https://wallpaperaccess.com/full/2614.jpg', name: '29', topic: 'Style' },
-    { imgUrl: 'https://i.pinimg.com/736x/45/45/4c/45454cdf18790c0eaf4390aad5ea04fe.jpg', name: '29', topic: 'Style' },
-    { imgUrl: 'https://frenchquest.files.wordpress.com/2014/04/monet-impression-sunrise.jpg', name: '30', topic: 'Style' },
-    { imgUrl: 'https://www.discoverlosangeles.com/sites/default/files/images/2019-01/Getty%20Center%20Van%20Gogh%20Irises.jpg', name: '31', topic: 'Style' },
-    { imgUrl: 'https://i.pinimg.com/originals/0d/34/f0/0d34f0ffab6ae81e6e60e1293be046a2.jpg', name: '32', topic: 'Style' },
-    { imgUrl: 'https://theawesomedaily.com/wp-content/uploads/2016/12/famous-paintings-1-1.jpg', name: '33', topic: 'Style' },
-    { imgUrl: 'https://artlogic-res.cloudinary.com/w_1200,h_800,c_fill,f_auto,fl_lossy,q_auto:good/ws-canvasgallery/usr/images/blog_entries/main_image/items/62/624b23f8789441b598e404ea116b41c4/waterlillies-john-myatt.jpg', name: '34', topic: 'Style' },
-    { imgUrl: 'https://www.touropia.com/gfx/b/2010/10/the_great_wave_off_kanagawa.jpg', name: '35', topic: 'Style' },
-    { imgUrl: 'https://i.insider.com/4ef4ba36eab8eafb64000035?width=600&format=jpeg&auto=webp', name: '36', topic: 'Style' },
-    { imgUrl: 'https://el-paso-museum-of-art-production.s3.amazonaws.com/collections/images/000/000/001/optimized/ButlerFireworks.jpg?1516832871', name: '37', topic: 'Style' },
-    { imgUrl: 'https://sep.yimg.com/ty/cdn/madisonartshop/most-famous-paintings-16.jpg?t=1628119938&', name: '38', topic: 'Style' },
-    { imgUrl: 'https://bocadolobo.com/blog/wp-content/uploads/2020/10/Some-of-The-Most-Famous-Artists-Of-All-Time-4.jpg', name: '39', topic: 'Style' },
-    { imgUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Vincent_Willem_van_Gogh_127.jpg/1024px-Vincent_Willem_van_Gogh_127.jpg', name: '40', topic: 'Style' },
-    //{ imgUrl: '', name: '34', topic: 'Style' },
+
+const style_chinese =[
+    "https://www.worldhistory.org/img/r/p/500x600/7407.jpg?v=1645281002",
+    "https://frommetertomeaning.files.wordpress.com/2020/12/bird.jpg",
+    "https://www.christies.com/media-library/images/salelandingpage/2016/hk112016/hong-kong-2016-autumn-auctions/hong-kong-2016-autumn-auctions-chinese-painting-07.jpg",
+    "https://images.fineartamerica.com/images-medium-large-5/chinese-landscape-sean-seal.jpg",
+    "http://twistedsifter.com/wp-content/uploads/2011/10/photographs-that-look-like-traditional-chinese-paintins-dong-hong-oai-asian-pictorialism-1.jpg",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtSuuxBkKUiLnPs0DggzOoljlch29AStzFyw&usqp=CAU"
+]
+
+const style_raff = [
+    "http://tomalcockba5.files.wordpress.com/2011/01/raphael-school-of-athens1.jpg",
+    "https://www.theartstory.org/images20/works/raphael_2.jpg",
+    "https://static.independent.co.uk/s3fs-public/thumbnails/image/2017/12/15/13/allegory-justice.jpg?width=1200",
+    "https://upload.wikimedia.org/wikipedia/commons/e/ea/Arazzi_di_raffaello%2C_cartone_04.jpg",
+    "https://previews.agefotostock.com/previewimage/medibigoff/9dc85fa1fd2c576a9c47766a94d5321c/x4j-2814005.jpg",
+    "https://artsdot.com/ADC/Art-ImgScreen-2.nsf/O/A-8XYTLU/$FILE/Raphael_raffaello_sanzio_da_urbino_-moses_saved_from_the_water.Jpg",
+]
+
+const style_pencil = [
+    "https://images.template.net/wp-content/uploads/2015/08/23143236/Amazingly-Awesome-Pencil-Drawings.jpg?width=584",
+    "https://www.pencilsketchportraits.co.uk/wp-content/uploads/2018/10/abbey-pencil-drawing-1030x736.jpg",
+    "https://swall.teahub.io/photos/small/229-2290319_easy-pencil-sketches-of-i-love-you-easy.jpg",
+    "https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/346/posts/31135/image/pencil15.jpg",
+    "https://media.fuzia.com/assets/uploads/images/co_brand_1/article/2020/img_20200805_210136_664-DHOFTbayq6VBm8LU.jpg",
+    "https://e.staedtlercdn.com/fileadmin/_processed_/b/4/csm_STAEDTLER_drawing-elk_step6_ac86a65e53.jpg"
+]
+
+const content_building = [
+    "https://www.jobnimbus.com/wp-content/uploads/2020/01/sean-pollock-PhYq704ffdA-unsplash-scaled-1.jpg",
+    "https://seaonc-assets.s3.amazonaws.com/uploads/2018/04/mills.jpg",
+    "https://wpcdn.us-midwest-1.vip.tn-cloud.net/www.hpbmagazine.org/content/uploads/data-import/1acb98fe/BeachGreenDunesPhoto4-1024x693.jpg",
+    "https://livingnewdeal.org/wp-content/uploads/2020/01/Treasury-Bldg-2-scaled.jpg",
+    "https://www.greenbreporters.com/wp-content/uploads/2016/03/US-Capitol.jpg",
+    "https://s3.eu-west-2.amazonaws.com/luxurylondon.co.uk-storage-bucket-001/images/230421114848/card/londons-most-contentious-buildings-tower-bridge-xl-hd.jpg"
+]
+
+const content_landscape = [
+    "https://www.motosha.com/files/preview/1280x853/14135-rural-landscape-in-hattingen-by-north-rhine-westphalia-germany-on-a-cloudy-day.jpg",
+    "https://wallup.net/wp-content/uploads/2015/12/153891-road-mountain-landscape.jpg",
+    "https://d38zjy0x98992m.cloudfront.net/455c55cf-c378-45a2-89e4-9e9279ca49b8/1808190078_X_PALOUSE_WASHINGTON_uxga.jpg",
+    "https://backlightblog.com/images/2021/04/landscape-photography-header.jpg",
+    "https://images.squarespace-cdn.com/content/v1/5919021a1e5b6c940741bc9b/1576177860363-WGW3ZZ7WX7R5YOLMXZKJ/MT+TARANAKI+-+AGORAjpg.jpg",
+    "https://www.gannett-cdn.com/presto/2022/03/08/NOAK/1488f7dc-38b1-4c5c-b179-503b613dac20-Sustainable_Landscaping_-_Ten_Eyck_Landscape_Architects_photo_credit.jpg"
+]
+
+const content_people =[
+    "https://assets.weforum.org/article/image/XaHpf_z51huQS_JPHs-jkPhBp0dLlxFJwt-sPLpGJB0.jpg",
+    "https://www.telegraph.co.uk/content/dam/tv/2020/04/27/TELEMMGLPICT000228841709_trans_NvBQzQNjv4BqYHaHRqZzVuMJAn8HN8r1s25xHFBv-aIg4TgE5NfOlH8.jpeg",
+    "https://www.colesclassroom.com/wp-content/uploads/2012/12/how-to-photograph-people-photography-tutorials_0006.jpg",
+    "https://www.properproof.com/photo/Images/gowin_edith_ruth.jpg",
+    "https://images.squarespace-cdn.com/content/v1/5dba36512fd9c73b34f1790e/1572485375386-ZLOIHWY0GV6R8DYESXI1/BethesdaDayDream_sm-001.jpg",
+    "https://backlightblog.com/images/2020/10/blur-photo-background-header.jpg"
+]
+
+const content_animal = [
+    "https://www.allaboutbirds.org/guide/assets/photo/59859171-480px.jpg",
+    "https://i.pinimg.com/originals/89/62/a1/8962a13d46e85840edfa4e51f6af15a2.jpg",
+    "https://alfa-cat.com/catsimg/galileo335.jpg",
+    "https://forum.chronofhorse.com/uploads/default/original/3X/4/a/4ad5a440dd8190e50618c971e39265022cae0c27.jpeg",
+    "https://www.roeselienraimond.com/wp-content/uploads/2015/01/autumn_allow_deer_.jpg",
+    "https://www.roeselienraimond.com/wp-content/uploads/2014/08/cute_white_rabbit1.jpg"
+]
+
+const popular_style = [
+    "https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/battle-1910-wassily-kandinsky.jpg",
+    "https://images.fineartamerica.com/images-medium-large-5/another-world-moon-abstract-j-larry-walker.jpg",
+    "https://media.architecturaldigest.com/photos/5c991cc56b6fbc66bc4dd3aa/16:9/w_2560%2Cc_limit/GettyImages-973792302.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/970px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+    "https://www.pencilsketchportraits.co.uk/wp-content/uploads/2018/10/abbey-pencil-drawing-1030x736.jpg",
+    "https://previews.agefotostock.com/previewimage/medibigoff/9dc85fa1fd2c576a9c47766a94d5321c/x4j-2814005.jpg",
+    "https://www.theartstory.org/images20/works/raphael_2.jpg",
+    "https://images.fineartamerica.com/images-medium-large-5/chinese-landscape-sean-seal.jpg",
+]
+
+const popular_content = [
+    "https://www.greenbreporters.com/wp-content/uploads/2016/03/US-Capitol.jpg",
+    "https://www.properproof.com/photo/Images/gowin_edith_ruth.jpg",
+    "https://www.gannett-cdn.com/presto/2022/03/08/NOAK/1488f7dc-38b1-4c5c-b179-503b613dac20-Sustainable_Landscaping_-_Ten_Eyck_Landscape_Architects_photo_credit.jpg",
+    "https://s3.eu-west-2.amazonaws.com/luxurylondon.co.uk-storage-bucket-001/images/230421114848/card/londons-most-contentious-buildings-tower-bridge-xl-hd.jpg",
+    "https://www.telegraph.co.uk/content/dam/tv/2020/04/27/TELEMMGLPICT000228841709_trans_NvBQzQNjv4BqYHaHRqZzVuMJAn8HN8r1s25xHFBv-aIg4TgE5NfOlH8.jpeg",
+    "https://d38zjy0x98992m.cloudfront.net/455c55cf-c378-45a2-89e4-9e9279ca49b8/1808190078_X_PALOUSE_WASHINGTON_uxga.jpg",
+    "https://iso.500px.com/wp-content/uploads/2014/07/Elliott-and-His-Hen-Cover-Image.jpg",
+    "https://media.whas11.com/assets/WHAS/images/617108c8-b8e9-4fd1-b5f9-f640d6a01404/617108c8-b8e9-4fd1-b5f9-f640d6a01404_1920x1080.jpg"
 ]

@@ -151,8 +151,8 @@ function EditVideo() {
                     <Content style={{ margin: '0 16px' }} className='center-box'>
                         <Row>
                             <ul>
-                                <UploadFace control="src"/>
-                                <UploadFace control="dest"/>
+                                <UploadFace control="src" text="Click to Upload"/>
+                                <UploadFace control="dest" text="Click to Upload"/>
                             </ul>
                         </Row>
                         <Footer >

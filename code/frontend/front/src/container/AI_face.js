@@ -1,8 +1,12 @@
 import React, {useState} from "react";
-import SlideshowInMode from "../components/recommend-in-mode/SlideshowInMode";
 import EditVideo from './EditVideo';
+import Tab from 'react-bootstrap/Tab'
+import Nav from 'react-bootstrap/Nav'
+import { Row, Col} from 'react-bootstrap';
+import SlideshowInMode from "../components/recommend-in-mode/SlideshowInMode";
 import '../style/Slideshow.css';
 import '../style/sider.css';
+import '../style/AI_face.css'
 
 
 import { Layout, Menu } from 'antd';
@@ -16,9 +20,12 @@ import {
 const {Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
-
 export const AI_face = () => {
     const [collapsed, setCollapsed] = useState(false);
+    const [selectTab, setSelectTab] = useState("first");
+    const [selectTab1, setSelectTab1] = useState(true);
+    const [selectTab2, setSelectTab2] = useState(false);
+    const [selectTab3, setSelectTab3] = useState(false);
     const onCollapse = collapsed => {
         console.log(collapsed);
         if (collapsed) {
@@ -31,8 +38,8 @@ export const AI_face = () => {
     return (
         <>
             <Layout hasSider>
-                <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}
-                    theme="dark" width='30%' collapsedWidth='5%'
+                <Sider
+                    theme="light" width='32%' collapsedWidth='5%'
                     style={{
                         height: 'auto',
                         width: '100%',
@@ -40,22 +47,82 @@ export const AI_face = () => {
                         // position: 'fixed',
                     }}
                 >
-                    <div className="logo" />
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1', 'sub2', 'sub3', 'sub4']}>
-                        <SubMenu key="sub1" icon={<UserAddOutlined />} title="Singers">
-                            <SlideshowInMode imgData={Face_Singers} />
-                        </SubMenu>
-                        <SubMenu key="sub2" icon={<UserDeleteOutlined />} title="Meme">
-                            <SlideshowInMode imgData={Face_Meme} />
-                        </SubMenu>
-                        <SubMenu key="sub3" icon={<UserOutlined />} title="Moive Star">
-                            <SlideshowInMode imgData={Movie} />
-                        </SubMenu>
-                        <SubMenu key="sub4" icon={<UsergroupAddOutlined />} title="Friends Meme">
-                            <SlideshowInMode imgData={Friends} />
-                        </SubMenu>
-                    </Menu>
-                </Sider>
+                    {/* <div className="logo" /> */}
+                    <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+                        <Row style={{height:"100%"}}>
+                            <Col sm={3} style={{borderRight:"2px solid #E2E1E2"}}>
+                            <Nav justify variant="pills" className="flex-column myNav">
+                                <Nav.Item>
+                                    <Nav.Link eventKey="first" 
+                                    onClick={() => {setSelectTab("first")}} 
+                                    onMouseEnter ={() => {setSelectTab1(true)}}
+                                    onMouseLeave ={() => {setSelectTab1(false)}}>
+                                    <img src={(selectTab=="first"||selectTab1)?"AI_face_images/face_active.png":"AI_face_images/face_inactive.png"} width="40" height="40" style={{marginTop:"25%"}}/>
+                                    <p>Face</p>
+                                    </Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link eventKey="second" 
+                                    onClick={() => {setSelectTab("second")}} 
+                                    onMouseEnter ={() => {setSelectTab2(true)}}
+                                    onMouseLeave ={() => {setSelectTab2(false)}}>
+                                        <img src={(selectTab=="second"||selectTab2)?"AI_face_images/popular_active.png":"AI_face_images/popular_inactive.png"} width="40" height="40" style={{marginTop:"25%"}}/>
+                                        <p>Popular</p>
+                                    </Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                        <Nav.Link eventKey="third" 
+                                        onClick={() => {setSelectTab("third")}} 
+                                        onMouseEnter ={() => {setSelectTab3(true)}}
+                                        onMouseLeave ={() => {setSelectTab3(false)}}>
+                                        <img src={(selectTab=="third" ||selectTab3)?"AI_face_images/history_active.png":"AI_face_images/history_inactive.png"} width="40" height="40" style={{marginTop:"25%"}}/>
+                                        <p>History</p>
+                                        </Nav.Link>
+                                </Nav.Item>
+                            </Nav>
+                            </Col>
+                            <Col sm={9}>
+                            <Tab.Content >
+                                <Tab.Pane eventKey="first">
+                                    <Menu theme="light" mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1', 'sub2', 'sub3', 'sub4','sub5', 'sub6', 'sub7', 'sub8']}>
+                                        <SubMenu key="sub1" title="Singers">
+                                            <SlideshowInMode imgData={Face_Singers} />
+                                        </SubMenu>
+                                        <SubMenu key="sub2" title="Meme">
+                                            <SlideshowInMode imgData={Face_Meme} />
+                                        </SubMenu>
+                                        <SubMenu key="sub3" title="Moive Star">
+                                            <SlideshowInMode imgData={Movie} />
+                                        </SubMenu>
+                                        <SubMenu key="sub4" title="Friends Meme">
+                                            <SlideshowInMode imgData={Friends} />
+                                        </SubMenu>
+                                        <SubMenu key="sub5" title="President">
+                                            <SlideshowInMode imgData={Face_Singers} />
+                                        </SubMenu>
+                                        <SubMenu key="sub6" title="Game of Thrones">
+                                            <SlideshowInMode imgData={Face_Meme} />
+                                        </SubMenu>
+                                        <SubMenu key="sub7" title="Harry Potter">
+                                            <SlideshowInMode imgData={Movie} />
+                                        </SubMenu>
+                                        <SubMenu key="sub8"  title="Marvel">
+                                            <SlideshowInMode imgData={Friends} />
+                                        </SubMenu>
+                                    </Menu>
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="second">
+                                <p>Popular</p>
+                                </Tab.Pane>
+                                <Tab.Pane eventKey="third">
+                                <p>History</p>
+                                </Tab.Pane>
+                            </Tab.Content>
+                            </Col>
+                        </Row>
+                    </Tab.Container>
+                   
+                </Sider >
 
                 <Layout className="site-layout" style={{ marginLeft: 0 }}>
                      <h2 style={{marginTop:"2%", textAlign: "center", fontFamily:"'Times New Roman', Times, serif"}}>FACE SWAP</h2>
