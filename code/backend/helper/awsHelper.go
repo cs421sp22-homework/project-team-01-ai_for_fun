@@ -178,3 +178,25 @@ func Updatework(allwork []bson.M) ([]bson.M, error) {
 	}
 	return allwork, nil
 }
+
+func UpdateHistory(allHistory []bson.M) ([]bson.M, error) {
+	for _, history_i := range allHistory {
+		src_s3_id := history_i["src_s3_id"]
+		dst_s3_id := history_i["dst_s3_id"]
+		if src_s3_id.(string) != "" {
+			newUrl, err := GetFile(src_s3_id.(string))
+			if err != nil {
+				return allHistory, err
+			}
+			history_i["src_url"] = newUrl
+		}
+		if dst_s3_id.(string) != "" {
+			newUrl, err := GetFile(dst_s3_id.(string))
+			if err != nil {
+				return allHistory, err
+			}
+			history_i["dst_url"] = newUrl
+		}
+	}
+	return allHistory, nil
+}
