@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import '../style/App.css';
 import '../bootstrap-4.3.1-dist/css/bootstrap.min.css'
 
