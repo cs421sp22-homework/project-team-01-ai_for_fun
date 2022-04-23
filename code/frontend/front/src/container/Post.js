@@ -72,7 +72,7 @@ function Post() {
     //const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg } = useContext(LoginContext);
 
     // const {user,setUser,email,setEmail} = useContext(LoginContext);
-    const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
+    const [cookie, setCookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email', 'avatar']);
     console.log(cookie);
     const [avatar, setAvatar] = useState(cookie.avatar);
     const [name, setName] = useState(cookie.name);
@@ -129,32 +129,29 @@ function Post() {
     };
 
     const handlePost = async (e) => {
-        if (cookie.access_token) {
-            console.log("content(pick in post.js) " + pick);
-            console.log("postText " + postText);
-            console.log("user_id " + cookie.access_token);
-            console.log("user_name " + cookie.name);
-            const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    "content_url": pick,
-                    "post_text": postText,
-                    "user_id": cookie.user_id, //not user id, user id is not in cookie.
-                    "user_name": cookie.name,
-                    "user_avater": cookie.avatar
-                })
-            });
-            if (response.status == 200) {
-                const content = await response.json();
-                message.success('Post success!');
-            }
-            else {
-                console.log('post failed', response);
-                message.error('failed.');
-            }
-        } else {
-            alert('Login first!')
+        console.log("content(pick in post.js) " + pick);
+        console.log("postText " + postText);
+        console.log("user_id " + cookie.access_token);
+        console.log("user_name " + cookie.name);
+        console.log("user_avater" + cookie.avatar);
+        const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "content_url": "id=" + pick.substring(31, 51),
+                "post_text": postText,
+                "user_id": cookie.user_id, //not user id, user id is not in cookie.
+                "user_name": cookie.name,
+                "user_avater": cookie.avatar,
+            })
+        });
+        if (response.status == 200) {
+            const content = await response.json();
+            message.success('Post success!');
+        }
+        else {
+            console.log('post failed', response);
+            message.error('failed.');
         }
     }
     const clickRightIcon = () => {
@@ -173,11 +170,15 @@ function Post() {
     };
 
     return (
-        <Container style={{ minHeight: '100vh', marginTop: '6%' }}>
+        <Container className="container" style={{ marginTop: '6%', marginBottom: '10%', borderRadius: '20px', boxShadow: '0 3px 10px rgb(0 0 0 / 20%)' }}>
             <Row className='pt-3'>
-                {/* <Col md={4}> */}
-                {/* <h4 style={{ textAlign: 'center', marginTop: '2%' }}>My work</h4> */}
-                <Container className="box" md={4} style={{ height: '30vh', borderRadius: '20px', marginTop: '2%', boxShadow: '0 3px 10px rgb(0 0 0 / 20%)', maxHeight: '90vh' }}>
+                <Container md={4} style={{ height: '70%', maxHeight: '70%' }}>
+                    <div
+                        className='p-5 bg-image'
+                        style={{ backgroundImage: "url('/images/post.jpg')", height: 200 }}
+                    >
+                    </div>
+                    <br></br>
                     <div className='wrap_scrollImg' style={{ width: '100%', height: '100%' }}>
                         <span className='left_icon' onClick={clickLeftIcon}><LeftCircleOutlined /></span>
                         <span className='right_icon' onClick={clickRightIcon}><RightCircleOutlined /></span>
@@ -206,27 +207,18 @@ function Post() {
                             })}
                         </ul>
                     </div>
-                </Container>
-                {/* </Col> */}
-                {/* <Col md={7}> */}
-                <Row><h4 style={{ textAlign: 'center', marginTop: '2%' }}>My Post</h4></Row>
-                <Container className="box" md={4} style={{ borderRadius: '20px', boxShadow: '0 3px 10px rgb(0 0 0 / 20%)', maxHeight: '90vh', marginTop: '2%', marginBottom: '3%' }}>
-                    <Content style={{ alignItems: 'center', justifyContent: 'center' }}>
+
+                    <br></br>
+                    <Content style={{ alignItems: 'center', justifyContent: 'center', marginBottom: '5%' }}>
                         <Row>
-                            {/* <Image src={pick ? pick : "https://joeschmoe.io/api/v1/random"} fluid alt="choose" style={{ height: 350, overflow: "hidden", margin: '30' }
-                            height: 350, weight: 'auto', overflow: "hidden", margin: '4%', marginLeft: '13%'} />
-                        <Row>
-                            <TextArea showCount maxLength={100} style={{ height: 100 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" /></Row>
-                        <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Submit</Button> */}
                             <Col md={5}>
                                 {ImagePost ?
-                                    <Image src={pick ? pick : "https://joeschmoe.io/api/v1/random"} fluid alt="choose" style={{ height: 350, display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '70%' }} />
+                                    <Image src={pick ? pick : "/images/PostSteps.jpg"} fluid alt="choose" style={{ height: 350, display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '70%' }} />
                                     :
                                     <div style={{ height: '50%', width: '50%', marginLeft: '20%', marginTop: '1%', marginBottom: '1%' }}>
                                         <Video props={{ "videoSrc": pick }} />
                                     </div>
                                 }
-
                             </Col>
                             <Col md={6} style={{ margin: '4%', marginTop: '5%' }}>
                                 <TextArea showCount maxLength={100} style={{ height: 100 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
@@ -236,7 +228,6 @@ function Post() {
                         </Row>
                     </Content>
                 </Container>
-                {/* </Col> */}
             </Row >
         </Container >
     )

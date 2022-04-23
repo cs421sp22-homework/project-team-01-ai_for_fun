@@ -50,7 +50,8 @@ function Profile(props) {
     const [worksnum, setWorksnum] = useState(0);
     props = props.props
     // const {user,setUser,email,setEmail} = useContext(LoginContext);
-    const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
+    //const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
+    const [cookie, setCookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email', 'avatar']);
     console.log(cookie);
     const [avatar, setAvatar] = useState(cookie.avatar);
     const [name, setName] = useState(cookie.name);
@@ -332,35 +333,32 @@ function Profile(props) {
     };
 
     const handlePost = async () => {
-        if (cookie.access_token) {
-            console.log("content(pick) " + pick);
-            console.log("postText " + postText);
-            console.log("user_id " + cookie.access_token);
-            console.log("user_name " + cookie.name);
-            const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    "content_url": pick,
-                    "post_text": postText,
-                    "user_id": cookie.user_id, //not user id, user id is not in cookie.
-                    "user_name": cookie.name,
-                    "user_avater": cookie.avatar
-                })
-            });
-            if (response.status == 200) {
-                const content = await response.json();
-                message.success('Post success!');
-                setShowCard(false);
-                setSeen(!seen);
-            }
-            else {
-                console.log('post failed', response);
-                message.error('failed.');
+        console.log("content(pick) " + pick);
+        console.log("postText " + postText);
+        console.log("user_id " + cookie.user_id);
+        console.log("user_name " + cookie.name);
+        console.log("user_avater " + cookie.avatar);
+        const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "content_url": "id=" + pick.substring(31, 51),
+                "post_text": postText,
+                "user_id": cookie.user_id,
+                "user_name": cookie.name,
+                "user_avater": cookie.avatar
+            })
+        });
+        if (response.status == 200) {
+            const content = await response.json();
+            message.success('Post success!');
+            setShowCard(false);
+            setSeen(!seen);
+        }
+        else {
+            console.log('post failed', response);
+            message.error('failed.');
 
-            }
-        } else {
-            alert('Login first!')
         }
     };
 
@@ -443,19 +441,19 @@ function Profile(props) {
 
                         </div>
                         <div className="profile-cover__action bg--img" data-overlay="0.3">
-                            <button className="btn btn-rounded btn-info" onClick={handleEditName} >
+                            <button className="btn btn-rounded" style={{ backgroundColor: "rgb(251,156,7)" }} onClick={handleEditName}>
                                 <i className="fa fa-plus"></i>
-                                <span>Edit Name</span>
+                                <span style={{ color: 'white' }}>Edit Name</span>
                             </button>
 
-                            <button className="btn btn-rounded btn-info" onClick={handleEditAvater} >
+                            <button className="btn btn-rounded" style={{ backgroundColor: "rgb(251,156,7)" }} onClick={handleEditAvater} >
                                 <i className="fa fa-plus"></i>
-                                <span>Edit Avatar</span>
+                                <span style={{ color: 'white' }}>Edit Avatar</span>
                             </button>
 
-                            <button className="btn btn-rounded btn-info" onClick={handleEditPsw} >
+                            <button className="btn btn-rounded" style={{ backgroundColor: "rgb(251,156,7)" }} onClick={handleEditPsw} >
                                 <i className="fa fa-plus"></i>
-                                <span>Edit Password</span>
+                                <span style={{ color: 'white' }}>Edit Password</span>
                             </button>
                             {/* 
                             <button className="btn btn-rounded btn-info">
@@ -522,7 +520,7 @@ function Profile(props) {
                                             columnClassName="my-masonry-grid_column"
                                         >
                                             {hiswork.map((item) => {
-                                                { console.log(item) }
+                                                // { console.log(item) }
                                                 return <motion.div
                                                     key={item._id}
                                                     // variants={cardAnimation}
@@ -576,7 +574,7 @@ function Profile(props) {
 
                     }
                 </div>
-            </div>
+            </div >
 
             <Modal
                 visible={seen && showEditPsw}

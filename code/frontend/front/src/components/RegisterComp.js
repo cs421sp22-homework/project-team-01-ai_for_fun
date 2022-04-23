@@ -89,7 +89,7 @@ const RegistrationForm = () => {
 
   return (
     <>
-      <Container style={{marginTop:100}}>
+      <Container style={{ marginTop: 100 }}>
         <div className='redisterTitle'>Register</div>
         <Row>
           <Col md={3}></Col>
