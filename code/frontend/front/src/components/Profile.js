@@ -443,19 +443,19 @@ function Profile(props) {
 
                         </div>
                         <div className="profile-cover__action bg--img" data-overlay="0.3">
-                            <button className="btn btn-rounded btn-info" onClick={handleEditName} >
+                            <button className="btn btn-rounded" style={{ backgroundColor: "rgb(251,156,7)" }} onClick={handleEditName}>
                                 <i className="fa fa-plus"></i>
-                                <span>Edit Name</span>
+                                <span style={{ color: 'white' }}>Edit Name</span>
                             </button>
 
-                            <button className="btn btn-rounded btn-info" onClick={handleEditAvater} >
+                            <button className="btn btn-rounded" style={{ backgroundColor: "rgb(251,156,7)" }} onClick={handleEditAvater} >
                                 <i className="fa fa-plus"></i>
-                                <span>Edit Avatar</span>
+                                <span style={{ color: 'white' }}>Edit Avatar</span>
                             </button>
 
-                            <button className="btn btn-rounded btn-info" onClick={handleEditPsw} >
+                            <button className="btn btn-rounded" style={{ backgroundColor: "rgb(251,156,7)" }} onClick={handleEditPsw} >
                                 <i className="fa fa-plus"></i>
-                                <span>Edit Password</span>
+                                <span style={{ color: 'white' }}>Edit Password</span>
                             </button>
                             {/* 
                             <button className="btn btn-rounded btn-info">
@@ -576,7 +576,7 @@ function Profile(props) {
 
                     }
                 </div>
-            </div>
+            </div >
 
             <Modal
                 visible={seen && showEditPsw}

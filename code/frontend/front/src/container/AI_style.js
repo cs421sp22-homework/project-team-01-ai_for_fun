@@ -40,7 +40,7 @@ export const AI_style = (props) => {
 
     return (
         <>
-            <Row style={{ height: '100%' }}>
+            <Row style={{ height: '100%', marginTop: '6%' }}>
                 <Col xs={3}>
                     < CollectionInLeft leftSourceImg={leftData} />
                 </Col>
