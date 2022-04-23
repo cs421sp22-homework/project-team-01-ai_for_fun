@@ -170,11 +170,15 @@ function Post() {
     };
 
     return (
-        <Container style={{ minHeight: '100vh', marginTop: '6%' }}>
+        <Container className="container" style={{ marginTop: '6%', marginBottom: '10%', borderRadius: '20px', boxShadow: '0 3px 10px rgb(0 0 0 / 20%)' }}>
             <Row className='pt-3'>
-                {/* <Col md={4}> */}
-                {/* <h4 style={{ textAlign: 'center', marginTop: '2%' }}>My work</h4> */}
-                <Container className="box" md={4} style={{ height: '30vh', borderRadius: '20px', marginTop: '2%', boxShadow: '0 3px 10px rgb(0 0 0 / 20%)', maxHeight: '90vh' }}>
+                <Container md={4} style={{ height: '70%', maxHeight: '70%' }}>
+                    <div
+                        className='p-5 bg-image'
+                        style={{ backgroundImage: "url('/images/post.jpg')", height: 200 }}
+                    >
+                    </div>
+                    <br></br>
                     <div className='wrap_scrollImg' style={{ width: '100%', height: '100%' }}>
                         <span className='left_icon' onClick={clickLeftIcon}><LeftCircleOutlined /></span>
                         <span className='right_icon' onClick={clickRightIcon}><RightCircleOutlined /></span>
@@ -203,18 +207,10 @@ function Post() {
                             })}
                         </ul>
                     </div>
-                </Container>
-                {/* </Col> */}
-                {/* <Col md={7}> */}
-                <Row><h4 style={{ textAlign: 'center', marginTop: '2%' }}>My Post</h4></Row>
-                <Container className="box" md={4} style={{ borderRadius: '20px', boxShadow: '0 3px 10px rgb(0 0 0 / 20%)', maxHeight: '90vh', marginTop: '2%', marginBottom: '3%' }}>
+
+                    <br></br>
                     <Content style={{ alignItems: 'center', justifyContent: 'center' }}>
                         <Row>
-                            {/* <Image src={pick ? pick : "https://joeschmoe.io/api/v1/random"} fluid alt="choose" style={{ height: 350, overflow: "hidden", margin: '30' }
-                            height: 350, weight: 'auto', overflow: "hidden", margin: '4%', marginLeft: '13%'} />
-                        <Row>
-                            <TextArea showCount maxLength={100} style={{ height: 100 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" /></Row>
-                        <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Submit</Button> */}
                             <Col md={5}>
                                 {ImagePost ?
                                     <Image src={pick ? pick : "https://joeschmoe.io/api/v1/random"} fluid alt="choose" style={{ height: 350, display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '70%' }} />
@@ -223,7 +219,6 @@ function Post() {
                                         <Video props={{ "videoSrc": pick }} />
                                     </div>
                                 }
-
                             </Col>
                             <Col md={6} style={{ margin: '4%', marginTop: '5%' }}>
                                 <TextArea showCount maxLength={100} style={{ height: 100 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
@@ -233,7 +228,6 @@ function Post() {
                         </Row>
                     </Content>
                 </Container>
-                {/* </Col> */}
             </Row >
         </Container >
     )
