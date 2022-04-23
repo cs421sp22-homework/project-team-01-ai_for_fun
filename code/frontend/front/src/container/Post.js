@@ -72,7 +72,7 @@ function Post() {
     //const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg } = useContext(LoginContext);
 
     // const {user,setUser,email,setEmail} = useContext(LoginContext);
-    const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
+    const [cookie, setCookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email', 'avatar']);
     console.log(cookie);
     const [avatar, setAvatar] = useState(cookie.avatar);
     const [name, setName] = useState(cookie.name);
@@ -129,32 +129,29 @@ function Post() {
     };
 
     const handlePost = async (e) => {
-        if (cookie.access_token) {
-            console.log("content(pick in post.js) " + pick);
-            console.log("postText " + postText);
-            console.log("user_id " + cookie.access_token);
-            console.log("user_name " + cookie.name);
-            const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    "content_url": "id=" + pick.substring(31, 51),
-                    "post_text": postText,
-                    "user_id": cookie.user_id, //not user id, user id is not in cookie.
-                    "user_name": cookie.name,
-                    "user_avater": cookie.avatar
-                })
-            });
-            if (response.status == 200) {
-                const content = await response.json();
-                message.success('Post success!');
-            }
-            else {
-                console.log('post failed', response);
-                message.error('failed.');
-            }
-        } else {
-            alert('Login first!')
+        console.log("content(pick in post.js) " + pick);
+        console.log("postText " + postText);
+        console.log("user_id " + cookie.access_token);
+        console.log("user_name " + cookie.name);
+        console.log("user_avater" + cookie.avatar);
+        const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "content_url": "id=" + pick.substring(31, 51),
+                "post_text": postText,
+                "user_id": cookie.user_id, //not user id, user id is not in cookie.
+                "user_name": cookie.name,
+                "user_avater": cookie.avatar,
+            })
+        });
+        if (response.status == 200) {
+            const content = await response.json();
+            message.success('Post success!');
+        }
+        else {
+            console.log('post failed', response);
+            message.error('failed.');
         }
     }
     const clickRightIcon = () => {
