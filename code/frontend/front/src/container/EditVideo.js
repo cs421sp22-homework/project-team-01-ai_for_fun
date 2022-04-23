@@ -234,7 +234,8 @@ function EditVideo(props) {
                                         sourceimg ?
                                             <Image src={sourceimg} style={{ minHeight: "40vh" }} fluid />
                                             :
-                                            <Video props={tempvideo} />
+                                            // <Video props={tempvideo} />
+                                            <Image src="images/AIface.jpg" fluid/>
                                     }
                                 </center>
                             </Col>
@@ -250,24 +251,6 @@ function EditVideo(props) {
 
                                 <Col md={10} lg={10}>
                                     <ul ref={ref} >
-                                        {/* {imgData.map(item => {
-                                            return <li key={item.name} className="pl-3 mt-1" style={{ display: 'inline-block' }}
-                                                onClick={(e) => {
-                                                    if (pick === item.imgUrl) {
-                                                        setPick('')
-                                                    } else {
-                                                        setPick(item.imgUrl);
-                                                    }
-                                                }} >
-                                                <Image
-                                                    className='res-img'
-                                                    src={item.imgUrl}
-                                                    onClick={(e) => selected(e)}
-                                                />
-                                            </li>
-                                        })} */}
-
-
                                         {history.map(item => {
                                             return <li key={item.his_id} className="pl-3 mt-1" style={{ display: 'inline-block' }}
                                                 onClick={(e) => {

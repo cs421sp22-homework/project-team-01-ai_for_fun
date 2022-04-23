@@ -10,13 +10,15 @@ function FollowerPost() {
   }, []);
   const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
   const [posts, setPosts]=useState([]);
+  // const [videos, setVideos] = useState([]);
+  // const [comments, setComment] = useState([]);
   useEffect(async()=>{
         let url = 'https://server-demo.ai-for-fun-backend.com/topkpost';
         const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                "sorttype":"likeNumber",
+                "sorttype":"commentNumber",
                 "k":15
             })
           });

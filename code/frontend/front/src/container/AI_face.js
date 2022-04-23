@@ -81,7 +81,7 @@ export const AI_face = () => {
 
     return (
         <>
-            <Layout hasSider style={{ marginTop: '4.5%' }}>
+            <Layout hasSider style={{ marginTop: 70 }}>
                 <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}
                     theme="dark" width='30%' collapsedWidth='5%'
                     style={{

@@ -197,7 +197,7 @@ function EditText(props) {
                                             sourceimg ?
                                                 <Image src={sourceimg} fluid />
                                                 :
-                                                <Video props={tempvideo} />
+                                                <Image src="images/text_instruction.gif" fluid/>
                                         }
                                         {console.log("person" + person)}
                                     </center>
@@ -205,7 +205,7 @@ function EditText(props) {
                                 <Col>
                                     <center>
                                         <h3 style={{ margin: 10 }}>Please input the content you would like to manipulate</h3>
-                                        <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} />,
+                                        <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} />
                                         {dst ?
                                             <Button onClick={handleShowCard} size="lg" style={{ float: "right", marginRight: '50px' }}>Post</Button> :
                                             <Button onClick={handleShowCard} size="lg" style={{ float: "right", marginRight: '50px' }} disabled>Post</Button>
