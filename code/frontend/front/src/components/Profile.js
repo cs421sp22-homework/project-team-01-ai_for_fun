@@ -341,7 +341,7 @@ function Profile(props) {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    "content_url": pick,
+                    "content_url": "id=" + pick.substring(31, 51),
                     "post_text": postText,
                     "user_id": cookie.user_id, //not user id, user id is not in cookie.
                     "user_name": cookie.name,

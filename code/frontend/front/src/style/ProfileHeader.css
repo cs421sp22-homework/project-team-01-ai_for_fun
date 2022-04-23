@@ -28,7 +28,7 @@ body {
     -webkit-box-pack: end;
     justify-content: flex-end;
     overflow: hidden;
-    background: url(https://images2.alphacoders.com/559/559116.png) no-repeat;
+    background: url(/Users/lijingyan/Documents/GitHub/project-team-01-ai_for_fun/code/frontend/front/public/images/headerProfile.png) no-repeat;
     background-size: cover;
 }
 
