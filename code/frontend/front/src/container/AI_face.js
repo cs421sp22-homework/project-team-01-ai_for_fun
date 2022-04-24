@@ -102,7 +102,6 @@ export const AI_face = () => {
                                 <Tab.Content style={{ overflowY: "scroll", maxHeight: "1080px" }}>
                                     <Tab.Pane eventKey="first">
                                         <AIFaceGallery title="Movie Star" images={Movie} />
-                                        <AIFaceGallery title="Singers" images={Face_Singers} />
                                         <AIFaceGallery title="President" images={President} />
                                         <AIFaceGallery title="Game_of_Thrones" images={Game_of_Thrones} />
                                     </Tab.Pane>
