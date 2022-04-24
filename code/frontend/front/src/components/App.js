@@ -28,10 +28,10 @@ const info = { pic: './img/01_1.png', name: 'Sample', email: '1234@jh.edu' }
 
 
 function App() {
-  const [faceimg, setFaceimg] = useState('');
-  const [sourceimg, setSourceimg] = useState('');
+  const [sourceimg, setSourceimg] = useState(''); //src_img for AI face, content_img for AI style
+  const [faceimg, setFaceimg] = useState('');  //dst_img for AI face, style_img for AI style
+  const [dst, setDst] = useState(''); //res_img for AI face and AI style
   const [avatarimg, setAvatarimg] = useState('');
-  const [dst, setDst] = useState('');
   const [person, setPerson] = useState('');
   return (
     <CookiesProvider>

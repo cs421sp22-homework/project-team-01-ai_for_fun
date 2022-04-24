@@ -1,0 +1,16 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  .facecolumn {
+    float: left;
+    width: 32%;
+    padding: 2px;
+  }
+  
+  /* Clearfix (clear floats) */
+  .facerow::after {
+    content: "";
+    clear: both;
+    display: table;
+  }

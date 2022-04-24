@@ -198,6 +198,6 @@ export const AI_text = (props) => {
 
 
 const style = {
-    padding: '7px 0', textAlign: 'center', boxShadow: '0 3px 3px rgb(0 0 0 / 30%)', border: '0.1px solid #176891'
+    padding: '7px 0', textAlign: 'center', boxShadow: '0 3px 3px rgb(0 0 0 / 30%)', border: '0.1px solid black'
 };
 const circle = { height: '4vw', overflow: 'hidden', borderRadius: '70%', marginLeft: '1px', marginTop: '1px' }

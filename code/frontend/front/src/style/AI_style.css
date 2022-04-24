@@ -1,0 +1,19 @@
+.flex-column.myNav{
+    margin-left: 9%;
+}
+.nav.nav-pills .nav-link.active {
+    background-color: #F5F6FA;
+    color: #5771D5;
+    font-weight: 600;
+}
+
+.nav.nav-pills .nav-link:hover{
+    background-color: #F5F6FA;
+    color: #5771D5;
+    font-weight: 600;
+}
+
+.nav.nav-pills .nav-link {
+    color: #505050;
+    font-weight: 600;
+}
