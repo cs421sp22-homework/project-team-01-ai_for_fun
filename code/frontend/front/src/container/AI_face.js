@@ -6,16 +6,7 @@ import { Row, Col} from 'react-bootstrap';
 import '../style/Slideshow.css';
 import '../style/sider.css';
 import '../style/AI_face.css'
-
-
 import { Layout, Menu } from 'antd';
-import {
-    UserOutlined,
-    UserAddOutlined,
-    UserDeleteOutlined,
-    UsergroupAddOutlined,
-} from '@ant-design/icons';
-import AIStyleGallery from "./AIStyleGallery";
 import AIFaceGallery from "./AIFaceGallery";
 import AIFaceHistory from "./AIFaceHistory";
 
@@ -89,10 +80,10 @@ export const AI_face = () => {
                                     <AIFaceGallery title="Movie Star" images={Movie}/>
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="second">
-                                <p>Popular</p>
+                                    <p>Popular</p>
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="third">
-                                <AIFaceHistory />
+                                    <AIFaceHistory />
                                 </Tab.Pane>
                             </Tab.Content>
                             </Col>

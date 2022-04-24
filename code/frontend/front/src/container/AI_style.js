@@ -9,7 +9,7 @@ import '../style/AI_style.css'
 
 
 
-import { Layout, Menu } from 'antd';
+import { Layout} from 'antd';
 
 const {Content, Sider } = Layout;
 
