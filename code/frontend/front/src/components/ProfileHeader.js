@@ -1,6 +1,7 @@
 import "../bootstrap-4.3.1-dist/css/bootstrap.min.css"
 import "../style/ProfileHeader.css"
-import React, { useState, useContext, useEffect } from 'react';
+import { Navigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
 import { Image } from "react-bootstrap";
 import Gallery from "../container/Community_home";
 import FriendList from "./FriendList";
@@ -22,6 +23,7 @@ function ProfileHeader() {
   const [username, setUsername] = useState('')
   const [avatar, setAvatar] = useState('')
   const [followstate, setFollowstate] = useState(false)
+
   useEffect(async () => {
     let url_follow = 'https://server-demo.ai-for-fun-backend.com/getfollowinfo/' + user;
     let url_like = 'https://server-demo.ai-for-fun-backend.com/postlikeinfo/' + user;
@@ -81,6 +83,10 @@ function ProfileHeader() {
       setUserposts([])
     }
   }, [])
+
+  if (cookie.user_id === user){
+    return <Navigate to="/profile" />
+  }
   const handleFollow = async () => {
     if (cookie.user_id) {
       let url = 'https://server-demo.ai-for-fun-backend.com/follow'
@@ -138,7 +144,7 @@ function ProfileHeader() {
             <Image src={avatar} alt="" />
             <h3 className="h3">{username}</h3>
           </div>
-          <div className="profile-cover__action bg--img" data-overlay="0.3">
+          <div className="profile-cover__public bg--img" data-overlay="0.3" >
             {!followstate ?
               <button className="btn btn-rounded btn-info" onClick={handleFollow}>
                 <i className="fa fa-plus"></i>

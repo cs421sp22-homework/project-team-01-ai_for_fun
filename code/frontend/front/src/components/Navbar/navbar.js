@@ -12,10 +12,11 @@ function NavBar() {
   }
   const handleLogout = () => {
     removeCookie('name');
+    // removeCookie('name',{path:'/Cookies'});
     removeCookie('email');
     removeCookie('refresh_token');
     removeCookie('access_token');
-    removeCookie('avater');
+    removeCookie('avatar');
     removeCookie('user_id')
   };
   let listener = null
@@ -60,7 +61,7 @@ function NavBar() {
           {/* <Nav.Link eventKey={0} href="#memes" onClick={handelHelp}>
           Help
           </Nav.Link> */}
-          {cookie.name ? 
+          {cookie.name != 'undefined' && cookie.name  ? 
           (
             <NavDropdown className='mr-4' title="My Account" id="collasible-nav-dropdown">
               <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
@@ -98,7 +99,7 @@ function NavBar() {
           {/* <Nav.Link eventKey={0} href="#memes" onClick={handelHelp}>
           Help
           </Nav.Link> */}
-          {cookie.name ? 
+          {cookie.name != 'undefined' && cookie.name ? 
           (
             <NavDropdown className='mr-4' title="My Account" id="collasible-nav-dropdown">
               <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
@@ -138,7 +139,7 @@ function NavBar() {
           {/* <Nav.Link eventKey={0} href="#memes" onClick={handelHelp}>
           Help
           </Nav.Link> */}
-          {cookie.name ? 
+          {cookie.name != 'undefined' && cookie.name ? 
           (
             <NavDropdown className='mr-4' title="My Account" id="collasible-nav-dropdown">
               <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>

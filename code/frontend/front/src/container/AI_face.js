@@ -10,8 +10,38 @@ import { Layout, Menu } from 'antd';
 import AIFaceGallery from "./AIFaceGallery";
 import AIFaceHistory from "./AIFaceHistory";
 
-const { Content, Sider } = Layout;
+
+import { Layout, Menu } from 'antd';
+import {
+    UserOutlined,
+    UserAddOutlined,
+    UserDeleteOutlined,
+    UsergroupAddOutlined,
+
+} from '@ant-design/icons';
+const { Header, Content, Sider } = Layout;
 const { SubMenu } = Menu;
+
+const componentDidMount = async () => {
+    const response = await fetch("https://server-demo.ai-for-fun-backend.com/getentities", {
+        method: 'POST',
+    });
+    if (response.ok) {
+        const content = await response.json();
+        for (var i = 0; i < content.length; i++) {
+            if (content[i]._id.mode === 'Face_Singers') {
+                for (var j = 0; j < content[i].entities.length; j++) {
+                    Face_Singers.push(content[i].entities[j]._id);
+                }
+            }
+        }
+        console.log(Face_Singers);
+        // alert("Success!")
+    }
+    else {
+        console.log('request failed for get entities', response);
+    }
+}
 
 export const AI_face = () => {
     const [collapsed, setCollapsed] = useState(false);
