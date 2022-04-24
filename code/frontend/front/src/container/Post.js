@@ -140,9 +140,9 @@ function Post() {
             body: JSON.stringify({
                 "content_url": "id=" + pick.substring(31, 51),
                 "post_text": postText,
-                "user_id": cookie.user_id, //not user id, user id is not in cookie.
+                "user_id": cookie.user_id,
                 "user_name": cookie.name,
-                "user_avater": cookie.avatar,
+                "user_avater": cookie.avatar
             })
         });
         if (response.status == 200) {
