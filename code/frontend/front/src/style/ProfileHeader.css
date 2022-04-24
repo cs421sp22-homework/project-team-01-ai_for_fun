@@ -32,6 +32,22 @@ body {
     background-size: cover;
 }
 
+.profile-cover__public {
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    padding: 120px 30px 10px 153px;
+    border-radius: 5px 5px 0 0;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-pack: end;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    overflow: hidden;
+    background: url(../../public/images/profileHeader2.jpg) no-repeat;
+    background-size: cover;
+}
+
 .profile-cover__action>.btn {
     margin-left: 10px;
     margin-bottom: 10px;

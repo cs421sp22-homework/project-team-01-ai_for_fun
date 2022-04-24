@@ -18,34 +18,16 @@ import '../style/sider.css';
 // import UploadFace from '../components/UploadFace';
 
 
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu } from 'antd';
 import {
     UserOutlined,
     UserAddOutlined,
     UserDeleteOutlined,
     UsergroupAddOutlined,
-    AppstoreOutlined,
-    BarChartOutlined,
-    CloudOutlined,
-    ShopOutlined,
-    UploadOutlined,
-    VideoCameraOutlined,
-    DesktopOutlined,
-    PieChartOutlined,
-    FileOutlined,
-    TeamOutlined,
-    MailOutlined
 
 } from '@ant-design/icons';
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Sider } = Layout;
 const { SubMenu } = Menu;
-
-const tempvideo = {
-    videoSrc: "http://media.w3.org/2010/05/bunny/movie.mp4",
-    poster: "https://epe.brightspotcdn.com/f8/ca/abde5f4f4a30a6a3d1a0eaa23821/test-032021-968416412.jpg"
-}
-
-
 
 const componentDidMount = async () => {
     const response = await fetch("https://server-demo.ai-for-fun-backend.com/getentities", {

@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { IoMdCreate, IoMdImages } from "react-icons/io";
 import { RiUserFollowFill } from "react-icons/ri";
 import { useCookies } from 'react-cookie';
-import { Avatar} from 'antd';
+import { Avatar, message} from 'antd';
 
 function RightSidebar() {
   const { colorMode } = useColorMode();
@@ -330,7 +330,11 @@ function RightSidebar() {
           variant="solid"
           marginTop="2rem"
           onClick={() => {
-            navigate("/Post");
+            if (cookie.user_id){
+              navigate("/Post");
+            }else{
+              message.info("Please Login first")
+            }
           }}
         >
           Create
