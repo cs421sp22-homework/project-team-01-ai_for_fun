@@ -6,11 +6,8 @@ import { Row, Col } from 'react-bootstrap';
 import '../style/Slideshow.css';
 import '../style/sider.css';
 import '../style/AI_face.css'
-import { Layout, Menu } from 'antd';
 import AIFaceGallery from "./AIFaceGallery";
 import AIFaceHistory from "./AIFaceHistory";
-
-
 import { Layout, Menu } from 'antd';
 import {
     UserOutlined,
