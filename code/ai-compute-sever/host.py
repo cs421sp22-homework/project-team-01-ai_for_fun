@@ -99,8 +99,14 @@ class S(BaseHTTPRequestHandler):
             user_id = data["user_id"]
             src_url = data["src_url"]
             dst_url = data["dst_url"]
-            src_s3_id = "public/"+data["src_s3_id"]
-            dst_s3_id = "public/"+data["dst_s3_id"]
+            if(data["src_s3_id"]==""):
+                src_s3_id = ""
+            else:
+                src_s3_id="public/"+data["src_s3_id"]
+            if(data["dst_s3_id"]==""):
+                dst_s3_id=""
+            else:
+                dst_s3_id="public/"+data["dst_s3_id"]
             history_type = data["type"]
             res_name, res_url = AiFaceSwap(src_url, dst_url)
             res = {"res_s3_id": res_name, "res_url": res_url}
@@ -111,7 +117,7 @@ class S(BaseHTTPRequestHandler):
             workdata["type"] = "image"
             workdata["url"] = res_url
             saveworkfile(workdata)
-            if (history_type != ""):
+            if (src_s3_id != "" or dst_s3_id != ""):
                 historydata["user_id"] = user_id
                 historydata["src_s3_id"] = src_s3_id
                 historydata["dst_s3_id"] = dst_s3_id
@@ -125,8 +131,14 @@ class S(BaseHTTPRequestHandler):
             user_id=data["user_id"]
             content_url = data["content_url"]
             style_url = data["style_url"]
-            src_s3_id="public/"+data["src_s3_id"] # src <-> content
-            dst_s3_id="public/"+data["dst_s3_id"] # dst <-> style
+            if(data["src_s3_id"]==""):
+                src_s3_id = ""
+            else:
+                src_s3_id="public/"+data["src_s3_id"] # src <-> content
+            if(data["dst_s3_id"]==""):
+                dst_s3_id=""
+            else:
+                dst_s3_id="public/"+data["dst_s3_id"] # dst <-> style
             history_type = data["type"]
 
             res_name, res_url = style_transfer(content_url, style_url)
@@ -138,7 +150,7 @@ class S(BaseHTTPRequestHandler):
             workdata["type"] = "image"
             workdata["url"] = res_url
             saveworkfile(workdata)
-            if (history_type != ""):
+            if (src_s3_id != "" or dst_s3_id != ""):
                 historydata["user_id"] = user_id
                 historydata["src_s3_id"] = src_s3_id
                 historydata["dst_s3_id"] = dst_s3_id
