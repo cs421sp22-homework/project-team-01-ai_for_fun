@@ -75,7 +75,7 @@ export const AI_face = () => {
                             </Nav>
                             </Col>
                             <Col sm={9}>
-                            <Tab.Content >
+                            <Tab.Content style={{overflowY:"scroll", maxHeight:"1080px"}}>
                                 <Tab.Pane eventKey="first">
                                     <AIFaceGallery title="Movie Star" images={Movie}/>
                                 </Tab.Pane>
