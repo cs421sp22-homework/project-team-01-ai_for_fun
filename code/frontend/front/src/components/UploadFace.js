@@ -1,5 +1,3 @@
-import 'antd/es/modal/style';
-import "antd/dist/antd.css";
 import React, {useContext} from "react";
 import ImgCrop from 'antd-img-crop';
 import { Upload, Button, message } from 'antd';
@@ -7,6 +5,8 @@ import { UploadOutlined } from '@ant-design/icons';
 import { LoginContext } from "../context/AuthProvider";
 import Amplify, { Storage } from 'aws-amplify'
 import config from '../aws-exports';
+import 'antd/es/modal/style';
+import "antd/dist/antd.css";
 Amplify.configure(config)
 
 
@@ -72,7 +72,6 @@ class UploadFace extends React.Component {
       var fileExtension = filename.name.split('.').pop()
       const hashname = this.makeid(16) + "." + fileExtension
       const result = await Storage.put(hashname, filename);
-      console.log(result.key);
       const signedURL = await Storage.get(result.key);
       this.setState({
         imageUrl: signedURL,
@@ -80,11 +79,11 @@ class UploadFace extends React.Component {
 
       if (this.props.control == "src"){
         this.context.setSourceimg(signedURL)
-        console.log("sourceimg: " + this.context.sourceimg)
+        localStorage.setItem('src_s3_id', hashname)
       }
       else{
         this.context.setFaceimg(signedURL)
-        console.log("faceimg: " + this.context.faceimg)
+        localStorage.setItem('dst_s3_id', hashname)
       }
 
     } catch (error) {

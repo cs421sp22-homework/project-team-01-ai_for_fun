@@ -4,6 +4,7 @@ import Tab from 'react-bootstrap/Tab'
 import Nav from 'react-bootstrap/Nav'
 import { Row, Col} from 'react-bootstrap';
 import AIStyleGallery from "./AIStyleGallery";
+import AIStyleHistory from "./AIStyleHistory";
 import '../style/AI_style.css'
 
 
@@ -78,7 +79,7 @@ export const AI_style = () => {
                             <Col sm={8}>
                                 <Tab.Content style={{overflowY:"scroll", maxHeight:"1080px"}}>
                                     <Tab.Pane eventKey="first">
-                                        <AIStyleGallery title="Van Gogh" images={style1} control="style"/>
+                                        <AIStyleGallery title="Van Gogh" images={style_vangogh} control="style"/>
                                         <AIStyleGallery title="Chinese" images={style_chinese} control="style"/>
                                         <AIStyleGallery title="Raffaello" images={style_raff} control="style"/>
                                         <AIStyleGallery title="Pencil" images={style_pencil} control="style"/>
@@ -94,7 +95,7 @@ export const AI_style = () => {
                                         <AIStyleGallery title="Popular Style" images={popular_style} control="style"/>
                                     </Tab.Pane>
                                     <Tab.Pane eventKey="forth">
-                                    <p>History</p>
+                                        <AIStyleHistory/>
                                     </Tab.Pane>
                                 </Tab.Content>
                             </Col>
@@ -116,13 +117,13 @@ export const AI_style = () => {
     );
 };
 
-const style1 = [
+const style_vangogh = [
     "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/970px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
     "https://cdn.cnn.com/cnnnext/dam/assets/211015173306-meules-de-ble-painting-van-gogh-full-169.jpg",
     "https://mymodernmet.com/wp/wp-content/uploads/2020/11/White-house-night-van-goh-worldwide-2.jpg",
     "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Irises-Vincent_van_Gogh.jpg/640px-Irises-Vincent_van_Gogh.jpg",
     "https://media.architecturaldigest.com/photos/5c991cc56b6fbc66bc4dd3aa/16:9/w_2560%2Cc_limit/GettyImages-973792302.jpg",
-    "https://iiif.micr.io/rAERt/full/1280,/0/default.jpg"
+    "https://i.ebayimg.com/images/g/t4AAAOSwNTZfr8vo/s-l400.jpg"
 ]
 
 const style_chinese =[
@@ -147,23 +148,23 @@ const style_pencil = [
     "https://images.template.net/wp-content/uploads/2015/08/23143236/Amazingly-Awesome-Pencil-Drawings.jpg?width=584",
     "https://www.pencilsketchportraits.co.uk/wp-content/uploads/2018/10/abbey-pencil-drawing-1030x736.jpg",
     "https://swall.teahub.io/photos/small/229-2290319_easy-pencil-sketches-of-i-love-you-easy.jpg",
-    "https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/346/posts/31135/image/pencil15.jpg",
+    "https://i.pinimg.com/736x/2d/23/27/2d2327c022899e5ef17966044d14551c--the-hunger-game-thailand.jpg",
     "https://media.fuzia.com/assets/uploads/images/co_brand_1/article/2020/img_20200805_210136_664-DHOFTbayq6VBm8LU.jpg",
     "https://e.staedtlercdn.com/fileadmin/_processed_/b/4/csm_STAEDTLER_drawing-elk_step6_ac86a65e53.jpg"
 ]
 
 const content_building = [
-    "https://www.jobnimbus.com/wp-content/uploads/2020/01/sean-pollock-PhYq704ffdA-unsplash-scaled-1.jpg",
+    "https://www.ubm-development.com/magazin/wp-content/uploads/2020/03/kl-main-building-d-Kopie.jpg",
     "https://seaonc-assets.s3.amazonaws.com/uploads/2018/04/mills.jpg",
     "https://wpcdn.us-midwest-1.vip.tn-cloud.net/www.hpbmagazine.org/content/uploads/data-import/1acb98fe/BeachGreenDunesPhoto4-1024x693.jpg",
-    "https://livingnewdeal.org/wp-content/uploads/2020/01/Treasury-Bldg-2-scaled.jpg",
+    "https://roadmap2050.report/static/files/photo-building.jpg",
     "https://www.greenbreporters.com/wp-content/uploads/2016/03/US-Capitol.jpg",
     "https://s3.eu-west-2.amazonaws.com/luxurylondon.co.uk-storage-bucket-001/images/230421114848/card/londons-most-contentious-buildings-tower-bridge-xl-hd.jpg"
 ]
 
 const content_landscape = [
     "https://www.motosha.com/files/preview/1280x853/14135-rural-landscape-in-hattingen-by-north-rhine-westphalia-germany-on-a-cloudy-day.jpg",
-    "https://wallup.net/wp-content/uploads/2015/12/153891-road-mountain-landscape.jpg",
+    "https://agreenerworld.org/wp-content/uploads/2020/10/Windy-n-Ranch-900-x-600-directory.jpg",
     "https://d38zjy0x98992m.cloudfront.net/455c55cf-c378-45a2-89e4-9e9279ca49b8/1808190078_X_PALOUSE_WASHINGTON_uxga.jpg",
     "https://backlightblog.com/images/2021/04/landscape-photography-header.jpg",
     "https://images.squarespace-cdn.com/content/v1/5919021a1e5b6c940741bc9b/1576177860363-WGW3ZZ7WX7R5YOLMXZKJ/MT+TARANAKI+-+AGORAjpg.jpg",
@@ -173,7 +174,7 @@ const content_landscape = [
 const content_people =[
     "https://assets.weforum.org/article/image/XaHpf_z51huQS_JPHs-jkPhBp0dLlxFJwt-sPLpGJB0.jpg",
     "https://www.telegraph.co.uk/content/dam/tv/2020/04/27/TELEMMGLPICT000228841709_trans_NvBQzQNjv4BqYHaHRqZzVuMJAn8HN8r1s25xHFBv-aIg4TgE5NfOlH8.jpeg",
-    "https://www.colesclassroom.com/wp-content/uploads/2012/12/how-to-photograph-people-photography-tutorials_0006.jpg",
+    "https://images.squarespace-cdn.com/content/v1/52e12a98e4b0bd0cf79bddf1/1434747011102-4KSMRE6Q6ZDQ6TRZDLHD/image-asset.jpeg?format=1000w",
     "https://www.properproof.com/photo/Images/gowin_edith_ruth.jpg",
     "https://images.squarespace-cdn.com/content/v1/5dba36512fd9c73b34f1790e/1572485375386-ZLOIHWY0GV6R8DYESXI1/BethesdaDayDream_sm-001.jpg",
     "https://backlightblog.com/images/2020/10/blur-photo-background-header.jpg"

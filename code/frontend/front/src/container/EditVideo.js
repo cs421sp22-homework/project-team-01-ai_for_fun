@@ -1,6 +1,5 @@
-import React, { useState, createRef, useContext, useEffect } from 'react';
-import { Row, Col, Button, Image } from 'react-bootstrap';
-import Video from '../components/Video';
+import React, { useContext } from 'react';
+import { Row, Button } from 'react-bootstrap';
 import UploadFace from '../components/UploadFace';
 import Card from 'react-bootstrap/Card';
 import "../style/EditVideo.css"
@@ -11,8 +10,8 @@ import { useCookies } from 'react-cookie';
 import { Input } from 'antd';
 import { Layout, message } from 'antd';
 import Amplify, { Storage } from 'aws-amplify'
+import{EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, PinterestIcon, PinterestShareButton, TelegramIcon, TelegramShareButton, TwitterIcon, TwitterShareButton, WeiboIcon, WeiboShareButton, WhatsappIcon, WhatsappShareButton} from "react-share"
 import config from '../aws-exports';
-import { Center } from '@chakra-ui/react';
 Amplify.configure(config)
 
 
@@ -53,11 +52,6 @@ function EditVideo() {
 
         message.info('Post Received.');
         if (cookie.access_token) {
-            console.log("content url ID   " + dst.substring(31, 51));
-            console.log("content url" + dst);
-            console.log("postText " + postText);
-            console.log("user_id " + cookie.user_id);
-            console.log("user_name " + cookie.name);
             const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
                 //const response = await fetch('http://127.0.0.1:8080/faceswap', {
                 method: 'POST',
@@ -100,7 +94,9 @@ function EditVideo() {
                         "src_url": sourceimg,
                         "dst_url": faceimg,
                         "user_id": cookie.user_id,
-                        "src_s3_id": sourceimg
+                        "src_s3_id": localStorage.getItem('src_s3_id'),
+                        "dst_s3_id": localStorage.getItem('dst_s3_id'),
+                        "type":"face"
                     })
                 });
                 if (response.status == 200) {
@@ -109,11 +105,15 @@ function EditVideo() {
                     message.success('Completed');
                     setSourceimg("")
                     setFaceimg("")
+                    localStorage.setItem('src_s3_id', "")
+                    localStorage.setItem('dst_s3_id', "")
                 } else{
                     console.log('request failed', response);
                     message.error('failed.');
                 }
             } else{
+                localStorage.setItem('src_s3_id', "")
+                localStorage.setItem('dst_s3_id', "")
                 alert('Login first!')
             }
         }
@@ -122,6 +122,8 @@ function EditVideo() {
     const handleReset = () => {
         setSourceimg("")
         setFaceimg("")
+        localStorage.setItem('src_s3_id', "")
+        localStorage.setItem('dst_s3_id', "")
         setDst("")
     }
 
@@ -142,10 +144,33 @@ function EditVideo() {
                                 </Card.Text>
                             </Card.Body>
                             <Card.Footer>
-                                <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Post</Button>
-                                <Button onClick={handleReset} variant="danger" style={{ float: "right", marginRight: '15px' }}>Cancel</Button>{''}
+                                <Button onClick={handlePost} variant="dark" size="lg" style={{ float: "right", marginRight: '20px' }}>Post</Button>
+                                <Button onClick={handleReset} variant="secondary" size="lg" style={{ float: "right", marginRight: '15px' }}>Cancel</Button>{''}
                             </Card.Footer>
                         </Card>
+                        <div style={{display:"flex", marginLeft:"18vw"}}>
+                                <EmailShareButton url={dst}>
+                                    <EmailIcon/>
+                                </EmailShareButton>
+                                <FacebookShareButton url={dst}>
+                                    <FacebookIcon/>   
+                                </FacebookShareButton>
+                                <PinterestShareButton url={dst} media={dst}>
+                                    <PinterestIcon/>
+                                </PinterestShareButton>
+                                <TwitterShareButton url={dst}>
+                                    <TwitterIcon/>
+                                </TwitterShareButton>
+                                <WhatsappShareButton url={dst} image={dst}>
+                                    <WhatsappIcon/>
+                                </WhatsappShareButton>
+                                <TelegramShareButton url={dst}>
+                                    <TelegramIcon/>
+                                </TelegramShareButton>
+                                <WeiboShareButton url={dst}>
+                                    <WeiboIcon/>
+                                </WeiboShareButton>
+                        </div>
                     </Content>
                     :
                     <Content style={{ margin: '0 16px' }} className='center-box'>
@@ -156,8 +181,8 @@ function EditVideo() {
                             </ul>
                         </Row>
                         <Footer >
-                            <Button onClick={handleSubmit} variant="success" style={{ float:'right', marginTop: '0%', marginRight: "14%"}}>Submit</Button>
-                            <Button onClick={handleReset} variant="danger" style={{ float:'right', marginTop: '0%', marginRight: "1%"}}>Reset</Button>
+                            <Button onClick={handleSubmit} variant="dark" size="lg" style={{ float:'right', marginTop: '0%', marginRight: "14%"}}>Submit</Button>
+                            <Button onClick={handleReset} variant="secondary" size="lg" style={{ float:'right', marginTop: '0%', marginRight: "1%"}}>Reset</Button>
                         </Footer>
                     </Content>
 

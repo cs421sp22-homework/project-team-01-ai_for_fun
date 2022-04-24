@@ -33,7 +33,7 @@ function AIStyleGallery(props){
         )
     }
     if(props.images.length%2==1){
-        let imageLast = props.images[props.images.lengt-1]
+        let imageLast = props.images[props.images.length-1]
         galley.push(
             <div className="stylerow" key={"rowEnd"}>
                 <div className="stylecolumn" key={"colEnd"}>
