@@ -12,7 +12,7 @@ import Container from 'react-bootstrap/Container';
 
 
 const NormalLoginForm = () => {
-  const [cookie, setCookie] = useCookies(['access_token', 'refresh_token', 'user_id', 'name', 'email'])
+  const [cookie, setCookie] = useCookies(['access_token', 'refresh_token', 'user_id', 'name', 'email', 'avatar'])
   const userRef = useRef();
   const errRef = useRef();
 
@@ -59,15 +59,14 @@ const NormalLoginForm = () => {
         let expires = new Date();
         console.log(content);
         expires.setTime(expires.getTime() + (30 * 60 * 1000));
-        setCookie('access_token', content.token, { path: '/', expires });
-        setCookie('refresh_token', content.refresh_token, { path: '/', expires });
-        setCookie('name', content.name, { path: '/', expires });
-        setCookie('email', content.email, { path: '/', expires });
-        setCookie('avatar', content.avatar, { path: '/', expires });
-        setCookie('user_id', content.user_id, { path: '/', expires });
+        setCookie('access_token', content.token);
+        setCookie('refresh_token', content.refresh_token);
+        setCookie('name', content.name);
+        setCookie('email', content.email);
+        setCookie('avatar', content.avatar);
+        setCookie('user_id', content.user_id);
         console.log(content.token)
         console.log(content.user_id)
-        console.log(content.ID)
         localStorage.setItem('global_userID', content.user_id);
         localStorage.setItem('global_token', content.token);
         setSuccess(true);

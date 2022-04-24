@@ -38,12 +38,12 @@ import {
         gap="1rem"
         width="100%"
         position="sticky"
-        top="5.4rem"
+        style={{marginTop:70}}
         height="max-content"
       >
-        <Heading as="h4" size="md">
+        {/* <Heading as="h4" size="md">
           Recommend post
-        </Heading>
+        </Heading> */}
          <Gallery props={props.isLibrary}/>
       </Flex>
     ) : props?.isYourPosts ? (
@@ -131,12 +131,12 @@ import {
         gap="1rem"
         width="100%"
         position="sticky"
-        top="5.4rem"
+        ç
         height="max-content"
       >
-        <Heading as="h4" size="md">
+        {/* <Heading as="h4" size="md">
           Your followers post
-        </Heading>
+        </Heading> */}
          <Gallery props={props.isFollower}/>
       </Flex>
     ) : (
@@ -145,7 +145,7 @@ import {
         gap="1rem"
         width="100%"
         position="sticky"
-        top="5.4rem"
+        // style={{marginTop:70}}
         height="max-content"
       >
           <Gallery props={props.homePosts}/>

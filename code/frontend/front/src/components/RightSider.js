@@ -23,7 +23,7 @@ function RightSidebar() {
   const [followers, setFollowers] = useState('');
   const [likes, setLikes] = useState('');
   useEffect(async () => {
-    if (cookie.user_id){
+    if (cookie.name != 'undefined' && cookie.user_id){
       let url = 'https://server-demo.ai-for-fun-backend.com/postlikeinfo/' + cookie.user_id;
       let url2 = 'https://server-demo.ai-for-fun-backend.com/getfollowinfo/' + cookie.user_id;
       const response = await fetch(url)
@@ -59,7 +59,7 @@ function RightSidebar() {
       flexDirection="column"
     >
       <Tooltip label="The user information" openDelay={300}>
-        {cookie.user_id?
+        {cookie.name != 'undefined' && cookie.user_id?
                 <Flex
                 alignItems="center"
                 width="100%"
@@ -330,7 +330,7 @@ function RightSidebar() {
           variant="solid"
           marginTop="2rem"
           onClick={() => {
-            if (cookie.user_id){
+            if (cookie.name != 'undefined' && cookie.user_id){
               navigate("/Post");
             }else{
               message.info("Please Login first")
