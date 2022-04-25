@@ -45,6 +45,7 @@ function EditText(props) {
     const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg, setPerson, person } = useContext(LoginContext);
     const [cookie, setCookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email'])
     const [pick, setPick] = useState('');
+    const [loading, setLoading] = useState(false)
     const [changeToVedio, SetchangeToVedio] = useState(false);
     const [showCard, setShowCard] = useState(false);
     var inputText = "Sorry, please input any text in the below box again";
@@ -134,7 +135,9 @@ function EditText(props) {
             console.log("postText " + inputText);
             console.log("user_id " + cookie.user_id);
             console.log("user_name " + cookie.name);
-            const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
+            try{
+                setLoading(true)
+                const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -145,6 +148,7 @@ function EditText(props) {
                     "user_avater": cookie.avatar
                 })
             });
+            setLoading(false)
             if (response.status == 200) {
                 const content = await response.json();
                 setDst(content.res_url)
@@ -154,6 +158,10 @@ function EditText(props) {
                 console.log('post failed', response);
                 message.error('failed.');
             }
+            }catch{
+                setLoading(false)
+            }
+            
         } else {
             alert('Login first!')
         }
@@ -161,6 +169,16 @@ function EditText(props) {
 
     return (
         <Layout className="site-layout" style={{ background: 'white' }}>
+            {
+            loading ?
+            <div className='loading'>
+               <img src = "images/processing.gif" style={{height:120,width:120}}/>
+            </div>
+            :
+            <div>
+
+            </div>
+            }
             {
                 showCard ?
                     <Content style={{ margin: '0 16px' }} className='center-box' >
