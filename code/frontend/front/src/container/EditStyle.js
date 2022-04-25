@@ -85,6 +85,8 @@ function EditStyle() {
             message.error("Please set the src image and dest image!")
         } else {
             if (cookie.access_token) {
+                const src_s3_id = localStorage.getItem('src_s3_id')? localStorage.getItem('src_s3_id'):""
+                const dst_s3_id = localStorage.getItem('dst_s3_id')? localStorage.getItem('dst_s3_id'):""
                 const response = await fetch('https://server-python.ai-for-fun-backend.com/styletransfer', {
                     //const response = await fetch('http://127.0.0.1:80/styletransfer', {
 
@@ -94,8 +96,8 @@ function EditStyle() {
                         "content_url": sourceimg,
                         "style_url": faceimg,
                         "user_id": cookie.user_id,
-                        "src_s3_id": localStorage.getItem('src_s3_id'),
-                        "dst_s3_id": localStorage.getItem('dst_s3_id'),
+                        "src_s3_id": src_s3_id,
+                        "dst_s3_id": dst_s3_id,
                         "type": "style"
                     })
                 });

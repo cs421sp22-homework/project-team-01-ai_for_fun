@@ -89,11 +89,10 @@ const RegistrationForm = () => {
 
   return (
     <>
-      <Container style={{ marginTop: 100 }}>
-        <div className='redisterTitle'>Register</div>
+      <Container style={{ marginTop: 100}}>
         <Row>
-          <Col md={3}></Col>
-          <Col md={6}>
+          <Col lg={4} md={6} sm={12}>
+            <img className="icon-register" src={"images/register_icon.png"} alt="icon"/>
             <Form {...formItemLayout} onSubmit={handleSubmit} className='register-form'>
               <Form.Item
                 name="name"
@@ -156,11 +155,13 @@ const RegistrationForm = () => {
                   span: 16,
                 }}
               >
-                <Checkbox>I have read the <a href="http://www.baidu.com">agreement</a></Checkbox>
+                <Checkbox>I have read the <a href="https://cs421sp22-homework.github.io/project-team-01-ai_for_fun/">User Manual</a></Checkbox>
               </Form.Item>
               <Form.Item {...tailFormItemLayout}>
-                <Button type="primary" htmlType="submit" onClick={handleSubmit}>
-                  Register
+                <Button style={{color: "#fff", backgroundColor: "#813AFE", borderColor: "#813AFE"}}
+                        htmlType="submit" 
+                        onClick={handleSubmit}>
+                  Register Now
                 </Button>
                 <Button type="primary1" className='toLogin'>
                   <a href='/login'>
@@ -170,7 +171,10 @@ const RegistrationForm = () => {
               </Form.Item>
             </Form>
           </Col>
-          <Col md={3}></Col>
+
+          <Col lg={8} md={6} sm={12}>
+              <img src={"images/register_background.png"} alt="" style={{padding:"5vw", width:"1000px"}}/>
+          </Col>
         </Row>
       </Container>
     </>

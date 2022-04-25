@@ -131,12 +131,12 @@ const style_chinese = [
     "https://frommetertomeaning.files.wordpress.com/2020/12/bird.jpg",
     "https://www.christies.com/media-library/images/salelandingpage/2016/hk112016/hong-kong-2016-autumn-auctions/hong-kong-2016-autumn-auctions-chinese-painting-07.jpg",
     "https://images.fineartamerica.com/images-medium-large-5/chinese-landscape-sean-seal.jpg",
-    "http://twistedsifter.com/wp-content/uploads/2011/10/photographs-that-look-like-traditional-chinese-paintins-dong-hong-oai-asian-pictorialism-1.jpg",
+    //"http://twistedsifter.com/wp-content/uploads/2011/10/photographs-that-look-like-traditional-chinese-paintins-dong-hong-oai-asian-pictorialism-1.jpg",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtSuuxBkKUiLnPs0DggzOoljlch29AStzFyw&usqp=CAU"
 ]
 
 const style_raff = [
-    "http://tomalcockba5.files.wordpress.com/2011/01/raphael-school-of-athens1.jpg",
+    //"http://tomalcockba5.files.wordpress.com/2011/01/raphael-school-of-athens1.jpg",
     "https://www.theartstory.org/images20/works/raphael_2.jpg",
     "https://static.independent.co.uk/s3fs-public/thumbnails/image/2017/12/15/13/allegory-justice.jpg?width=1200",
     "https://upload.wikimedia.org/wikipedia/commons/e/ea/Arazzi_di_raffaello%2C_cartone_04.jpg",

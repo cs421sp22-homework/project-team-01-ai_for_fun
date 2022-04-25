@@ -55,7 +55,7 @@ function EditVideo() {
             const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
                 //const response = await fetch('http://127.0.0.1:8080/faceswap', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json'},
                 body: JSON.stringify({
                     "content_url": "id=" + dst.substring(31, 51),
                     "post_text": postText,
@@ -85,16 +85,18 @@ function EditVideo() {
             message.error("Please set the src image and dest image!")
         } else {
             if (cookie.access_token) {
+                const src_s3_id = localStorage.getItem('src_s3_id')? localStorage.getItem('src_s3_id'):""
+                const dst_s3_id = localStorage.getItem('dst_s3_id')? localStorage.getItem('dst_s3_id'):""
                 const response = await fetch('https://server-python.ai-for-fun-backend.com/faceswap', {
                     //const response = await fetch('http://127.0.0.1:80/faceswap', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json'},
                     body: JSON.stringify({
                         "src_url": sourceimg,
                         "dst_url": faceimg,
                         "user_id": cookie.user_id,
-                        "src_s3_id": localStorage.getItem('src_s3_id'),
-                        "dst_s3_id": localStorage.getItem('dst_s3_id'),
+                        "src_s3_id": src_s3_id ,
+                        "dst_s3_id": dst_s3_id,
                         "type": "face"
                     })
                 });
