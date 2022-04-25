@@ -10,7 +10,7 @@ iFun is an AI application that is supposed to bring a fun AI experience for user
 | Xinrui Zou | xzou8@jhu.edu  |     xzjiu       |
 |Mingxuan Che| mche2@jhu.edu  |  mingxuanche99  |
 |Jingyan Li  | jli336@jhu.edu |  SherryLee1998  |
-|Song Li     | sli218@jh.edu  |     Gnosil      |
+|            |                |                 |
 |            |                |                 |
 
 **Advisors** 
