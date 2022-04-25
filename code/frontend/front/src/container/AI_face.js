@@ -121,7 +121,6 @@ const Movie = [
     'https://media.workandmoney.com/64/f6/64f66bf1508f415fbb5ab0a64eda450d.jpeg',
     'https://pic1.zhimg.com/80/v2-1640be6c8cef52b267d0e7ab132724e4_1440w.jpg',
     'https://pic.baike.soso.com/ugc/baikepic2/5655/cut-20180615091132-1143406756_jpg_455_341_15843.jpg/1284',
-    'http://5b0988e595225.cdn.sohucs.com/images/20181212/49141202a3154b5eb4553dc366dd3587.jpeg',
     'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/g-1599107211.jpg?crop=0.495xw:0.984xh;0,0.0160xh&resize=640:*',
     'https://pic.baike.soso.com/ugc/baikepic2/23096/cut-20170413105648-1292415590.jpg/800',
 ];
@@ -181,7 +180,6 @@ const Harry_Potter = [
     'https://images.ctfassets.net/usf1vwtuqyxm/7GXo7mab9pPauATRz3qyuL/7760eadc44c1d84a161109a9df074636/HP-F2-chamber-of-secrets-hermione-writing-quill-thoughtful-web-landscape',
     'https://www.foxtel.com.au/content/dam/foxtel/whats-on/insider/2021/november/harry-potter-800x450.jpg',
     'https://media1.popsugar-assets.com/files/thumbor/xE8u-G0SXl291R6ohkFVw5nG71k/273x202:2620x2549/fit-in/550x550/filters:format_auto-!!-:strip_icc-!!-/2022/01/05/830/n/1922283/e161474f61d5e9c43455a0.98910495_/i/emma-watson-responds-to-harry-potter-emma-roberts-mistake.jpg',
-    'http://p1.itc.cn/images01/20200629/32f838ca0d7941c6bda25f8cdf459e4f.jpeg',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnXDvX1kLDX0-eqeK6NXODJdWYtmgghd0wQw&usqp=CAU',
 ];
 
@@ -199,7 +197,6 @@ const Marvel = [
 const Movie_p = [
     'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/index-actors-got-their-start-on-tv-1607725466.jpg?crop=0.409xw:0.817xh;0.0529xw,0.00962xh&resize=640:*',
     'https://media.workandmoney.com/64/f6/64f66bf1508f415fbb5ab0a64eda450d.jpeg',
-    'http://5b0988e595225.cdn.sohucs.com/images/20181212/49141202a3154b5eb4553dc366dd3587.jpeg',
 ];
 const Face_Singers_p = [
     'https://www.thefamouspeople.com/profiles/thumbs/michael-jackson-3.jpg',
@@ -211,7 +208,7 @@ const Friends_p = [
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFLysfblilvBqTDNXvMILLekdjUW2-PsEKtg&usqp=CAU',
     'https://www.irishexaminer.com/cms_media/module_img/4972/2486069_10_seoimage1x1_E2jArIRWUAM-0jT.jpg',
     'https://static.independent.co.uk/s3fs-public/thumbnails/image/2017/11/09/11/joey-friends.jpg?quality=75&width=982&height=726&auto=webp',
-    ];
+];
 
 const President_p = [
     'https://cdn.britannica.com/55/91555-131-C5BCDFC8/Gerald-R-Ford.jpg?q=60',
