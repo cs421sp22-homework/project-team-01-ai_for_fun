@@ -85,9 +85,8 @@ function EditVideo() {
             message.error("Please set the src image and dest image!")
         } else {
             if (cookie.access_token) {
-                //const response = await fetch('https://server-python.ai-for-fun-backend.com/faceswap', {
-                const response = await fetch('http://127.0.0.1:80/faceswap', {
-
+                const response = await fetch('https://server-python.ai-for-fun-backend.com/faceswap', {
+                    //const response = await fetch('http://127.0.0.1:80/faceswap', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({

@@ -1,5 +1,5 @@
-import React, {useContext} from 'react';
-import { Row, Button} from 'react-bootstrap';
+import React, { useContext } from 'react';
+import { Row, Button } from 'react-bootstrap';
 import UploadFace from '../components/UploadFace';
 import Card from 'react-bootstrap/Card';
 import "../style/EditVideo.css"
@@ -11,7 +11,7 @@ import { Input } from 'antd';
 import { Layout, message } from 'antd';
 import Amplify, { Storage } from 'aws-amplify'
 import config from '../aws-exports';
-import{EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, PinterestIcon, PinterestShareButton, TelegramIcon, TelegramShareButton, TwitterIcon, TwitterShareButton, WeiboIcon, WeiboShareButton, WhatsappIcon, WhatsappShareButton} from "react-share"
+import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, PinterestIcon, PinterestShareButton, TelegramIcon, TelegramShareButton, TwitterIcon, TwitterShareButton, WeiboIcon, WeiboShareButton, WhatsappIcon, WhatsappShareButton } from "react-share"
 Amplify.configure(config)
 
 
@@ -19,7 +19,7 @@ const { Content, Footer } = Layout;
 const { TextArea } = Input;
 
 function EditStyle() {
-    const {sourceimg, setSourceimg, faceimg, setFaceimg, dst, setDst,} = useContext(LoginContext);
+    const { sourceimg, setSourceimg, faceimg, setFaceimg, dst, setDst, } = useContext(LoginContext);
     const [cookie, setCookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email', 'avatar']);
     var postText = "empty";
 
@@ -79,14 +79,14 @@ function EditStyle() {
     };
 
     const handleSubmit = async (e) => {
-        console.log("soureImg "+sourceimg)
-        console.log("faceImg "+faceimg)
-        if(!sourceimg || !faceimg){
+        console.log("soureImg " + sourceimg)
+        console.log("faceImg " + faceimg)
+        if (!sourceimg || !faceimg) {
             message.error("Please set the src image and dest image!")
-        }else{
-            if(cookie.access_token){
-                //const response = await fetch('https://server-python.ai-for-fun-backend.com/styletransfer', {
-                const response = await fetch('http://127.0.0.1:80/styletransfer', {
+        } else {
+            if (cookie.access_token) {
+                const response = await fetch('https://server-python.ai-for-fun-backend.com/styletransfer', {
+                    //const response = await fetch('http://127.0.0.1:80/styletransfer', {
 
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -96,7 +96,7 @@ function EditStyle() {
                         "user_id": cookie.user_id,
                         "src_s3_id": localStorage.getItem('src_s3_id'),
                         "dst_s3_id": localStorage.getItem('dst_s3_id'),
-                        "type":"style"
+                        "type": "style"
                     })
                 });
                 if (response.status == 200) {
@@ -107,11 +107,11 @@ function EditStyle() {
                     setFaceimg("")
                     localStorage.setItem('src_s3_id', "")
                     localStorage.setItem('dst_s3_id', "")
-                } else{
+                } else {
                     console.log('request failed', response);
                     message.error('failed.');
                 }
-            } else{
+            } else {
                 localStorage.setItem('src_s3_id', "")
                 localStorage.setItem('dst_s3_id', "")
                 alert('Login first!')
@@ -131,11 +131,11 @@ function EditStyle() {
     return (
         <Layout className="site-layout" style={{ minHeight: '100vh' }}>
             {
-                 dst?
+                dst ?
                     <Content style={{ margin: '0 16px' }} className='center-box'>
                         <Card style={{ height: '100%', weight: '100%', margin: 35 }}>
                             <center>
-                                <Card.Img variant="top" src={dst} style={{width:"60%", maxHeight: "200vh" }} />
+                                <Card.Img variant="top" src={dst} style={{ width: "60%", maxHeight: "200vh" }} />
                             </center>
                             <Card.Body>
                                 <Card.Title>Post to Community</Card.Title>
@@ -144,45 +144,45 @@ function EditStyle() {
                                 </Card.Text>
                             </Card.Body>
                             <Card.Footer>
-                                <Button onClick={handlePost} variant="dark" size="lg" style={{ float: "right", marginTop:"8px",marginRight: '20px' }}>Post</Button>
-                                <Button onClick={handleReset} variant="secondary" size="lg" style={{ float: "right", marginTop:"8px",marginRight: '15px' }}>Cancel</Button>{''}
+                                <Button onClick={handlePost} variant="dark" size="lg" style={{ float: "right", marginTop: "8px", marginRight: '20px' }}>Post</Button>
+                                <Button onClick={handleReset} variant="secondary" size="lg" style={{ float: "right", marginTop: "8px", marginRight: '15px' }}>Cancel</Button>{''}
                             </Card.Footer>
                         </Card>
-                        <div style={{display:"flex", marginLeft:"18vw"}}>
-                                <EmailShareButton url={dst}>
-                                    <EmailIcon/>
-                                </EmailShareButton>
-                                <FacebookShareButton url={dst}>
-                                    <FacebookIcon/>   
-                                </FacebookShareButton>
-                                <PinterestShareButton url={dst} media={dst}>
-                                    <PinterestIcon/>
-                                </PinterestShareButton>
-                                <TwitterShareButton url={dst}>
-                                    <TwitterIcon/>
-                                </TwitterShareButton>
-                                <WhatsappShareButton url={dst} image={dst}>
-                                    <WhatsappIcon/>
-                                </WhatsappShareButton>
-                                <TelegramShareButton url={dst}>
-                                    <TelegramIcon/>
-                                </TelegramShareButton>
-                                <WeiboShareButton url={dst}>
-                                    <WeiboIcon/>
-                                </WeiboShareButton>
+                        <div style={{ display: "flex", marginLeft: "18vw" }}>
+                            <EmailShareButton url={dst}>
+                                <EmailIcon />
+                            </EmailShareButton>
+                            <FacebookShareButton url={dst}>
+                                <FacebookIcon />
+                            </FacebookShareButton>
+                            <PinterestShareButton url={dst} media={dst}>
+                                <PinterestIcon />
+                            </PinterestShareButton>
+                            <TwitterShareButton url={dst}>
+                                <TwitterIcon />
+                            </TwitterShareButton>
+                            <WhatsappShareButton url={dst} image={dst}>
+                                <WhatsappIcon />
+                            </WhatsappShareButton>
+                            <TelegramShareButton url={dst}>
+                                <TelegramIcon />
+                            </TelegramShareButton>
+                            <WeiboShareButton url={dst}>
+                                <WeiboIcon />
+                            </WeiboShareButton>
                         </div>
                     </Content>
                     :
                     <Content style={{ margin: '0 16px' }} className='center-box'>
                         <Row>
                             <ul>
-                                <UploadFace control="src" text="Upload Content Image"/>
-                                <UploadFace control="dest" text="Upload Style Image"/>
+                                <UploadFace control="src" text="Upload Content Image" />
+                                <UploadFace control="dest" text="Upload Style Image" />
                             </ul>
                         </Row>
                         <Footer >
-                            <Button onClick={handleSubmit} variant="dark" size="lg"  style={{ float:'right', marginTop: '0%', marginRight: "14%"}}>Submit</Button>
-                            <Button onClick={handleReset} variant="secondary" size="lg" style={{ float:'right', marginTop: '0%', marginRight: "1%"}}>Reset</Button>
+                            <Button onClick={handleSubmit} variant="dark" size="lg" style={{ float: 'right', marginTop: '0%', marginRight: "14%" }}>Submit</Button>
+                            <Button onClick={handleReset} variant="secondary" size="lg" style={{ float: 'right', marginTop: '0%', marginRight: "1%" }}>Reset</Button>
                         </Footer>
                     </Content>
 
