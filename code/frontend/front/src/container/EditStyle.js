@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Row, Button } from 'react-bootstrap';
 import UploadFace from '../components/UploadFace';
 import Card from 'react-bootstrap/Card';
@@ -26,6 +26,8 @@ function EditStyle() {
     const onChangeText = (e) => {
         postText = e.target.value;
     };
+
+    const [loading, setLoading] = useState(false)
 
     const makeid = (length) => {
         var result = '';
@@ -85,6 +87,7 @@ function EditStyle() {
             message.error("Please set the src image and dest image!")
         } else {
             if (cookie.access_token) {
+                // setLoading(true)
                 const response = await fetch('https://server-python.ai-for-fun-backend.com/styletransfer', {
                     //const response = await fetch('http://127.0.0.1:80/styletransfer', {
 
@@ -99,7 +102,7 @@ function EditStyle() {
                         "type": "style"
                     })
                 });
-                if (response.status == 200) {
+                if (response.status === 200) {
                     const content = await response.json();
                     setDst(content.res_url)
                     message.success('Completed');
@@ -107,7 +110,9 @@ function EditStyle() {
                     setFaceimg("")
                     localStorage.setItem('src_s3_id', "")
                     localStorage.setItem('dst_s3_id', "")
+                    setLoading(false)
                 } else {
+                    setLoading(false)
                     console.log('request failed', response);
                     message.error('failed.');
                 }
@@ -115,8 +120,11 @@ function EditStyle() {
                 localStorage.setItem('src_s3_id', "")
                 localStorage.setItem('dst_s3_id', "")
                 alert('Login first!')
+                setLoading(false)
             }
+            
         }
+        setLoading(false)
     }
 
     const handleReset = () => {
@@ -130,6 +138,14 @@ function EditStyle() {
 
     return (
         <Layout className="site-layout" style={{ minHeight: '100vh' }}>
+            {
+            loading ?
+            <div className='loading'>
+               <img src = "images/processing.gif" style={{height:100,width:100}}/>
+            </div>
+            :
+            <></>
+            }
             {
                 dst ?
                     <Content style={{ margin: '0 16px' }} className='center-box'>

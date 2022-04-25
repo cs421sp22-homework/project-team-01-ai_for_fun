@@ -57,7 +57,7 @@ const NormalLoginForm = () => {
       if (response.status == 200) {
         const content = await response.json();
         let expires = new Date();
-        console.log(content);
+        console.log(content.avatar);
         expires.setTime(expires.getTime() + (30 * 60 * 1000));
         setCookie('access_token', content.token);
         setCookie('refresh_token', content.refresh_token);
