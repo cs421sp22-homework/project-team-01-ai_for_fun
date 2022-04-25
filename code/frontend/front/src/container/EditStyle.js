@@ -87,10 +87,10 @@ function EditStyle() {
             message.error("Please set the src image and dest image!")
         } else {
             if (cookie.access_token) {
-                // setLoading(true)
-                const response = await fetch('https://server-python.ai-for-fun-backend.com/styletransfer', {
+                try{
+                    setLoading(true)
+                    const response = await fetch('https://server-python.ai-for-fun-backend.com/styletransfer', {
                     //const response = await fetch('http://127.0.0.1:80/styletransfer', {
-
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -114,6 +114,10 @@ function EditStyle() {
                 } else {
                     setLoading(false)
                     console.log('request failed', response);
+                    message.error('failed.');
+                }
+                } catch {
+                    setLoading(false)
                     message.error('failed.');
                 }
             } else {
@@ -141,10 +145,12 @@ function EditStyle() {
             {
             loading ?
             <div className='loading'>
-               <img src = "images/processing.gif" style={{height:100,width:100}}/>
+               <img src = "images/processing.gif" style={{height:120,width:120}}/>
             </div>
             :
-            <></>
+            <div>
+
+            </div>
             }
             {
                 dst ?

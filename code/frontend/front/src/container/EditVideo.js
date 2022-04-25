@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Row, Button } from 'react-bootstrap';
 import UploadFace from '../components/UploadFace';
 import Card from 'react-bootstrap/Card';
@@ -26,6 +26,8 @@ function EditVideo() {
     const onChangeText = (e) => {
         postText = e.target.value;
     };
+
+    const [loading,setLoading] = useState(false)
 
     const makeid = (length) => {
         var result = '';
@@ -85,7 +87,9 @@ function EditVideo() {
             message.error("Please set the src image and dest image!")
         } else {
             if (cookie.access_token) {
-                const response = await fetch('https://server-python.ai-for-fun-backend.com/faceswap', {
+                try{
+                    setLoading(true)
+                    const response = await fetch('https://server-python.ai-for-fun-backend.com/faceswap', {
                     //const response = await fetch('http://127.0.0.1:80/faceswap', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -98,6 +102,7 @@ function EditVideo() {
                         "type": "face"
                     })
                 });
+                setLoading(false)
                 if (response.status == 200) {
                     const content = await response.json();
                     setDst(content.res_url)
@@ -109,6 +114,9 @@ function EditVideo() {
                 } else {
                     console.log('request failed', response);
                     message.error('failed.');
+                }
+                }catch{
+                    setLoading(false)
                 }
             } else {
                 localStorage.setItem('src_s3_id', "")
@@ -129,6 +137,16 @@ function EditVideo() {
 
     return (
         <Layout className="site-layout" style={{ minHeight: '100vh' }}>
+            {
+            loading ?
+            <div className='loading'>
+               <img src = "images/processing.gif" style={{height:120,width:120}}/>
+            </div>
+            :
+            <div>
+
+            </div>
+            }
             {
                 dst ?
                     <Content style={{ margin: '0 16px' }} className='center-box'>
