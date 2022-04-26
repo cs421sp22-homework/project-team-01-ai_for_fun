@@ -241,7 +241,7 @@ function Gallery(probs) {
           {
             user_name: cookie.name,
             user_avater: cookie.avatar,
-            commentcontent: <p>{value}</p>,
+            comment_content: <p>{value}</p>,
             commenttime: moment().fromNow(),
           }
         ]
