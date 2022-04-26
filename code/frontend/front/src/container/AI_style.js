@@ -38,7 +38,7 @@ export const AI_style = () => {
                         <Row style={{ height: "100%" }}>
                             <Col sm={4} style={{ borderRight: "2px solid #E2E1E2" }}>
                                 <Nav justify variant="pills" className="flex-column myNav">
-                                    <Nav.Item>
+                                    <Nav.Item style={{marginBottom:"5vh"}}>
                                         <Nav.Link eventKey="first"
                                             onClick={() => { setSelectTab("first") }}
                                             onMouseEnter={() => { setSelectTab1(true) }}
@@ -47,7 +47,7 @@ export const AI_style = () => {
                                             <p>Style</p>
                                         </Nav.Link>
                                     </Nav.Item>
-                                    <Nav.Item>
+                                    <Nav.Item style={{marginBottom:"5vh"}}>
                                         <Nav.Link eventKey="second"
                                             onClick={() => { setSelectTab("second") }}
                                             onMouseEnter={() => { setSelectTab2(true) }}
@@ -56,7 +56,7 @@ export const AI_style = () => {
                                             <p>Content</p>
                                         </Nav.Link>
                                     </Nav.Item>
-                                    <Nav.Item>
+                                    <Nav.Item style={{marginBottom:"5vh"}}>
                                         <Nav.Link eventKey="third"
                                             onClick={() => { setSelectTab("third") }}
                                             onMouseEnter={() => { setSelectTab3(true) }}
@@ -65,7 +65,7 @@ export const AI_style = () => {
                                             <p>Popular</p>
                                         </Nav.Link>
                                     </Nav.Item>
-                                    <Nav.Item>
+                                    <Nav.Item style={{marginBottom:"5vh"}}>
                                         <Nav.Link eventKey="forth"
                                             onClick={() => { setSelectTab("forth") }}
                                             onMouseEnter={() => { setSelectTab4(true) }}
