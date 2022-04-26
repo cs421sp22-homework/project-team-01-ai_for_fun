@@ -79,8 +79,7 @@ function NavBar() {
       :
       <Navbar collapseOnSelect expand="lg" className="fixed-top navbar-scrolled-dark" variant='dark' style={{fontFamily:'Helvetica'}}>
       <Container fluid>
-      
-      <Navbar.Brand href="/">
+
       <img
         alt=""
         src="../images/clipart3190.png"
@@ -88,6 +87,7 @@ function NavBar() {
         height="50"
         className="d-inline-block align-top"
       />{' '}
+      <Navbar.Brand href="/">
       IFUN
     </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
