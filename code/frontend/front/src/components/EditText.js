@@ -62,29 +62,35 @@ function EditText(props) {
         if (!inputText || !person) {
             message.error('Please choose one voice source and type text you want to use!');
         } else {
-            if (cookie.access_token) {
-                const response = await fetch('https://server-python.ai-for-fun-backend.com/exchangeaudio', {
-                    // const response = await fetch('http://127.0.0.1:8080/exchangeaudio', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        "text": inputText,
-                        "person": person,
-                        "user_id": cookie.user_id,
-                    })
-                });
-                if (response.status == 200) {
-                    const content = await response.json();
-                    setDst(content.res_url)
-                    message.success('complete!');
-                    SetchangeToVedio(true);
+            try{
+                if (cookie.access_token) {
+                    setLoading(true)
+                    const response = await fetch('https://server-python.ai-for-fun-backend.com/exchangeaudio', {
+                        // const response = await fetch('http://127.0.0.1:8080/exchangeaudio', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            "text": inputText,
+                            "person": person,
+                            "user_id": cookie.user_id,
+                        })
+                    });
+                    setLoading(false)
+                    if (response.status == 200) {
+                        const content = await response.json();
+                        setDst(content.res_url)
+                        message.success('complete!');
+                        SetchangeToVedio(true);
+                    }
+                    else {
+                        console.log('request failed', response);
+                        message.error('failed.');
+                    }
+                } else {
+                    alert('Login first!')
                 }
-                else {
-                    console.log('request failed', response);
-                    message.error('failed.');
-                }
-            } else {
-                alert('Login first!')
+            }catch{
+                setLoading(false)
             }
         }
     }
