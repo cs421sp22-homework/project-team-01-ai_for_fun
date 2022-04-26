@@ -107,6 +107,14 @@ function EditText(props) {
         return result;
     }
 
+    const getS3Id = (url) => {
+        var words = url.split("?")
+        if(words[0].length<31){
+            return url
+        }
+        return ("id=" + words[0].substr(31))
+    }
+
     const handlePost = async (e) => {
         try {
             console.log(dst);
@@ -130,6 +138,7 @@ function EditText(props) {
             dest = pick
         }
         if (cookie.access_token) {
+            let avatar_s3id = getS3Id(cookie.avatar)
             console.log("content url ID   " + dst.substring(31, 51));
             console.log("content url" + dst);
             console.log("postText " + inputText);
@@ -145,7 +154,7 @@ function EditText(props) {
                     "post_text": inputText,
                     "user_id": cookie.user_id,
                     "user_name": cookie.name,
-                    "user_avater": cookie.avatar
+                    "user_avater": avatar_s3id
                 })
             });
             setLoading(false)

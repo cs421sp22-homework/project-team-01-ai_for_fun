@@ -128,12 +128,23 @@ function Post() {
         postText = e.target.value;
     };
 
+    const getS3Id = (url) => {
+        var words = url.split("?")
+        if(words[0].length<31){
+            return url
+        }
+        return ("id=" + words[0].substr(31))
+    }
+
     const handlePost = async (e) => {
+        let avatar_s3id = getS3Id(cookie.avatar)
         console.log("content(pick in post.js) " + pick);
         console.log("postText " + postText);
         console.log("user_id " + cookie.access_token);
         console.log("user_name " + cookie.name);
-        console.log("user_avater" + cookie.avatar);
+        console.log("user_avater " + cookie.avatar);
+        console.log(avatar_s3id)
+
         const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -142,7 +153,7 @@ function Post() {
                 "post_text": postText,
                 "user_id": cookie.user_id,
                 "user_name": cookie.name,
-                "user_avater": cookie.avatar
+                "user_avater": avatar_s3id
             })
         });
         if (response.status == 200) {
@@ -221,7 +232,7 @@ function Post() {
                                 }
                             </Col>
                             <Col md={6} style={{ margin: '4%', marginTop: '5%' }}>
-                                <TextArea showCount maxLength={100} style={{ height: 100 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
+                                <TextArea showCount maxLength={100} style={{ height: 100 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />
                                 <Button variant="danger" style={{ float: "right", marginTop: '25px' }} href="/gallery">Back</Button>{' '}
                                 <Button onClick={handlePost} style={{ float: "right", marginTop: '25px', marginRight: '10px' }}>Submit</Button>{' '}
                             </Col>

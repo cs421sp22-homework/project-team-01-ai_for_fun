@@ -39,6 +39,14 @@ function EditVideo() {
         return result;
     }
 
+    const getS3Id = (url) => {
+        var words = url.split("?")
+        if(words[0].length<31){
+            return url
+        }
+        return ("id=" + words[0].substr(31))
+    }
+
     const handlePost = async (e) => {
         try {
             console.log(dst);
@@ -54,6 +62,7 @@ function EditVideo() {
 
         message.info('Post Received.');
         if (cookie.access_token) {
+            let avatar_s3id = getS3Id(cookie.avatar)
             const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
                 //const response = await fetch('http://127.0.0.1:8080/faceswap', {
                 method: 'POST',
@@ -63,7 +72,7 @@ function EditVideo() {
                     "post_text": postText,
                     "user_id": cookie.user_id,
                     "user_name": cookie.name,
-                    "user_avater": cookie.avatar
+                    "user_avater": avatar_s3id
                 })
             });
             if (response.status == 200) {
