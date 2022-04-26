@@ -87,6 +87,8 @@ function EditStyle() {
             message.error("Please set the src image and dest image!")
         } else {
             if (cookie.access_token) {
+                const src_s3_id = (localStorage.getItem('src_s3_id')==null)?"":localStorage.getItem('src_s3_id')
+                const dst_s3_id = (localStorage.getItem('dst_s3_id')==null)?"":localStorage.getItem('dst_s3_id')
                 try{
                     setLoading(true)
                     const response = await fetch('https://server-python.ai-for-fun-backend.com/styletransfer', {
