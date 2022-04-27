@@ -130,7 +130,7 @@ function Post() {
 
     const getS3Id = (url) => {
         var words = url.split("?")
-        if(words[0].length<31){
+        if (words[0].length < 31) {
             return url
         }
         return ("id=" + words[0].substr(31))
@@ -227,14 +227,27 @@ function Post() {
                                     <Image src={pick ? pick : "/images/PostSteps.jpg"} fluid alt="choose" style={{ height: 350, display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '70%' }} />
                                     :
                                     <div style={{ height: '50%', width: '50%', marginLeft: '20%', marginTop: '1%', marginBottom: '1%' }}>
-                                        <Video props={{ "videoSrc": pick }} />
+                                        {
+                                            pick ?
+                                                <Video props={{ "videoSrc": pick }} />
+                                                :
+                                                <Image src={"/images/PostSteps.jpg"} />
+                                        }
                                     </div>
                                 }
                             </Col>
                             <Col md={6} style={{ margin: '4%', marginTop: '5%' }}>
                                 <TextArea showCount maxLength={100} style={{ height: 100 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />
                                 <Button variant="danger" style={{ float: "right", marginTop: '25px' }} href="/gallery">Back</Button>{' '}
-                                <Button onClick={handlePost} style={{ float: "right", marginTop: '25px', marginRight: '10px' }}>Submit</Button>{' '}
+                                {pick ?
+                                    <div>
+                                        <Button onClick={handlePost} style={{ float: "right", marginTop: '25px', marginRight: '10px' }}>Submit</Button>
+                                    </div>
+                                    :
+                                    <div>
+                                        <Button onClick={handlePost} style={{ float: "right", marginTop: '25px', marginRight: '10px' }} disabled>Submit</Button>
+                                    </div>
+                                }
                             </Col>
                         </Row>
                     </Content>
