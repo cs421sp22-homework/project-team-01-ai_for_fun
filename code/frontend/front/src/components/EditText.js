@@ -14,26 +14,12 @@ const { TextArea } = Input;
 
 const previousSelected = [];
 
-const selected = (e) => {
-    previousSelected.push(e.currentTarget);
-    for (var i = 0; i < previousSelected.length; i++) {
-        if (previousSelected[i] === e.currentTarget) {
-            continue;
-        }
-        previousSelected[i].classList.remove('selected');
-    }
-    let target = e.currentTarget;
-    target.classList.toggle('selected');
-}
-
 function EditText(props) {
-    const ref = createRef();
-    const { imgData } = props;
-    const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg, setPerson, person } = useContext(LoginContext);
+    const { faceimg, sourceimg, dst, setDst, person } = useContext(LoginContext);
     const [cookie, setCookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email'])
     const [pick, setPick] = useState('');
     const [loading, setLoading] = useState(false)
-    const [changeToVedio, SetchangeToVedio] = useState(false);
+    const [SetchangeToVedio] = useState(false);
     const [showCard, setShowCard] = useState(false);
     var inputText = "Sorry, please input any text in the below box again";
 
@@ -53,7 +39,6 @@ function EditText(props) {
                 if (cookie.access_token) {
                     setLoading(true)
                     const response = await fetch('https://server-python.ai-for-fun-backend.com/exchangeaudio', {
-                        // const response = await fetch('http://127.0.0.1:8080/exchangeaudio', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -63,7 +48,7 @@ function EditText(props) {
                         })
                     });
                     setLoading(false)
-                    if (response.status == 200) {
+                    if (response.status === 200) {
                         const content = await response.json();
                         setDst(content.res_url)
                         message.success('complete!');
@@ -116,10 +101,8 @@ function EditText(props) {
             console.log("resultkey " + result.key);
             const signedURL = await Storage.get(result.key);
             console.log("url from key get" + signedURL);
-            //localStorage.setItem('global_profile_img',signedURL);
         } catch (error) {
             console.log("Error uploading file:", error)
-            //message.error(`file upload failed.`);
         }
 
         setShowCard(false);
@@ -151,7 +134,7 @@ function EditText(props) {
                 })
             });
             setLoading(false)
-            if (response.status == 200) {
+            if (response.status === 200) {
                 const content = await response.json();
                 setDst(content.res_url)
                 message.success('Post success!');
