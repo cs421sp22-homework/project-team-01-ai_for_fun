@@ -3,7 +3,7 @@ import { useCookies } from 'react-cookie';
 import AIStyleGallery from "./AIStyleGallery";
 
 function AIStyleHistory() {
-    const [cookie, setCookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email', 'avatar']);
+    const [cookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email', 'avatar']);
     const [history, setHistory] = useState([]);
     let content_history = []
     let style_history = []
@@ -32,12 +32,12 @@ function AIStyleHistory() {
         }
     }
 
-    if (content_history.length != 0) {
+    if (content_history.length !== 0) {
         history_display.push(
             <AIStyleGallery title="Content History" images={content_history} control="content" />
         )
     }
-    if (style_history.length != 0) {
+    if (style_history.length !== 0) {
         history_display.push(
             <AIStyleGallery title="Style History" images={style_history} control="style" />
         )

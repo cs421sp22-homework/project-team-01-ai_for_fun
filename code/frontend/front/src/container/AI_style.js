@@ -38,7 +38,7 @@ export const AI_style = () => {
                                             onClick={() => { setSelectTab("first") }}
                                             onMouseEnter={() => { setSelectTab1(true) }}
                                             onMouseLeave={() => { setSelectTab1(false) }}>
-                                            <img src={(selectTab === "first" || selectTab1) ? "AI_style_images/style_active.png" : "AI_style_images/style_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} />
+                                            <img src={(selectTab === "first" || selectTab1) ? "AI_style_images/style_active.png" : "AI_style_images/style_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} alt="" />
                                             <p>Style</p>
                                         </Nav.Link>
                                     </Nav.Item>
@@ -47,7 +47,7 @@ export const AI_style = () => {
                                             onClick={() => { setSelectTab("second") }}
                                             onMouseEnter={() => { setSelectTab2(true) }}
                                             onMouseLeave={() => { setSelectTab2(false) }}>
-                                            <img src={(selectTab === "second" || selectTab2) ? "AI_style_images/content_active.png" : "AI_style_images/content_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} />
+                                            <img src={(selectTab === "second" || selectTab2) ? "AI_style_images/content_active.png" : "AI_style_images/content_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} alt="" />
                                             <p>Content</p>
                                         </Nav.Link>
                                     </Nav.Item>
@@ -56,7 +56,7 @@ export const AI_style = () => {
                                             onClick={() => { setSelectTab("third") }}
                                             onMouseEnter={() => { setSelectTab3(true) }}
                                             onMouseLeave={() => { setSelectTab3(false) }}>
-                                            <img src={(selectTab === "third" || selectTab3) ? "AI_style_images/popular_active.png" : "AI_style_images/popular_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} />
+                                            <img src={(selectTab === "third" || selectTab3) ? "AI_style_images/popular_active.png" : "AI_style_images/popular_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} alt="" />
                                             <p>Popular</p>
                                         </Nav.Link>
                                     </Nav.Item>
@@ -65,7 +65,7 @@ export const AI_style = () => {
                                             onClick={() => { setSelectTab("forth") }}
                                             onMouseEnter={() => { setSelectTab4(true) }}
                                             onMouseLeave={() => { setSelectTab4(false) }}>
-                                            <img src={(selectTab === "forth" || selectTab4) ? "AI_style_images/history_active.png" : "AI_style_images/history_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} />
+                                            <img src={(selectTab === "forth" || selectTab4) ? "AI_style_images/history_active.png" : "AI_style_images/history_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} alt="" />
                                             <p>History</p>
                                         </Nav.Link>
                                     </Nav.Item>

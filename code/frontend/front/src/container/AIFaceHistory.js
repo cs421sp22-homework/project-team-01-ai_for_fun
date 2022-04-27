@@ -3,7 +3,7 @@ import { useCookies } from 'react-cookie';
 import AIFaceGallery from "./AIFaceGallery";
 
 function AIFaceHistory() {
-    const [cookie, setCookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email', 'avatar']);
+    const [cookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email', 'avatar']);
     const [history, setHistory] = useState([]);
     let history_Image = []
     let history_display = []
@@ -31,7 +31,7 @@ function AIFaceHistory() {
         }
     }
 
-    if (history_Image.length != 0) {
+    if (history_Image.length !== 0) {
         history_display.push(
             <AIFaceGallery title="Upload History" images={history_Image} />
         )

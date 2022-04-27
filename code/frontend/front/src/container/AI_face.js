@@ -6,25 +6,16 @@ import { Row, Col } from 'react-bootstrap';
 import '../style/Slideshow.css';
 import '../style/sider.css';
 import '../style/AI_face.css'
-import { Layout, Menu } from 'antd';
+import { Layout } from 'antd';
 import AIFaceGallery from "./AIFaceGallery";
 import AIFaceHistory from "./AIFaceHistory";
 const { Content, Sider } = Layout;
 
 export const AI_face = () => {
-    const [collapsed, setCollapsed] = useState(false);
     const [selectTab, setSelectTab] = useState("first");
     const [selectTab1, setSelectTab1] = useState(true);
     const [selectTab2, setSelectTab2] = useState(false);
     const [selectTab3, setSelectTab3] = useState(false);
-    const onCollapse = collapsed => {
-        console.log(collapsed);
-        if (collapsed) {
-            setCollapsed(true);
-        } else {
-            setCollapsed(false);
-        }
-    };
 
     return (
         <>
@@ -45,7 +36,7 @@ export const AI_face = () => {
                                             onClick={() => { setSelectTab("first") }}
                                             onMouseEnter={() => { setSelectTab1(true) }}
                                             onMouseLeave={() => { setSelectTab1(false) }}>
-                                            <img src={(selectTab === "first" || selectTab1) ? "AI_face_images/face_active.png" : "AI_face_images/face_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} />
+                                            <img src={(selectTab === "first" || selectTab1) ? "AI_face_images/face_active.png" : "AI_face_images/face_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} alt="" />
                                             <p>Face</p>
                                         </Nav.Link>
                                     </Nav.Item>
@@ -54,7 +45,7 @@ export const AI_face = () => {
                                             onClick={() => { setSelectTab("second") }}
                                             onMouseEnter={() => { setSelectTab2(true) }}
                                             onMouseLeave={() => { setSelectTab2(false) }}>
-                                            <img src={(selectTab === "second" || selectTab2) ? "AI_face_images/popular_active.png" : "AI_face_images/popular_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} />
+                                            <img src={(selectTab === "second" || selectTab2) ? "AI_face_images/popular_active.png" : "AI_face_images/popular_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} alt="" />
                                             <p>Popular</p>
                                         </Nav.Link>
                                     </Nav.Item>
@@ -63,7 +54,7 @@ export const AI_face = () => {
                                             onClick={() => { setSelectTab("third") }}
                                             onMouseEnter={() => { setSelectTab3(true) }}
                                             onMouseLeave={() => { setSelectTab3(false) }}>
-                                            <img src={(selectTab === "third" || selectTab3) ? "AI_face_images/history_active.png" : "AI_face_images/history_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} />
+                                            <img src={(selectTab === "third" || selectTab3) ? "AI_face_images/history_active.png" : "AI_face_images/history_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} alt="" />
                                             <p>History</p>
                                         </Nav.Link>
                                     </Nav.Item>
@@ -131,18 +122,6 @@ const Face_Singers = [
     'https://popmellow.com/wp-content/uploads/2021/09/Top-Most-Popular-Female-Singers.jpg',
     'https://i1.jueshifan.com/205a28/7d0f7c87/3e5a3dd71eaaae4d9e32.jpg',
     'https://img.buzzfeed.com/buzzfeed-static/static/2022-01/13/16/asset/68a1902f26c4/sub-buzz-4825-1642089650-6.jpg?downsize=700%3A%2A&output-quality=auto&output-format=auto',
-];
-
-const Friends = [
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFLysfblilvBqTDNXvMILLekdjUW2-PsEKtg&usqp=CAU',
-    'https://d207ibygpg2z1x.cloudfront.net/image/upload/v1541181492/articles_upload/content/nsafehc82lfmkwroe1tg.jpg',
-    'https://www.irishexaminer.com/cms_media/module_img/4972/2486069_10_seoimage1x1_E2jArIRWUAM-0jT.jpg',
-    'https://i.pinimg.com/originals/f7/30/a0/f730a00f24b13da6d2012b7094683621.jpg',
-    'https://static.independent.co.uk/s3fs-public/thumbnails/image/2017/11/09/11/joey-friends.jpg?quality=75&width=982&height=726&auto=webp',
-    'https://st1.latestly.com/wp-content/uploads/2020/07/01-15-380x214.jpg',
-    'https://sites.google.com/site/friendsfancy/_/rsrc/1235492784454/f/2/Ross.jpg?height=533&width=328',
-    'https://ichef.bbci.co.uk/news/640/cpsprodpb/1066A/production/_95187176_hi038503807.jpg',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-ixGwL9gR8XsrhUArdoZTxOy8g7aNAPt0rH1N_9oBWnOtlz2Bf59SHaBIVJ__sQ4feGQ&usqp=CAU',
 ];
 
 const President = [

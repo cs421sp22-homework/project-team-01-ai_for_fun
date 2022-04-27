@@ -16,7 +16,7 @@ const { Content } = Layout;
 const previousSelectedPost = [];
 
 function Post() {
-    const [cookie, setCookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email', 'avatar']);
+    const [cookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email', 'avatar']);
     console.log(cookie);
     const [ImagePost, setImagePost] = useState(true);
 
@@ -89,7 +89,6 @@ function Post() {
             })
         });
         if (response.status === 200) {
-            const content = await response.json();
             message.success('Post success!');
         }
         else {

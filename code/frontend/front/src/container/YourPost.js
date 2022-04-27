@@ -9,7 +9,7 @@ function YourPost() {
   useEffect(() => {
     document.title = "Ifun-Community";
   }, []);
-  const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
+  const [cookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
   const [posts, setPosts] = useState([]);
   useEffect(async () => {
     let url = 'https://server-demo.ai-for-fun-backend.com/getuserpost/' + cookie.user_id;

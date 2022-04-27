@@ -1,9 +1,9 @@
-import React, { Fragment, PureComponent } from "react";
-import { useState, createRef, useContext } from 'react';
+import React from "react";
+import { useState, useContext } from 'react';
 import { Container, Image } from 'react-bootstrap';
 import { LoginContext } from '../context/AuthProvider';
 import EditText from '../components/EditText';
-import { Layout, Menu, Input, Col, Row } from 'antd';
+import { Layout, Col, Row } from 'antd';
 const { Header, Content, } = Layout;
 
 
@@ -12,17 +12,7 @@ const trumpImg = [
 ]
 
 export const AI_text = (props) => {
-    const [collapsed, setCollapsed] = useState(false);
     const { setDst, setSourceimg, setPerson } = useContext(LoginContext);
-
-    const onCollapse = collapsed => {
-        console.log(collapsed);
-        if (collapsed) {
-            setCollapsed(true);
-        } else {
-            setCollapsed(false);
-        }
-    };
 
     return (
         <>

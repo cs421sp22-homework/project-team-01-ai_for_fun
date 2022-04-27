@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Image } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
 import { Row, Col } from 'react-bootstrap';
 import "../style/Gallery.css";
-import { CommentOutlined, ArrowRightOutlined, DeleteOutlined } from '@ant-design/icons';
+import { CommentOutlined, DeleteOutlined } from '@ant-design/icons';
 import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
 import { Modal, Button } from 'antd';
 import { Comment, Avatar, Form, List, Input, message } from 'antd';
@@ -29,28 +29,6 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
   </>
 );
 
-const macyOptions = {
-  container: '#macy-grid',
-  trueOrder: false,
-  waitForImages: false,
-  useOwnImageLoader: false,
-  mobileFirst: true,
-  margin: 23,
-  columns: 5,
-  breakAt: {
-    1400: 4,
-    1000: 3,
-    650: {
-      margin: 40,
-      columns: 2,
-    },
-    400: {
-      margin: 23,
-      columns: 1,
-    },
-  },
-}
-
 const galleryAnimation = {
   hide: {
     opacity: 0,
@@ -73,7 +51,7 @@ const Cardtransition = {
 
 function Gallery(probs) {
   const posts = probs.props
-  const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
+  const [cookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
   const [visible, setVisible] = useState(false);
   const [comments, setComments] = useState([]);
   const [submitting, setSubmitting] = useState(false);
@@ -146,7 +124,7 @@ function Gallery(probs) {
       })
     });
     if (response.status === 200) {
-      const content = await response.json();
+      // const content = await response.json();
       window.location.reload()
     }
     else {
@@ -167,7 +145,7 @@ function Gallery(probs) {
         })
       });
       if (response.status === 200) {
-        const content = await response.json();
+        // const content = await response.json();
       }
       else {
         console.log('request failed', response);
@@ -184,7 +162,7 @@ function Gallery(probs) {
         })
       });
       if (response.status === 200) {
-        const content = await response.json();
+        // const content = await response.json();
       }
       else {
         console.log('request failed', response);
@@ -215,7 +193,7 @@ function Gallery(probs) {
       })
     });
     if (response.status === 200) {
-      const content = await response.json();
+      // const content = await response.json();
       setSubmitting(false);
       setComments(
         [
@@ -298,10 +276,10 @@ function Gallery(probs) {
                       >
                         <LikeBtn props={{
                           "times": item.liked_time.length, "disable": !cookie.name,
-                          "liked": (item.liked_time.indexOf(cookie.user_id) != -1)
+                          "liked": (item.liked_time.indexOf(cookie.user_id) !== -1)
                         }}
                         />
-                        {console.log(item.liked_time.indexOf(cookie.user_id) != -1)}
+                        {console.log(item.liked_time.indexOf(cookie.user_id) !== -1)}
                         <CommentOutlined className='ml-1' onClick={(ev) => { showModal(ev, item) }} />
                       </div>
                     </Col>

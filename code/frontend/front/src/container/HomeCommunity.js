@@ -1,10 +1,8 @@
-import { useToast } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import RightSidebar from "../components/RightSider";
 import Feed from "../components/Feed";
 import { Row, Col } from 'react-bootstrap';
 import Loader from "../components/Loader";
-
 
 function Community_home() {
   useEffect(() => {

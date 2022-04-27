@@ -1,34 +1,9 @@
-import React, { Fragment, useState, PureComponent } from "react";
-import ReactDOM from 'react-dom';
-import Container from 'react-bootstrap/Container';
+import React from "react";
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Slideshow from "../components/Slideshow";
-import SlideshowInMode from "../components/recommend-in-mode/SlideshowInMode";
-import Card from 'react-bootstrap/Card'
-import UploadPic from '../components/UploadPic';
-import SlidesShowInLeft from "../components/recommend-in-mode/SlidesShowInLeft";
 import CollectionInLeft from "../components/recommend-in-mode/CollectionInLeft";
-import Video from '../components/Video';
-import UploadFace from '../components/UploadFace';
 import EditVideo from './EditVideo';
 
-import { Layout, Menu, Breadcrumb } from 'antd';
-import {
-    DesktopOutlined,
-    PieChartOutlined,
-    FileOutlined,
-    TeamOutlined,
-    UserOutlined,
-
-} from '@ant-design/icons';
-const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
-
-const tempvideo = {
-    videoSrc: "http://media.w3.org/2010/05/bunny/movie.mp4",
-    poster: "https://epe.brightspotcdn.com/f8/ca/abde5f4f4a30a6a3d1a0eaa23821/test-032021-968416412.jpg"
-}
 
 const tempimage = [
     { imgUrl: 'https://s1.r29static.com/bin/entry/43a/0,200,2000,2000/x,80/1536749/image.jpg', name: '01', topic: 'Star' },
@@ -50,15 +25,6 @@ const leftData = [
 ]
 
 export const AI_face_topic = (props) => {
-    const [setCollapsed] = useState(false);
-    const onCollapse = collapsed => {
-        console.log(collapsed);
-        if (collapsed) {
-            setCollapsed(true);
-        } else {
-            setCollapsed(false);
-        }
-    };
 
     return (
         <>

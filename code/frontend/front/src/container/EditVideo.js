@@ -20,7 +20,7 @@ const { TextArea } = Input;
 
 function EditVideo() {
     const { sourceimg, setSourceimg, faceimg, setFaceimg, dst, setDst, } = useContext(LoginContext);
-    const [cookie, setCookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email', 'avatar']);
+    const [cookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email', 'avatar']);
     var postText = "empty";
 
     const onChangeText = (e) => {
@@ -149,7 +149,7 @@ function EditVideo() {
             {
                 loading ?
                     <div className='loading'>
-                        <img src="images/processing.gif" style={{ height: 120, width: 120 }} />
+                        <img src="images/processing.gif" style={{ height: 120, width: 120 }} alt="" />
                     </div>
                     :
                     <div>

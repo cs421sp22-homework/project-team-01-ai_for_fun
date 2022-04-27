@@ -1,4 +1,4 @@
-import React, { useState, createRef, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Row, Col, Button, Image } from 'react-bootstrap';
 import Video from '../components/Video';
 import "../style/EditVideo.css"
@@ -6,18 +6,16 @@ import "../bootstrap-4.3.1-dist/css/bootstrap.min.css"
 import { LoginContext } from '../context/AuthProvider';
 import 'antd/dist/antd.css';
 import { useCookies } from 'react-cookie';
-import { Layout, message,Input } from 'antd';
+import { Layout, message, Input } from 'antd';
 
-const { Content} = Layout;
+const { Content } = Layout;
 const { TextArea } = Input;
 
 
-const previousSelected = [];
-
 function EditText(props) {
     const { faceimg, sourceimg, dst, setDst, person } = useContext(LoginContext);
-    const [cookie, setCookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email'])
-    const [pick, setPick] = useState('');
+    const [cookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email'])
+    const [pick] = useState('');
     const [loading, setLoading] = useState(false)
     const [SetchangeToVedio] = useState(false);
     const [showCard, setShowCard] = useState(false);
@@ -27,15 +25,13 @@ function EditText(props) {
         inputText = e.target.value;
     };
 
-
-    //TODO need change API
     const handleInput = async (e) => {
         console.log('input: ', inputText);
         console.log('voice source id: ', person);
         if (!inputText || !person) {
             message.error('Please choose one voice source and type text you want to use!');
         } else {
-            try{
+            try {
                 if (cookie.access_token) {
                     setLoading(true)
                     const response = await fetch('https://server-python.ai-for-fun-backend.com/exchangeaudio', {
@@ -61,7 +57,7 @@ function EditText(props) {
                 } else {
                     alert('Login first!')
                 }
-            }catch{
+            } catch {
                 setLoading(false)
             }
         }
@@ -87,7 +83,7 @@ function EditText(props) {
 
     const getS3Id = (url) => {
         var words = url.split("?")
-        if(words[0].length<31){
+        if (words[0].length < 31) {
             return url
         }
         return ("id=" + words[0].substr(31))
@@ -120,33 +116,33 @@ function EditText(props) {
             console.log("postText " + inputText);
             console.log("user_id " + cookie.user_id);
             console.log("user_name " + cookie.name);
-            try{
+            try {
                 setLoading(true)
                 const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    "content_url": "id=" + dst.substring(31, 51),
-                    "post_text": inputText,
-                    "user_id": cookie.user_id,
-                    "user_name": cookie.name,
-                    "user_avater": avatar_s3id
-                })
-            });
-            setLoading(false)
-            if (response.status === 200) {
-                const content = await response.json();
-                setDst(content.res_url)
-                message.success('Post success!');
-            }
-            else {
-                console.log('post failed', response);
-                message.error('failed.');
-            }
-            }catch{
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        "content_url": "id=" + dst.substring(31, 51),
+                        "post_text": inputText,
+                        "user_id": cookie.user_id,
+                        "user_name": cookie.name,
+                        "user_avater": avatar_s3id
+                    })
+                });
+                setLoading(false)
+                if (response.status === 200) {
+                    const content = await response.json();
+                    setDst(content.res_url)
+                    message.success('Post success!');
+                }
+                else {
+                    console.log('post failed', response);
+                    message.error('failed.');
+                }
+            } catch {
                 setLoading(false)
             }
-            
+
         } else {
             alert('Login first!')
         }
@@ -155,14 +151,14 @@ function EditText(props) {
     return (
         <Layout className="site-layout" style={{ background: 'white' }}>
             {
-            loading ?
-            <div className='loading'>
-               <img src = "images/processing.gif" style={{height:120,width:120}}/>
-            </div>
-            :
-            <div>
+                loading ?
+                    <div className='loading'>
+                        <img src="images/processing.gif" style={{ height: 120, width: 120 }} alt="" />
+                    </div>
+                    :
+                    <div>
 
-            </div>
+                    </div>
             }
             {
                 showCard ?
@@ -200,7 +196,7 @@ function EditText(props) {
                                             sourceimg ?
                                                 <Image src={sourceimg} fluid />
                                                 :
-                                                <Image src="images/text_instruction.gif" fluid/>
+                                                <Image src="images/text_instruction.gif" fluid />
                                         }
                                         {console.log("person" + person)}
                                     </center>

@@ -20,7 +20,7 @@ const { TextArea } = Input;
 
 function EditStyle() {
     const { sourceimg, setSourceimg, faceimg, setFaceimg, dst, setDst, } = useContext(LoginContext);
-    const [cookie, setCookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email', 'avatar']);
+    const [cookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email', 'avatar']);
     var postText = "empty";
 
     const onChangeText = (e) => {
@@ -64,7 +64,6 @@ function EditStyle() {
         if (cookie.access_token) {
             let avatar_s3id = getS3Id(cookie.avatar)
             const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
-                //const response = await fetch('http://127.0.0.1:80/createpost', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -155,7 +154,7 @@ function EditStyle() {
             {
                 loading ?
                     <div className='loading'>
-                        <img src="images/processing.gif" style={{ height: 120, width: 120 }} />
+                        <img src="images/processing.gif" style={{ height: 120, width: 120 }} alt="" />
                     </div>
                     :
                     <div>

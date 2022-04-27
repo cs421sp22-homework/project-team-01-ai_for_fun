@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import RightSidebar from "../components/RightSider";
 import Feed from "../components/Feed";
 import { Row, Col } from 'react-bootstrap';
-import { useCookies } from 'react-cookie';
 
 function FollowerPost() {
   useEffect(() => {
     document.title = "Ifun-Community";
   }, []);
-  const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
   const [posts, setPosts] = useState([]);
 
   useEffect(async () => {
