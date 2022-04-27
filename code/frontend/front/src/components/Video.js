@@ -16,11 +16,6 @@ function Video(props) {
                fluid = {true}
             >
             </Player>
-            {/* <ReactPlayer url={urlSrc}
-            width="100%"
-            height="100%"
-            controls={true}
-            /> */}
         </div>
     )
 }

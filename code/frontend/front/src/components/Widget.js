@@ -1,8 +1,7 @@
 import "../bootstrap-4.3.1-dist/css/bootstrap.min.css"
 import "../style/Widget.css"
-import React, { useState, useContext, useEffect } from 'react';
-import { Image, Card } from "react-bootstrap";
-import { useCookies } from 'react-cookie';
+import React, { useState, useEffect } from 'react';
+import { Card } from "react-bootstrap";
 
 function Widget(props) {
   const userinfo = props.props
@@ -15,7 +14,7 @@ function Widget(props) {
     let url = 'https://server-demo.ai-for-fun-backend.com/userbasicinfo/' + userinfo;
     const response = await fetch(url)
     console.log(response);
-    if (response.status == 200) {
+    if (response.status === 200) {
       const content = await response.json();
       setUsername(content.name)
       setAvatar(content.avatar)
@@ -24,7 +23,7 @@ function Widget(props) {
     let url2 = 'https://server-demo.ai-for-fun-backend.com/getfollowinfo/' + userinfo;
     const response3 = await fetch(url3)
     const response2 = await fetch(url2)
-    if (response3.status == 200) {
+    if (response3.status === 200) {
       const content3 = await response3.json();
       setLikes(content3[0].liked_sum)
       console.log(content3)
@@ -33,7 +32,7 @@ function Widget(props) {
       console.log('request failed', response.body);
       setLikes(0)
     }
-    if (response2.status == 200) {
+    if (response2.status === 200) {
       const content2 = await response2.json();
       setFollowers(content2[0].follower_count)
       setFollowing(content2[0].followed_count)
@@ -50,7 +49,6 @@ function Widget(props) {
           </div>
           <div className="widget-user-image">
             <img className="img-circle" src={avatar} alt="User Avatar" />
-            {/* <img className="img-circle" src="https://i.pravatar.cc/" alt="User Avatar"/> */}
           </div>
           <div className="box-footer">
             <div className="row">

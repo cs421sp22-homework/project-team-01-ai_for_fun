@@ -7,21 +7,12 @@ import {
 import 'antd/dist/antd.css';
 import React from 'react'
 import '../style/registerComp.css'
-import axios from 'axios'
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
 import { Row, Col } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 
-
-const onFinish = (values) => {
-  console.log('Success:', values);
-};
-
-const onFinishFailed = (errorInfo) => {
-  console.log('Failed:', errorInfo);
-};
 
 const RegistrationForm = () => {
   const [name, setName] = useState('');

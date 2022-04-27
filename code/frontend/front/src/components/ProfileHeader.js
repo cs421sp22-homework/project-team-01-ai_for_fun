@@ -39,9 +39,9 @@ function ProfileHeader() {
           "followed_id": user
         })
       });
-      if (response_state.status == 200) {
+      if (response_state.status === 200) {
         const fer = await response_state.json();
-        if (fer.res == 1) {
+        if (fer.res === 1) {
           setFollowstate(true)
         } else {
           setFollowstate(false)
@@ -51,7 +51,7 @@ function ProfileHeader() {
 
     let url_info = 'https://server-demo.ai-for-fun-backend.com/userbasicinfo/' + user;
     const response_info = await fetch(url_info)
-    if (response_info.status == 200) {
+    if (response_info.status === 200) {
       const content_info = await response_info.json();
       console.log(content_info)
       setUsername(content_info.name)
@@ -61,20 +61,19 @@ function ProfileHeader() {
 
     const res_follow = await fetch(url_follow)
     const res_like = await fetch(url_like)
-    if (res_follow.status == 200) {
+    if (res_follow.status === 200) {
       const fer = await res_follow.json();
       setFollowers(fer[0].follower_count)
       setfowlist(fer[0].follower_list)
       setfinglist(fer[0].followed_list)
       setFollowing(fer[0].followed_count)
     }
-    if (res_like.status == 200) {
+    if (res_like.status === 200) {
       const lk = await res_like.json();
       setLikes(lk[0].liked_sum)
     }
     const response = await fetch(url)
-    // console.log(response);
-    if (response.status == 200) {
+    if (response.status === 200) {
       const content = await response.json();
       setUserposts(content)
       setPostnum(content.length)
@@ -99,9 +98,8 @@ function ProfileHeader() {
           "followed_id": user
         })
       });
-      // console.log(response);
 
-      if (response.status == 200) {
+      if (response.status === 200) {
         const content = await response.json();
         setFollowstate(true)
       }
@@ -125,7 +123,7 @@ function ProfileHeader() {
         })
       });
 
-      if (response.status == 200) {
+      if (response.status === 200) {
         const content = await response.json();
         setFollowstate(false)
       }
@@ -159,14 +157,14 @@ function ProfileHeader() {
           </div>
           <div className="profile-cover__info">
             <ul className="nav">
-              {compid == 'post' ? (
+              {compid === 'post' ? (
                 <>
                   <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')} style={{ "fontWeight": "bolder" }}><strong>{postnum}</strong><p >Post</p></motion.li>
                   <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('followers')}><strong>{followers}</strong>Followers</motion.li>
                   <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('following')}><strong>{following}</strong>Following</motion.li>
                 </>
               )
-                : compid == 'followers' ? (
+                : compid === 'followers' ? (
                   <>
                     <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')}><strong>{postnum}</strong>Post</motion.li>
                     <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('followers')} style={{ "fontWeight": "bolder" }}><strong>{followers}</strong>Followers</motion.li>
@@ -185,9 +183,9 @@ function ProfileHeader() {
         </div>
       </div>
       <div className="row">
-        {compid == 'post' ? (
+        {compid === 'post' ? (
           <Gallery props={userposts} />)
-          : compid == 'followers' ? (
+          : compid === 'followers' ? (
             <FriendList props={fowlist} />
           )
             :

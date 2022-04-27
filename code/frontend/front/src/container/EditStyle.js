@@ -173,7 +173,7 @@ function EditStyle() {
                             <Card.Body>
                                 <Card.Title>Post to Community</Card.Title>
                                 <Card.Text>
-                                    <TextArea showCount maxLength={100} style={{ height: 200, margin: 25 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
+                                    <TextArea showCount maxLength={100} style={{ height: 200, margin: 25 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />
                                 </Card.Text>
                             </Card.Body>
                             <Card.Footer>

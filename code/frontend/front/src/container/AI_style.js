@@ -120,14 +120,14 @@ export const AI_style = () => {
 const style_vangogh = [
     "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/970px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
     "https://cdn.cnn.com/cnnnext/dam/assets/211015173306-meules-de-ble-painting-van-gogh-full-169.jpg",
-    "https://mymodernmet.com/wp/wp-content/uploads/2020/11/White-house-night-van-goh-worldwide-2.jpg",
+    // "https://mymodernmet.com/wp/wp-content/uploads/2020/11/White-house-night-van-goh-worldwide-2.jpg",
     "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Irises-Vincent_van_Gogh.jpg/640px-Irises-Vincent_van_Gogh.jpg",
     "https://media.architecturaldigest.com/photos/5c991cc56b6fbc66bc4dd3aa/16:9/w_2560%2Cc_limit/GettyImages-973792302.jpg",
     "https://i.ebayimg.com/images/g/t4AAAOSwNTZfr8vo/s-l400.jpg"
 ]
 
 const style_chinese = [
-    "https://www.worldhistory.org/img/r/p/500x600/7407.jpg?v=1645281002",
+    // "https://www.worldhistory.org/img/r/p/500x600/7407.jpg?v=1645281002",
     "https://frommetertomeaning.files.wordpress.com/2020/12/bird.jpg",
     "https://www.christies.com/media-library/images/salelandingpage/2016/hk112016/hong-kong-2016-autumn-auctions/hong-kong-2016-autumn-auctions-chinese-painting-07.jpg",
     "https://images.fineartamerica.com/images-medium-large-5/chinese-landscape-sean-seal.jpg",

@@ -1,10 +1,9 @@
-import React, { Component, useState, memo, createRef } from 'react';
+import React, { useState, createRef } from 'react';
 import '../style/Slideshow.css';
 import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons';
 import Container from 'react-bootstrap/Container';
 import { Image } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
-import { AI_face_topic } from '../container/AI_face_topic';
 
 function Slideshow(props) {
   const ref = createRef();
@@ -41,7 +40,6 @@ function Slideshow(props) {
                   <Card.Img className='CardImage' as={Image} src={item.imgUrl} fluid={true} alt="item.name" style={{ height: '15vw' }} />
                 </Card.Link>
                 <Card.Body>
-                  {/* <Card.Title>{item.topic}</Card.Title> */}
                   <Card.Text>
                     {item.topic}
                   </Card.Text>
