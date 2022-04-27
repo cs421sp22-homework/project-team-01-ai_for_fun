@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import '../style/App.css';
 import '../bootstrap-4.3.1-dist/css/bootstrap.min.css'
 
-// import Introduction from "./introduction";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./Navbar/navbar";
 import Home from "../container/Home";
-import { Contact } from "../container/Contact";
+// import { Contact } from "../container/Contact";
 import Profile from "../components/Profile";
 import Login from "../container/Login";
 import Register from "../container/Register";
@@ -42,7 +41,7 @@ function App() {
             <Routes>
               <Route exact path="/" element={<Home />} />
               <Route path="/profile" element={<Profile props={info} />} />
-              <Route path="/contact" element={<Contact />} />
+              {/* <Route path="/contact" element={<Contact />} /> */}
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/AI_face" element={<AI_face />} />
@@ -53,8 +52,8 @@ function App() {
               <Route path="/your_posts" element={<YourPost />} />
               <Route path="/followers" element={<FollowerPost />} />
               <Route path="/post" element={<Post />} />
-              <Route path="/userdetail/:name" element={<ProfileHeader/>}/>
-              <Route path="/recommend" element={<Recommend/>}/>
+              <Route path="/userdetail/:name" element={<ProfileHeader />} />
+              <Route path="/recommend" element={<Recommend />} />
             </Routes>
           </div>
         </Router>

@@ -41,7 +41,7 @@ function EditStyle() {
 
     const getS3Id = (url) => {
         var words = url.split("?")
-        if(words[0].length<31){
+        if (words[0].length < 31) {
             return url
         }
         return ("id=" + words[0].substr(31))
@@ -75,7 +75,7 @@ function EditStyle() {
                     "user_avater": avatar_s3id
                 })
             });
-            if (response.status == 200) {
+            if (response.status === 200) {
                 const content = await response.json();
                 setDst(content.res_url)
                 message.success('Post success!');
@@ -96,37 +96,36 @@ function EditStyle() {
             message.error("Please set the src image and dest image!")
         } else {
             if (cookie.access_token) {
-                const src_s3_id = (localStorage.getItem('src_s3_id')==null)?"":localStorage.getItem('src_s3_id')
-                const dst_s3_id = (localStorage.getItem('dst_s3_id')==null)?"":localStorage.getItem('dst_s3_id')
-                try{
+                const src_s3_id = (localStorage.getItem('src_s3_id') === null) ? "" : localStorage.getItem('src_s3_id')
+                const dst_s3_id = (localStorage.getItem('dst_s3_id') === null) ? "" : localStorage.getItem('dst_s3_id')
+                try {
                     setLoading(true)
                     const response = await fetch('https://server-python.ai-for-fun-backend.com/styletransfer', {
-                    //const response = await fetch('http://127.0.0.1:80/styletransfer', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        "content_url": sourceimg,
-                        "style_url": faceimg,
-                        "user_id": cookie.user_id,
-                        "src_s3_id": src_s3_id,
-                        "dst_s3_id": dst_s3_id,
-                        "type": "style"
-                    })
-                });
-                if (response.status === 200) {
-                    const content = await response.json();
-                    setDst(content.res_url)
-                    message.success('Completed');
-                    setSourceimg("")
-                    setFaceimg("")
-                    localStorage.setItem('src_s3_id', "")
-                    localStorage.setItem('dst_s3_id', "")
-                    setLoading(false)
-                } else {
-                    setLoading(false)
-                    console.log('request failed', response);
-                    message.error('failed.');
-                }
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            "content_url": sourceimg,
+                            "style_url": faceimg,
+                            "user_id": cookie.user_id,
+                            "src_s3_id": src_s3_id,
+                            "dst_s3_id": dst_s3_id,
+                            "type": "style"
+                        })
+                    });
+                    if (response.status === 200) {
+                        const content = await response.json();
+                        setDst(content.res_url)
+                        message.success('Completed');
+                        setSourceimg("")
+                        setFaceimg("")
+                        localStorage.setItem('src_s3_id', "")
+                        localStorage.setItem('dst_s3_id', "")
+                        setLoading(false)
+                    } else {
+                        setLoading(false)
+                        console.log('request failed', response);
+                        message.error('failed.');
+                    }
                 } catch {
                     setLoading(false)
                     message.error('failed.');
@@ -137,7 +136,7 @@ function EditStyle() {
                 alert('Login first!')
                 setLoading(false)
             }
-            
+
         }
         setLoading(false)
     }
@@ -154,14 +153,14 @@ function EditStyle() {
     return (
         <Layout className="site-layout" style={{ minHeight: '100vh' }}>
             {
-            loading ?
-            <div className='loading'>
-               <img src = "images/processing.gif" style={{height:120,width:120}}/>
-            </div>
-            :
-            <div>
+                loading ?
+                    <div className='loading'>
+                        <img src="images/processing.gif" style={{ height: 120, width: 120 }} />
+                    </div>
+                    :
+                    <div>
 
-            </div>
+                    </div>
             }
             {
                 dst ?
@@ -218,9 +217,7 @@ function EditStyle() {
                             <Button onClick={handleReset} variant="secondary" size="lg" style={{ float: 'right', marginTop: '0%', marginRight: "1%" }}>Reset</Button>
                         </Footer>
                     </Content>
-
             }
-
         </Layout >
     )
 }

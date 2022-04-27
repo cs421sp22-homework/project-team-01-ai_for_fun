@@ -9,9 +9,7 @@ import '../style/AI_face.css'
 import { Layout, Menu } from 'antd';
 import AIFaceGallery from "./AIFaceGallery";
 import AIFaceHistory from "./AIFaceHistory";
-
 const { Content, Sider } = Layout;
-const { SubMenu } = Menu;
 
 export const AI_face = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -42,30 +40,30 @@ export const AI_face = () => {
                         <Row style={{ height: "100%" }}>
                             <Col sm={3} style={{ borderRight: "2px solid #E2E1E2" }}>
                                 <Nav justify variant="pills" className="flex-column myNav">
-                                    <Nav.Item style={{marginBottom:"5vh"}}>
+                                    <Nav.Item style={{ marginBottom: "5vh" }}>
                                         <Nav.Link eventKey="first"
                                             onClick={() => { setSelectTab("first") }}
                                             onMouseEnter={() => { setSelectTab1(true) }}
                                             onMouseLeave={() => { setSelectTab1(false) }}>
-                                            <img src={(selectTab == "first" || selectTab1) ? "AI_face_images/face_active.png" : "AI_face_images/face_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} />
+                                            <img src={(selectTab === "first" || selectTab1) ? "AI_face_images/face_active.png" : "AI_face_images/face_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} />
                                             <p>Face</p>
                                         </Nav.Link>
                                     </Nav.Item>
-                                    <Nav.Item style={{marginBottom:"5vh"}}>
+                                    <Nav.Item style={{ marginBottom: "5vh" }}>
                                         <Nav.Link eventKey="second"
                                             onClick={() => { setSelectTab("second") }}
                                             onMouseEnter={() => { setSelectTab2(true) }}
                                             onMouseLeave={() => { setSelectTab2(false) }}>
-                                            <img src={(selectTab == "second" || selectTab2) ? "AI_face_images/popular_active.png" : "AI_face_images/popular_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} />
+                                            <img src={(selectTab === "second" || selectTab2) ? "AI_face_images/popular_active.png" : "AI_face_images/popular_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} />
                                             <p>Popular</p>
                                         </Nav.Link>
                                     </Nav.Item>
-                                    <Nav.Item style={{marginBottom:"5vh"}}>
+                                    <Nav.Item style={{ marginBottom: "5vh" }}>
                                         <Nav.Link eventKey="third"
                                             onClick={() => { setSelectTab("third") }}
                                             onMouseEnter={() => { setSelectTab3(true) }}
                                             onMouseLeave={() => { setSelectTab3(false) }}>
-                                            <img src={(selectTab == "third" || selectTab3) ? "AI_face_images/history_active.png" : "AI_face_images/history_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} />
+                                            <img src={(selectTab === "third" || selectTab3) ? "AI_face_images/history_active.png" : "AI_face_images/history_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} />
                                             <p>History</p>
                                         </Nav.Link>
                                     </Nav.Item>
@@ -178,7 +176,6 @@ const Harry_Potter = [
     'https://i.insider.com/5cf6db2c594ea513a80f5597?width=700',
     'https://www.foxtel.com.au/content/dam/foxtel/whats-on/insider/2021/november/harry-potter-800x450.jpg',
     'https://media1.popsugar-assets.com/files/thumbor/xE8u-G0SXl291R6ohkFVw5nG71k/273x202:2620x2549/fit-in/550x550/filters:format_auto-!!-:strip_icc-!!-/2022/01/05/830/n/1922283/e161474f61d5e9c43455a0.98910495_/i/emma-watson-responds-to-harry-potter-emma-roberts-mistake.jpg',
-    //'http://p1.itc.cn/images01/20200629/32f838ca0d7941c6bda25f8cdf459e4f.jpeg',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnXDvX1kLDX0-eqeK6NXODJdWYtmgghd0wQw&usqp=CAU',
     'http://sports.cctv.com/20090714/images/1247568014264_U105P28T3D2591890F329DT20090704114552.jpg',
     'https://sites.google.com/site/harrypotterlibary/_/rsrc/1429262672776/home/harrypeople/ron-weasley/YLqNNlOMPHa1UPthRbs7jA.jpg?height=400&width=299',
@@ -198,7 +195,6 @@ const Marvel = [
 const Movie_p = [
     'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/index-actors-got-their-start-on-tv-1607725466.jpg?crop=0.409xw:0.817xh;0.0529xw,0.00962xh&resize=640:*',
     'https://media.workandmoney.com/64/f6/64f66bf1508f415fbb5ab0a64eda450d.jpeg',
-    //'http://5b0988e595225.cdn.sohucs.com/images/20181212/49141202a3154b5eb4553dc366dd3587.jpeg',
 ];
 const Face_Singers_p = [
     'https://www.thefamouspeople.com/profiles/thumbs/michael-jackson-3.jpg',
@@ -206,11 +202,6 @@ const Face_Singers_p = [
     'https://i1.jueshifan.com/205a28/7d0f7c87/3e5a3dd71eaaae4d9e32.jpg',
 ];
 
-const Friends_p = [
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFLysfblilvBqTDNXvMILLekdjUW2-PsEKtg&usqp=CAU',
-    'https://www.irishexaminer.com/cms_media/module_img/4972/2486069_10_seoimage1x1_E2jArIRWUAM-0jT.jpg',
-    'https://static.independent.co.uk/s3fs-public/thumbnails/image/2017/11/09/11/joey-friends.jpg?quality=75&width=982&height=726&auto=webp',
-];
 
 const President_p = [
     'https://cdn.britannica.com/55/91555-131-C5BCDFC8/Gerald-R-Ford.jpg?q=60',

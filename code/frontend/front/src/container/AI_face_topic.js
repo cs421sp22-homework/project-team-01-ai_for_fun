@@ -7,10 +7,6 @@ import Slideshow from "../components/Slideshow";
 import SlideshowInMode from "../components/recommend-in-mode/SlideshowInMode";
 import Card from 'react-bootstrap/Card'
 import UploadPic from '../components/UploadPic';
-// import '../style/Slideshow.css';
-// import '../style/sider.css';
-// import UploadFile from "../components/UploadFile";
-// import FaceResult from "../components/FaceResult";
 import SlidesShowInLeft from "../components/recommend-in-mode/SlidesShowInLeft";
 import CollectionInLeft from "../components/recommend-in-mode/CollectionInLeft";
 import Video from '../components/Video';
@@ -40,7 +36,7 @@ const tempimage = [
     { imgUrl: 'https://stylesatlife.com/wp-content/uploads/2021/11/Emma-Watson-face-shape.jpg.webp', name: '03', topic: 'New Year' },
     { imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScxopB3Y_Z0Yu1v5JpXdx-3NOKX7yqg1iIHg&usqp=CAU', name: '04', topic: 'Amazing' },
     { imgUrl: 'https://c4.wallpaperflare.com/wallpaper/485/848/917/actresses-mckenna-grace-actress-blonde-blue-eyes-hd-wallpaper-preview.jpg', name: '05', topic: 'Fashion' },
-  ]
+]
 const leftData = [
     { imgUrl: 'https://media1.popsugar-assets.com/files/thumbor/0ebv7kCHr0T-_O3RfQuBoYmUg1k/475x60:1974x1559/fit-in/500x500/filters:format_auto-!!-:strip_icc-!!-/2019/09/09/023/n/1922398/9f849ffa5d76e13d154137.01128738_/i/Taylor-Swift.jpg', name: 'singers_1', topic: 'Singers' },
     { imgUrl: 'https://cdn.vox-cdn.com/thumbor/84BoAJ5wM2CSqDoaTOZNBnPDU4U=/0x0:2040x1360/1200x675/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/63940677/jbareham_190520_0907_got_0004.0.jpg', name: '04', topic: 'Game of Thrones' },
@@ -54,8 +50,7 @@ const leftData = [
 ]
 
 export const AI_face_topic = (props) => {
-    const [collapsed, setCollapsed] = useState(false);
-    // const { leftData } = tempimage_1;
+    const [setCollapsed] = useState(false);
     const onCollapse = collapsed => {
         console.log(collapsed);
         if (collapsed) {
@@ -75,25 +70,6 @@ export const AI_face_topic = (props) => {
                     <EditVideo imgData={tempimage} />
                 </Col>
             </Row>
-            {/*
-            <Layout style={{ minHeight: '100%' }}>
-                <Sider collapsible collapsed={collapsed} onCollapse={onCollapse} theme="light" width='350' collapsedWidth='100'>
-                    <div className="logo" />
-                    <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-                        < SlidesShowInLeft />
-                        < CollectionInLeft />
-                    </Menu>
-                </Sider>
-
-                <Layout className="site-layout">
-                    <FaceResult />
-                    <UploadFile /> 
-                    <Video props={tempvideo} /> 
-                    <EditVideo imgData={tempimage} />
-                </Layout>
-            </Layout>
-        */}
-
         </>
     );
 };

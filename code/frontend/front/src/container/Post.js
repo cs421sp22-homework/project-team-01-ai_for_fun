@@ -1,89 +1,24 @@
 
-import React, { useState, useContext, createRef, useEffect } from 'react';
-import { message, Input, Form } from 'antd';
-import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
-import Card from 'react-bootstrap/Card';
+import React, { useState, createRef, useEffect } from 'react';
+import { message, Input } from 'antd';
 import '../style/Profile.css';
 import '../style/PopupPost.css';
 import { Row, Col, Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
-import { LoginContext } from '../context/AuthProvider';
 import { useCookies } from 'react-cookie';
-import CollectionInLeft from "../components/recommend-in-mode/CollectionInLeft";
 import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons';
-// import "../style/EditVideo.css"
-import { motion } from 'framer-motion';
-import Macy from 'macy';
 import { Layout } from 'antd';
 import Video from '../components/Video';
 const { TextArea } = Input;
 const { Content } = Layout;
 const previousSelectedPost = [];
 
-const macyOptions = {
-    container: '#macy-grid',
-    trueOrder: true,
-    mobileFirst: true,
-    margin: 10,
-    columns: 1,
-    breakAt: {
-        1800: 3,
-        1400: 2,
-        650: {
-            margin: 10,
-            columns: 1,
-        },
-    },
-}
-
-const galleryAnimation = {
-    hide: {
-        opacity: 0,
-    },
-    show: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.25,
-            ease: 'easeOut',
-            delayChildren: 1.5,
-        },
-    },
-}
-
-const cardAnimation = {
-    hide: {
-        opacity: 0,
-    },
-    show: {
-        opacity: 1,
-        transition: {
-            duration: 0.5,
-        },
-    },
-}
-
 function Post() {
-    // useEffect(() => {
-    //     new Macy(macyOptions)
-    // }, [])
-
-    //const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg } = useContext(LoginContext);
-
-    // const {user,setUser,email,setEmail} = useContext(LoginContext);
     const [cookie, setCookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email', 'avatar']);
     console.log(cookie);
-    const [avatar, setAvatar] = useState(cookie.avatar);
-    const [name, setName] = useState(cookie.name);
-    const [email, setEmail] = useState(cookie.email);
-    const [password, setPassword] = useState('');
-    const [oriPsw, setOriPsw] = useState('');
     const [ImagePost, setImagePost] = useState(true);
-    const [showInputEmail, setshowInputEmail] = useState(false);
-    // const { avatarimg } = useContext(LoginContext);
-    const [showEditPsw, setShowEditPsw] = useState(false)
-    const [showInputName, setshowInputName] = useState(false);
 
     var user_id = localStorage.getItem('global_userID');
     var globla_token = localStorage.getItem('global_token');
@@ -96,9 +31,6 @@ function Post() {
     const [pick, setPick] = useState('');
     const [translateX, setTranslateX] = useState(0);
 
-
-
-    // getHistoryWork
     const [hiswork, setHiswork] = useState([]);
     useEffect(() => {
         let url = 'https://server-demo.ai-for-fun-backend.com/getwork/' + cookie.user_id;
@@ -156,7 +88,7 @@ function Post() {
                 "user_avater": avatar_s3id
             })
         });
-        if (response.status == 200) {
+        if (response.status === 200) {
             const content = await response.json();
             message.success('Post success!');
         }
@@ -172,9 +104,6 @@ function Post() {
         setTranslateX(translateX - ref.current.offsetWidth);
     };
 
-    /**
-     * left button
-     */
     const clickLeftIcon = () => {
         if (translateX === 0) return;
         setTranslateX(translateX + ref.current.offsetWidth);
@@ -257,14 +186,3 @@ function Post() {
     )
 }
 export default Post;
-
-var historydata = [
-
-]
-const imgData = [
-    { imgUrl: 'https://s1.r29static.com/bin/entry/43a/0,200,2000,2000/x,80/1536749/image.jpg', name: '01', topic: 'Star' },
-    { imgUrl: 'https://hips.hearstapps.com/cosmouk.cdnds.net/15/33/1439714614-celebrity-face-mashups-taylor-swift-emma-watson.jpg', name: '02', topic: 'House' },
-    { imgUrl: 'https://stylesatlife.com/wp-content/uploads/2021/11/Emma-Watson-face-shape.jpg.webp', name: '03', topic: 'New Year' },
-    { imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScxopB3Y_Z0Yu1v5JpXdx-3NOKX7yqg1iIHg&usqp=CAU', name: '04', topic: 'Amazing' },
-    { imgUrl: 'https://c4.wallpaperflare.com/wallpaper/485/848/917/actresses-mckenna-grace-actress-blonde-blue-eyes-hd-wallpaper-preview.jpg', name: '05', topic: 'Fashion' },
-]

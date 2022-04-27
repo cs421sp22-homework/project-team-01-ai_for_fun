@@ -3,21 +3,8 @@ import { useState, createRef, useContext } from 'react';
 import { Container, Image } from 'react-bootstrap';
 import { LoginContext } from '../context/AuthProvider';
 import EditText from '../components/EditText';
-import { Layout, Menu, Breadcrumb, Input, Col, Row, Card } from 'antd';
-import {
-    UserOutlined,
-    UserAddOutlined,
-    UserDeleteOutlined,
-
-} from '@ant-design/icons';
-const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
-const { TextArea } = Input;
-
-const tempvideo = {
-    videoSrc: "http://media.w3.org/2010/05/bunny/movie.mp4",
-    poster: "https://epe.brightspotcdn.com/f8/ca/abde5f4f4a30a6a3d1a0eaa23821/test-032021-968416412.jpg"
-}
+import { Layout, Menu, Input, Col, Row } from 'antd';
+const { Header, Content, } = Layout;
 
 
 const trumpImg = [
@@ -26,10 +13,8 @@ const trumpImg = [
 
 export const AI_text = (props) => {
     const [collapsed, setCollapsed] = useState(false);
-    const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg, person, setPerson } = useContext(LoginContext);
-    var inputText = "empty";
+    const { setDst, setSourceimg, setPerson } = useContext(LoginContext);
 
-    // const { leftData } = tempimage_1;
     const onCollapse = collapsed => {
         console.log(collapsed);
         if (collapsed) {

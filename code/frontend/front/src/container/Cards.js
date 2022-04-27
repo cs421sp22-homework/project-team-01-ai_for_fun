@@ -21,7 +21,7 @@ function Cards() {
               label='Goofy'
               path='/AI_text'
             />
-             <CardItem
+            <CardItem
               src='images/AI_voice_mickey.jpeg'
               text='Mickey Mouse, disney character voiced by Wayne Anthony Allwine'
               label='Mickey Mouse'

@@ -27,7 +27,7 @@ function EditVideo() {
         postText = e.target.value;
     };
 
-    const [loading,setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const makeid = (length) => {
         var result = '';
@@ -41,7 +41,7 @@ function EditVideo() {
 
     const getS3Id = (url) => {
         var words = url.split("?")
-        if(words[0].length<31){
+        if (words[0].length < 31) {
             return url
         }
         return ("id=" + words[0].substr(31))
@@ -64,9 +64,8 @@ function EditVideo() {
         if (cookie.access_token) {
             let avatar_s3id = getS3Id(cookie.avatar)
             const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
-                //const response = await fetch('http://127.0.0.1:8080/faceswap', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     "content_url": "id=" + dst.substring(31, 51),
                     "post_text": postText,
@@ -75,7 +74,7 @@ function EditVideo() {
                     "user_avater": avatar_s3id
                 })
             });
-            if (response.status == 200) {
+            if (response.status === 200) {
                 const content = await response.json();
                 setDst(content.res_url)
                 message.success('Post success!');
@@ -96,37 +95,36 @@ function EditVideo() {
             message.error("Please set the src image and dest image!")
         } else {
             if (cookie.access_token) {
-                const src_s3_id = (localStorage.getItem('src_s3_id')==null)?"":localStorage.getItem('src_s3_id')
-                const dst_s3_id = (localStorage.getItem('dst_s3_id')==null)?"":localStorage.getItem('dst_s3_id')
-                try{
+                const src_s3_id = (localStorage.getItem('src_s3_id') === null) ? "" : localStorage.getItem('src_s3_id')
+                const dst_s3_id = (localStorage.getItem('dst_s3_id') === null) ? "" : localStorage.getItem('dst_s3_id')
+                try {
                     setLoading(true)
                     const response = await fetch('https://server-python.ai-for-fun-backend.com/faceswap', {
-                    //const response = await fetch('http://127.0.0.1:80/faceswap', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        "src_url": sourceimg,
-                        "dst_url": faceimg,
-                        "user_id": cookie.user_id,
-                        "src_s3_id": src_s3_id ,
-                        "dst_s3_id": dst_s3_id,
-                        "type": "face"
-                    })
-                });
-                setLoading(false)
-                if (response.status == 200) {
-                    const content = await response.json();
-                    setDst(content.res_url)
-                    message.success('Completed');
-                    setSourceimg("")
-                    setFaceimg("")
-                    localStorage.setItem('src_s3_id', "")
-                    localStorage.setItem('dst_s3_id', "")
-                } else {
-                    console.log('request failed', response);
-                    message.error('failed.');
-                }
-                }catch{
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            "src_url": sourceimg,
+                            "dst_url": faceimg,
+                            "user_id": cookie.user_id,
+                            "src_s3_id": src_s3_id,
+                            "dst_s3_id": dst_s3_id,
+                            "type": "face"
+                        })
+                    });
+                    setLoading(false)
+                    if (response.status === 200) {
+                        const content = await response.json();
+                        setDst(content.res_url)
+                        message.success('Completed');
+                        setSourceimg("")
+                        setFaceimg("")
+                        localStorage.setItem('src_s3_id', "")
+                        localStorage.setItem('dst_s3_id', "")
+                    } else {
+                        console.log('request failed', response);
+                        message.error('failed.');
+                    }
+                } catch {
                     setLoading(false)
                 }
             } else {
@@ -149,14 +147,14 @@ function EditVideo() {
     return (
         <Layout className="site-layout" style={{ minHeight: '100vh' }}>
             {
-            loading ?
-            <div className='loading'>
-               <img src = "images/processing.gif" style={{height:120,width:120}}/>
-            </div>
-            :
-            <div>
+                loading ?
+                    <div className='loading'>
+                        <img src="images/processing.gif" style={{ height: 120, width: 120 }} />
+                    </div>
+                    :
+                    <div>
 
-            </div>
+                    </div>
             }
             {
                 dst ?
@@ -213,9 +211,7 @@ function EditVideo() {
                             <Button onClick={handleReset} variant="secondary" size="lg" style={{ float: 'right', marginTop: '0%', marginRight: "1%" }}>Reset</Button>
                         </Footer>
                     </Content>
-
             }
-
         </Layout >
     )
 }
