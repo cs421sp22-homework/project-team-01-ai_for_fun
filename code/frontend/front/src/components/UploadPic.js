@@ -23,7 +23,6 @@ function getBase64(img, callback) {
 
 
 class UploadPic extends React.Component {
-  // static contextType = LoginContext;
 
   static propTypes = {
     cookies: instanceOf(Cookies).isRequired
@@ -39,12 +38,6 @@ class UploadPic extends React.Component {
       loading: false,
     };
   }
-
-  // state = {
-  //   imageUrl: this.cookie.avatar,
-  //   filename: null,
-  //   loading: false,
-  // };
 
   beforeUpload = file => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -91,8 +84,6 @@ class UploadPic extends React.Component {
 
   handleRequest = async () => {
 
-    // const formData = new FormData();
-    // formData.append('file',filename);
     this.setState({
       loading: true,
     });
@@ -104,7 +95,6 @@ class UploadPic extends React.Component {
       console.log(result);
       const signedURL = await Storage.get(result.key);
       console.log(signedURL);
-      //localStorage.setItem('global_profile_img',signedURL);
 
       this.setState({
         imageUrl: signedURL,

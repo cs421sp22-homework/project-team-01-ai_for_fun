@@ -1,29 +1,16 @@
 import React, { useState, createRef, useContext } from 'react';
 import { Row, Col, Button, Image } from 'react-bootstrap';
 import Video from '../components/Video';
-import UploadFace from '../components/UploadFace';
 import "../style/EditVideo.css"
 import "../bootstrap-4.3.1-dist/css/bootstrap.min.css"
 import { LoginContext } from '../context/AuthProvider';
 import 'antd/dist/antd.css';
 import { useCookies } from 'react-cookie';
-import MediaComponent from "../components/MediaComponent";
-import { Layout, message, Menu, Input } from 'antd';
-import Card from 'react-bootstrap/Card';
+import { Layout, message,Input } from 'antd';
 
-const { Content, Footer } = Layout;
-const { SubMenu } = Menu;
+const { Content} = Layout;
 const { TextArea } = Input;
 
-const tempvideo = {
-    videoSrc: "http://media.w3.org/2010/05/bunny/movie.mp4",
-    poster: "https://epe.brightspotcdn.com/f8/ca/abde5f4f4a30a6a3d1a0eaa23821/test-032021-968416412.jpg"
-}
-
-const test = {
-    videoSrc: "code/frontend/front/public/video/test.mp4",
-    //poster: "https://epe.brightspotcdn.com/f8/ca/abde5f4f4a30a6a3d1a0eaa23821/test-032021-968416412.jpg"
-}
 
 const previousSelected = [];
 

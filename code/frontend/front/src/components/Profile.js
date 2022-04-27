@@ -17,17 +17,9 @@ import FriendList from "./FriendList";
 import Masonry from 'react-masonry-css';
 import Gallery from "../container/Community_home";
 import { Modal } from 'antd';
-import {
-    StyleSheet,
-    Text,
-    View,
-} from 'react-native';
-import { AWS_CLOUDWATCH_MAX_BATCH_EVENT_SIZE } from '@aws-amplify/core';
-// import "../style/EditVideo.css"
 const { TextArea } = Input;
 const { Content } = Layout;
 const previousSelectedPost = [];
-var ImagePost = true;
 
 const compareToFirstPassword = ({ getFieldValue }) => ({
     validator(rule, value) {
@@ -37,9 +29,7 @@ const compareToFirstPassword = ({ getFieldValue }) => ({
 });
 
 function Profile(props) {
-    const user = window.location.pathname.split("/")[2]
     const [compid, setCompid] = useState('post')
-    //const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
     const [userposts, setUserposts] = useState([])
     const [followers, setFollowers] = useState(0)
     const [following, setFollowing] = useState(0)
@@ -49,8 +39,6 @@ function Profile(props) {
     const [postnum, setPostnum] = useState(0)
     const [worksnum, setWorksnum] = useState(0);
     props = props.props
-    // const {user,setUser,email,setEmail} = useContext(LoginContext);
-    //const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
     const [cookie, setCookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email', 'avatar']);
     console.log(cookie);
     const [avatar, setAvatar] = useState(cookie.avatar);
@@ -58,12 +46,9 @@ function Profile(props) {
     const [email, setEmail] = useState(cookie.email);
     const [password, setPassword] = useState('');
     const [oriPsw, setOriPsw] = useState('');
-    const [showInputEmail, setshowInputEmail] = useState(false);
-    // const { avatarimg } = useContext(LoginContext);
     const [showEditPsw, setShowEditPsw] = useState(false)
     const [showInputName, setshowInputName] = useState(false);
     const [showAvater, setshowAvater] = useState(false);
-    const [pic, setPic] = useState(props.pic);
     var user_id = localStorage.getItem('global_userID');
     var globla_token = localStorage.getItem('global_token');
     var profileimg = localStorage.getItem('global_profile_IMG');
@@ -111,20 +96,20 @@ function Profile(props) {
         let url = 'https://server-demo.ai-for-fun-backend.com/getuserpost/' + user_id;
         const res_follow = await fetch(url_follow)
         const res_like = await fetch(url_like)
-        if (res_follow.status == 200) {
+        if (res_follow.status === 200) {
             const fer = await res_follow.json();
             setFollowers(fer[0].follower_count)
             setfowlist(fer[0].follower_list)
             setfinglist(fer[0].followed_list)
             setFollowing(fer[0].followed_count)
         }
-        if (res_like.status == 200) {
+        if (res_like.status === 200) {
             const lk = await res_like.json();
             setLikes(lk[0].liked_sum)
         }
         const response = await fetch(url)
         console.log(response);
-        if (response.status == 200) {
+        if (response.status === 200) {
             const content = await response.json();
             setUserposts(content)
             setPostnum(content.length)
@@ -136,7 +121,7 @@ function Profile(props) {
         let url1 = 'https://server-demo.ai-for-fun-backend.com/getwork/' + cookie.user_id;
         console.log("url for history" + url1);
         const workFetch = await fetch(url1)
-        if (workFetch.status == 200) {
+        if (workFetch.status === 200) {
             const workRes = await workFetch.json();
             setHiswork(workRes);
             setWorksnum(workRes.length);
@@ -174,7 +159,7 @@ function Profile(props) {
                     })
                 });
 
-                if (response.status == 200) {
+                if (response.status === 200) {
                     const content = await response.json();
                     let expires = new Date();
                     expires.setTime(expires.getTime() + (30 * 60 * 1000));
@@ -279,11 +264,9 @@ function Profile(props) {
             });
             console.log("send out new avater: " + profileimg);
 
-            if (response.status == 200) {
+            if (response.status === 200) {
                 const content = await response.json();
                 console.log("return avater " + content.avatar);
-                //let expires = new Date();
-                // expires.setTime();
                 setCookie('avatar', content.avatar);
                 setAvatar(content.avatar);
                 console.log("return avater " + content.avatar);
@@ -349,8 +332,7 @@ function Profile(props) {
                 "user_avater": cookie.avatar
             })
         });
-        if (response.status == 200) {
-            const content = await response.json();
+        if (response.status === 200) {
             message.success('Post success!');
             setShowCard(false);
             setSeen(!seen);
@@ -376,8 +358,7 @@ function Profile(props) {
                 'user_id': cookie.user_id,
             })
         });
-        if (response.status == 200) {
-            const content = await response.json();
+        if (response.status === 200) {
             window.location.reload()
             message.success("delete success!")
         }
@@ -455,16 +436,10 @@ function Profile(props) {
                                 <i className="fa fa-plus"></i>
                                 <span style={{ color: 'white' }}>Edit Password</span>
                             </button>
-                            {/* 
-                            <button className="btn btn-rounded btn-info">
-                                <Button variant="outline-dark" size="sm" onClick={handleEditName} >Edit Name</Button> {' '}
-                                <Button variant="outline-dark" size="sm" onClick={handleEditAvater} >Edit Avatar</Button> {' '}
-                                <Button variant="outline-dark" size="sm" onClick={handleEditPsw} >Edit Password</Button>
-                            </button> */}
                         </div>
                         <div className="profile-cover__info" style={{ marginBottom: '20px' }}>
                             <ul className="nav">
-                                {compid == 'post' ? (
+                                {compid === 'post' ? (
                                     <>
                                         <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('works')} ><strong>{worksnum}</strong><p >Works</p></motion.li>
                                         <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')} style={{ "fontWeight": "bolder" }}><strong>{postnum}</strong><p >Post</p></motion.li>
@@ -472,7 +447,7 @@ function Profile(props) {
                                         <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('following')}><strong>{following}</strong>Following</motion.li>
                                     </>
                                 )
-                                    : compid == 'followers' ? (
+                                    : compid === 'followers' ? (
                                         <>
                                             <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('works')}><strong>{worksnum}</strong><p >Works</p></motion.li>
                                             <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')}><strong>{postnum}</strong>Post</motion.li>
@@ -480,7 +455,7 @@ function Profile(props) {
                                             <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('following')}><strong>{following}</strong>Following</motion.li>
                                         </>
                                     )
-                                        : compid == 'works' ? (
+                                        : compid === 'works' ? (
                                             <>
                                                 <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('works')} style={{ "fontWeight": "bolder" }}><strong>{worksnum}</strong><p >Works</p></motion.li>
                                                 <motion.li whileHover={{ scale: 1.05 }} onClick={() => setCompid('post')}><strong>{postnum}</strong>Post</motion.li>
@@ -502,12 +477,12 @@ function Profile(props) {
                     </div>
                 </div>
                 <div className="row">
-                    {compid == 'post' ? (
+                    {compid === 'post' ? (
                         <Gallery props={userposts} />)
-                        : compid == 'followers' ? (
+                        : compid === 'followers' ? (
                             <FriendList props={fowlist} />
                         )
-                            : compid == 'works' ? (
+                            : compid === 'works' ? (
                                 <Container style={{ height: '20vh', borderRadius: '20px', marginTop: '1%', maxHeight: '90vh' }}>
                                     <motion.div
                                         initial="hide"

@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React from "react";
 import ImgCrop from 'antd-img-crop';
 import { Upload, Button, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';

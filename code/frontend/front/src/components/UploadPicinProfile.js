@@ -1,7 +1,6 @@
 import React from "react";
 import ImgCrop from 'antd-img-crop';
-import { Upload, Button, message } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { Upload, message } from 'antd';
 import 'antd/es/modal/style';
 import "antd/dist/antd.css";
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';

@@ -1,17 +1,9 @@
 import { motion } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
-import { Image } from "react-bootstrap";
-import { Row, Col } from 'react-bootstrap';
+import React from 'react';
 import "../style/Gallery.css";
-import { CommentOutlined, ArrowRightOutlined, DeleteOutlined } from '@ant-design/icons';
 import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
-import {  Button } from 'antd';
-import { Comment, Avatar, Form, List, Input, message } from 'antd';
 import Widget from './Widget';
 import Masonry from 'react-masonry-css';
-
-const { TextArea } = Input;
 
 const galleryAnimation = {
   hide: {
@@ -33,23 +25,9 @@ const Cardtransition = {
   stiffness: 100
 }
 
-const cardAnimation = {
-  hide: {
-    opacity: 0,
-  },
-  show: {
-    opacity: 1,
-    transition: {
-      duration: 0.2,
-    },
-  },
-}
-
 function FriendList(probs) {
 
   const friends = probs.props
-  console.log(friends)
-  const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
 
   const breakpointColumnsObj = {
   default: 3,
@@ -73,7 +51,6 @@ function FriendList(probs) {
             { console.log(item) }
             return <motion.div
               key={item}
-              // variants={cardAnimation}
               animate={{ y: [-5, 5, 0] }}
               transition={Cardtransition}
               whileHover={{ scale: 1.05 }}

@@ -55,7 +55,7 @@ const NormalLoginForm = () => {
       });
       console.log(response);
 
-      if (response.status == 200) {
+      if (response.status === 200) {
         const content = await response.json();
         let expires = new Date();
         console.log(content.avatar);
