@@ -38,7 +38,7 @@ export const AI_style = () => {
                         <Row style={{ height: "100%" }}>
                             <Col sm={4} style={{ borderRight: "2px solid #E2E1E2" }}>
                                 <Nav justify variant="pills" className="flex-column myNav">
-                                    <Nav.Item style={{marginBottom:"5vh"}}>
+                                    <Nav.Item style={{ marginBottom: "5vh" }}>
                                         <Nav.Link eventKey="first"
                                             onClick={() => { setSelectTab("first") }}
                                             onMouseEnter={() => { setSelectTab1(true) }}
@@ -47,7 +47,7 @@ export const AI_style = () => {
                                             <p>Style</p>
                                         </Nav.Link>
                                     </Nav.Item>
-                                    <Nav.Item style={{marginBottom:"5vh"}}>
+                                    <Nav.Item style={{ marginBottom: "5vh" }}>
                                         <Nav.Link eventKey="second"
                                             onClick={() => { setSelectTab("second") }}
                                             onMouseEnter={() => { setSelectTab2(true) }}
@@ -56,7 +56,7 @@ export const AI_style = () => {
                                             <p>Content</p>
                                         </Nav.Link>
                                     </Nav.Item>
-                                    <Nav.Item style={{marginBottom:"5vh"}}>
+                                    <Nav.Item style={{ marginBottom: "5vh" }}>
                                         <Nav.Link eventKey="third"
                                             onClick={() => { setSelectTab("third") }}
                                             onMouseEnter={() => { setSelectTab3(true) }}
@@ -65,7 +65,7 @@ export const AI_style = () => {
                                             <p>Popular</p>
                                         </Nav.Link>
                                     </Nav.Item>
-                                    <Nav.Item style={{marginBottom:"5vh"}}>
+                                    <Nav.Item style={{ marginBottom: "5vh" }}>
                                         <Nav.Link eventKey="forth"
                                             onClick={() => { setSelectTab("forth") }}
                                             onMouseEnter={() => { setSelectTab4(true) }}
@@ -149,7 +149,6 @@ const style_pencil = [
     "https://www.pencilsketchportraits.co.uk/wp-content/uploads/2018/10/abbey-pencil-drawing-1030x736.jpg",
     "https://swall.teahub.io/photos/small/229-2290319_easy-pencil-sketches-of-i-love-you-easy.jpg",
     "https://i.pinimg.com/736x/2d/23/27/2d2327c022899e5ef17966044d14551c--the-hunger-game-thailand.jpg",
-    "https://media.fuzia.com/assets/uploads/images/co_brand_1/article/2020/img_20200805_210136_664-DHOFTbayq6VBm8LU.jpg",
     "https://e.staedtlercdn.com/fileadmin/_processed_/b/4/csm_STAEDTLER_drawing-elk_step6_ac86a65e53.jpg"
 ]
 
