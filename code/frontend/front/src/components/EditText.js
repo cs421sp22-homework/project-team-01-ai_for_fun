@@ -11,9 +11,6 @@ import { Layout, message,Input } from 'antd';
 const { Content} = Layout;
 const { TextArea } = Input;
 
-
-const previousSelected = [];
-
 function EditText(props) {
     const { faceimg, sourceimg, dst, setDst, person } = useContext(LoginContext);
     const [cookie, setCookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email'])
