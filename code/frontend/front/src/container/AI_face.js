@@ -174,11 +174,12 @@ const Marvel = [
 const Movie_p = [
     'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/index-actors-got-their-start-on-tv-1607725466.jpg?crop=0.409xw:0.817xh;0.0529xw,0.00962xh&resize=640:*',
     'https://media.workandmoney.com/64/f6/64f66bf1508f415fbb5ab0a64eda450d.jpeg',
+    'https://pic1.zhimg.com/80/v2-1640be6c8cef52b267d0e7ab132724e4_1440w.jpg',
 ];
 const Face_Singers_p = [
-    'https://www.thefamouspeople.com/profiles/thumbs/michael-jackson-3.jpg',
-    'https://popmellow.com/wp-content/uploads/2021/09/Top-Most-Popular-Female-Singers.jpg',
-    'https://i1.jueshifan.com/205a28/7d0f7c87/3e5a3dd71eaaae4d9e32.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSROFmYif5MKEbwdPFwt4K7hhNcHLPhMBMDeA&usqp=CAU',
+    'https://cdn.justjared.com/wp-content/uploads/headlines/2022/04/ed-sheeran-wins-copyright.jpg',
+    'http://image.uc.cn/s/wemedia/s/upload/2022,/7d49942ffcef8539b1ba569ff48f5163.jpg',
 ];
 
 
@@ -189,9 +190,9 @@ const President_p = [
 ];
 
 const Game_of_Thrones_p = [
-    'https://media.wired.com/photos/5ce2cb8cc24878f51ab12540/master/pass/Culture_GOTFinale_Crosstalk.jpg',
-    'https://assets.vogue.com/photos/589176397edfa70512d6493d/master/pass/jon-snow-game-of-thrones.jpg',
-    'https://images.twgreatdaily.com/images/image/e20/e20798df2470eaac4c26b6626c5e7225.jpg',
+    'https://i.guim.co.uk/img/media/02f5315a3ddd09325377357e22f052a9a6759e1e/0_249_4000_2400/master/4000.jpg?width=465&quality=45&auto=format&fit=max&dpr=2&s=98ff9bf1ad2f11b0c5e0968eed107cb6',
+    'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/cersei-euron-gift-1500579238.png?crop=0.563xw:1xh;center,top&resize=480:*',
+    'https://m.media-amazon.com/images/M/MV5BMTkzODQ1MDg3NV5BMl5BanBnXkFtZTcwODA4NDk4OQ@@._V1_.jpg',
 ];
 
 const Harry_Potter_p = [
