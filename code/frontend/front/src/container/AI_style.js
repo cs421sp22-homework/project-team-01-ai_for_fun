@@ -7,8 +7,6 @@ import AIStyleGallery from "./AIStyleGallery";
 import AIStyleHistory from "./AIStyleHistory";
 import '../style/AI_style.css'
 
-
-
 import { Layout } from 'antd';
 
 const { Content, Sider } = Layout;
@@ -29,11 +27,8 @@ export const AI_style = () => {
                     style={{
                         height: 'auto',
                         width: '100%',
-                        // overflow: 'auto',
-                        // position: 'fixed',
                     }}
                 >
-                    {/* <div className="logo" /> */}
                     <Tab.Container id="left-tabs-example" defaultActiveKey="first">
                         <Row style={{ height: "100%" }}>
                             <Col sm={4} style={{ borderRight: "2px solid #E2E1E2" }}>
@@ -43,7 +38,7 @@ export const AI_style = () => {
                                             onClick={() => { setSelectTab("first") }}
                                             onMouseEnter={() => { setSelectTab1(true) }}
                                             onMouseLeave={() => { setSelectTab1(false) }}>
-                                            <img src={(selectTab == "first" || selectTab1) ? "AI_style_images/style_active.png" : "AI_style_images/style_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} />
+                                            <img src={(selectTab === "first" || selectTab1) ? "AI_style_images/style_active.png" : "AI_style_images/style_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} alt="" />
                                             <p>Style</p>
                                         </Nav.Link>
                                     </Nav.Item>
@@ -52,7 +47,7 @@ export const AI_style = () => {
                                             onClick={() => { setSelectTab("second") }}
                                             onMouseEnter={() => { setSelectTab2(true) }}
                                             onMouseLeave={() => { setSelectTab2(false) }}>
-                                            <img src={(selectTab == "second" || selectTab2) ? "AI_style_images/content_active.png" : "AI_style_images/content_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} />
+                                            <img src={(selectTab === "second" || selectTab2) ? "AI_style_images/content_active.png" : "AI_style_images/content_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} alt="" />
                                             <p>Content</p>
                                         </Nav.Link>
                                     </Nav.Item>
@@ -61,7 +56,7 @@ export const AI_style = () => {
                                             onClick={() => { setSelectTab("third") }}
                                             onMouseEnter={() => { setSelectTab3(true) }}
                                             onMouseLeave={() => { setSelectTab3(false) }}>
-                                            <img src={(selectTab == "third" || selectTab3) ? "AI_style_images/popular_active.png" : "AI_style_images/popular_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} />
+                                            <img src={(selectTab === "third" || selectTab3) ? "AI_style_images/popular_active.png" : "AI_style_images/popular_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} alt="" />
                                             <p>Popular</p>
                                         </Nav.Link>
                                     </Nav.Item>
@@ -70,7 +65,7 @@ export const AI_style = () => {
                                             onClick={() => { setSelectTab("forth") }}
                                             onMouseEnter={() => { setSelectTab4(true) }}
                                             onMouseLeave={() => { setSelectTab4(false) }}>
-                                            <img src={(selectTab == "forth" || selectTab4) ? "AI_style_images/history_active.png" : "AI_style_images/history_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} />
+                                            <img src={(selectTab === "forth" || selectTab4) ? "AI_style_images/history_active.png" : "AI_style_images/history_inactive.png"} width="40" height="40" style={{ marginTop: "25%" }} alt="" />
                                             <p>History</p>
                                         </Nav.Link>
                                     </Nav.Item>
@@ -131,12 +126,10 @@ const style_chinese = [
     "https://frommetertomeaning.files.wordpress.com/2020/12/bird.jpg",
     "https://www.christies.com/media-library/images/salelandingpage/2016/hk112016/hong-kong-2016-autumn-auctions/hong-kong-2016-autumn-auctions-chinese-painting-07.jpg",
     "https://images.fineartamerica.com/images-medium-large-5/chinese-landscape-sean-seal.jpg",
-    //"http://twistedsifter.com/wp-content/uploads/2011/10/photographs-that-look-like-traditional-chinese-paintins-dong-hong-oai-asian-pictorialism-1.jpg",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtSuuxBkKUiLnPs0DggzOoljlch29AStzFyw&usqp=CAU"
 ]
 
 const style_raff = [
-    //"http://tomalcockba5.files.wordpress.com/2011/01/raphael-school-of-athens1.jpg",
     "https://www.theartstory.org/images20/works/raphael_2.jpg",
     "https://static.independent.co.uk/s3fs-public/thumbnails/image/2017/12/15/13/allegory-justice.jpg?width=1200",
     "https://upload.wikimedia.org/wikipedia/commons/e/ea/Arazzi_di_raffaello%2C_cartone_04.jpg",

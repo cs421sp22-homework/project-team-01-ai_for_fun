@@ -2,7 +2,7 @@ import React from "react";
 import Tab from "react-bootstrap/Tab";
 import Container from 'react-bootstrap/Container';
 import Tabs from 'react-bootstrap/Tabs';
-import Amplify, { Storage } from 'aws-amplify'
+import Amplify from 'aws-amplify'
 import config from '../aws-exports'
 import HomeDisplay from "./HomeDisplay";
 import Cards from "./Cards"

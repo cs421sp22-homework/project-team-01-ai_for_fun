@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form, Input, Button, Checkbox } from 'antd';
 import Alert from 'react-bootstrap/Alert'
-import { useRef, useState, useEffect} from "react";
+import { useRef, useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { useCookies } from 'react-cookie';
 import { Row, Col } from 'react-bootstrap';
@@ -9,8 +9,6 @@ import Container from 'react-bootstrap/Container';
 import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
 import 'antd/dist/antd.css';
 import '../style/loginComp.css'
-import { Center } from '@chakra-ui/react';
-
 
 const NormalLoginForm = () => {
   const [cookie, setCookie] = useCookies(['access_token', 'refresh_token', 'user_id', 'name', 'email', 'avatar'])
@@ -93,7 +91,7 @@ const NormalLoginForm = () => {
 
 
   return (
-    <Container style={{marginTop:200}}>
+    <Container style={{ marginTop: 200 }}>
       {errMsg ? (
         <Alert variant={'danger'}>
           <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
@@ -101,8 +99,8 @@ const NormalLoginForm = () => {
         : (<></>)
       }
       <Row>
-        <Col lg={4} md={6} sm={12} style={{marginTop:100}}>
-          <img className="icon-img" src={"images/user.svg"} alt="icon"/>
+        <Col lg={4} md={6} sm={12} style={{ marginTop: 100 }}>
+          <img className="icon-img" src={"images/user.svg"} alt="icon" />
           <Form
             name="basic"
             labelCol={{
@@ -161,20 +159,20 @@ const NormalLoginForm = () => {
                 span: 16,
               }}
             >
-              <Button style={{color: "#fff", backgroundColor: "#813AFE", borderColor: "#813AFE"}} 
-                      htmlType="submit" 
-                      onClick={handleSubmit}>
+              <Button style={{ color: "#fff", backgroundColor: "#813AFE", borderColor: "#813AFE" }}
+                htmlType="submit"
+                onClick={handleSubmit}>
                 Login Now
               </Button>
-              <a href="/register" style={{ marginLeft: '13%', fontSize: "16px"}}>Not a user?</a>
+              <a href="/register" style={{ marginLeft: '13%', fontSize: "16px" }}>Not a user?</a>
             </Form.Item>
           </Form>
 
 
         </Col>
         <Col lg={8} md={6} sm={12}>
-              <img className="w-100" src={"images/login.svg"} alt=""/>
-          </Col>
+          <img className="w-100" src={"images/login.svg"} alt="" />
+        </Col>
       </Row>
     </Container>
   );

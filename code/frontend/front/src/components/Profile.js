@@ -2,11 +2,10 @@ import React, { useState, createRef, useEffect } from 'react';
 import { message, Input, Form, Layout } from 'antd';
 import { DeleteOutlined, FormOutlined } from '@ant-design/icons';
 import UploadPicinProfile from './UploadPicinProfile';
-import UploadPic from './UploadPic'
 import Card from 'react-bootstrap/Card';
 import '../style/Profile.css';
 import '../style/PopupPost.css';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
@@ -64,22 +63,6 @@ function Profile(props) {
     const [translateX, setTranslateX] = useState(0);
     const [ImagePost, setImagePost] = useState(true);
 
-    const clickRightIcon = () => {
-        if (ref.current.scrollWidth < Math.abs(translateX) + Math.abs(ref.current.offsetWidth)) {
-            return;
-        }
-        setTranslateX(translateX - ref.current.offsetWidth);
-    };
-
-    /**
-     * left button
-     */
-    const clickLeftIcon = () => {
-        if (translateX === 0) return;
-        setTranslateX(translateX + ref.current.offsetWidth);
-    };
-
-    // Edit Name
     const handleEditName = () => {
         console.log(1);
         // console.log(user);
@@ -88,7 +71,6 @@ function Profile(props) {
     };
 
     const [hiswork, setHiswork] = useState([]);
-    const [hisupload, setHisupload] = useState([]);
 
     useEffect(async () => {
         let url_follow = 'https://server-demo.ai-for-fun-backend.com/getfollowinfo/' + user_id;
@@ -142,9 +124,8 @@ function Profile(props) {
         console.log("new " + previousSelectedPost.length);
     }
 
-    // TODO: Interaction with backend
     const handleAffirmName = async () => {
-        if (name != cookie.name) {
+        if (name !== cookie.name) {
             try {
                 let url = 'https://server-demo.ai-for-fun-backend.com/changeinfo/' + user_id
 
@@ -152,7 +133,6 @@ function Profile(props) {
                     method: 'POST',
                     headers: {
                         'content-Type': 'application/json',
-                        //'Token': globla_token.toString()
                     },
                     body: JSON.stringify({
                         "new_name": name.toString()
@@ -181,8 +161,6 @@ function Profile(props) {
         } else {
             message.error("Please input a new name")
         }
-
-
     };
     const handleCloseName = () => {
         setshowInputName(false)
@@ -222,7 +200,7 @@ function Profile(props) {
                 });
                 console.log(response.status)
 
-                if (response.status == 200) {
+                if (response.status === 200) {
                     const content = await response.json();
                     let expires = new Date();
                     expires.setTime(expires.getTime() + (30 * 60 * 1000));
@@ -366,20 +344,6 @@ function Profile(props) {
             console.log('request failed', response);
             message.error('Failure');
         }
-    }
-
-    const layout = {
-        labelCol: {
-            span: 8,
-        },
-        wrapperCol: {
-            span: 16,
-        },
-    };
-
-    const handletogglePop = () => {
-        setSeen(!seen);
-        //console.log(seen);
     }
 
     const galleryAnimation = {
