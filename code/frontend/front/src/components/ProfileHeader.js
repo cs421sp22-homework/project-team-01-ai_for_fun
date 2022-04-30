@@ -39,9 +39,9 @@ function ProfileHeader() {
           "followed_id": user
         })
       });
-      if (response_state.status === 200) {
+      if (response_state.status == 200) {
         const fer = await response_state.json();
-        if (fer.res === 1) {
+        if (fer.res == 1) {
           setFollowstate(true)
         } else {
           setFollowstate(false)

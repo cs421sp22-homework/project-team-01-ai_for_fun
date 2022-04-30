@@ -13,7 +13,6 @@ import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, Pintere
 const { Content } = Layout;
 const { TextArea } = Input;
 
-
 function EditText(props) {
     const { faceimg, sourceimg, dst, setDst, person } = useContext(LoginContext);
     const [cookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email'])

@@ -118,16 +118,16 @@ const Face_Singers = [
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1qbk5DdWrBQ7GTegjZ_5bJpr-J8l3o2wlTw&usqp=CAU',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlbYB7DxCZwteEaHnLHIw4WWKaoZoCH_RKTA&usqp=CAU',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9v0ICFWny_eh_HBw7yw4p44nVYOboJIXpIQ&usqp=CAU',
-    'https://www.thefamouspeople.com/profiles/thumbs/michael-jackson-3.jpg',
-    'https://popmellow.com/wp-content/uploads/2021/09/Top-Most-Popular-Female-Singers.jpg',
-    'https://i1.jueshifan.com/205a28/7d0f7c87/3e5a3dd71eaaae4d9e32.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSROFmYif5MKEbwdPFwt4K7hhNcHLPhMBMDeA&usqp=CAU',
+    'https://cdn.justjared.com/wp-content/uploads/headlines/2022/04/ed-sheeran-wins-copyright.jpg',
+    'http://image.uc.cn/s/wemedia/s/upload/2022,/7d49942ffcef8539b1ba569ff48f5163.jpg',
     'https://img.buzzfeed.com/buzzfeed-static/static/2022-01/13/16/asset/68a1902f26c4/sub-buzz-4825-1642089650-6.jpg?downsize=700%3A%2A&output-quality=auto&output-format=auto',
 ];
 
 const President = [
     'https://images.unsplash.com/photo-1580130379624-3a069adbffc5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJlc2lkZW50fGVufDB8fDB8fA%3D%3D&w=1000&q=80',
     'https://cdn.britannica.com/55/91555-131-C5BCDFC8/Gerald-R-Ford.jpg?q=60',
-    'https://www.loc.gov/static/portals/free-to-use/public-domain/presidential-portraits/46-joe-biden.png',
+    'https://static01.nyt.com/images/2019/04/01/opinion/01goldbergWeb/merlin_152287446_884ec429-2a06-4051-a552-d455768fe31c-master1050.jpg',
     'https://www.whitehouse.gov/wp-content/uploads/2021/01/43_george_w_bush.jpg',
     'https://c.ndtvimg.com/2020-09/46c72q8o_president-ram-nath-kovind-pti_625x300_19_September_20.jpg?im=Resize=(1230,900)',
     'https://www.glofang.com/file/upload/202111/15/17-17-45-37-1.png',
@@ -142,18 +142,18 @@ const Game_of_Thrones = [
     'https://media.wired.com/photos/5cdcb1b82c90a35c66b7da8b/master/pass/Culture_GOT_Storytelling.jpg',
     'https://images.squarespace-cdn.com/content/v1/52fc05c9e4b08fc45bd99090/1563302834562-M0WSL1SOJKQ81KHSR2LR/got-emmy-nom-2019-1920+%281%29.jpg?format=2500w',
     'https://static.independent.co.uk/s3fs-public/thumbnails/image/2020/08/15/08/game-of-thrones-jaime-lannister-horse.jpg?quality=50&width=640&auto=webp',
-    'https://i3.jueshifan.com/7b077d80/79067e8b/7c432bd84efebe1c8e31.png',
-    'https://i3.jueshifan.com/205a28/7a047e8a/71502dd61aacfa5a9732.jpg',
-    'https://images.twgreatdaily.com/images/image/e20/e20798df2470eaac4c26b6626c5e7225.jpg',
-    'https://img.zhekei.com/upload/website_attach/EyJY1YWiwGxnOZJMC+FKOFcROKNZVWIWl9qembk+we3nOoOYqNtALX5bHMkG96nLDOIeHRrj8e8=3yDwqvafgn=MaX-Im.jpeg',
+    'https://images2.minutemediacdn.com/image/upload/c_crop,h_840,w_1500,x_0,y_6/f_auto,q_auto,w_1100/v1555003564/shape/mentalfloss/jon_snow_hed.jpg',
+    'https://i.guim.co.uk/img/media/02f5315a3ddd09325377357e22f052a9a6759e1e/0_249_4000_2400/master/4000.jpg?width=465&quality=45&auto=format&fit=max&dpr=2&s=98ff9bf1ad2f11b0c5e0968eed107cb6',
+    'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/cersei-euron-gift-1500579238.png?crop=0.563xw:1xh;center,top&resize=480:*',
+    'https://m.media-amazon.com/images/M/MV5BMTkzODQ1MDg3NV5BMl5BanBnXkFtZTcwODA4NDk4OQ@@._V1_.jpg',
 ];
 
 const Harry_Potter = [
     'https://www.irishtimes.com/polopoly_fs/1.3170107.1501253408!/image/image.jpg_gen/derivatives/ratio_1x1_w1200/image.jpg',
     'https://i.insider.com/5ece9322f34d050a92546892?width=1000&format=jpeg&auto=webp',
     'https://deadline.com/wp-content/uploads/2021/03/MEGA420148_040-e1616112754104.jpg?w=681&h=383&crop=1',
-    'https://i.insider.com/5cf6db2c594ea513a80f5597?width=700',
-    'https://www.foxtel.com.au/content/dam/foxtel/whats-on/insider/2021/november/harry-potter-800x450.jpg',
+    'https://i.insider.com/59f1e2b61f58cc4c008b458a?width=700',
+    'https://pyxis.nymag.com/v1/imgs/72f/707/3fc542812dba415d446dabec3f697627b0-08-harry-potter.rsquare.w330.jpg',
     'https://media1.popsugar-assets.com/files/thumbor/xE8u-G0SXl291R6ohkFVw5nG71k/273x202:2620x2549/fit-in/550x550/filters:format_auto-!!-:strip_icc-!!-/2022/01/05/830/n/1922283/e161474f61d5e9c43455a0.98910495_/i/emma-watson-responds-to-harry-potter-emma-roberts-mistake.jpg',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnXDvX1kLDX0-eqeK6NXODJdWYtmgghd0wQw&usqp=CAU',
     'http://sports.cctv.com/20090714/images/1247568014264_U105P28T3D2591890F329DT20090704114552.jpg',
@@ -161,11 +161,11 @@ const Harry_Potter = [
 ];
 
 const Marvel = [
-    'https://www.thefactsite.com/wp-content/uploads/2021/04/thor-facts.jpg',
+    'https://i.epochtimes.com/assets/uploads/2020/04/GettyImages-1158321730-450x319.jpg',
     'https://bgr.com/wp-content/uploads/2019/11/avengers-endgame-iron-man-gauntlet.jpg?quality=82&strip=all',
     'https://i.insider.com/5ca38e1a92c8862ab30b0f93?width=600&format=jpeg&auto=webp',
     'https://www.giantfreakinrobot.com/wp-content/uploads/2021/05/Brie-Larson-Captain-Marvel-feature-900x506.jpg',
-    'https://cm-santiago-do-cacem.pt/img/movies/19/doctor-strange-teams-up-with-scarlet-witch-multiverse-madness-trailer.jpg',
+    'https://pyxis.nymag.com/v1/imgs/288/3b0/e54e4bfd4095f34eca92495317353abcb8-23-doctor-strange.rsquare.w700.jpg',
     'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/loki-tom-hiddleston-1623746367.jpg?crop=0.502xw:1.00xh;0.258xw,0&resize=640:*',
     'https://m.economictimes.com/thumb/height-450,width-600,imgsize-220108,msid-69139984/captainamerica.jpg',
     'https://pic1.xuehuaimg.com/proxy/baijia/https://f12.baidu.com/it/u=2759402060,1227194417&fm=173&app=49&f=JPEG?w=640&h=640&s=BDA3EB1765DAD3D41002AD6403006063&access=215967316',
@@ -174,11 +174,12 @@ const Marvel = [
 const Movie_p = [
     'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/index-actors-got-their-start-on-tv-1607725466.jpg?crop=0.409xw:0.817xh;0.0529xw,0.00962xh&resize=640:*',
     'https://media.workandmoney.com/64/f6/64f66bf1508f415fbb5ab0a64eda450d.jpeg',
+    'https://pic1.zhimg.com/80/v2-1640be6c8cef52b267d0e7ab132724e4_1440w.jpg',
 ];
 const Face_Singers_p = [
-    'https://www.thefamouspeople.com/profiles/thumbs/michael-jackson-3.jpg',
-    'https://popmellow.com/wp-content/uploads/2021/09/Top-Most-Popular-Female-Singers.jpg',
-    'https://i1.jueshifan.com/205a28/7d0f7c87/3e5a3dd71eaaae4d9e32.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSROFmYif5MKEbwdPFwt4K7hhNcHLPhMBMDeA&usqp=CAU',
+    'https://cdn.justjared.com/wp-content/uploads/headlines/2022/04/ed-sheeran-wins-copyright.jpg',
+    'http://image.uc.cn/s/wemedia/s/upload/2022,/7d49942ffcef8539b1ba569ff48f5163.jpg',
 ];
 
 
@@ -189,9 +190,9 @@ const President_p = [
 ];
 
 const Game_of_Thrones_p = [
-    'https://media.wired.com/photos/5ce2cb8cc24878f51ab12540/master/pass/Culture_GOTFinale_Crosstalk.jpg',
-    'https://assets.vogue.com/photos/589176397edfa70512d6493d/master/pass/jon-snow-game-of-thrones.jpg',
-    'https://images.twgreatdaily.com/images/image/e20/e20798df2470eaac4c26b6626c5e7225.jpg',
+    'https://i.guim.co.uk/img/media/02f5315a3ddd09325377357e22f052a9a6759e1e/0_249_4000_2400/master/4000.jpg?width=465&quality=45&auto=format&fit=max&dpr=2&s=98ff9bf1ad2f11b0c5e0968eed107cb6',
+    'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/cersei-euron-gift-1500579238.png?crop=0.563xw:1xh;center,top&resize=480:*',
+    'https://m.media-amazon.com/images/M/MV5BMTkzODQ1MDg3NV5BMl5BanBnXkFtZTcwODA4NDk4OQ@@._V1_.jpg',
 ];
 
 const Harry_Potter_p = [
