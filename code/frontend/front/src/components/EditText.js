@@ -7,6 +7,8 @@ import { LoginContext } from '../context/AuthProvider';
 import 'antd/dist/antd.css';
 import { useCookies } from 'react-cookie';
 import { Layout, message, Input } from 'antd';
+import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, PinterestIcon, PinterestShareButton, TelegramIcon, TelegramShareButton, TwitterIcon, TwitterShareButton, WeiboIcon, WeiboShareButton, WhatsappIcon, WhatsappShareButton } from "react-share"
+
 
 const { Content } = Layout;
 const { TextArea } = Input;
@@ -174,9 +176,34 @@ function EditText(props) {
                             <Col>
                                 <center>
                                     <h3 style={{ margin: 10 }}>Post to Community</h3>
-                                    <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
-                                    <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Submit</Button>
-                                    <Button onClick={handleHideCard} variant="danger" style={{ float: "right", marginRight: '15px' }}>Cancel</Button>{''}
+                                    <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />
+                                    <div style={{ display: "flex", marginLeft: "18vw", marginBottom: "5vw" }}>
+                                        <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Submit</Button>
+                                        <Button onClick={handleHideCard} variant="danger" style={{ float: "right", marginRight: '15px' }}>Cancel</Button>{''}
+                                    </div>
+                                    <div style={{ display: "flex", marginLeft: "18vw" }}>
+                                        <EmailShareButton url={dst}>
+                                            <EmailIcon />
+                                        </EmailShareButton>
+                                        <FacebookShareButton url={dst}>
+                                            <FacebookIcon />
+                                        </FacebookShareButton>
+                                        <PinterestShareButton url={dst} media={dst}>
+                                            <PinterestIcon />
+                                        </PinterestShareButton>
+                                        <TwitterShareButton url={dst}>
+                                            <TwitterIcon />
+                                        </TwitterShareButton>
+                                        <WhatsappShareButton url={dst} image={dst}>
+                                            <WhatsappIcon />
+                                        </WhatsappShareButton>
+                                        <TelegramShareButton url={dst}>
+                                            <TelegramIcon />
+                                        </TelegramShareButton>
+                                        <WeiboShareButton url={dst}>
+                                            <WeiboIcon />
+                                        </WeiboShareButton>
+                                    </div>
                                 </center>
                             </Col>
                         </Row>
@@ -206,7 +233,10 @@ function EditText(props) {
                                         <h3 style={{ margin: 10 }}>Please input the content you would like to manipulate</h3>
                                         <TextArea showCount maxLength={100} style={{ height: 100, margin: 25 }} onChange={onChangeText} />
                                         {dst ?
-                                            <Button onClick={handleShowCard} size="lg" style={{ float: "right", marginRight: '50px' }}>Post</Button> :
+                                            <div>
+                                                <Button onClick={handleShowCard} size="lg" style={{ float: "right", marginRight: '50px' }}>Post</Button>
+                                            </div>
+                                            :
                                             <Button onClick={handleShowCard} size="lg" style={{ float: "right", marginRight: '50px' }} disabled>Post</Button>
                                         }
                                         <Button variant="outline-dark" size="lg" onClick={handleInput}>Continue</Button>{' '}
