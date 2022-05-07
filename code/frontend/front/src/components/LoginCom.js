@@ -1,19 +1,17 @@
-<<<<<<< HEAD
 import React from 'react'
 import { Form, Input, Button, Checkbox } from 'antd';
 import Alert from 'react-bootstrap/Alert'
-import 'antd/dist/antd.css';
-import '../style/loginComp.css'
-import { useRef, useState, useEffect, useContext } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { useCookies } from 'react-cookie';
-import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
 import { Row, Col } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
-
+import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
+import 'antd/dist/antd.css';
+import '../style/loginComp.css'
 
 const NormalLoginForm = () => {
-  const [cookie, setCookie] = useCookies(['access_token', 'refresh_token', 'user_id', 'name', 'email'])
+  const [cookie, setCookie] = useCookies(['access_token', 'refresh_token', 'user_id', 'name', 'email', 'avatar'])
   const userRef = useRef();
   const errRef = useRef();
 
@@ -55,20 +53,19 @@ const NormalLoginForm = () => {
       });
       console.log(response);
 
-      if (response.status == 200) {
+      if (response.status === 200) {
         const content = await response.json();
         let expires = new Date();
-        console.log(content);
+        console.log(content.avatar);
         expires.setTime(expires.getTime() + (30 * 60 * 1000));
-        setCookie('access_token', content.token, { path: '/', expires });
-        setCookie('refresh_token', content.refresh_token, { path: '/', expires });
-        setCookie('name', content.name, { path: '/', expires });
-        setCookie('email', content.email, { path: '/', expires });
-        setCookie('avatar', content.avatar, { path: '/', expires });
-        setCookie('user_id', content.user_id, { path: '/', expires });
+        setCookie('access_token', content.token);
+        setCookie('refresh_token', content.refresh_token);
+        setCookie('name', content.name);
+        setCookie('email', content.email);
+        setCookie('avatar', content.avatar);
+        setCookie('user_id', content.user_id);
         console.log(content.token)
         console.log(content.user_id)
-        console.log(content.ID)
         localStorage.setItem('global_userID', content.user_id);
         localStorage.setItem('global_token', content.token);
         setSuccess(true);
@@ -94,8 +91,7 @@ const NormalLoginForm = () => {
 
 
   return (
-    <Container>
-      <Row ><div className="loginTitle" style={{ marginLeft: '5%' }}>Login</div></Row>
+    <Container style={{ marginTop: 200 }}>
       {errMsg ? (
         <Alert variant={'danger'}>
           <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
@@ -103,8 +99,8 @@ const NormalLoginForm = () => {
         : (<></>)
       }
       <Row>
-        <Col md={3}></Col>
-        <Col md={6}>
+        <Col lg={4} md={6} sm={12} style={{ marginTop: 100 }}>
+          <img className="icon-img" src={"images/user.svg"} alt="icon" />
           <Form
             name="basic"
             labelCol={{
@@ -163,19 +159,20 @@ const NormalLoginForm = () => {
                 span: 16,
               }}
             >
-              <Button type="primary" htmlType="submit" onClick={handleSubmit}>
-                Submit
+              <Button style={{ color: "#fff", backgroundColor: "#813AFE", borderColor: "#813AFE" }}
+                htmlType="submit"
+                onClick={handleSubmit}>
+                Login Now
               </Button>
-              <a className="login-form-forgot" href="http://www.baidu.com" style={{ marginLeft: '5%' }}>
-                Forget Password
-              </a>
-              <a href="/register" style={{ marginLeft: '5%' }}>Not a user?</a>
+              <a href="/register" style={{ marginLeft: '13%', fontSize: "16px" }}>Not a user?</a>
             </Form.Item>
           </Form>
 
 
         </Col>
-        <Col md={3}></Col>
+        <Col lg={8} md={6} sm={12}>
+          <img className="w-100" src={"images/login.svg"} alt="" />
+        </Col>
       </Row>
     </Container>
   );

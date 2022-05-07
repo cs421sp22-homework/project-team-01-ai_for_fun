@@ -1,144 +1,90 @@
 import React from "react";
-import Tab from "./Tab";
-import Slideshow from "../components/Slideshow";
+import Tab from "react-bootstrap/Tab";
 import Container from 'react-bootstrap/Container';
 import Tabs from 'react-bootstrap/Tabs';
-import { ToggleButton, ToggleButtonGroup, ButtonGroup, Button } from 'react-bootstrap';
-import "../style/Home.css";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
-import AWS from "aws-sdk";
-import Amplify, { Storage } from 'aws-amplify'
+import Amplify from 'aws-amplify'
 import config from '../aws-exports'
+import HomeDisplay from "./HomeDisplay";
+import Cards from "./Cards"
+import TopicCards from "./TopicCard"
+import Footer from "../components/Footer";
+import "../style/Home.css";
 Amplify.configure(config)
 
-//topic: Singers, Game of Thrones, Meme, Face, Friends, Movie Stars, Vedio
-const Trendflow = [];
-const Foryouflow = [];
-const Faceflow = [];
-//var AWS = require('aws-sdk/dist/aws-sdk-react-native');
-//console.log(AWS);
-
-// https://server-demo.ai-for-fun-backend.com/getentities
-
 export class Home extends React.Component {
-
-    constructor(props) {
-        super(props);
-        // this.state = {
-        //     selected: '❤️  For you ❤️'
-        // }
-        this.state = {
-            totalReactPackages: null,
-            errorMessage: null
-        };
-        this.Trendflow = Trendflow;
-    }
-
-    setSelected = (tab) => {
-        this.setState({ selected: tab });
-    }
-
-    componentDidMount = async () => {
-        // const result = await Storage.list();
-        // console.log(result)
-
-        const signedURL = await Storage.get('1eZnePwSETNSdNaT.jpg');
-        console.log(signedURL);
-
-        const response = await fetch("https://server-demo.ai-for-fun-backend.com/getentities", {
-            method: 'POST',
-        });
-        if (response.ok) {
-            const content = await response.json();
-            for (var i = 0; i < content.length; i++) {
-                if (content[i]._id.mode === 'styleflow') {
-                    for (var j = 0; j < content[i].entities.length; j++) {
-                        Trendflow.push(content[i].entities[j].imagename);
-                    }
-                }
-            }
-            console.log(Trendflow);
-            // alert("Success!")
-        }
-        else {
-            console.log('request failed for get entities', response);
-        }
-
-
-    }
-
     render() {
-        const { errorMessage, totalReactPackages } = this.state;
         return (
             <>
-                <div
-                    className='p-5 bg-image'
-                    style={{ backgroundImage: "url('https://media.istockphoto.com/photos/abstract-background-white-light-blue-purple-color-gradient-defocused-picture-id1303182525?b=1&k=20&m=1303182525&s=170667a&w=0&h=CcoMiovEh6X8KCTj6HZMVYLSxoBr_oUozr4jrZy4-_s=')" }}
-                >
-                    <div className='mask'>
-                        <div className='d-flex justify-content-center align-items-center h-100 text-center'>
-                            <div className='text-white'>
-                                <h1 className='mb-3'>AI For Fun</h1>
-                                <h4 className='mb-3'>This is an application for best AI experience</h4>
-                                {/* <h4>{totalReactPackages}</h4> */}
-                                {/* <a className='btn btn-outline-dark btn-lg' href='/AI_face' role='button'>
-                                    Get Start
-                                </a> */}
-
-                                <Button variant="outline-primary" size="lg" href="/AI_face">AI Face</Button>{' '}
-                                <Button variant="outline-dark" size="lg" href="/AI_text">AI Voice</Button>{' '}
-                                <Button variant="outline-success" size="lg" href="#">AI Style</Button>{' '}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <HomeDisplay />
                 <Container fluid>
-                    <Tabs defaultActiveKey="foryou" id="uncontrolled-tab-example">
-                        <Tab eventKey="foryou" title="For you">
+                    <Tabs defaultActiveKey="foryou" id="uncontrolled-tab-example" size="Large">
+                        <Tab eventKey="foryou" title="For you" >
                             <div className="mt-3">
-                                <Slideshow imgData={tempimage_ForYou} />
+                                <Cards />
                             </div>
                         </Tab>
                         <Tab eventKey="trend" title="Trend">
                             <div className="mt-3">
-                                <Slideshow imgData={tempimage_Trend} />
+                                <TopicCards info={TrendTopic} />
                             </div>
                         </Tab>
                         <Tab eventKey="face" title="Face">
                             <div className="mt-3">
-                                <Slideshow imgData={tempimage_Face} />
+                                <TopicCards info={faceTopic} />
+                            </div>
+                        </Tab>
+                        <Tab eventKey="Voice" title="Voice">
+                            <div className="mt-3">
+                                <TopicCards info={voiceTopic} />
+                            </div>
+                        </Tab>
+
+                        <Tab eventKey="Style" title="Style">
+                            <div className="mt-3">
+                                <TopicCards info={styleTopic} />
                             </div>
                         </Tab>
                     </Tabs>
                 </Container>
+                <Footer />
             </>
         );
     }
-
 };
 export default Home;
 
-const tempimage_ForYou = [
-    { imgUrl: 'https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTc5ODc1NTM4NjMyOTc2Mzcz/gettyimages-693134468.jpg', name: 'movieStart_1', topic: 'Movie Stars' },
-    { imgUrl: 'https://media1.popsugar-assets.com/files/thumbor/0ebv7kCHr0T-_O3RfQuBoYmUg1k/475x60:1974x1559/fit-in/500x500/filters:format_auto-!!-:strip_icc-!!-/2019/09/09/023/n/1922398/9f849ffa5d76e13d154137.01128738_/i/Taylor-Swift.jpg', name: 'singers_1', topic: 'Singers' },
-    { imgUrl: 'https://www.filmcompanion.in/wp-content/uploads/2020/07/film-comapnion-Joey-Lead-2.jpg', name: 'friends_1', topic: 'Friends' },
-    { imgUrl: 'https://cdn.vox-cdn.com/thumbor/84BoAJ5wM2CSqDoaTOZNBnPDU4U=/0x0:2040x1360/1200x675/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/63940677/jbareham_190520_0907_got_0004.0.jpg', name: '04', topic: 'Game of Thrones' },
-    { imgUrl: 'https://www.researchgate.net/profile/Giulia-Bini/publication/331639939/figure/fig2/AS:734865725063171@1552217050976/Template-and-propagation-of-the-Success-Kid-meme-source-Google-search-Sept-18.jpg', name: 'meme_01', topic: 'Meme' },
+const faceTopic = [
+    { src: "images/AI_face_movie_start_leonardo.jpeg", path: "/AI_face", label: "movie star", text: "Leonardo DiCaprio. Exchange face with one of the most famous actors in the world." },
+    { src: "images/AI_face_movie_start_jolie.jpeg", path: "/AI_face", label: "movie star", text: "Exchange face with Angelina Jolie, who has been named Hollywood's highest-paid actress multiple times." },
+    { src: "images/AI_face_singer_selena.jpeg", path: "/AI_face", label: "singer", text: "Selena. Exchange face with one of the most famous singer in the world." },
+    { src: "images/AI_face_singer_taylor.jpeg", path: "/AI_face", label: "singer", text: "Taylor Swift, one of the best artists of our time. Exchange face with Taylor." },
+    { src: "images/AI_face_thrones_Kit.webp", path: "/AI_face", label: "thrones", text: "The winter is coming, Exchange face with Kit in Game of thrones." },
+    { src: "images/AI_face_friend_matt.jpeg", path: "/AI_face", label: "friend", text: "Every body loves matt, exchange face with your favorite movie star." }
 ]
 
-const tempimage_Trend = [
-    { imgUrl: 'https://media1.popsugar-assets.com/files/thumbor/0ebv7kCHr0T-_O3RfQuBoYmUg1k/475x60:1974x1559/fit-in/500x500/filters:format_auto-!!-:strip_icc-!!-/2019/09/09/023/n/1922398/9f849ffa5d76e13d154137.01128738_/i/Taylor-Swift.jpg', name: 'singers_1', topic: 'Singers' },
-    { imgUrl: 'https://cdn.vox-cdn.com/thumbor/84BoAJ5wM2CSqDoaTOZNBnPDU4U=/0x0:2040x1360/1200x675/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/63940677/jbareham_190520_0907_got_0004.0.jpg', name: '04', topic: 'Game of Thrones' },
-    { imgUrl: 'https://www.researchgate.net/profile/Giulia-Bini/publication/331639939/figure/fig2/AS:734865725063171@1552217050976/Template-and-propagation-of-the-Success-Kid-meme-source-Google-search-Sept-18.jpg', name: 'meme_01', topic: 'Meme' },
-    { imgUrl: 'https://img-9gag-fun.9cache.com/photo/agA21oW_460s.jpg', name: '06', topic: 'Face' },
-    { imgUrl: 'https://www.filmcompanion.in/wp-content/uploads/2020/07/film-comapnion-Joey-Lead-2.jpg', name: 'friends_1', topic: 'Friends' },
-    { imgUrl: 'https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTc5ODc1NTM4NjMyOTc2Mzcz/gettyimages-693134468.jpg', name: 'movieStart_1', topic: 'Movie Stars' },
-    { imgUrl: 'https://cdn.vox-cdn.com/thumbor/6tDpDw_t5UhkGyU3pMLcPjvudD0=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/12861241/acastro_180403_1777_youtube_0002.0.jpg', name: '07', topic: 'Vedio Model' },
+const voiceTopic = [
+    { src: "images/AI_voice_mickey_mouse.jpg", path: "/AI_text", label: "mickey_mouse", text: "Let Mickey mouse say what you want to hear" },
+    { src: "images/AI_voice_minnie_mouse.jpg", path: "/AI_text", label: "minnie_mouse", text: "Minnie mouse want to talk with you" },
+    { src: "images/AI_voice_goofy.jpg", path: "/AI_text", label: "goofy", text: "Goofy is going to say its classic sayings" },
+    { src: "images/AI_voice_donald_duck.jpeg", path: "/AI_text", label: "donald_duck", text: "Donald duck will read a story for you" },
+    { src: "images/AI_voice_daisy_duck.webp", path: "/AI_text", label: "daisy_duck", text: "Daisy duck is ready to speak" },
+    { src: "images/AI_voice_ludwig_von_drake.jpeg", path: "/AI_text", label: "ludwig_von_drake", text: "ludwig von drake want to talk with you" }
 ]
 
-const tempimage_Face = [
-    { imgUrl: 'https://img-9gag-fun.9cache.com/photo/agA21oW_460s.jpg', name: '06', topic: 'Face' },
-    { imgUrl: 'https://www.filmcompanion.in/wp-content/uploads/2020/07/film-comapnion-Joey-Lead-2.jpg', name: 'friends_1', topic: 'Friends' },
-    { imgUrl: 'https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTc5ODc1NTM4NjMyOTc2Mzcz/gettyimages-693134468.jpg', name: 'movieStart_1', topic: 'Movie Stars' },
-    { imgUrl: 'https://cdn.vox-cdn.com/thumbor/84BoAJ5wM2CSqDoaTOZNBnPDU4U=/0x0:2040x1360/1200x675/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/63940677/jbareham_190520_0907_got_0004.0.jpg', name: '04', topic: 'Game of Thrones' },
+const styleTopic = [
+    { src: "images/AI_style_van_gogh_1.jpeg", path: "/AI_style", label: "van", text: "Make your images resemble van Gogh's starry sky" },
+    { src: "images/AI_style_van_gogh_Wheat Field with Cypresses The Metropolitan Museum of Art.jpeg", path: "/AI_style", label: "van", text: "Exchange the style of your photo with one of the most famous paintings in the world--Wheat Field with Cypresses." },
+    { src: "images/AI_style_raffaello_The Deposition.jpeg", path: "/AI_style", label: "raffaello", text: "Make your photo looks like Raphael's The Deposition." },
+    { src: "images/AI_style_raffaello_The Parnassus.jpeg", path: "/AI_style", label: "raffaello", text: "Make your photo looks like Raphael's The Parnassus." },
+    { src: "images/AI_style_chinese_1.jpeg", path: "/AI_style", label: "chinese", text: "Generate ancient Chinese style pictures." },
+    { src: "images/AI_style_chinese_2.webp", path: "/AI_style", label: "chinese", text: "Make your pictures look like ancient Chinese relics." }
+]
+
+const TrendTopic = [
+    { src: "https://images.theconversation.com/files/38926/original/5cwx89t4-1389586191.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop", path: "/AI_face", label: "Meme", text: "Creating your own meme for fun" },
+    { src: "https://images.news18.com/ibnlive/uploads/2021/03/1615286849_telemmglpict000170202931_trans_nvbqzqnjv4bqx4imtdblqjbnuz0lw5z3tn3r9tjwyifdlg50yivqdly.jpeg", path: "/AI_face", label: "Combine face with TOM CRUISE!!!", text: "Do you want to be as handsome as TOM CRUISE?" },
+    { src: "http://www.metmuseum.org/-/media/images/art/collection-landing-page/clp_teaser_700x444.jpg?sc_lang=en", path: "/AI_style", label: "Art", text: "Creating your own masterpiece without learning painting using AI style model" },
+    { src: "https://www.emmys.com/sites/default/files/disney-mickey-mouse-600x600.jpg", path: "/AI_text", label: "Childhood memory", text: "Let Disney cartoon figures speak for you" },
+    { src: "images/AI_style_chinese_1.jpeg", path: "/AI_style", label: "chinese", text: "Generate ancient Chinese style pictures." },
+    { src: "images/AI_style_chinese_2.webp", path: "/AI_style", label: "chinese", text: "Make your pictures look like ancient Chinese relics." }
 ]

@@ -1,23 +1,10 @@
-import React, { Fragment, PureComponent } from "react";
-import { useState, createRef, useContext } from 'react';
-import { Image } from 'react-bootstrap';
+import React from "react";
+import { useState, useContext } from 'react';
+import { Container, Image } from 'react-bootstrap';
 import { LoginContext } from '../context/AuthProvider';
 import EditText from '../components/EditText';
-import { Layout, Menu, Breadcrumb, Input } from 'antd';
-import {
-    UserOutlined,
-    UserAddOutlined,
-    UserDeleteOutlined,
-
-} from '@ant-design/icons';
-const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
-const { TextArea } = Input;
-
-const tempvideo = {
-    videoSrc: "http://media.w3.org/2010/05/bunny/movie.mp4",
-    poster: "https://epe.brightspotcdn.com/f8/ca/abde5f4f4a30a6a3d1a0eaa23821/test-032021-968416412.jpg"
-}
+import { Layout, Col, Row } from 'antd';
+const { Header, Content, } = Layout;
 
 
 const trumpImg = [
@@ -25,111 +12,167 @@ const trumpImg = [
 ]
 
 export const AI_text = (props) => {
-    const [collapsed, setCollapsed] = useState(false);
-    const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg, person, setPerson } = useContext(LoginContext);
-    var inputText = "empty";
-
-    // const { leftData } = tempimage_1;
-    const onCollapse = collapsed => {
-        console.log(collapsed);
-        if (collapsed) {
-            setCollapsed(true);
-        } else {
-            setCollapsed(false);
-        }
-    };
+    const { setDst, setSourceimg, setPerson } = useContext(LoginContext);
 
     return (
         <>
-            <Layout hasSider>
-                <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}
-                    theme="dark" width='30%' collapsedWidth='5%'
-                    style={{
-                        height: 'auto',
-                        width: '100%',
-                    }}
-                >
-                    <div className="logo" />
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub5', 'sub6', 'sub4']}>
-                        {/* <SubMenu key="sub1" icon={<UserAddOutlined />} title="Standard Voice">
-                            <Image
-                                width={'100%'}
-                                height={'50%'}
-                                onClick={() => {
+            <Container style={{ marginTop: '6%' }}>
+                <Header className="site-layout-background" style={{ padding: 0, textAlign: 'center', background: 'white', marginTop: 20 }} > <h2>AI Text to Audio</h2></Header>
+                <Layout className="site-layout" style={{ background: 'white' }}>
+                    <Content>
+                        <Row gutter={16}>
+                            <Col className="gutter-row" span={6} style={style}>
+                                <Row style={{ borderBlockColor: 'Black', textAlign: 'center' }} onClick={() => {
                                     setDst('');
-                                    setSourceimg("https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80");
-                                    setPerson('Normal');
-                                }}
-                                src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
-                            />
-                        </SubMenu> */}
-                        <SubMenu key="sub4" icon={<UserOutlined />} title="Donald Duck">
-                            <Image
-                                width={'100%'}
-                                onClick={() => {
+                                    setSourceimg("https://64.media.tumblr.com/971da5e710cd33ce4acfaec9902d6137/c5766a70deeb9df7-76/s1280x1920/484d0783f13728ca6ee2ff19759bf4264509774f.png");
+                                    setPerson('ludwig-von-drake');
+                                }}>
+                                    <Col style={{ marginTop: 10, marginBottom: 10, marginLeft: 15 }}>
+                                        <Image
+                                            style={circle}
+                                            src="https://64.media.tumblr.com/971da5e710cd33ce4acfaec9902d6137/c5766a70deeb9df7-76/s1280x1920/484d0783f13728ca6ee2ff19759bf4264509774f.png"
+                                        /></Col>
+                                    <Col style={{ marginTop: 20, marginBottom: 20, marginLeft: 30 }}>
+                                        <div >Ludwing Von Drake</div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col className="gutter-row" span={6} style={style}>
+                                <Row onClick={() => {
                                     setDst('');
                                     setSourceimg("https://www.disneyonice.com/sites/default/files/2020-10/quackers-donald-featured.jpg");
                                     setPerson('donald-duck');
-                                }}
-                                src="https://www.disneyonice.com/sites/default/files/2020-10/quackers-donald-featured.jpg"
-                            />
-                        </SubMenu>
-                        <SubMenu key="sub5" icon={<UserOutlined />} title="Mickey Mouse">
-                            <Image
-                                width={'100%'}
-                                onClick={() => {
+                                }}>
+                                    <Col style={{ marginTop: 10, marginBottom: 10, marginLeft: 15 }}>
+                                        <Image
+                                            style={circle}
+                                            src="https://www.disneyonice.com/sites/default/files/2020-10/quackers-donald-featured.jpg"
+                                        />
+                                    </Col>
+                                    <Col style={{ marginTop: 20, marginBottom: 20, marginLeft: 30 }}>
+                                        <div >Donald Duck</div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col className="gutter-row" span={6} style={style}>
+                                <Row onClick={() => {
                                     setDst('');
                                     setSourceimg("https://d23.com/app/uploads/2020/05/1180w-600h_060120_mickey-mornings-launch.jpg");
                                     setPerson('mickey-mouse');
-                                }}
-                                src="https://d23.com/app/uploads/2020/05/1180w-600h_060120_mickey-mornings-launch.jpg"
-                            />
-                        </SubMenu>
-                        <SubMenu key="sub6" icon={<UserOutlined />} title="Minnie Mouse">
-                            <Image
-                                width={'100%'}
-                                onClick={() => {
+                                }}>
+                                    <Col style={{ marginTop: 10, marginBottom: 10, marginLeft: 15 }}>
+                                        <Image
+                                            style={circle}
+                                            src="https://d23.com/app/uploads/2020/05/1180w-600h_060120_mickey-mornings-launch.jpg"
+                                        />
+                                    </Col>
+                                    <Col style={{ marginTop: 20, marginBottom: 20, marginLeft: 30 }}>
+                                        <div >Mickey Mouse</div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col className="gutter-row" span={6} style={style}>
+                                <Row onClick={() => {
                                     setDst('');
-                                    setSourceimg("https://lumiere-a.akamaihd.net/v1/images/r_mickeymousefranchise_minniemouse_ddt-16970_52a2771b.jpeg?region=0%2C0%2C1536%2C450");
+                                    setSourceimg("https://d23.com/app/uploads/2013/04/1180w-600h_minnie-mouse_1.jpg");
                                     setPerson('minnie-mouse');
-                                }}
-                                src="https://lumiere-a.akamaihd.net/v1/images/r_mickeymousefranchise_minniemouse_ddt-16970_52a2771b.jpeg?region=0%2C0%2C1536%2C450"
-                            />
-                        </SubMenu>
-                        {/* <SubMenu key="sub2" icon={<UserDeleteOutlined />} title="Joe Bide">
-                            <Image
-                                width={'100%'}
-                                onClick={() => {
+                                }}>
+                                    <Col style={{ marginTop: 10, marginBottom: 10, marginLeft: 15 }}>
+                                        <Image
+                                            style={circle}
+                                            src="https://d23.com/app/uploads/2013/04/1180w-600h_minnie-mouse_1.jpg"
+                                        />
+                                    </Col>
+                                    <Col style={{ marginTop: 20, marginBottom: 20, marginLeft: 30 }}>
+                                        <div >Minnie Mouse</div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                        <Row gutter={16} justify="space-evenly" style={{ marginTop: 5 }}>
+                            <Col className="gutter-row" span={6} style={style}>
+                                <Row onClick={() => {
                                     setDst('');
-                                    setSourceimg("https://static01.nyt.com/images/2021/01/20/us/politics/20Biden-profile-top/20Biden-profile-top-superJumbo.jpg");
-                                    setPerson('Biden');
-                                }}
-                                src="https://static01.nyt.com/images/2021/01/20/us/politics/20Biden-profile-top/20Biden-profile-top-superJumbo.jpg"
-                            />
-                        </SubMenu>
-                        <SubMenu key="sub3" icon={<UserOutlined />} title="Donald J. Trump">
-                            <Image
-                                width={'100%'}
-                                onClick={() => {
+                                    setSourceimg("https://celebrationspress.com/wp-content/uploads/2018/01/010218Goofy.jpg");
+                                    setPerson('goofy');
+                                }}>
+                                    <Col style={{ marginTop: 10, marginBottom: 10, marginLeft: 15 }}>
+                                        <Image
+                                            style={circle}
+                                            src="https://celebrationspress.com/wp-content/uploads/2018/01/010218Goofy.jpg"
+                                        />
+                                    </Col>
+                                    <Col style={{ marginTop: 20, marginBottom: 20, marginLeft: 30 }}>
+                                        <div >Goofy</div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col className="gutter-row" span={6} style={style}>
+                                <Row onClick={() => {
                                     setDst('');
-                                    setSourceimg("https://media.vanityfair.com/photos/6226893d6df0fdac83f860fe/master/w_2560%2Cc_limit/487401374");
-                                    setPerson('Trump');
-                                }}
-                                src="https://media.vanityfair.com/photos/6226893d6df0fdac83f860fe/master/w_2560%2Cc_limit/487401374"
-                            />
-                        </SubMenu> */}
-                    </Menu>
-                </Sider>
+                                    setSourceimg("https://pm1.narvii.com/7610/c720a58bfb518ad2d9a1da897fd668ec73ee466fr1-1200-630v2_hq.jpg");
+                                    setPerson('max-goof');
+                                }}>
+                                    <Col style={{ marginTop: 10, marginBottom: 10, marginLeft: 15 }}>
+                                        <Image
+                                            style={circle}
+                                            src="https://pm1.narvii.com/7610/c720a58bfb518ad2d9a1da897fd668ec73ee466fr1-1200-630v2_hq.jpg"
+                                        />
+                                    </Col>
+                                    <Col style={{ marginTop: 20, marginBottom: 20, marginLeft: 30 }}>
+                                        <div >Max Goof</div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col className="gutter-row" span={6} style={style}>
+                                <Row onClick={() => {
+                                    setDst('');
+                                    setSourceimg("https://www.seekpng.com/png/detail/307-3078164_confused-daisy-duck-clipart-png-images-daisy-duck.png");
+                                    setPerson('daisy-duck');
+                                }}>
+                                    <Col style={{ marginTop: 10, marginBottom: 10, marginLeft: 15 }}>
+                                        <Image
+                                            style={circle}
+                                            src="https://www.seekpng.com/png/detail/307-3078164_confused-daisy-duck-clipart-png-images-daisy-duck.png"
+                                        />
+                                    </Col>
+                                    <Col style={{ marginTop: 20, marginBottom: 20, marginLeft: 30 }}>
+                                        <div >Daisy Duck</div>
+                                    </Col>
+                                </Row>
+                            </Col>
 
-                <Layout className="site-layout" style={{ marginLeft: 0 }}>
-                    <Header className="site-layout-background" style={{ padding: 0, textAlign: 'center', background: '#f0f0f0' }} > <h2>AI Text</h2></Header>
-                    <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+                            <Col className="gutter-row" span={6} style={style}>
+                                <Row onClick={() => {
+                                    setDst('');
+                                    setSourceimg("https://pm1.narvii.com/7164/310cf185064c0da2a5528b4f7d199fa972560e53r1-2048-1512v2_hq.jpg");
+                                    setPerson('pete');
+                                }}>
+                                    <Col style={{ marginTop: 10, marginBottom: 10, marginLeft: 15 }}>
+                                        <Image
+                                            style={circle}
+                                            src="https://pm1.narvii.com/7164/310cf185064c0da2a5528b4f7d199fa972560e53r1-2048-1512v2_hq.jpg"
+                                        /> </Col>
+                                    <Col style={{ marginTop: 20, marginBottom: 20, marginLeft: 30 }}>
+                                        <div>Pete</div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                    </Content>
+                    <Content style={{ margin: '24px 16px 0', overflow: 'initial', background: 'white', marginLeft: 30, marginRight: 30 }}>
                         <div className="site-layout-background" style={{ padding: 0, textAlign: 'center' }}>
                             <EditText imgData={trumpImg} />
                         </div>
                     </Content>
                 </Layout>
-            </Layout>
+            </Container>
         </>
     );
 };
+
+
+const style = {
+    padding: '7px 0', textAlign: 'center', boxShadow: '0 3px 3px rgb(0 0 0 / 30%)', border: '0.1px solid black'
+};
+const circle = { height: '4vw', overflow: 'hidden', borderRadius: '70%', marginLeft: '1px', marginTop: '1px' }

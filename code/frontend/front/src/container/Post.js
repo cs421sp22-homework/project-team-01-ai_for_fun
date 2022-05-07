@@ -1,89 +1,24 @@
 
-import React, { useState, useContext, createRef, useEffect } from 'react';
-import { message, Input, Form } from 'antd';
-import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
-import Card from 'react-bootstrap/Card';
+import React, { useState, createRef, useEffect } from 'react';
+import { message, Input } from 'antd';
 import '../style/Profile.css';
 import '../style/PopupPost.css';
 import { Row, Col, Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
-import { LoginContext } from '../context/AuthProvider';
 import { useCookies } from 'react-cookie';
-import CollectionInLeft from "../components/recommend-in-mode/CollectionInLeft";
 import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons';
-// import "../style/EditVideo.css"
-import { motion } from 'framer-motion';
-import Macy from 'macy';
 import { Layout } from 'antd';
 import Video from '../components/Video';
 const { TextArea } = Input;
 const { Content } = Layout;
 const previousSelectedPost = [];
 
-const macyOptions = {
-    container: '#macy-grid',
-    trueOrder: true,
-    mobileFirst: true,
-    margin: 10,
-    columns: 1,
-    breakAt: {
-        1800: 3,
-        1400: 2,
-        650: {
-            margin: 10,
-            columns: 1,
-        },
-    },
-}
-
-const galleryAnimation = {
-    hide: {
-        opacity: 0,
-    },
-    show: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.25,
-            ease: 'easeOut',
-            delayChildren: 1.5,
-        },
-    },
-}
-
-const cardAnimation = {
-    hide: {
-        opacity: 0,
-    },
-    show: {
-        opacity: 1,
-        transition: {
-            duration: 0.5,
-        },
-    },
-}
-
 function Post() {
-    // useEffect(() => {
-    //     new Macy(macyOptions)
-    // }, [])
-
-    //const { faceimg, setFaceimg, sourceimg, dst, setDst, setSourceimg } = useContext(LoginContext);
-
-    // const {user,setUser,email,setEmail} = useContext(LoginContext);
-    const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
+    const [cookie] = useCookies(['access_token', 'user_id', 'refresh_token', 'name', 'email', 'avatar']);
     console.log(cookie);
-    const [avatar, setAvatar] = useState(cookie.avatar);
-    const [name, setName] = useState(cookie.name);
-    const [email, setEmail] = useState(cookie.email);
-    const [password, setPassword] = useState('');
-    const [oriPsw, setOriPsw] = useState('');
     const [ImagePost, setImagePost] = useState(true);
-    const [showInputEmail, setshowInputEmail] = useState(false);
-    // const { avatarimg } = useContext(LoginContext);
-    const [showEditPsw, setShowEditPsw] = useState(false)
-    const [showInputName, setshowInputName] = useState(false);
 
     var user_id = localStorage.getItem('global_userID');
     var globla_token = localStorage.getItem('global_token');
@@ -96,9 +31,6 @@ function Post() {
     const [pick, setPick] = useState('');
     const [translateX, setTranslateX] = useState(0);
 
-
-
-    // getHistoryWork
     const [hiswork, setHiswork] = useState([]);
     useEffect(() => {
         let url = 'https://server-demo.ai-for-fun-backend.com/getwork/' + cookie.user_id;
@@ -128,33 +60,40 @@ function Post() {
         postText = e.target.value;
     };
 
+    const getS3Id = (url) => {
+        var words = url.split("?")
+        if (words[0].length < 31) {
+            return url
+        }
+        return ("id=" + words[0].substr(31))
+    }
+
     const handlePost = async (e) => {
-        if (cookie.access_token) {
-            console.log("content(pick) " + pick);
-            console.log("postText " + postText);
-            console.log("user_id " + cookie.access_token);
-            console.log("user_name " + cookie.name);
-            const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    "content_url": pick,
-                    "post_text": postText,
-                    "user_id": cookie.user_id, //not user id, user id is not in cookie.
-                    "user_name": cookie.name,
-                    "user_avater": cookie.avatar
-                })
-            });
-            if (response.status == 200) {
-                const content = await response.json();
-                message.success('Post success!');
-            }
-            else {
-                console.log('post failed', response);
-                message.error('failed.');
-            }
-        } else {
-            alert('Login first!')
+        let avatar_s3id = getS3Id(cookie.avatar)
+        console.log("content(pick in post.js) " + pick);
+        console.log("postText " + postText);
+        console.log("user_id " + cookie.access_token);
+        console.log("user_name " + cookie.name);
+        console.log("user_avater " + cookie.avatar);
+        console.log(avatar_s3id)
+
+        const response = await fetch('https://server-demo.ai-for-fun-backend.com/createpost', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "content_url": "id=" + pick.substring(31, 51),
+                "post_text": postText,
+                "user_id": cookie.user_id,
+                "user_name": cookie.name,
+                "user_avater": avatar_s3id
+            })
+        });
+        if (response.status === 200) {
+            message.success('Post success!');
+        }
+        else {
+            console.log('post failed', response);
+            message.error('failed.');
         }
     }
     const clickRightIcon = () => {
@@ -164,20 +103,21 @@ function Post() {
         setTranslateX(translateX - ref.current.offsetWidth);
     };
 
-    /**
-     * left button
-     */
     const clickLeftIcon = () => {
         if (translateX === 0) return;
         setTranslateX(translateX + ref.current.offsetWidth);
     };
 
     return (
-        <Container style={{ minHeight: '100vh' }}>
+        <Container className="container" style={{ marginTop: '6%', marginBottom: '10%', borderRadius: '20px', boxShadow: '0 3px 10px rgb(0 0 0 / 20%)' }}>
             <Row className='pt-3'>
-                {/* <Col md={4}> */}
-                {/* <h4 style={{ textAlign: 'center', marginTop: '2%' }}>My work</h4> */}
-                <Container className="box" md={4} style={{ height: '30vh', borderRadius: '20px', marginTop: '2%', boxShadow: '0 3px 10px rgb(0 0 0 / 20%)', maxHeight: '90vh' }}>
+                <Container md={4} style={{ height: '70%', maxHeight: '70%' }}>
+                    <div
+                        className='p-5 bg-image'
+                        style={{ backgroundImage: "url('/images/post.jpg')", height: 200 }}
+                    >
+                    </div>
+                    <br></br>
                     <div className='wrap_scrollImg' style={{ width: '100%', height: '100%' }}>
                         <span className='left_icon' onClick={clickLeftIcon}><LeftCircleOutlined /></span>
                         <span className='right_icon' onClick={clickRightIcon}><RightCircleOutlined /></span>
@@ -206,48 +146,42 @@ function Post() {
                             })}
                         </ul>
                     </div>
-                </Container>
-                {/* </Col> */}
-                {/* <Col md={7}> */}
-                <Row><h4 style={{ textAlign: 'center', marginTop: '2%' }}>My Post</h4></Row>
-                <Container className="box" md={4} style={{ borderRadius: '20px', boxShadow: '0 3px 10px rgb(0 0 0 / 20%)', maxHeight: '90vh', marginTop: '2%', marginBottom: '3%' }}>
-                    <Content style={{ alignItems: 'center', justifyContent: 'center' }}>
+
+                    <br></br>
+                    <Content style={{ alignItems: 'center', justifyContent: 'center', marginBottom: '5%' }}>
                         <Row>
-                            {/* <Image src={pick ? pick : "https://joeschmoe.io/api/v1/random"} fluid alt="choose" style={{ height: 350, overflow: "hidden", margin: '30' }
-                            height: 350, weight: 'auto', overflow: "hidden", margin: '4%', marginLeft: '13%'} />
-                        <Row>
-                            <TextArea showCount maxLength={100} style={{ height: 100 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" /></Row>
-                        <Button onClick={handlePost} style={{ float: "right", marginRight: '20px' }}>Submit</Button> */}
                             <Col md={5}>
                                 {ImagePost ?
-                                    <Image src={pick ? pick : "https://joeschmoe.io/api/v1/random"} fluid alt="choose" style={{ height: 350, display: 'block', marginLeft: 'auto', marginRight: 'auto', witdh: '50%' }} />
+                                    <Image src={pick ? pick : "/images/PostSteps.jpg"} fluid alt="choose" style={{ height: 350, display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '70%' }} />
                                     :
-                                    <Video props={{ "videoSrc": pick }} />
+                                    <div style={{ height: '50%', width: '50%', marginLeft: '20%', marginTop: '1%', marginBottom: '1%' }}>
+                                        {
+                                            pick ?
+                                                <Video props={{ "videoSrc": pick }} />
+                                                :
+                                                <Image src={"/images/PostSteps.jpg"} />
+                                        }
+                                    </div>
                                 }
-
                             </Col>
                             <Col md={6} style={{ margin: '4%', marginTop: '5%' }}>
-                                <TextArea showCount maxLength={100} style={{ height: 100 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />,
+                                <TextArea showCount maxLength={100} style={{ height: 100 }} onChange={onChangeText} placeholder="Tell us what you would like to share in community" />
                                 <Button variant="danger" style={{ float: "right", marginTop: '25px' }} href="/gallery">Back</Button>{' '}
-                                <Button onClick={handlePost} style={{ float: "right", marginTop: '25px', marginRight: '10px' }}>Submit</Button>{' '}
+                                {pick ?
+                                    <div>
+                                        <Button onClick={handlePost} style={{ float: "right", marginTop: '25px', marginRight: '10px' }}>Submit</Button>
+                                    </div>
+                                    :
+                                    <div>
+                                        <Button onClick={handlePost} style={{ float: "right", marginTop: '25px', marginRight: '10px' }} disabled>Submit</Button>
+                                    </div>
+                                }
                             </Col>
                         </Row>
                     </Content>
                 </Container>
-                {/* </Col> */}
             </Row >
         </Container >
     )
 }
 export default Post;
-
-var historydata = [
-
-]
-const imgData = [
-    { imgUrl: 'https://s1.r29static.com/bin/entry/43a/0,200,2000,2000/x,80/1536749/image.jpg', name: '01', topic: 'Star' },
-    { imgUrl: 'https://hips.hearstapps.com/cosmouk.cdnds.net/15/33/1439714614-celebrity-face-mashups-taylor-swift-emma-watson.jpg', name: '02', topic: 'House' },
-    { imgUrl: 'https://stylesatlife.com/wp-content/uploads/2021/11/Emma-Watson-face-shape.jpg.webp', name: '03', topic: 'New Year' },
-    { imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScxopB3Y_Z0Yu1v5JpXdx-3NOKX7yqg1iIHg&usqp=CAU', name: '04', topic: 'Amazing' },
-    { imgUrl: 'https://c4.wallpaperflare.com/wallpaper/485/848/917/actresses-mckenna-grace-actress-blonde-blue-eyes-hd-wallpaper-preview.jpg', name: '05', topic: 'Fashion' },
-]

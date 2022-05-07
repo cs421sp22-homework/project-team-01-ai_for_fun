@@ -7,7 +7,6 @@ function EditPswd(props) {
       <div>
           <Row className='profileContainer'>
               <Col md={6}>
-                  {/* <Form onSubmit={submitHandler}> */}
                   <Form>
                       <Form.Group controlId="name">
                           <Form.Label>Name</Form.Label>

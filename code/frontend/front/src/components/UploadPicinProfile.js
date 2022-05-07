@@ -1,7 +1,6 @@
 import React from "react";
 import ImgCrop from 'antd-img-crop';
-import { Upload, Button, message } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { Upload, message } from 'antd';
 import 'antd/es/modal/style';
 import "antd/dist/antd.css";
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
@@ -80,13 +79,13 @@ class UploadPicinProfile extends React.Component {
   };
 
   makeid = (length) => {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
+    for (var i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
-   }
-   return result;
+    }
+    return result;
   }
 
   handleRequest = async () => {
@@ -99,13 +98,14 @@ class UploadPicinProfile extends React.Component {
     try {
       const { filename } = this.state;
       var fileExtension = filename.name.split('.').pop()
-      const hashname = this.makeid(16)+"."+fileExtension
+      const hashname = this.makeid(16) + "." + fileExtension
       const result = await Storage.put(hashname, filename);
       console.log(result);
       const signedURL = await Storage.get(result.key);
       console.log(signedURL);
-      localStorage.setItem('global_profile_IMG', signedURL);
-
+      localStorage.setItem('global_profile_IMG', "id=" + hashname);
+      console.log("new add profile img in s3 id= " + hashname)
+      console.log("golabl" + localStorage.getItem('global_profile_IMG'))
       this.setState({
         imageUrl: signedURL,
         loading: false,

@@ -1,20 +1,18 @@
 import { motion } from 'framer-motion';
-import Macy from 'macy';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useCookies } from 'react-cookie';
-import data from '../data/gallery.json';
-import { Navigate } from "react-router-dom";
 import { Image } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
 import { Row, Col } from 'react-bootstrap';
 import "../style/Gallery.css";
-import { CommentOutlined, ArrowRightOutlined, DeleteOutlined } from '@ant-design/icons';
+import { CommentOutlined, DeleteOutlined } from '@ant-design/icons';
 import "../bootstrap-4.3.1-dist/css/bootstrap.min.css";
 import { Modal, Button } from 'antd';
 import { Comment, Avatar, Form, List, Input, message } from 'antd';
 import moment from 'moment';
 import LikeBtn from '../components/LikeBtn'
 import Video from '../components/Video';
+import Masonry from 'react-masonry-css';
 
 const { TextArea } = Input;
 
@@ -31,22 +29,6 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
   </>
 );
 
-const macyOptions = {
-  container: '#macy-grid',
-  trueOrder: true,
-  mobileFirst: true,
-  margin: 23,
-  columns: 1,
-  breakAt: {
-    1400: 4,
-    1000: 3,
-    650: {
-      margin: 40,
-      columns: 2,
-    },
-  },
-}
-
 const galleryAnimation = {
   hide: {
     opacity: 0,
@@ -61,24 +43,15 @@ const galleryAnimation = {
   },
 }
 
-const cardAnimation = {
-  hide: {
-    opacity: 0,
-  },
-  show: {
-    opacity: 1,
-    transition: {
-      duration: 0.2,
-    },
-  },
+const Cardtransition = {
+  type: "spring",
+  damping: 10,
+  stiffness: 100
 }
 
 function Gallery(probs) {
   const posts = probs.props
-  useEffect(() => {
-    new Macy(macyOptions)
-  }, [])
-  const [cookie, setCookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
+  const [cookie] = useCookies(['token', 'refresh_token', 'name', 'email', 'user_id', 'avatar'])
   const [visible, setVisible] = useState(false);
   const [comments, setComments] = useState([]);
   const [submitting, setSubmitting] = useState(false);
@@ -94,12 +67,10 @@ function Gallery(probs) {
       renderItem={props => (
         <>
           <Comment
-            actions={[<span key="comment-list-reply-to-0"  >Reply to</span>]}
-            author={itemP.user_name}
-            // avatar={itemP.user_avater}
-            avatar="https://joeschmoe.io/api/v1/random"
+            author={props.user_name}
+            avatar={props.user_avater}
             content={<>
-              {props.commentcontent}
+              {props.comment_content}
             </>}
             datetime={props.commenttime}
           >
@@ -108,8 +79,7 @@ function Gallery(probs) {
                 return <Comment
                   key={repo.userid}
                   author={repo.username}
-                  avatar="https://joeschmoe.io/api/v1/random"
-                  // avatar={repo.useravater}
+                  avatar={repo.useravater}
                   content={repo.replycontent}
                   datetime={repo.replytime}
                 ></Comment>
@@ -131,6 +101,7 @@ function Gallery(probs) {
     });
     if (name.comment != null) {
       setComments(name.comment)
+      console.log(name.comment)
     } else {
       setComments([])
     }
@@ -152,8 +123,8 @@ function Gallery(probs) {
         'user_id': cookie.user_id,
       })
     });
-    if (response.status == 200) {
-      const content = await response.json();
+    if (response.status === 200) {
+      // const content = await response.json();
       window.location.reload()
     }
     else {
@@ -163,7 +134,7 @@ function Gallery(probs) {
   }
   const handleLiked = async (likelist, post_id) => {
     let isLiked = likelist.indexOf(cookie.user_id)
-    if (isLiked == -1) {
+    if (isLiked === -1) {
       let url = "https://server-demo.ai-for-fun-backend.com/likepost";
       const response = await fetch(url, {
         method: 'POST',
@@ -173,8 +144,8 @@ function Gallery(probs) {
           'user_id': cookie.user_id,
         })
       });
-      if (response.status == 200) {
-        const content = await response.json();
+      if (response.status === 200) {
+        // const content = await response.json();
       }
       else {
         console.log('request failed', response);
@@ -190,8 +161,8 @@ function Gallery(probs) {
           'user_id': cookie.user_id,
         })
       });
-      if (response.status == 200) {
-        const content = await response.json();
+      if (response.status === 200) {
+        // const content = await response.json();
       }
       else {
         console.log('request failed', response);
@@ -221,17 +192,16 @@ function Gallery(probs) {
         'useravater': cookie.avatar,
       })
     });
-    if (response.status == 200) {
-      const content = await response.json();
+    if (response.status === 200) {
+      // const content = await response.json();
       setSubmitting(false);
-      // TODO: insert to props
       setComments(
         [
           ...comments,
           {
             user_name: cookie.name,
             user_avater: cookie.avatar,
-            commentcontent: <p>{value}</p>,
+            comment_content: <p>{value}</p>,
             commenttime: moment().fromNow(),
           }
         ]
@@ -243,99 +213,110 @@ function Gallery(probs) {
       setSubmitting(false);
     }
   }
+  const breakpointColumnsObj = {
+    default: 5,
+    1800: 4,
+    1300: 3,
+    1000: 2,
+    500: 1
+  };
 
   return (
     <>
-      <motion.div>
-        <motion.ul
-          id="macy-grid"
-          initial="hide"
-          animate="show"
-          variants={galleryAnimation}
+      <motion.div
+        initial="hide"
+        animate="show"
+        variants={galleryAnimation}
+      >
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column"
         >
           {posts.map((item) => {
             { console.log(item) }
-            return <motion.li
+            return <motion.div
               key={item._id}
-              variants={cardAnimation}
+              animate={{ y: [-5, 5, 0] }}
+              transition={Cardtransition}
               whileHover={{ scale: 1.05 }}
               className="gallery"
             >
-              {
-                item.content_url.includes("images") || item.content_url.includes("jpg") ?
-                  <Card.Img as={Image} src={item.content_url} alt="item._id" />
-                  :
-                  <Video props={{ "videoSrc": item.content_url }} />
-              }
-              <Card.Body>
-                <Row>
-                  <Col md={3} xs={3}>
-                    {/* <Avatar src={item.user_avater} alt="Han Solo" /> */}
-                    <Avatar src="https://joeschmoe.io/api/v1/random"/>
-                  </Col>
-                  <Col md={9} xs={9}>
-                    <p style={{ fontSize: "14px" }}> {item.post_text.substring(0, 40)} {item.post_text.length >= 40 && '...'}</p>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md={4} xs={5}>
-                    <div style={{ float: "left", fontSize: "16px" }}
-                      onClick={() => {
-                        if (!cookie.name) {
-                          message.error('login first');
-                          return;
-                        }
-                        handleLiked(item.liked_time, item.post_id)
-                        if (item.liked_time.indexOf(cookie.user_id) == -1) {
-                          item.liked_time.push(cookie.user_id)
-                        } else {
-                          item.liked_time.pop(cookie.user_id)
-                        }
-                      }}
-                    >
-                      <LikeBtn props={{
-                        "times": item.liked_time.length, "disable": !cookie.name,
-                        "liked": (item.liked_time.indexOf(cookie.user_id) != -1)
-                      }}
-                      />
-                      {console.log(item.liked_time.indexOf(cookie.user_id) != -1)}
-                      <CommentOutlined className='ml-1' onClick={(ev) => { showModal(ev, item) }} />
-                    </div>
-                  </Col>
-                  <Col md={8} xs={7} style={{ float: "right" }}>
-                    {item.user_id == cookie.user_id ?
-                      <a herf="#" style={{ fontSize: "16px", float: "right" }}><DeleteOutlined onClick={() => handleDelete(item.post_id, item)} /></a>
-                      :
-                      <></>
-                    }
-                  </Col>
-                </Row>
-              </Card.Body>
-            </motion.li>
+              <Card>
+                {
+                  item.content_url.includes("images") || item.content_url.includes("jpg") ?
+                    <Card.Img as={Image} src={item.content_url} alt="item._id" />
+                    :
+                    <Video props={{ "videoSrc": item.content_url }} />
+                }
+                <Card.Body>
+                  <Row>
+                    <Col md={3} xs={3}>
+                      <Card.Link href={"/userdetail/" + item.user_id}><Avatar src={item.user_avater} /></Card.Link>
+                    </Col>
+                    <Col md={9} xs={9}>
+                      <p style={{ fontSize: "14px" }}> {item.post_text.substring(0, 40)} {item.post_text.length >= 40 && '...'}</p>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col md={4} xs={5}>
+                      <div style={{ float: "left", fontSize: "16px" }}
+                        onClick={() => {
+                          if (!cookie.name) {
+                            message.error('login first');
+                            return;
+                          }
+                          handleLiked(item.liked_time, item.post_id)
+                          if (item.liked_time.indexOf(cookie.user_id) === -1) {
+                            item.liked_time.push(cookie.user_id)
+                          } else {
+                            item.liked_time.pop(cookie.user_id)
+                          }
+                        }}
+                      >
+                        <LikeBtn props={{
+                          "times": item.liked_time.length, "disable": !cookie.name,
+                          "liked": (item.liked_time.indexOf(cookie.user_id) !== -1)
+                        }}
+                        />
+                        {console.log(item.liked_time.indexOf(cookie.user_id) !== -1)}
+                        <CommentOutlined className='ml-1' onClick={(ev) => { showModal(ev, item) }} />
+                      </div>
+                    </Col>
+                    <Col md={8} xs={7} style={{ float: "right" }}>
+                      {item.user_id === cookie.user_id ?
+                        <a herf="#" style={{ fontSize: "16px", float: "right" }}><DeleteOutlined onClick={() => handleDelete(item.post_id, item)} /></a>
+                        :
+                        <></>
+                      }
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
+            </motion.div>
           })}
-        </motion.ul>
+
+        </Masonry>
       </motion.div>
       <Modal
         visible={visible}
         title={
-          <Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />
-          // <Avatar src={itemP.user_avater} alt="Han Solo" />
+          <Avatar src={itemP.user_avater} alt="Han Solo" />
         }
         onCancel={handleCancel}
         footer={null}
       >
         <Row>
-         {
+          {
             itemP.content_url.includes("images") || itemP.content_url.includes("jpg") ?
-            <Image src={itemP.content_url} fluid />
-                  :
-            <Video props={{ "videoSrc": itemP.content_url }} />
+              <Image src={itemP.content_url} fluid />
+              :
+              <Video props={{ "videoSrc": itemP.content_url }} />
           }
-          
+
           <p>{itemP.post_text}</p>
           <Comment
-            // avatar={<Avatar src={itemP.user_avater} />}
-            avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+            avatar={<Avatar src={cookie.avatar} />}
             content={
               <Editor
                 onChange={handleChane}
@@ -346,6 +327,7 @@ function Gallery(probs) {
             }
           />
           {comments.length > 0 && <CommentList comments={comments} />}
+          {console.log('comment', comments)}
         </Row>
       </Modal>
     </>
