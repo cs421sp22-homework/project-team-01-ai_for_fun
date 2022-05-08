@@ -80,7 +80,7 @@ def edit_video(audio_path, video_path, output_path):
     if audio_duration <= video_duration:
         video_clip = video_clip.subclip(0, audio_duration)
     else:
-        times = audio_duration / video_duration + 1
+        times = audio_duration // video_duration + 1
         video_clip = concatenate_videoclips([video_clip for i in range(times)])
         video_clip = video_clip.subclip(0, audio_duration)
     final_clip = video_clip.set_audio(audio_clip)
