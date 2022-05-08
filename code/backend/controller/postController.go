@@ -13,6 +13,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 var postCollection *mongo.Collection = database.OpenCollection(database.Client, "iFun", "post")
@@ -213,5 +214,215 @@ func Unlikepost() gin.HandlerFunc {
 		//c.Header("Access-Control-Allow-Credentials", "true")
 		c.JSON(http.StatusOK, "Unlike Post Success")
 
+	}
+}
+
+func Topkpost() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		var topkinfo model.TopkInfo
+
+		err := c.BindJSON(&topkinfo)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error() + " fail to bind the sent json to topkinfo"})
+			return
+		}
+		limitStage := bson.D{{Key: "$limit", Value: topkinfo.K}}
+		var allPost []bson.M
+		if topkinfo.Sort_type == "likeNumber" {
+			addFieldStage := bson.D{
+				{Key: "$addFields", Value: bson.D{
+					{Key: "liked_count", Value: bson.D{
+						{Key: "$size", Value: "$liked_time"}}}}}}
+
+			sortStage := bson.D{{Key: "$sort", Value: bson.D{{Key: "liked_count", Value: -1}}}}
+
+			result, err := postCollection.Aggregate(ctx, mongo.Pipeline{addFieldStage, sortStage, limitStage})
+			defer cancel()
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while listing post"})
+				return
+			}
+			err = result.All(ctx, &allPost)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while binding results"})
+				return
+			}
+
+		} else if topkinfo.Sort_type == "commentNumber" {
+			addFieldStage := bson.D{
+				{Key: "$addFields", Value: bson.D{
+					{Key: "comment_count", Value: bson.D{
+						{Key: "$size", Value: "$comment"}}}}}}
+
+			sortStage := bson.D{{Key: "$sort", Value: bson.D{{Key: "comment_count", Value: -1}}}}
+
+			result, err := postCollection.Aggregate(ctx, mongo.Pipeline{addFieldStage, sortStage, limitStage})
+			defer cancel()
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while listing post"})
+				return
+			}
+			err = result.All(ctx, &allPost)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while binding results"})
+				return
+			}
+		} else if topkinfo.Sort_type == "imagePost" {
+			filter := bson.M{"content_url": primitive.Regex{Pattern: "\\.(?:jpg|gif|png|jpeg)", Options: "i"}}
+			options := options.Find()
+			options.SetSort(bson.M{"post_time": -1})
+			options.SetLimit(int64(topkinfo.K))
+			result, err := postCollection.Find(ctx, filter, options)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while listing post"})
+				return
+			}
+			err = result.All(ctx, &allPost)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while binding results"})
+				return
+			}
+		} else if topkinfo.Sort_type == "videoPost" {
+			filter := bson.M{"content_url": primitive.Regex{Pattern: "\\.(?:mp4|m4v|m4p)", Options: "i"}}
+			options := options.Find()
+			options.SetSort(bson.M{"post_time": -1})
+			options.SetLimit(int64(topkinfo.K))
+			result, err := postCollection.Find(ctx, filter, options)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while listing post"})
+				return
+			}
+			err = result.All(ctx, &allPost)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while binding results"})
+				return
+			}
+		}
+		if allPost == nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "No Post match"})
+			return
+		}
+		allPost, err = helper.UpdatePost(allPost)
+		if err != nil {
+			fmt.Println(err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating url"})
+			return
+		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Content-Type")
+		c.JSON(http.StatusOK, allPost)
+	}
+}
+
+func GetFollowedPost() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		userId := c.Param("user_id")
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		var user model.User
+		var allPost []bson.M
+		err := userCollection.FindOne(ctx, bson.M{"user_id": userId}).Decode(&user)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "no match record on mongodb for given user_id"})
+			return
+		}
+		result, err := postCollection.Find(ctx, bson.M{"user_id": bson.M{"$in": user.Followed_List}})
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while listing post"})
+			return
+		}
+		err = result.All(ctx, &allPost)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while binding results to post"})
+			return
+		}
+		if allPost == nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "No Post match"})
+			return
+		}
+		allPost, err = helper.UpdatePost(allPost)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating url"})
+			return
+		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Content-Type")
+		c.JSON(http.StatusOK, allPost)
+	}
+}
+
+func GetFollowerPost() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		userId := c.Param("user_id")
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		var user model.User
+		var allPost []bson.M
+		err := userCollection.FindOne(ctx, bson.M{"user_id": userId}).Decode(&user)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "no match record on mongodb for given user_id"})
+			return
+		}
+		result, err := postCollection.Find(ctx, bson.M{"user_id": bson.M{"$in": user.Follower_List}})
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while listing post"})
+			return
+		}
+		err = result.All(ctx, &allPost)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while binding results to post"})
+			return
+		}
+		if allPost == nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "No Post match"})
+			return
+		}
+		allPost, err = helper.UpdatePost(allPost)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating url"})
+			return
+		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Content-Type")
+		c.JSON(http.StatusOK, allPost)
+	}
+}
+
+func PostLikeInfo() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		userId := c.Param("user_id")
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		matchStage := bson.D{{Key: "$match", Value: bson.D{{Key: "user_id", Value: userId}}}}
+		addFieldStage := bson.D{
+			{Key: "$addFields", Value: bson.D{
+				{Key: "liked_count", Value: bson.D{
+					{Key: "$size", Value: "$liked_time"}}}}}}
+		groupStage := bson.D{
+			{Key: "$group", Value: bson.D{
+				{Key: "_id", Value: "null"},
+				{Key: "like_sum", Value: bson.D{{Key: "$sum", Value: "$liked_count"}}},
+			}}}
+		projectStage := bson.D{
+			{Key: "$project", Value: bson.D{
+				{Key: "_id", Value: 0},
+				{Key: "liked_sum", Value: "$like_sum"}}}}
+
+		result, err := postCollection.Aggregate(ctx, mongo.Pipeline{matchStage, addFieldStage, groupStage, projectStage})
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while counting liked_count"})
+			return
+		}
+		var allPost []bson.M
+		err = result.All(ctx, &allPost)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while binding results"})
+			return
+		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Content-Type")
+		c.JSON(http.StatusOK, allPost)
 	}
 }

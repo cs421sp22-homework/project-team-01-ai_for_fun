@@ -1,6 +1,7 @@
 package helper
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -12,6 +13,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
+	"github.com/cs421sp22-homework/project-team-01-ai_for_fun/model"
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -63,15 +65,34 @@ func UpdateUrl(filename string) (string, error) {
 	return filename, nil
 }
 
+func FindUserAvatar(userId string) (string, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+	defer cancel()
+	var foundUser model.User
+	err := userCollection.FindOne(ctx, bson.M{"user_id": userId}).Decode(&foundUser)
+	defer cancel()
+	if err != nil {
+		return "", err
+	}
+	return foundUser.Avatar, nil
+
+}
+
 func UpdateAvater(allRecord bson.A) (bson.A, error) {
 	for _, record_i := range allRecord {
 		record_i := record_i.(bson.M)
-		if user_avater, ok := record_i["user_avater"]; ok {
-			user_avater, err := UpdateUrl(user_avater.(string))
-			if err != nil {
-				return allRecord, err
+		if _, ok := record_i["user_avater"]; ok {
+			if user_id, ok := record_i["user_id"]; ok {
+				user_avater, err := FindUserAvatar(user_id.(string))
+				if err != nil {
+					return allRecord, err
+				}
+				user_avater, err = UpdateUrl(user_avater)
+				if err != nil {
+					return allRecord, err
+				}
+				record_i["user_avater"] = user_avater
 			}
-			record_i["user_avater"] = user_avater
 		}
 	}
 	return allRecord, nil
@@ -100,14 +121,20 @@ func UpdatePost(allPost []bson.M) ([]bson.M, error) {
 		if comment, ok := post_i["comment"]; ok {
 			comment, err := UpdateAvater(comment.(bson.A))
 			if err != nil {
-				return allPost, err
+				fmt.Println(err)
+				fmt.Printf("comment  ")
+				fmt.Println(comment)
+				//return allPost, err
 			}
 			for _, comment_i := range comment {
 				comment_i := comment_i.(bson.M)
 				if reply, ok := comment_i["reply"]; ok {
 					reply, err := UpdateAvater(reply.(bson.A))
 					if err != nil {
-						return allPost, err
+						fmt.Println(err)
+						fmt.Printf("reply  ")
+						fmt.Println(reply)
+						//return allPost, err
 					}
 					comment_i["reply"] = reply
 				}
@@ -150,4 +177,28 @@ func Updatework(allwork []bson.M) ([]bson.M, error) {
 		}
 	}
 	return allwork, nil
+}
+
+func UpdateHistory(allHistory []bson.M) ([]bson.M, error) {
+	for _, history_i := range allHistory {
+		src_s3_id := history_i["src_s3_id"]
+		dst_s3_id := history_i["dst_s3_id"]
+		history_i["src_url"] = ""
+		history_i["dst_url"] = ""
+		if src_s3_id.(string) != "" {
+			newUrl, err := GetFile(src_s3_id.(string))
+			if err != nil {
+				return allHistory, err
+			}
+			history_i["src_url"] = newUrl
+		}
+		if dst_s3_id.(string) != "" {
+			newUrl, err := GetFile(dst_s3_id.(string))
+			if err != nil {
+				return allHistory, err
+			}
+			history_i["dst_url"] = newUrl
+		}
+	}
+	return allHistory, nil
 }

@@ -76,7 +76,47 @@ func Gethis() gin.HandlerFunc {
 			return
 		}
 
-		allHis, err = helper.Updatework(allHis)
+		allHis, err = helper.UpdateHistory(allHis)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating url"})
+			return
+		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Content-Type")
+		c.JSON(http.StatusOK, allHis)
+
+	}
+}
+
+func GetTypeHistory() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		userId := c.Param("user_id")
+		historyType := c.Param("type")
+		fmt.Println(userId)
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		matchStage := bson.D{{Key: "$match", Value: bson.D{{Key: "user_id", Value: userId}}}}
+		matchStage2 := bson.D{{Key: "$match", Value: bson.D{{Key: "type", Value: historyType}}}}
+		sortStage := bson.D{{Key: "$sort", Value: bson.D{{Key: "s3_id", Value: -1}}}}
+		result, err := hisCollection.Aggregate(ctx, mongo.Pipeline{matchStage, matchStage2, sortStage})
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while finding history"})
+			return
+		}
+		var allHis []bson.M
+		err = result.All(ctx, &allHis)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while binding results"})
+			return
+
+		}
+		if allHis == nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "No work match the given user_id"})
+			return
+		}
+
+		allHis, err = helper.UpdateHistory(allHis)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating url"})
 			return

@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/cs421sp22-homework/project-team-01-ai_for_fun/database"
@@ -49,6 +50,18 @@ func VerifyPassword(userPassword string, providedPassword string) (bool, string)
 	return check, msg
 }
 
+func ChangePostUserAvatar(userId string, userAvatar string) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+	defer cancel()
+	filter := bson.M{"user_id": userId}
+	update_op := bson.M{
+		"$set": bson.M{"user_avater": userAvatar},
+	}
+	_, err := postCollection.UpdateMany(ctx, filter, update_op)
+	return err
+
+}
+
 func Register() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
@@ -85,6 +98,9 @@ func Register() gin.HandlerFunc {
 		token, refreshToken, _ := helper.GenerateAllTokens(user.Email, user.Name, user.User_type, user.User_id)
 		user.Token = token
 		user.Refresh_token = refreshToken
+		user.Avatar = ""
+		user.Followed_List = []string{}
+		user.Follower_List = []string{}
 
 		resultInsertionNumber, insertErr := userCollection.InsertOne(ctx, user)
 		if insertErr != nil {
@@ -134,14 +150,42 @@ func Login() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-		foundUser.Avatar, err = helper.UpdateUrl(foundUser.Avatar)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating url"})
-			return
+		if strings.HasPrefix(foundUser.Avatar, "id=") {
+			id := foundUser.Avatar[3:]
+			foundUser.Avatar, err = helper.GetFile(id)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating url"})
+				return
+			}
 		}
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.Header("Access-Control-Allow-Headers", "Content-Type")
 		c.JSON(http.StatusOK, foundUser)
+	}
+}
+
+func UserBasicInfo() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		userId := c.Param("user_id")
+		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		var user model.User
+		err := userCollection.FindOne(ctx, bson.M{"user_id": userId}).Decode(&user)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		if strings.HasPrefix(user.Avatar, "id=") {
+			id := user.Avatar[3:]
+			user.Avatar, err = helper.GetFile(id)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while updating url"})
+				return
+			}
+		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Origin,Content-Length,Content-Type,token")
+		c.JSON(http.StatusOK, user)
 	}
 }
 
@@ -219,12 +263,6 @@ func GetUser() gin.HandlerFunc {
 func ChangeUser() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		userId := c.Param("user_id")
-		// err := helper.MatchUserTypeToUid(c, userId)
-		// if err != nil {
-		// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		// 	return
-		// }
-
 		var changeinfo ChangeInfo
 		var foundUser model.User
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
@@ -246,6 +284,15 @@ func ChangeUser() gin.HandlerFunc {
 		}
 		if changeinfo.New_Avatar != "" {
 			foundUser.Avatar = changeinfo.New_Avatar
+			if strings.HasPrefix(foundUser.Avatar, "id=") {
+				id := foundUser.Avatar[3:]
+				foundUser.Avatar = "id=" + "public/" + id
+			}
+			err = ChangePostUserAvatar(userId, foundUser.Avatar)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "error occur when update post avatar on mongodb"})
+				return
+			}
 		}
 		if changeinfo.New_password != "" && changeinfo.Old_password != "" {
 			passwordIsValid, msg := VerifyPassword(changeinfo.Old_password, foundUser.Password)
@@ -264,8 +311,171 @@ func ChangeUser() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occur when update mongodb"})
 			return
 		}
+		if strings.HasPrefix(foundUser.Avatar, "id=") {
+			id := foundUser.Avatar[3:]
+			foundUser.Avatar, err = helper.GetFile(id)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": "error occur when update avatar url"})
+				return
+			}
+		}
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.Header("Access-Control-Allow-Headers", "Origin,Content-Length,Content-Type,token")
 		c.JSON(http.StatusOK, foundUser)
+	}
+}
+
+func Follow() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		var followInfo model.FollowInfo
+
+		err := c.BindJSON(&followInfo)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		filter := bson.M{"user_id": followInfo.Followed_Id}
+		update_op := bson.M{
+			"$push": bson.M{"follower_list": followInfo.Follower_Id},
+		}
+		updateResult, err := userCollection.UpdateOne(ctx, filter, update_op)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error() + " fail to update the follower list of followed user on mongodb"})
+			return
+		}
+		if updateResult.MatchedCount == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "followed_id doesn't match with any record on database"})
+			return
+		}
+		filter = bson.M{"user_id": followInfo.Follower_Id}
+		update_op = bson.M{
+			"$push": bson.M{"followed_list": followInfo.Followed_Id},
+		}
+		updateResult, err = userCollection.UpdateOne(ctx, filter, update_op)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error() + " fail to update the followed list of follower user on mongodb"})
+			return
+		}
+		if updateResult.MatchedCount == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "follower_id doesn't match with any record on database"})
+			return
+		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Origin,Content-Length,Content-Type,token")
+		c.JSON(http.StatusOK, "Follow Success")
+	}
+}
+
+func UnFollow() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		var followInfo model.FollowInfo
+
+		err := c.BindJSON(&followInfo)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		filter := bson.M{"user_id": followInfo.Followed_Id}
+		update_op := bson.M{
+			"$pull": bson.M{"follower_list": followInfo.Follower_Id},
+		}
+		updateResult, err := userCollection.UpdateOne(ctx, filter, update_op)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error() + " fail to update the follower list of followed user on mongodb"})
+			return
+		}
+		if updateResult.MatchedCount == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "followed_id doesn't match with any record on database"})
+			return
+		}
+		filter = bson.M{"user_id": followInfo.Follower_Id}
+		update_op = bson.M{
+			"$pull": bson.M{"followed_list": followInfo.Followed_Id},
+		}
+		updateResult, err = userCollection.UpdateOne(ctx, filter, update_op)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error() + " fail to update the followed list of follower user on mongodb"})
+			return
+		}
+		if updateResult.MatchedCount == 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "follower_id doesn't match with any record on database"})
+			return
+		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Origin,Content-Length,Content-Type,token")
+		c.JSON(http.StatusOK, "UnFollow Success")
+
+	}
+}
+
+func IsFollowed() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		var followInfo model.FollowInfo
+
+		err := c.BindJSON(&followInfo)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		var result bson.M
+		filter := bson.M{"user_id": followInfo.Followed_Id, "follower_list": followInfo.Follower_Id}
+		err1 := userCollection.FindOne(ctx, filter).Decode(&result)
+		if err1 != nil {
+			if err1 == mongo.ErrNoDocuments {
+				c.Header("Access-Control-Allow-Origin", "*")
+				c.Header("Access-Control-Allow-Headers", "Origin,Content-Length,Content-Type,token")
+				c.JSON(http.StatusOK, bson.M{"res": "0"})
+				return
+			}
+			log.Fatal(err1)
+		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Origin,Content-Length,Content-Type,token")
+		c.JSON(http.StatusOK, bson.M{"res": "1"})
+
+	}
+}
+
+func GetFollowInfo() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		userId := c.Param("user_id")
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+		matchStage := bson.D{{Key: "$match", Value: bson.D{{Key: "user_id", Value: userId}}}}
+		addFieldStage1 := bson.D{
+			{Key: "$addFields", Value: bson.D{
+				{Key: "follower_count", Value: bson.D{
+					{Key: "$size", Value: "$follower_list"}}}}}}
+		addFieldStage2 := bson.D{
+			{Key: "$addFields", Value: bson.D{
+				{Key: "followed_count", Value: bson.D{
+					{Key: "$size", Value: "$followed_list"}}}}}}
+		projectStage := bson.D{
+			{Key: "$project", Value: bson.D{
+				{Key: "_id", Value: 0},
+				{Key: "follower_count", Value: "$follower_count"},
+				{Key: "followed_count", Value: "$followed_count"},
+				{Key: "follower_list", Value: "$follower_list"},
+				{Key: "followed_list", Value: "$followed_list"}}}}
+		result, err := userCollection.Aggregate(ctx, mongo.Pipeline{matchStage, addFieldStage1, addFieldStage2, projectStage})
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while counting liked_count"})
+			return
+		}
+		var allUser []bson.M
+		err = result.All(ctx, &allUser)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while binding results"})
+			return
+		}
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Content-Type")
+		c.JSON(http.StatusOK, allUser)
 	}
 }

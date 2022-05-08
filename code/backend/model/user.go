@@ -14,4 +14,6 @@ type User struct {
 	Token         string             `json:"token"`
 	Refresh_token string             `json:"refresh_token"`
 	Avatar        string             `json:"avatar"`
+	Follower_List []string           `json:"follower_list"`
+	Followed_List []string           `json:"followed_list"`
 }
